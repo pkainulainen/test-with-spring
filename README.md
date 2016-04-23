@@ -15,4 +15,4 @@ are tested with Gradle 2.12)
 
 ##Running the examples
 
-Checkout the README of the example. It describes how you can run it.
+Read the README of the example. It describes how you can run it.
