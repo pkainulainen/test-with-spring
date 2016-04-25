@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * This test class demonstrates how we can create a file that is deleted after the
@@ -24,7 +25,7 @@ public class RuleTest {
     public void shouldCreateNewFileInTemporaryFolder() throws IOException {
         File created = tmpFolder.newFile("file.txt");
 
-        assertEquals(true, created.isFile());
+        assertTrue(created.isFile());
         assertEquals(tmpFolder.getRoot(), created.getParentFile());
     }
 }
