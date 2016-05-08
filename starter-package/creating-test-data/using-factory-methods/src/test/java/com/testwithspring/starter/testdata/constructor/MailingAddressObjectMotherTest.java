@@ -5,8 +5,6 @@ import org.junit.Test;
 public class MailingAddressObjectMotherTest {
 
     private static final String CITY = "Test City";
-    private static final String COUNTRY_SWEDEN = "Sweden";
-    private static final String COUNTRY_UNITED_STATES = "United States";
     private static final String POST_CODE = "11111";
     private static final String POST_OFFICE_BOX = "PO Box 1";
     private static final String RECEIVER = "Teddy Tester";
@@ -15,9 +13,8 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createFinnishAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress finnishAddress = MailingAddressFactory.createFinnishAddress(RECEIVER,
+        MailingAddress finnishAddress = MailingAddressFactory.createNormalFinnishAddress(RECEIVER,
                 STREET_ADDRESS,
-                null,
                 POST_CODE,
                 CITY
         );
@@ -25,8 +22,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createFinnishPoBoxAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishAddress(RECEIVER,
-                null,
+        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishPoBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -44,20 +40,9 @@ public class MailingAddressObjectMotherTest {
     }
 
     @Test
-    public void createFinnishPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishAddress(RECEIVER,
-                null,
-                POST_OFFICE_BOX,
-                POST_CODE,
-                CITY
-        );
-    }
-
-    @Test
     public void createSwedishAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress swedishAddress = MailingAddressFactory.createSwedishAddress(RECEIVER,
+        MailingAddress swedishAddress = MailingAddressFactory.createNormalSwedishAddress(RECEIVER,
                 STREET_ADDRESS,
-                null,
                 POST_CODE,
                 CITY
         );
@@ -65,8 +50,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createSwedishPoBoxAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress swedishPoBoxAddress = MailingAddressFactory.createSwedishAddress(RECEIVER,
-                null,
+        MailingAddress swedishPoBoxAddress = MailingAddressFactory.createSwedishPoBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -85,9 +69,8 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createUSAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress usAddress = MailingAddressFactory.createUSAddress(RECEIVER,
+        MailingAddress usAddress = MailingAddressFactory.createNormalUSAddress(RECEIVER,
                 STREET_ADDRESS,
-                null,
                 POST_CODE,
                 CITY,
                 STATE
@@ -96,8 +79,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createUSPoBoxAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress usPoBoxAddress = MailingAddressFactory.createUSAddress(RECEIVER,
-                null,
+        MailingAddress usPoBoxAddress = MailingAddressFactory.createUSPoBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY,
@@ -107,7 +89,8 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createUSAddressWithObjectMotherMethodWithoutParameters() {
-        MailingAddress usAddress = MailingAddressFactory.createNormalUSAddress();
+        MailingAddress usAddress = MailingAddressFactory
+                .createNormalUSAddress();
     }
 
     @Test

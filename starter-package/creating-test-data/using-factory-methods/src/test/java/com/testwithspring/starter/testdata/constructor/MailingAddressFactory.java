@@ -20,20 +20,45 @@ public final class MailingAddressFactory {
     /**
      * Prevents instantiation.
      */
-    private MailingAddressFactory() {}
+    private MailingAddressFactory() {
+    }
 
     /**
-     * This factory method doesn't really improve the situation at all. We should rather
-     * just use the new keyword in our test method since this only adds unnecessary
-     * complexity into our test suite
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of five constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
      */
-    public static MailingAddress createFinnishAddress(String receiver,
-                                                String streetAddress,
-                                                String postOfficeBox,
-                                                String postCode,
-                                                String city) {
+    public static MailingAddress createNormalFinnishAddress(String receiver,
+                                                            String streetAddress,
+                                                            String postCode,
+                                                            String city) {
         return new MailingAddress(receiver,
                 streetAddress,
+                null,
+                postCode,
+                city
+        );
+    }
+
+    /**
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of five constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects)
+     * .
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
+     */
+    public static MailingAddress createFinnishPoBoxAddress(String receiver,
+                                                           String postOfficeBox,
+                                                           String postCode,
+                                                           String city) {
+        return new MailingAddress(receiver,
+                null,
                 postOfficeBox,
                 postCode,
                 city
@@ -79,19 +104,21 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This doesn't really improve the situation. The only improvement is that
-     * this method takes five method parameters instead of six constructor arguments.
-     * I think that five method parameters is too much (especially when they are all
-     * {@code String} objects.).
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of six constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
      */
-    public static MailingAddress createSwedishAddress(String receiver,
-                                                String streetAddress,
-                                                String postOfficeBox,
-                                                String postCode,
-                                                String city) {
+    public static MailingAddress createNormalSwedishAddress(String receiver,
+                                                            String streetAddress,
+                                                            String postCode,
+                                                            String city) {
         return new MailingAddress(receiver,
                 streetAddress,
-                postOfficeBox,
+                null,
                 postCode,
                 city,
                 COUNTRY_SWEDEN
@@ -99,11 +126,34 @@ public final class MailingAddressFactory {
     }
 
     /**
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of six constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
+     */
+    public static MailingAddress createSwedishPoBoxAddress(String receiver,
+                                                    String postOfficeBox,
+                                                    String postCode,
+                                                    String city) {
+        return new MailingAddress(receiver,
+                null,
+                postOfficeBox,
+                postCode,
+                city,
+                COUNTRY_SWEDEN
+        );
+    }
+
+
+    /**
      * Using a factory method like this is a horrible idea because it breaks
      * the connection of the test method and the test data. The worst part is
      * that this forces us to move the test data into the object mother class
      * that shouldn't be aware of it.
-     *
+     * <p>
      * That being said, this method works well if we only create about the fact
      * that the created address is a normal Swedish address and we don't care about
      * the property values of other properties.
@@ -123,7 +173,7 @@ public final class MailingAddressFactory {
      * the connection of the test method and the test data. The worst part is
      * that this forces us to move the test data into the object mother class
      * that shouldn't be aware of it.
-     *
+     * <p>
      * That being said, this method works well if we only create about the fact
      * that the created address is a Swedish PO box address and we don't care about
      * the property values of other properties.
@@ -139,19 +189,39 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This doesn't really improve the situation. The only improvement is that
-     * this method takes six method parameters instead of seven constructor arguments.
-     * I think that six method parameters is too much (especially when they are all
-     * {@code String} objects.).
+     * This method improves the situation because it is named properly and
+     * it takes five method parameters instead of seven constructor arguments.
+     * Although this is a somewhat impressive, I think that five method
+     * parameters is too much (especially when they are all {@code String} objects).
      */
-    public static MailingAddress createUSAddress(String receiver,
+    public static MailingAddress createNormalUSAddress(String receiver,
                                                  String streetAddress,
-                                                 String postOfficeBox,
                                                  String postCode,
                                                  String city,
                                                  String state) {
         return new MailingAddress(receiver,
                 streetAddress,
+                null,
+                postCode,
+                city,
+                state,
+                COUNTRY_UNITED_STATES
+        );
+    }
+
+    /**
+     * This method improves the situation because it is named properly and
+     * it takes five method parameters instead of seven constructor arguments.
+     * Although this is a somewhat impressive, I think that five method
+     * parameters is too much (especially when they are all {@code String} objects).
+     */
+    public static MailingAddress createUSPoBoxAddress(String receiver,
+                                                String postOfficeBox,
+                                                String postCode,
+                                                String city,
+                                                String state) {
+        return new MailingAddress(receiver,
+                null,
                 postOfficeBox,
                 postCode,
                 city,
@@ -165,7 +235,7 @@ public final class MailingAddressFactory {
      * the connection of the test method and the test data. The worst part is
      * that this forces us to move the test data into the object mother class
      * that shouldn't be aware of it.
-     *
+     * <p>
      * That being said, this method works well if we only care about the fact that
      * the returned object is a normal US address and we don't care about the
      * property values of other properties.
@@ -185,7 +255,7 @@ public final class MailingAddressFactory {
      * the connection of the test method and the test data. The worst part is
      * that this forces us to move the test data into the object mother class
      * that shouldn't be aware of it.
-     *
+     * <p>
      * That being said, this method works well if we only care about the fact that
      * the returned object is a US PO box address and we don't care about the
      * property values of other properties.

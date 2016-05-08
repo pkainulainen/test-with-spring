@@ -22,9 +22,8 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createFinnishAddressWithLocalMethodWithParameters() {
-        MailingAddress finnishAddress = createFinnishAddress(RECEIVER,
+        MailingAddress finnishAddress = createNormalFinnishAddress(RECEIVER,
                 STREET_ADDRESS,
-                null,
                 POST_CODE,
                 CITY
         );
@@ -32,8 +31,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createFinnishPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress finnishPoBoxAddress = createFinnishAddress(RECEIVER,
-                null,
+        MailingAddress finnishPoBoxAddress = createFinnishPoBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -41,17 +39,41 @@ public class MailingAddressLocalTest {
     }
 
     /**
-     * This factory method doesn't really improve the situation at all. We should rather
-     * just use the new keyword in our test method since this only adds unnecessary
-     * complexity into our test class.
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of five constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
      */
-    private MailingAddress createFinnishAddress(String receiver,
+    private MailingAddress createNormalFinnishAddress(String receiver,
                                                 String streetAddress,
-                                                String postOfficeBox,
                                                 String postCode,
                                                 String city) {
         return new MailingAddress(receiver,
                 streetAddress,
+                null,
+                postCode,
+                city
+        );
+    }
+
+    /**
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of five constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
+     */
+    private MailingAddress createFinnishPoBoxAddress(String receiver,
+                                                      String postOfficeBox,
+                                                      String postCode,
+                                                      String city) {
+        return new MailingAddress(receiver,
+                null,
                 postOfficeBox,
                 postCode,
                 city
@@ -100,9 +122,8 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createSwedishAddressWithLocalMethodWithParameters() {
-        MailingAddress swedishAddress = createSwedishAddress(RECEIVER,
+        MailingAddress swedishAddress = createNormalSwedishAddress(RECEIVER,
                 STREET_ADDRESS,
-                null,
                 POST_CODE,
                 CITY
         );
@@ -110,8 +131,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createSwedishPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress swedishPoBoxAddress = createSwedishAddress(RECEIVER,
-                null,
+        MailingAddress swedishPoBoxAddress = createSwedishPoBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -119,18 +139,42 @@ public class MailingAddressLocalTest {
     }
 
     /**
-     * This doesn't really improve the situation. The only improvement is that
-     * this method takes five method parameters instead of six constructor arguments.
-     * I think that five method parameters is too much (especially when they are all
-     * {@code String} objects.).
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of six constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
      */
-    private MailingAddress createSwedishAddress(String receiver,
+    private MailingAddress createNormalSwedishAddress(String receiver,
                                                 String streetAddress,
-                                                String postOfficeBox,
                                                 String postCode,
                                                 String city) {
         return new MailingAddress(receiver,
                 streetAddress,
+                null,
+                postCode,
+                city,
+                COUNTRY_SWEDEN
+        );
+    }
+
+    /**
+     * This method improves the situation because it is named properly and
+     * it takes four method parameters instead of six constructor arguments.
+     * Although this is a somewhat impressive, I think that for method
+     * parameters might be too much (especially when they are all {@code String} objects).
+     *
+     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
+     * method because the context helps anyone to understand to order of these arguments.
+     */
+    private MailingAddress createSwedishPoBoxAddress(String receiver,
+                                                String postOfficeBox,
+                                                String postCode,
+                                                String city) {
+        return new MailingAddress(receiver,
+                null,
                 postOfficeBox,
                 postCode,
                 city,
@@ -182,10 +226,9 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createUSAddressWithLocalMethodWithParameters() {
-        MailingAddress usAddress = createUSAddress(RECEIVER,
+        MailingAddress usAddress = createNormalUSAddress(RECEIVER,
                 STREET_ADDRESS,
                 POST_CODE,
-                null,
                 CITY,
                 STATE
         );
@@ -193,8 +236,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createUSPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress usPoBoxAddress = createUSAddress(RECEIVER,
-                null,
+        MailingAddress usPoBoxAddress = createUSPoBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY,
@@ -203,19 +245,39 @@ public class MailingAddressLocalTest {
     }
 
     /**
-     * This doesn't really improve the situation. The only improvement is that
-     * this method takes six method parameters instead of seven constructor arguments.
-     * I think that six method parameters is too much (especially when they are all
-     * {@code String} objects.).
+     * This method improves the situation because it is named properly and
+     * it takes five method parameters instead of seven constructor arguments.
+     * Although this is a somewhat impressive, I think that five method
+     * parameters is too much (especially when they are all {@code String} objects).
      */
-    private MailingAddress createUSAddress(String receiver,
+    private MailingAddress createNormalUSAddress(String receiver,
                                            String streetAddress,
-                                           String postOfficeBox,
                                            String postCode,
                                            String city,
                                            String state) {
         return new MailingAddress(receiver,
                 streetAddress,
+                null,
+                postCode,
+                city,
+                state,
+                COUNTRY_UNITED_STATES
+        );
+    }
+
+    /**
+     * This method improves the situation because it is named properly and
+     * it takes five method parameters instead of seven constructor arguments.
+     * Although this is a somewhat impressive, I think that five method
+     * parameters is too much (especially when they are all {@code String} objects).
+     */
+    private MailingAddress createUSPoBoxAddress(String receiver,
+                                           String postOfficeBox,
+                                           String postCode,
+                                           String city,
+                                           String state) {
+        return new MailingAddress(receiver,
+                null,
                 postOfficeBox,
                 postCode,
                 city,
