@@ -20,10 +20,101 @@ public final class TaskFactory {
      */
     private TaskFactory() {}
 
+
     /**
      * Using a factory method like this is a horrible idea because it breaks the
-     * connection of the test method and the test data. The worst part is that this
-     * forces us to move the test data into the object mother class that shouldn't be aware of it.
+     * connection of the test method and the test data.
+     *
+     * That being said, if we only care about the fact that the task is open and it
+     * has no assignee, and the other property values are irrelevant to us, using this
+     * factory method is a good choice.
+     */
+    public static Task createOpenTaskWithoutAssignee() {
+        Task task = new Task();
+        task.setId(ID);
+        task.setAssignee(null);
+        task.setCloser(null);
+        task.setCreator(new Creator(CREATOR_ID));
+        task.setTitle(TITLE);
+        task.setDescription(DESCRIPTION);
+        task.setStatus(TaskStatus.OPEN);
+        task.setResolution(null);
+        return task;
+    }
+
+    /**
+     * Even though this factory method helps us to hide the state and resolution of
+     * an open task, the problem is that the method still has four method parameters.
+     * Nevertheless, it might make sense to use this if the method is used only by a few
+     * test classes and we don't already a test data builder.
+     */
+    public static Task createOpenTaskWithoutAssignee(Long taskId,
+                                                     Long creatorId,
+                                                     String title,
+                                                     String description) {
+        Task task = new Task();
+        task.setId(taskId);
+        task.setAssignee(null);
+        task.setCloser(null);
+        task.setCreator(new Creator(creatorId));
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setStatus(TaskStatus.OPEN);
+        task.setResolution(null);
+        return task;
+    }
+
+    /**
+     * Using a factory method like this is a horrible idea because it breaks the
+     * connection of the test method and the test data.
+     *
+     * That being said, if we only care about the fact that the task is open and it
+     * has an assignee, and the other property values are irrelevant to us, using this
+     * factory method is a good choice.
+     */
+    public static Task createOpenTaskThatIsAssignedToAssignee() {
+        Task task = new Task();
+        task.setId(ID);
+        task.setAssignee(new Assignee(ASSIGNEE_ID));
+        task.setCloser(null);
+        task.setCreator(new Creator(CREATOR_ID));
+        task.setTitle(TITLE);
+        task.setDescription(DESCRIPTION);
+        task.setStatus(TaskStatus.OPEN);
+        task.setResolution(null);
+
+        return task;
+    }
+
+    /**
+     * Even though this factory method helps us to hide the state and resolution of
+     * an open task, the problem is that the method still has five method parameters that
+     * is too much for my taste.
+     */
+    public static Task createOpenTaskThatIsAssignedToAssignee(Long taskId,
+                                                              Long assigneeId,
+                                                              Long creatorId,
+                                                              String title,
+                                                              String description) {
+        Task task = new Task();
+        task.setId(taskId);
+        task.setAssignee(new Assignee(assigneeId));
+        task.setCloser(null);
+        task.setCreator(new Creator(creatorId));
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setStatus(TaskStatus.OPEN);
+        task.setResolution(null);
+        return task;
+    }
+
+    /**
+     * Using a factory method like this is a horrible idea because it breaks the
+     * connection of the test method and the test data.
+     *
+     * That being said, if we only care about the fact that the task was closed as
+     * a duplicate, and the other property values are irrelevant to us, using this
+     * factory method is a good choice.
      */
     public static Task createTaskThatWasClosedAsDuplicate() {
         Task task = new Task();
@@ -44,9 +135,9 @@ public final class TaskFactory {
      * is too much for my taste.
      */
     public static Task createTaskThatWasClosedAsDuplicate(Long taskId,
+                                                          Long assigneeId,
                                                           Long creatorId,
                                                           Long closerId,
-                                                          Long assigneeId,
                                                           String title,
                                                           String description) {
         Task task = new Task();
