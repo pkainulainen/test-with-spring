@@ -53,10 +53,10 @@ public final class MailingAddressFactory {
      * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
      * method because the context helps anyone to understand to order of these arguments.
      */
-    public static MailingAddress createFinnishPoBoxAddress(String receiver,
-                                                           String postOfficeBox,
-                                                           String postCode,
-                                                           String city) {
+    public static MailingAddress createFinnishPostOfficeBoxAddress(String receiver,
+                                                                   String postOfficeBox,
+                                                                   String postCode,
+                                                                   String city) {
         return new MailingAddress(receiver,
                 null,
                 postOfficeBox,
@@ -94,7 +94,7 @@ public final class MailingAddressFactory {
      * that the created address is a Finnish PO box address and we don't care about
      * the property values of other properties.
      */
-    public static MailingAddress createFinnishPoBoxAddress() {
+    public static MailingAddress createFinnishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
                 null,
                 POST_OFFICE_BOX,
@@ -134,10 +134,10 @@ public final class MailingAddressFactory {
      * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
      * method because the context helps anyone to understand to order of these arguments.
      */
-    public static MailingAddress createSwedishPoBoxAddress(String receiver,
-                                                    String postOfficeBox,
-                                                    String postCode,
-                                                    String city) {
+    public static MailingAddress createSwedishPostOfficeBoxAddress(String receiver,
+                                                                   String postOfficeBox,
+                                                                   String postCode,
+                                                                   String city) {
         return new MailingAddress(receiver,
                 null,
                 postOfficeBox,
@@ -178,7 +178,7 @@ public final class MailingAddressFactory {
      * that the created address is a Swedish PO box address and we don't care about
      * the property values of other properties.
      */
-    public static MailingAddress createSwedishPoBoxAddress() {
+    public static MailingAddress createSwedishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
                 null,
                 POST_OFFICE_BOX,
@@ -215,11 +215,11 @@ public final class MailingAddressFactory {
      * Although this is a somewhat impressive, I think that five method
      * parameters is too much (especially when they are all {@code String} objects).
      */
-    public static MailingAddress createUSPoBoxAddress(String receiver,
-                                                String postOfficeBox,
-                                                String postCode,
-                                                String city,
-                                                String state) {
+    public static MailingAddress createUSPostOfficeBoxAddress(String receiver,
+                                                              String postOfficeBox,
+                                                              String postCode,
+                                                              String city,
+                                                              String state) {
         return new MailingAddress(receiver,
                 null,
                 postOfficeBox,
@@ -260,7 +260,7 @@ public final class MailingAddressFactory {
      * the returned object is a US PO box address and we don't care about the
      * property values of other properties.
      */
-    public static MailingAddress createUSPoBoxAddress() {
+    public static MailingAddress createUSPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
                 null,
                 POST_OFFICE_BOX,

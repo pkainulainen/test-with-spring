@@ -22,7 +22,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createFinnishPoBoxAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishPoBoxAddress(RECEIVER,
+        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishPostOfficeBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -36,7 +36,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createFinnishPoBoxAddressWithObjectMotherMethodWithoutParameters() {
-        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishPoBoxAddress();
+        MailingAddress finnishPoBoxAddress = MailingAddressFactory.createFinnishPostOfficeBoxAddress();
     }
 
     @Test
@@ -50,7 +50,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createSwedishPoBoxAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress swedishPoBoxAddress = MailingAddressFactory.createSwedishPoBoxAddress(RECEIVER,
+        MailingAddress swedishPoBoxAddress = MailingAddressFactory.createSwedishPostOfficeBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -64,7 +64,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createSwedishPoBoxAddressWithLocalMethodWithoutParameters() {
-        MailingAddress swedishPoBoxAddress = MailingAddressFactory.createSwedishPoBoxAddress();
+        MailingAddress swedishPoBoxAddress = MailingAddressFactory.createSwedishPostOfficeBoxAddress();
     }
 
     @Test
@@ -79,7 +79,7 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createUSPoBoxAddressWithObjectMotherMethodWithParameters() {
-        MailingAddress usPoBoxAddress = MailingAddressFactory.createUSPoBoxAddress(RECEIVER,
+        MailingAddress usPoBoxAddress = MailingAddressFactory.createUSPostOfficeBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY,
@@ -95,6 +95,6 @@ public class MailingAddressObjectMotherTest {
 
     @Test
     public void createUSPoBoxAddressWithObjectMotherWithoutParameters() {
-        MailingAddress usPoBoxAddress = MailingAddressFactory.createUSPoBoxAddress();
+        MailingAddress usPoBoxAddress = MailingAddressFactory.createUSPostOfficeBoxAddress();
     }
 }

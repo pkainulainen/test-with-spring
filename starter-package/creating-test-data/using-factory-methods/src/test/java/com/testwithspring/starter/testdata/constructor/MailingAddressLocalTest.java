@@ -31,7 +31,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createFinnishPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress finnishPoBoxAddress = createFinnishPoBoxAddress(RECEIVER,
+        MailingAddress finnishPoBoxAddress = createFinnishPostOfficeBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -68,10 +68,10 @@ public class MailingAddressLocalTest {
      * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
      * method because the context helps anyone to understand to order of these arguments.
      */
-    private MailingAddress createFinnishPoBoxAddress(String receiver,
-                                                      String postOfficeBox,
-                                                      String postCode,
-                                                      String city) {
+    private MailingAddress createFinnishPostOfficeBoxAddress(String receiver,
+                                                             String postOfficeBox,
+                                                             String postCode,
+                                                             String city) {
         return new MailingAddress(receiver,
                 null,
                 postOfficeBox,
@@ -102,7 +102,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createFinnishPoBoxAddressWithLocalMethodWithoutParameters() {
-        MailingAddress finnishPoBoxAddress = createFinnishPoBoxAddress();
+        MailingAddress finnishPoBoxAddress = createFinnishPostOfficeBoxAddress();
     }
 
     /*
@@ -111,7 +111,7 @@ public class MailingAddressLocalTest {
      * this method works well if we care only about the fact that the address is a
      * Finnish PO box address and we are not interested in the property values of other properties.
      */
-    private MailingAddress createFinnishPoBoxAddress() {
+    private MailingAddress createFinnishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
                 null,
                 POST_OFFICE_BOX,
@@ -131,7 +131,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createSwedishPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress swedishPoBoxAddress = createSwedishPoBoxAddress(RECEIVER,
+        MailingAddress swedishPoBoxAddress = createSwedishPostOfficeBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY
@@ -169,10 +169,10 @@ public class MailingAddressLocalTest {
      * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
      * method because the context helps anyone to understand to order of these arguments.
      */
-    private MailingAddress createSwedishPoBoxAddress(String receiver,
-                                                String postOfficeBox,
-                                                String postCode,
-                                                String city) {
+    private MailingAddress createSwedishPostOfficeBoxAddress(String receiver,
+                                                             String postOfficeBox,
+                                                             String postCode,
+                                                             String city) {
         return new MailingAddress(receiver,
                 null,
                 postOfficeBox,
@@ -189,7 +189,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createSwedishPoBoxAddressWithLocalMethodWithoutParameters() {
-        MailingAddress swedishPoBoxAddress = createSwedishPoBoxAddress();
+        MailingAddress swedishPoBoxAddress = createSwedishPostOfficeBoxAddress();
     }
 
     /**
@@ -214,7 +214,7 @@ public class MailingAddressLocalTest {
      * this method works well if we only create about the fact that the created address
      * is a Swedish PO box address and we don't care about the property values of other properties.
      */
-    private MailingAddress createSwedishPoBoxAddress() {
+    private MailingAddress createSwedishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
                 null,
                 POST_OFFICE_BOX,
@@ -236,7 +236,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createUSPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress usPoBoxAddress = createUSPoBoxAddress(RECEIVER,
+        MailingAddress usPoBoxAddress = createUSPostOfficeBoxAddress(RECEIVER,
                 POST_OFFICE_BOX,
                 POST_CODE,
                 CITY,
@@ -271,11 +271,11 @@ public class MailingAddressLocalTest {
      * Although this is a somewhat impressive, I think that five method
      * parameters is too much (especially when they are all {@code String} objects).
      */
-    private MailingAddress createUSPoBoxAddress(String receiver,
-                                           String postOfficeBox,
-                                           String postCode,
-                                           String city,
-                                           String state) {
+    private MailingAddress createUSPostOfficeBoxAddress(String receiver,
+                                                        String postOfficeBox,
+                                                        String postCode,
+                                                        String city,
+                                                        String state) {
         return new MailingAddress(receiver,
                 null,
                 postOfficeBox,
@@ -293,7 +293,7 @@ public class MailingAddressLocalTest {
 
     @Test
     public void createUSPoBoxAddressWithLocalMethodWithoutParameters() {
-        MailingAddress usPoBoxAddressAddress = createUSPoBoxAddress();
+        MailingAddress usPoBoxAddressAddress = createUSPostOfficeBoxAddress();
     }
 
     /**
@@ -319,7 +319,7 @@ public class MailingAddressLocalTest {
      * this method works well if we only create about the fact that the created address
      * is a US PO box address and we don't care about the property values of other properties.
      */
-    private MailingAddress createUSPoBoxAddress() {
+    private MailingAddress createUSPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
                 null,
                 POST_OFFICE_BOX,
