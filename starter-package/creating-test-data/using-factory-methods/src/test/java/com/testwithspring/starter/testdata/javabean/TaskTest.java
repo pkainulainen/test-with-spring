@@ -137,7 +137,7 @@ public class TaskTest {
 
     @Test
     public void createTaskThatWasClosedAsDuplicateWithLocalMethodWithoutParameters() {
-        Task openTaskWithAssignee = createTaskThatWasClosedAsDuplicate();
+        Task closedAsDuplicate = createTaskThatWasClosedAsDuplicate();
     }
 
     /**
@@ -163,7 +163,7 @@ public class TaskTest {
 
     @Test
     public void createTaskThatWasClosedAsDuplicateWithLocalMethodWithParameters() {
-        Task openTaskWithAssignee = createTaskThatWasClosedAsDuplicate(ID,
+        Task closedAsDuplicate = createTaskThatWasClosedAsDuplicate(ID,
                 ASSIGNEE_ID,
                 CREATOR_ID,
                 CLOSER_ID,

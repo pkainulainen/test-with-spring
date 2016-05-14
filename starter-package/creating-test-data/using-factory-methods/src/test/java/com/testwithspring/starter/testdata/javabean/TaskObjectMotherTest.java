@@ -43,12 +43,12 @@ public class TaskObjectMotherTest {
 
     @Test
     public void createTaskThatWasClosedAsDuplicateWithObjectMotherMethodWithoutParameters() {
-        Task openTaskWithAssignee = TaskFactory.createTaskThatWasClosedAsDuplicate();
+        Task closedAsDuplicate = TaskFactory.createTaskThatWasClosedAsDuplicate();
     }
 
     @Test
     public void createTaskThatWasClosedAsDuplicateWithObjectMotherMethodWithParameters() {
-        Task openTaskWithAssignee = TaskFactory.createTaskThatWasClosedAsDuplicate(ID,
+        Task closedAsDuplicate = TaskFactory.createTaskThatWasClosedAsDuplicate(ID,
                 ASSIGNEE_ID,
                 CREATOR_ID,
                 CLOSER_ID,
