@@ -6,7 +6,7 @@ package com.testwithspring.starter.testdata.constructor;
  *
  * @author Petri Kainulainen
  */
-public class MailingAddressBuilder {
+public final class MailingAddressBuilder {
 
     private String receiver;
     private String streetAddress;

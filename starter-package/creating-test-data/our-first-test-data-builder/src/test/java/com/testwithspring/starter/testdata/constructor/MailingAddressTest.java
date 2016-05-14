@@ -42,10 +42,21 @@ public class MailingAddressTest {
     }
 
     @Test
-    public void createSwedishAddresses() {
+    public void createSwedishAddress() {
         MailingAddress swedishAddress = new MailingAddressBuilder()
                 .withReceiver(RECEIVER)
                 .withStreetAddress(STREET_ADDRESS)
+                .withPostCode(POST_CODE)
+                .withCity(CITY)
+                .withCountry(COUNTRY_SWEDEN)
+                .build();
+    }
+
+    @Test
+    public void createSwedishPoBoxAddress() {
+        MailingAddress swedishPoBoxAddress = new MailingAddressBuilder()
+                .withReceiver(RECEIVER)
+                .withPostOfficeBox(POST_OFFICE_BOX)
                 .withPostCode(POST_CODE)
                 .withCity(CITY)
                 .withCountry(COUNTRY_SWEDEN)
@@ -57,6 +68,18 @@ public class MailingAddressTest {
         MailingAddress usAddress = new MailingAddressBuilder()
                 .withReceiver(RECEIVER)
                 .withStreetAddress(STREET_ADDRESS)
+                .withPostCode(POST_CODE)
+                .withCity(CITY)
+                .withState(STATE)
+                .withCountry(COUNTRY_UNITED_STATES)
+                .build();
+    }
+
+    @Test
+    public void createUSPoBoxAddress() {
+        MailingAddress usPoBoxAddress = new MailingAddressBuilder()
+                .withReceiver(RECEIVER)
+                .withPostOfficeBox(POST_OFFICE_BOX)
                 .withPostCode(POST_CODE)
                 .withCity(CITY)
                 .withState(STATE)
