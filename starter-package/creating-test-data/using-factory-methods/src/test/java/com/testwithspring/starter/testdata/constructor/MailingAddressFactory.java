@@ -10,7 +10,7 @@ public final class MailingAddressFactory {
 
     private static final String CITY = "Test City";
     private static final String COUNTRY_SWEDEN = "Sweden";
-    private static final String COUNTRY_UNITED_STATES = "United States";
+    private static final String COUNTRY_UNITED_STATES = "USA";
     private static final String POST_CODE = "11111";
     private static final String POST_OFFICE_BOX = "PO Box 1";
     private static final String RECEIVER = "Teddy Tester";
