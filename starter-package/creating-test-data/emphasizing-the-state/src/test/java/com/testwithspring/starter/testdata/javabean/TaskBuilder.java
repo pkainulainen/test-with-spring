@@ -60,7 +60,7 @@ public final class TaskBuilder {
                 .withResolutionWontDo(closerId)
                 .build();
     }
-    
+
     public TaskBuilder withAssignee(Long assigneeId) {
         this.assigneeId = assigneeId;
         return this;
