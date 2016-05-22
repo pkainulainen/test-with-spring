@@ -2,9 +2,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.testwithspring.starter</groupId>
-    <artifactId>overriding-the-builder-pattern</artifactId>
+    <artifactId>overriding-a-builder</artifactId>
     <version>0.1</version>
-    <name>Overriding the Builder Pattern With Test Data Builders</name>
+    <name>Overriding a Builder With a Test Data Builder</name>
     <description>
     </description>
 
