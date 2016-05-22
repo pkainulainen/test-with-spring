@@ -11,13 +11,13 @@ public final class TaskBuilder {
     private final static Long NOT_IN_USE = -1L;
     private final static String NOT_IMPORTANT = "NOT_IMPORTANT";
 
-    private Long assigneeId = null;
-    private Long closerId = null;
+    private Long assigneeId;
+    private Long closerId;
     private Long creatorId = NOT_IN_USE;
-    private String description = null;
-    private Long id = null;
-    private TaskResolution resolution = null;
-    private TaskStatus status = null;
+    private String description;
+    private Long id;
+    private TaskResolution resolution;
+    private TaskStatus status;
     private String title = NOT_IMPORTANT;
 
     public TaskBuilder() {
