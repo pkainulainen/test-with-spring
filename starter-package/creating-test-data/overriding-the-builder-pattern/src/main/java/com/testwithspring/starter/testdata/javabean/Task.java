@@ -98,28 +98,7 @@ public class Task {
         }
 
         public Task build () {
-            Task task = new Task(this);
-
-            checkCreator(task.creator);
-            checkTitle(task.title);
-
-            return task;
-        }
-
-        private void checkCreator(Creator creator) {
-            if (creator == null) {
-                throw new NullPointerException("You cannot create a new task without specifying the creator of the task");
-            }
-        }
-
-        private void checkTitle(String title) {
-            if (title == null) {
-                throw new NullPointerException("You cannot create a new task without specifying the title of the task");
-            }
-
-            if (title.isEmpty()) {
-                throw new IllegalStateException("You cannot create a new task without specifying a non-empty title");
-            }
+            return new Task(this);
         }
     }
 }
