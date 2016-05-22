@@ -13,7 +13,6 @@ import org.junit.Test;
 public class TaskObjectMotherTest {
 
     private static final Long ASSIGNEE_ID = 99L;
-    private static final Long CLOSER_ID = 55L;
 
     /**
      * This test method emphasizes the fact that the task is open task. The other
@@ -43,29 +42,29 @@ public class TaskObjectMotherTest {
     }
 
     /**
-     * We care only about the fact that the task was closed as done by the specified user. The other
+     * We care only about the fact that the task was closed as done. The other
      * properties of the created object are irrelevant to us.
      */
     @Test
     public void createTaskThatWasClosedAsDone() {
-        Task done = TaskBuilder.closedAsDone(CLOSER_ID);
+        Task done = TaskBuilder.closedAsDone();
     }
 
     /**
-     * This test method emphasizes that the task was closed as a duplicate by the specified user. We don't
+     * This test method emphasizes that the task was closed as a duplicate. We don't
      * really care about the other property values of the created object.
      */
     @Test
     public void createTaskThatWasClosedAsDuplicate() {
-        Task duplicate = TaskBuilder.closedAsDuplicate(CLOSER_ID);
+        Task duplicate = TaskBuilder.closedAsDuplicate();
     }
 
     /**
-     * We care only about the fact the created task was closed by the specified user because it won't be done.
+     * We care only about the fact the created task was closed because it won't be done.
      * We don't care about the other property values of the created task.
      */
     @Test
     public void createTaskThatWasClosedAsWontDo() {
-        Task wontDo = TaskBuilder.closedAsWontDo(CLOSER_ID);
+        Task wontDo = TaskBuilder.closedAsWontDo();
     }
 }

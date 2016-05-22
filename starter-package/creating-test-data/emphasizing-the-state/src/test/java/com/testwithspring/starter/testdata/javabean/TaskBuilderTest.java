@@ -57,6 +57,7 @@ public class TaskBuilderTest {
     @Test
     public void createTaskThatWasClosedAsDone() {
         Task done = new TaskBuilder()
+                .withAssignee(ASSIGNEE_ID)
                 .withResolutionDone(CLOSER_ID)
                 .build();
     }
@@ -68,6 +69,7 @@ public class TaskBuilderTest {
     @Test
     public void createTaskThatWasClosedAsDuplicate() {
         Task duplicate = new TaskBuilder()
+                .withAssignee(ASSIGNEE_ID)
                 .withResolutionDuplicate(CLOSER_ID)
                 .build();
     }
@@ -79,6 +81,7 @@ public class TaskBuilderTest {
     @Test
     public void createTaskThatWasClosedAsWontDo() {
         Task wontDo = new TaskBuilder()
+                .withAssignee(ASSIGNEE_ID)
                 .withResolutionWontDo(CLOSER_ID)
                 .build();
     }

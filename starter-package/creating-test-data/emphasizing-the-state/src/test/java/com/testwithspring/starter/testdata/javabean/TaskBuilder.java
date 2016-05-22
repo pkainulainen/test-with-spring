@@ -14,7 +14,7 @@ public final class TaskBuilder {
     private Long assigneeId = null;
     private Long closerId = null;
     private Long creatorId = NOT_IN_USE;
-    private String description = NOT_IMPORTANT;
+    private String description = null;
     private Long id = NOT_IN_USE;
     private TaskResolution resolution = null;
     private TaskStatus status = null;
@@ -43,21 +43,24 @@ public final class TaskBuilder {
                 .build();
     }
 
-    public static Task closedAsDone(Long closerId) {
+    public static Task closedAsDone() {
         return new TaskBuilder()
-                .withResolutionDone(closerId)
+                .withAssignee(NOT_IN_USE)
+                .withResolutionDone(NOT_IN_USE)
                 .build();
     }
 
-    public static Task closedAsDuplicate(Long closerId) {
+    public static Task closedAsDuplicate() {
         return new TaskBuilder()
-                .withResolutionDuplicate(closerId)
+                .withAssignee(NOT_IN_USE)
+                .withResolutionDuplicate(NOT_IN_USE)
                 .build();
     }
 
-    public static Task closedAsWontDo(Long closerId) {
+    public static Task closedAsWontDo() {
         return  new TaskBuilder()
-                .withResolutionWontDo(closerId)
+                .withAssignee(NOT_IN_USE)
+                .withResolutionWontDo(NOT_IN_USE)
                 .build();
     }
 
