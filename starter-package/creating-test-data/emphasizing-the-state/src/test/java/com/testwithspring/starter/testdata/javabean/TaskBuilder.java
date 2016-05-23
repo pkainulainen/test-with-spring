@@ -43,24 +43,24 @@ public final class TaskBuilder {
                 .build();
     }
 
-    public static Task closedAsDone() {
+    public static Task closedAsDone(Long closerId) {
         return new TaskBuilder()
                 .withAssignee(NOT_IN_USE)
-                .withResolutionDone(NOT_IN_USE)
+                .withResolutionDone(closerId)
                 .build();
     }
 
-    public static Task closedAsDuplicate() {
+    public static Task closedAsDuplicate(Long closerId) {
         return new TaskBuilder()
                 .withAssignee(NOT_IN_USE)
-                .withResolutionDuplicate(NOT_IN_USE)
+                .withResolutionDuplicate(closerId)
                 .build();
     }
 
-    public static Task closedAsWontDo() {
+    public static Task closedAsWontDo(Long closerId) {
         return  new TaskBuilder()
                 .withAssignee(NOT_IN_USE)
-                .withResolutionWontDo(NOT_IN_USE)
+                .withResolutionWontDo(closerId)
                 .build();
     }
 

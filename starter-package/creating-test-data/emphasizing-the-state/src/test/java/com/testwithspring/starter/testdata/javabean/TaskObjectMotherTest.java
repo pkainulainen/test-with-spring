@@ -13,6 +13,7 @@ import org.junit.Test;
 public class TaskObjectMotherTest {
 
     private static final Long ASSIGNEE_ID = 99L;
+    private static final Long CLOSER_ID = 55L;
 
     /**
      * This test method emphasizes the fact that the task is open task. The other
@@ -47,7 +48,7 @@ public class TaskObjectMotherTest {
      */
     @Test
     public void createTaskThatWasClosedAsDone() {
-        Task done = TaskBuilder.closedAsDone();
+        Task done = TaskBuilder.closedAsDone(CLOSER_ID);
     }
 
     /**
@@ -56,7 +57,7 @@ public class TaskObjectMotherTest {
      */
     @Test
     public void createTaskThatWasClosedAsDuplicate() {
-        Task duplicate = TaskBuilder.closedAsDuplicate();
+        Task duplicate = TaskBuilder.closedAsDuplicate(CLOSER_ID);
     }
 
     /**
@@ -65,6 +66,6 @@ public class TaskObjectMotherTest {
      */
     @Test
     public void createTaskThatWasClosedAsWontDo() {
-        Task wontDo = TaskBuilder.closedAsWontDo();
+        Task wontDo = TaskBuilder.closedAsWontDo(CLOSER_ID);
     }
 }
