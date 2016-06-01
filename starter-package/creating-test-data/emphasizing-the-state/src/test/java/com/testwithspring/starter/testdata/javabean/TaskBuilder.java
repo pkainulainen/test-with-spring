@@ -8,8 +8,8 @@ import java.lang.reflect.Field;
  */
 public final class TaskBuilder {
 
-    private final static Long NOT_IN_USE = -1L;
-    private final static String NOT_IMPORTANT = "NOT IMPORTANT";
+    private static final Long NOT_IN_USE = -1L;
+    private static final String NOT_IMPORTANT = "NOT IMPORTANT";
 
     private Long assigneeId;
     private Long closerId;
