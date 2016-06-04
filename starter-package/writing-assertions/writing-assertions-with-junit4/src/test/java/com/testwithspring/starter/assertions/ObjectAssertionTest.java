@@ -26,7 +26,7 @@ public class ObjectAssertionTest {
     }
 
     @Test
-    public void objectShouldBeNull() {
+    public void objectShouldNotBeNull() {
         Object actual = new Object();
 
         assertNotNull(actual);
