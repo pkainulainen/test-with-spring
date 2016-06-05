@@ -38,7 +38,7 @@ public class ListAssertionTest {
 
         assertThat(emptyList, hasSize(0));
         assertThat(String.format("Expected size of empty list to be: 0 but was: %d",
-                    emptyList.size()
+                        emptyList.size()
                 ),
                 emptyList,
                 hasSize(0)
