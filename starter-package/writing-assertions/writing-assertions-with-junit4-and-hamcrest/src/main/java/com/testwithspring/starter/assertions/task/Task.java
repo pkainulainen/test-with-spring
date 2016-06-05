@@ -98,7 +98,36 @@ public class Task {
         }
 
         public Task build () {
-            return new Task(this);
+            Task task = new Task(this);
+
+            checkCreator(task);
+            checkTitle(task);
+
+            return task;
+        }
+
+        private void checkCreator(Task task) {
+            Creator creator = task.getCreator();
+            if (creator == null) {
+                throw new NullPointerException(
+                        "You cannot create a new task without specifying the creator of the task"
+                );
+            }
+        }
+
+        private void checkTitle(Task task) {
+            String title = task.getTitle();
+            if (title == null) {
+                throw new NullPointerException(
+                        "You cannot create a new task without specifying the title of the task"
+                );
+            }
+
+            if (title.isEmpty()) {
+                throw new IllegalStateException(
+                        "You cannot create a new task without specifying a non-empty title"
+                );
+            }
         }
     }
 }
