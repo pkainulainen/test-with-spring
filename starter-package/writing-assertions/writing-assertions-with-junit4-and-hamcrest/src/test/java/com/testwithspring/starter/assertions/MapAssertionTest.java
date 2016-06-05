@@ -6,8 +6,10 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -33,9 +35,18 @@ public class MapAssertionTest {
     }
 
     @Test
+    public void shouldContainCorrectKey() {
+        assertThat(map, hasKey(KEY));
+    }
+
+    @Test
+    public void shouldNotContainIncorrectKey() {
+        assertThat(map.containsKey(INCORRECT_KEY), is(false));
+    }
+
+    @Test
     public void shouldContainObjectWithCorrectKey() {
-        Object actual = map.get(KEY);
-        assertThat(actual, is(expected));
+        assertThat(map, hasEntry(KEY, expected));
     }
 
     @Test

@@ -46,9 +46,13 @@ public class ListAssertionTest {
     }
 
     @Test
-    public void listShouldContainTheCorrectObjects() {
+    public void listShouldContainCorrectObjectsInCorrectOrder() {
         assertThat(list, contains(first, second));
-        assertThat(list, containsInAnyOrder(second, first));
+    }
+
+    @Test
+    public void listShouldContainCorrectObjectsInAnyOrder() {
+        assertThat(list, containsInAnyOrder(first, second));
     }
 
     @Test
