@@ -1,4 +1,4 @@
-# Creating a Custom Hamcrest Matcher
+# Creating Custom Hamcrest Matchers
 
 ## Running Unit Tests
 
