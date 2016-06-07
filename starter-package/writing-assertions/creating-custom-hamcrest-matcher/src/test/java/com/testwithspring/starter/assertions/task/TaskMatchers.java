@@ -4,7 +4,7 @@ import org.hamcrest.Description;
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 /**
  * This an object mother class that demonstrates how we can create custom
@@ -34,7 +34,7 @@ public final class TaskMatchers {
      * @return  The created Hamcrest matcher.
      */
     public static FeatureMatcher<Task, String> hasTitle(final String expectedTitle) {
-        return new FeatureMatcher<Task, String>(equalTo(expectedTitle), "title", "title") {
+        return new FeatureMatcher<Task, String>(is(expectedTitle), "title", "title") {
 
             @Override
             protected String featureValueOf(Task actual) {
