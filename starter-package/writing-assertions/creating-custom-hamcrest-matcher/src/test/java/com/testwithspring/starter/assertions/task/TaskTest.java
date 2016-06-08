@@ -15,7 +15,6 @@ import static org.junit.Assert.assertThat;
 public class TaskTest {
 
     private static final Long ID = 1L;
-    private static final Long ASSIGNEE_ID = 99L;
     private static final Long CREATOR_ID = 44L;
     private static final String TITLE = "Write an example project";
     private static final String DESCRIPTION = "Write an example project description";
@@ -24,7 +23,6 @@ public class TaskTest {
     public void build_shouldCreateAnOpenTask() {
         Task task = Task.getBuilder()
                 .withId(ID)
-                .withAssignee(ASSIGNEE_ID)
                 .withCreator(CREATOR_ID)
                 .withTitle(TITLE)
                 .withDescription(DESCRIPTION)
@@ -37,7 +35,6 @@ public class TaskTest {
     public void build_shouldCreateTaskWithCorrectTitle() {
         Task task = Task.getBuilder()
                 .withId(ID)
-                .withAssignee(ASSIGNEE_ID)
                 .withCreator(CREATOR_ID)
                 .withTitle(TITLE)
                 .withDescription(DESCRIPTION)
