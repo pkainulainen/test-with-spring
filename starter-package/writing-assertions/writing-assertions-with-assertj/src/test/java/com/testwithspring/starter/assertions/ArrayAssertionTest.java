@@ -26,6 +26,19 @@ public class ArrayAssertionTest {
     }
 
     @Test
+    public void twoIntArraysShouldNotBeEqual() {
+        int[] actual = new int[]{2, 5, 7};
+        int[] expected = new int[]{2, 5, 71};
+
+        assertThat(actual)
+                .overridingErrorMessage("Expected array: %s to not be equal to array: %s",
+                        Arrays.toString(expected),
+                        Arrays.toString(actual)
+                )
+                .isNotEqualTo(expected);
+    }
+
+    @Test
     public void twoStringArraysShouldBeEqual() {
         String[] actual = new String[] {"foo", "bar"};
         String[] expected = new String[] {"foo", "bar"};
@@ -36,5 +49,18 @@ public class ArrayAssertionTest {
                         Arrays.toString(actual)
                 )
                 .isEqualTo(expected);
+    }
+
+    @Test
+    public void twoStringArraysShouldNotBeEqual() {
+        String[] actual = new String[] {"foo", "bar"};
+        String[] expected = new String[] {"foo", "bar1"};
+
+        assertThat(actual)
+                .overridingErrorMessage("Expected array: %s to not be equal to array: %s",
+                        Arrays.toString(expected),
+                        Arrays.toString(actual)
+                )
+                .isNotEqualTo(expected);
     }
 }
