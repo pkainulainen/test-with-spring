@@ -1,6 +1,5 @@
 package com.testwithspring.starter.assertions.task;
 
-import org.assertj.core.api.SoftAssertions;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -111,29 +110,5 @@ public class TaskTest {
                 .build();
 
         assertThat(task.getDescription()).isEqualTo(DESCRIPTION);
-    }
-
-    @Test
-    public void build_shouldCreateTaskWithCorrectFieldValues() {
-        Task task = Task.getBuilder()
-                .withId(ID)
-                .withAssignee(ASSIGNEE_ID)
-                .withCreator(CREATOR_ID)
-                .withTitle(TITLE)
-                .withDescription(DESCRIPTION)
-                .build();
-
-        SoftAssertions assertions = new SoftAssertions();
-
-        assertions.assertThat(task.getId()).isEqualByComparingTo(ID);
-        assertions.assertThat(task.getAssignee().getUserId()).isEqualByComparingTo(ASSIGNEE_ID);
-        assertions.assertThat(task.getCloser()).isNull();
-        assertions.assertThat(task.getCreator().getUserId()).isEqualByComparingTo(CREATOR_ID);
-        assertions.assertThat(task.getTitle()).isEqualTo(TITLE);
-        assertions.assertThat(task.getDescription()).isEqualTo(DESCRIPTION);
-        assertions.assertThat(task.getStatus()).isEqualTo(TaskStatus.OPEN);
-        assertions.assertThat(task.getResolution()).isNull();
-
-        assertions.assertAll();
     }
 }

@@ -59,7 +59,7 @@ public class ListAssertionTest {
     @Test
     public void SizeOfListShouldBeTwoAndItShouldContainCorrectObjectsInCorrectOrder() {
         assertThat(list)
-                .hasSize(2)
+                .hasSize(EXPECTED_SIZE)
                 .containsExactly(first, second);
     }
 
