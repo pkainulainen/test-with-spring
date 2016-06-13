@@ -47,6 +47,6 @@ public class MapAssertionTest {
 
     @Test
     public void shouldNotContainObjectWithIncorrectKey() {
-        assertThat(map).doesNotContainEntry(INCORRECT_KEY, null);
+        assertThat(map).doesNotContainEntry(INCORRECT_KEY, expected);
     }
 }
