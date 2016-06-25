@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile(
+            'org.hamcrest:hamcrest-library:1.3',
+            'org.assertj:assertj-core:3.4.1',
+            'junit:junit:4.12'
+    )
+}
