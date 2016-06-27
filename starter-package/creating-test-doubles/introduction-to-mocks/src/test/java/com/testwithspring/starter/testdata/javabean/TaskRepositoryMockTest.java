@@ -34,5 +34,4 @@ public class TaskRepositoryMockTest {
         Task returned = repository.deleteById(TASK_ID);
         assertThat(returned).isSameAs(deleted);
     }
-
 }
