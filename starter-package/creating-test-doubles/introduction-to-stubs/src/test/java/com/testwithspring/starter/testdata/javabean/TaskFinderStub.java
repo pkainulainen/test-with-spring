@@ -4,7 +4,7 @@ package com.testwithspring.starter.testdata.javabean;
  * This class is a simple stub that returns the configured {@code Task}
  * object when the {@code findById()} method is invoked.
  */
-public class TaskFinderStub implements TaskFinder {
+public final class TaskFinderStub implements TaskFinder {
 
     private final Task found;
 
