@@ -19,7 +19,7 @@ public class TaskServiceTest {
     private TaskService service;
 
     @Before
-    public void createSystemUnderTest() {
+    public void configureSystemUnderTest() {
         service = new TaskService();
     }
 
