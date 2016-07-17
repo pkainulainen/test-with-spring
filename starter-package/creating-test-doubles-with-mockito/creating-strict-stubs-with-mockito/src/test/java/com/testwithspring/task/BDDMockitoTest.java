@@ -25,7 +25,7 @@ public class BDDMockitoTest {
     private TaskRepository repository;
 
     @Before
-    public void createStub() {
+    public void createStrictStub() {
         repository = strictStub(TaskRepository.class);
     }
 
