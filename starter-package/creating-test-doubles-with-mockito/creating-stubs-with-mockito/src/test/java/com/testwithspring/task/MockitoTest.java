@@ -91,8 +91,8 @@ public class MockitoTest {
     }
 
     /**
-     * This test method describes how we can configure the returned
-     * object by using an {@code Answer} object.
+     * This test method describes how we can configure the response
+     * of a stubbed method by using an {@code Answer} object.
      */
     @Test
     public void shouldReturnObjectByUsingAnswer() {
@@ -110,9 +110,9 @@ public class MockitoTest {
             }
         });
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**
