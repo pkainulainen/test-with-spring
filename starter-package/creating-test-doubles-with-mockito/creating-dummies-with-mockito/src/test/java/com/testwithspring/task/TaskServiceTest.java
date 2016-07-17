@@ -45,9 +45,9 @@ public class TaskServiceTest {
      */
     @Test
     public void createStrictDummyInTestMethod() {
-        LoggedInUser notImportant = mock(LoggedInUser.class, new Answer() {
+        LoggedInUser notImportant = mock(LoggedInUser.class, new Answer<LoggedInUser>() {
             @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
+            public LoggedInUser answer(InvocationOnMock invocation) throws Throwable {
                 throw new RuntimeException("The system under test invoked a dummy.");
             }
         });
