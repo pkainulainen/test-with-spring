@@ -97,7 +97,7 @@ public class MockitoTest {
     @Test
     public void shouldReturnObjectByUsingAnswer() {
         Task expected = dummy(Task.class);
-        when(repository.findById(anyLong())).thenAnswer(new Answer<Optional<Task>>() {
+        when(repository.findById(1L)).thenAnswer(new Answer<Optional<Task>>() {
             @Override
             public Optional<Task> answer(InvocationOnMock invocation) throws Throwable {
                 Long idParameter = (Long) invocation.getArguments()[0];

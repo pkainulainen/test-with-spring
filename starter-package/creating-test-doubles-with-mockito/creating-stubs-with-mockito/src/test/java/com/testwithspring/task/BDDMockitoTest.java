@@ -97,7 +97,7 @@ public class BDDMockitoTest {
     @Test
     public void shouldReturnObjectByUsingAnswer() {
         Task expected = dummy(Task.class);
-        given(repository.findById(anyLong())).willAnswer(new Answer<Optional<Task>>() {
+        given(repository.findById(1L)).willAnswer(new Answer<Optional<Task>>() {
             @Override
             public Optional<Task> answer(InvocationOnMock invocation) throws Throwable {
                 Long idParameter = (Long) invocation.getArguments()[0];
