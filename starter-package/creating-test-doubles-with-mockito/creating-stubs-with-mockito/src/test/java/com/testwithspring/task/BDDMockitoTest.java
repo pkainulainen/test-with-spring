@@ -53,9 +53,9 @@ public class BDDMockitoTest {
         Task expected = dummy(Task.class);
         given(repository.findById(1L)).willReturn(Optional.of(expected));
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**
@@ -69,9 +69,9 @@ public class BDDMockitoTest {
         Task expected = dummy(Task.class);
         given(repository.findById(eq(1L))).willReturn(Optional.of(expected));
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**
@@ -85,9 +85,9 @@ public class BDDMockitoTest {
         Task expected = dummy(Task.class);
         given(repository.findById(anyLong())).willReturn(Optional.of(expected));
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**

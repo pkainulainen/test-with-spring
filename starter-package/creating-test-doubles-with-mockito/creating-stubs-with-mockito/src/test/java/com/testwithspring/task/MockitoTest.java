@@ -53,9 +53,9 @@ public class MockitoTest {
         Task expected = dummy(Task.class);
         when(repository.findById(1L)).thenReturn(Optional.of(expected));
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**
@@ -69,9 +69,9 @@ public class MockitoTest {
         Task expected = dummy(Task.class);
         when(repository.findById(eq(1L))).thenReturn(Optional.of(expected));
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**
@@ -85,9 +85,9 @@ public class MockitoTest {
         Task expected = dummy(Task.class);
         when(repository.findById(anyLong())).thenReturn(Optional.of(expected));
 
-        Task actual = repository.findById(1L).get();
+        Optional<Task> actual = repository.findById(1L);
 
-        assertThat(actual).isSameAs(expected);
+        assertThat(actual).containsSame(expected);
     }
 
     /**
