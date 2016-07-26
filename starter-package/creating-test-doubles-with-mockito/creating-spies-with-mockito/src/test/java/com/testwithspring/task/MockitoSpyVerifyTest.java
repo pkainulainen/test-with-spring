@@ -53,7 +53,7 @@ public class MockitoSpyVerifyTest {
      * our test double if the method is a finder method.
      */
     @Test
-    public void verifyWhenMethodIsCalledOnce() {
+    public void verifyWhenMethodWasCalledOnce() {
         repository.findById(1L);
 
         verify(repository).findById(1L);
@@ -67,7 +67,7 @@ public class MockitoSpyVerifyTest {
      * our test double if the method is a finder method.
      */
     @Test
-    public void verifyWhenMethodIsCalledOnceWithoutUsingTheShortCut() {
+    public void verifyWhenMethodWasCalledOnceWithoutUsingTheShortCut() {
         repository.findById(1L);
 
         verify(repository, times(1)).findById(1L);
@@ -97,7 +97,7 @@ public class MockitoSpyVerifyTest {
      * our test double if the method is a finder method.
      */
     @Test
-    public void verifyThatMethodWasInvokedByPassing1LAsMethodParameter() {
+    public void verifyThatMethodWasInvokedByAnd1LWasUsedAsMethodParameter() {
         repository.findById(1L);
 
         verify(repository).findById(eq(1L));
@@ -111,7 +111,7 @@ public class MockitoSpyVerifyTest {
      * our test double if the method is a finder method.
      */
     @Test
-    public void verifyThatMethodWasInvokedByPassingAnyLongAsMethodParameter() {
+    public void verifyThatMethodWasInvokedAndAnyLongObjectWasUsedAsMethodParameter() {
         repository.findById(1L);
 
         verify(repository).findById(anyLong());
