@@ -23,16 +23,16 @@ public class MockitoSpyVerifyTest {
     private TaskRepository repository;
 
     @Before
-    public void createMock() {
+    public void createSpy() {
         repository = spy(new TaskRepositoryImpl());
     }
 
     /**
      * This test demonstrates how we can verify that no interactions
-     * happened between SUT and a mock.
+     * happened between SUT and a spy.
      */
     @Test
-    public void verifyThatNoInteractionsHappenedBetweenSUTAndMock() {
+    public void verifyThatNoInteractionsHappenedBetweenSUTAndSpy() {
         verifyZeroInteractions(repository);
     }
 
@@ -41,7 +41,7 @@ public class MockitoSpyVerifyTest {
      * invoked by using the method parameter {@code 1L}.
      */
     @Test
-    public void verifyThatMethodOfMockWasNotInvoked() {
+    public void verifyThatMethodOfSpyWasNotInvoked() {
         verify(repository, never()).findById(1L);
     }
 
@@ -76,7 +76,7 @@ public class MockitoSpyVerifyTest {
     /**
      * This test demonstrates how we can ensure that a method was called once
      * with the correct method parameters and that there were no other
-     * interactions between SUT and our mock.
+     * interactions between SUT and our spy.
      *
      * Note: We shouldn't verify interactions between system under test and
      * our test double if the method is a finder method.

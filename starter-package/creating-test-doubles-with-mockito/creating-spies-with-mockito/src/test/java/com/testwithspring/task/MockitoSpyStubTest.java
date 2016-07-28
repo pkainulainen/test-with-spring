@@ -25,7 +25,7 @@ public class MockitoSpyStubTest {
     private TaskRepository repository;
 
     @Before
-    public void createStub() {
+    public void createSpy() {
         repository = spy(new TaskRepositoryImpl());
     }
 
