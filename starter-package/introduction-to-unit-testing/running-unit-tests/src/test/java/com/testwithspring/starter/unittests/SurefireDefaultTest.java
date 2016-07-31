@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SurefireDefaultTest {
 
     @Test
-    public void testB() {
-        System.out.println("The default configuration of Maven Surefire plugin.");
+    public void surefireDefaultTest() {
+        System.out.println("The default configuration of Maven Surefire plugin");
     }
 }

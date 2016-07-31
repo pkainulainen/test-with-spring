@@ -12,7 +12,7 @@ import org.junit.experimental.categories.Category;
 public class SurefireCategoryTest {
 
     @Test
-    public void testA() {
+    public void surefireCategoryTest() {
         System.out.println("The category: UnitTest");
     }
 }
