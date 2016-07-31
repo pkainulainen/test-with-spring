@@ -2,6 +2,8 @@ package com.testwithspring.task;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 import java.util.Optional;
 
@@ -47,6 +49,32 @@ public class BDDMockitoJava8StubTest {
         Task actual = repository.save(created);
 
         assertThat(actual).isSameAs(saved);
+    }
+
+    /**
+     * This method demonstrates how we can configure the returned
+     * answer by using an anonymous class.
+     */
+    @Test
+    public void shouldReturnObjectByUsingAnswerAndAnonymousClass() {
+        Task expected = dummy(Task.class);
+        given(repository.findById(1L)).willAnswer(new Answer<Optional<Task>>() {
+
+            @Override
+            public Optional<Task> answer(InvocationOnMock invocation) throws Throwable {
+                Long idParameter = (Long) invocation.getArguments()[0];
+                if (idParameter.equals(1L)) {
+                    return Optional.of(expected);
+                }
+                else {
+                    return Optional.empty();
+                }
+            }
+        });
+
+        Optional<Task> actual = repository.findById(1L);
+
+        assertThat(actual).containsSame(expected);
     }
 
     /**
