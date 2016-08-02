@@ -8,10 +8,10 @@ import org.junit.Test;
  *
  * @author Petri Kainulainen
  */
-public class SurefireDefaultTest {
+public class DefaultTest {
 
     @Test
-    public void surefireDefaultTest() {
-        System.out.println("The default configuration of Maven Surefire plugin");
+    public void defaultTest() {
+        System.out.println("The default configuration");
     }
 }

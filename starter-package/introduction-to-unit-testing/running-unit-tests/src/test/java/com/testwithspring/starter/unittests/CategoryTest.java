@@ -9,10 +9,10 @@ import org.junit.experimental.categories.Category;
  * @author Petri Kainulainen
  */
 @Category(UnitTest.class)
-public class SurefireCategoryTest {
+public class CategoryTest {
 
     @Test
-    public void surefireCategoryTest() {
+    public void categoryTest() {
         System.out.println("The category: UnitTest");
     }
 }
