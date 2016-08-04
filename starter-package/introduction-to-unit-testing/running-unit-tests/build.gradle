@@ -12,4 +12,7 @@ test {
     useJUnit {
         includeCategories 'com.testwithspring.starter.unittests.UnitTest'
     }
+    testLogging {
+        showStandardStreams = true
+    }
 }
