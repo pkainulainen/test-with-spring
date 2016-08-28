@@ -132,6 +132,9 @@ public class TaskSearchControllerTest {
              * I used copy paste because I think that it makes these tests easier to read. However,
              * if there would be a third test class that requires this method, I would move it into
              * an object mother class.
+             *
+             * Also, I didn't use factory methods or test data builder because the {@code TaskListDTO}
+             * objects are just dummy data containers.
              */
             private TaskListDTO createTask(Long id, String title, TaskStatus status) {
                 TaskListDTO task = new TaskListDTO();

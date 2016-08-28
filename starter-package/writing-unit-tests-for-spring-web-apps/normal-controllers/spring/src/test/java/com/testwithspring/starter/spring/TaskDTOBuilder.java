@@ -4,6 +4,12 @@ import com.testwithspring.starter.spring.task.TaskDTO;
 import com.testwithspring.starter.spring.task.TaskResolution;
 import com.testwithspring.starter.spring.task.TaskStatus;
 
+/**
+ * You should consider using a builder because the information
+ * of a {@code TaskDTO} object depends from the status of the
+ * task. In other words, {@code TaskDTO} objects are not just dummy
+ * data containers.
+ */
 public class TaskDTOBuilder {
 
     private Long assigneeId;
