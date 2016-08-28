@@ -47,12 +47,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-/**
- * TODO:
- *
- * - Fix findById() tests.
- * - Add search controller.
- */
 @RunWith(HierarchicalContextRunner.class)
 @Category(UnitTest.class)
 public class TaskCrudControllerTest {
