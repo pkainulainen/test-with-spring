@@ -36,6 +36,11 @@ public class TaskSearchControllerTest {
     private TaskSearchService service;
     private MockMvc mockMvc;
 
+    /**
+     * You need to configure only the view resolver because it is the only component
+     * of the Spring MVC infrastructure that is relevant for the test cases found
+     * from this test class.
+     */
     @Before
     public void configureTheSystemUnderTest() {
         service = stub(TaskSearchService.class);
@@ -58,6 +63,15 @@ public class TaskSearchControllerTest {
 
         private final String SEARCH_TERM = "searchTerm";
 
+        /**
+         * These two test methods are added into this test class because both of them
+         * test behavior that should happen in every case (tasks are not found and
+         * tasks are not found).
+         *
+         * You can, of course, move these test methods into the lower inner cases,
+         * but you should understand that this will your tests harder to change
+         * if you decide to change the behavior of the {@code TaskSearchController} class.
+         */
         @Test
         public void shouldReturnHttpStatusCodeOk() throws Exception {
             mockMvc.perform(post("/task/search")
@@ -113,6 +127,12 @@ public class TaskSearchControllerTest {
                 given(service.search(SEARCH_TERM)).willReturn(Arrays.asList(first, second));
             }
 
+            /**
+             * This factory method is found from the {@code TaskCrudControllerTest} class as well.
+             * I used copy paste because I think that it makes these tests easier to read. However,
+             * if there would be a third test class that requires this method, I would move it into
+             * an object mother class.
+             */
             private TaskListDTO createTask(Long id, String title, TaskStatus status) {
                 TaskListDTO task = new TaskListDTO();
 

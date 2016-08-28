@@ -92,6 +92,11 @@ public class TaskCrudControllerTest {
     private MessageSource messageSource;
     private MockMvc mockMvc;
 
+    /**
+     * You need to configure all these custom components because they are
+     * required if you want to write unit tests for the {@code TaskCrudController}
+     * class.
+     */
     @Before
     public void configureSystemUnderTest() {
         crudService = mock(TaskCrudService.class);
@@ -132,6 +137,10 @@ public class TaskCrudControllerTest {
             private final String FEEDBACK_MESSAGE_KEY_TASK_DELETED = "feedback.message.task.deleted";
             private final String FEEDBACK_MESSAGE_TASK_DELETED = "Task deleted";
 
+            /**
+             * You should consider dividing the configuration of the test cases into multiple private
+             * methods if the configuration has multiple different steps.
+             */
             @Before
             public void configureTestCases() {
                 returnDeletedTask();
@@ -207,6 +216,11 @@ public class TaskCrudControllerTest {
 
     public class ProcessCreateTaskForm {
 
+        /**
+         * Remember that you cannot test all possible combinations because it would
+         * take too long. You should pick the combinations that are easy to test
+         * and test them.
+         */
         public class WhenValidationFails {
 
             public class WhenEmptyFormIsSubmitted {
@@ -419,6 +433,10 @@ public class TaskCrudControllerTest {
             private String maxLengthDescription;
             private String maxLengthTitle;
 
+            /**
+             * You should consider dividing the configuration of the test cases into multiple private
+             * methods if the configuration has multiple different steps.
+             */
             @Before
             public void configureTestCases() {
                 createTitleAndDescription();
@@ -585,6 +603,15 @@ public class TaskCrudControllerTest {
 
     public class ShowTaskList {
 
+        /**
+         * These two test methods are added into this test class because both of them
+         * test behavior that should happen in every case (tasks are not found and
+         * tasks are not found).
+         *
+         * You can, of course, move these test methods into the lower inner cases,
+         * but you should understand that this will your tests harder to change
+         * if you decide to change the behavior of the {@code TaskCrudController} class.
+         */
         @Test
         public void shouldReturnHttpStatusCodeOk() throws Exception {
             mockMvc.perform(get("/"))
@@ -627,6 +654,12 @@ public class TaskCrudControllerTest {
                 given(crudService.findAll()).willReturn(Arrays.asList(first, second));
             }
 
+            /**
+             * This factory method is found from the {@code TaskCrudControllerTest} class as well.
+             * I used copy paste because I think that it makes these tests easier to read. However,
+             * if there would be a third test class that requires this method, I would move it into
+             * an object mother class.
+             */
             private TaskListDTO createTask(Long id, String title, TaskStatus status) {
                 TaskListDTO task = new TaskListDTO();
 
@@ -729,6 +762,11 @@ public class TaskCrudControllerTest {
 
     public class ProcessUpdateTaskForm {
 
+        /**
+         * Remember that you cannot test all possible combinations because it would
+         * take too long. You should pick the combinations that are easy to test
+         * and test them.
+         */
         public class WhenValidationFails {
 
             public class WhenEmptyFormIsSubmitted {
@@ -1001,6 +1039,10 @@ public class TaskCrudControllerTest {
                 private static final String FEEDBACK_MESSAGE_KEY_TASK_UPDATED = "feedback.message.task.updated";
                 private static final String FEEDBACK_MESSAGE_TASK_UPDATED = "Task updated";
 
+                /**
+                 * You should consider dividing the configuration of the test cases into multiple private
+                 * methods if the configuration has multiple different steps.
+                 */
                 @Before
                 public void configureTestCases() {
                     returnUpdatedTask();
