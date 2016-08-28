@@ -41,13 +41,18 @@ dependencies {
             'org.springframework:spring-context-support',
             'javax.servlet:javax.servlet-api',
             'javax.servlet:jstl',
-            'org.springframework:spring-webmvc'
+            'org.springframework:spring-webmvc',
+            'org.hibernate:hibernate-validator'
     )
     testCompile(
             'javax.el:javax.el-api',
             'org.glassfish.web:el-impl:2.2',
             'junit:junit',
+            'org.hamcrest:hamcrest-library',
+            'org.assertj:assertj-core:3.4.1',
             'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
+            'org.mockito:mockito-core',
+            'info.solidsoft.mockito:mockito-java8:0.3.1',
             'org.springframework:spring-test'
     )
 }
