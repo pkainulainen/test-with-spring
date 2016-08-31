@@ -20,8 +20,9 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-thymeleaf'
     )
     testCompile(
-        'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
-        'org.springframework.boot:spring-boot-starter-test'
+            'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
+            'org.springframework.boot:spring-boot-starter-test',
+            'info.solidsoft.mockito:mockito-java8:0.3.1'
     )
 }
 
