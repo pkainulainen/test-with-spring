@@ -13,14 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.springframework.context.MessageSource;
+import org.springframework.context.support.StaticMessageSource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.testwithspring.starter.spring.TestDoubles.stub;
 import static com.testwithspring.starter.spring.web.WebTestConfig.exceptionResolver;
 import static com.testwithspring.starter.spring.web.WebTestConfig.fixedLocaleResolver;
 import static com.testwithspring.starter.spring.web.WebTestConfig.jspViewResolver;
@@ -89,7 +88,7 @@ public class TaskCrudControllerTest {
     private static final String TASK_TITLE = "title";
 
     private TaskCrudService crudService;
-    private MessageSource messageSource;
+    private StaticMessageSource messageSource;
     private MockMvc mockMvc;
 
     /**
@@ -100,7 +99,7 @@ public class TaskCrudControllerTest {
     @Before
     public void configureSystemUnderTest() {
         crudService = mock(TaskCrudService.class);
-        messageSource = stub(MessageSource.class);
+        messageSource = new StaticMessageSource();
 
         mockMvc = MockMvcBuilders.standaloneSetup(new TaskCrudController(crudService, messageSource))
                 .setHandlerExceptionResolvers(exceptionResolver())
@@ -156,10 +155,10 @@ public class TaskCrudControllerTest {
             }
 
             private void returnFeedbackMessage() {
-                given(messageSource.getMessage(FEEDBACK_MESSAGE_KEY_TASK_DELETED,
-                        new Object[]{TASK_TITLE},
-                        WebTestConfig.LOCALE)
-                ).willReturn(FEEDBACK_MESSAGE_TASK_DELETED);
+                messageSource.addMessage(FEEDBACK_MESSAGE_KEY_TASK_DELETED,
+                        WebTestConfig.LOCALE,
+                        FEEDBACK_MESSAGE_TASK_DELETED
+                );
             }
 
             @Test
@@ -461,10 +460,10 @@ public class TaskCrudControllerTest {
             }
 
             private void returnFeedbackMessage() {
-                given(messageSource.getMessage(FEEDBACK_MESSAGE_KEY_TASK_CREATED,
-                        new Object[]{maxLengthTitle},
-                        WebTestConfig.LOCALE)
-                ).willReturn(FEEDBACK_MESSAGE_TASK_CREATED);
+                messageSource.addMessage(FEEDBACK_MESSAGE_KEY_TASK_CREATED,
+                        WebTestConfig.LOCALE,
+                        FEEDBACK_MESSAGE_TASK_CREATED
+                );
             }
 
             @Test
@@ -1063,10 +1062,10 @@ public class TaskCrudControllerTest {
                 }
 
                 private void returnFeedbackMessage() {
-                    given(messageSource.getMessage(FEEDBACK_MESSAGE_KEY_TASK_UPDATED,
-                            new Object[]{maxLengthTitle},
-                            WebTestConfig.LOCALE)
-                    ).willReturn(FEEDBACK_MESSAGE_TASK_UPDATED);
+                    messageSource.addMessage(FEEDBACK_MESSAGE_KEY_TASK_UPDATED,
+                            WebTestConfig.LOCALE,
+                            FEEDBACK_MESSAGE_TASK_UPDATED
+                    );
                 }
 
                 @Test
