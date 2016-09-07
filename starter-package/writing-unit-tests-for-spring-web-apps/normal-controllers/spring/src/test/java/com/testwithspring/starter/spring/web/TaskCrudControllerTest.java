@@ -23,7 +23,6 @@ import java.util.Arrays;
 import static com.testwithspring.starter.spring.web.WebTestConfig.exceptionResolver;
 import static com.testwithspring.starter.spring.web.WebTestConfig.fixedLocaleResolver;
 import static com.testwithspring.starter.spring.web.WebTestConfig.jspViewResolver;
-import static com.testwithspring.starter.spring.web.WebTestConfig.validator;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -104,7 +103,6 @@ public class TaskCrudControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new TaskCrudController(crudService, messageSource))
                 .setHandlerExceptionResolvers(exceptionResolver())
                 .setLocaleResolver(fixedLocaleResolver())
-                .setValidator(validator())
                 .setViewResolvers(jspViewResolver())
                 .build();
     }
