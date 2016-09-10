@@ -1,7 +1,5 @@
 package com.testwithspring.starter.springboot.web;
 
-import org.springframework.validation.Validator;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
@@ -80,14 +78,5 @@ public final class WebTestConfig {
         viewResolver.setSuffix(VIEW_FILENAME_SUFFIX);
 
         return viewResolver;
-    }
-
-    /**
-     * Creates the {@Validator} object that validates the form
-     * objects after a form has been submitted.
-     * @return
-     */
-    public static Validator validator() {
-        return new LocalValidatorFactoryBean();
     }
 }
