@@ -1,0 +1,72 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath (
+                'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE',
+                'org.akhikhl.gretty:gretty:+'
+        )
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:2.0.7.RELEASE'
+    }
+}
+
+gretty {
+    port = 8080
+    contextPath = '/'
+    servletContainer = 'jetty9'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.slf4j:slf4j-api',
+            'log4j:log4j',
+            'org.slf4j:slf4j-log4j12',
+            'org.slf4j:jcl-over-slf4j',
+            'org.springframework:spring-aspects',
+            'org.springframework:spring-context-support',
+            'javax.servlet:javax.servlet-api',
+            'javax.servlet:jstl',
+            'org.springframework:spring-webmvc',
+            'org.hibernate:hibernate-validator',
+            'com.fasterxml.jackson.core:jackson-annotations',
+            'com.fasterxml.jackson.core:jackson-core',
+            'com.fasterxml.jackson.core:jackson-databind',
+            'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+    )
+    testCompile(
+            'javax.el:javax.el-api',
+            'org.glassfish.web:el-impl:2.2',
+            'junit:junit',
+            'org.hamcrest:hamcrest-library',
+            'org.assertj:assertj-core:3.4.1',
+            'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
+            'org.mockito:mockito-core',
+            'info.solidsoft.mockito:mockito-java8:0.3.1',
+            'com.jayway.jsonpath:json-path',
+            'org.springframework:spring-test'
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.starter.spring.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
