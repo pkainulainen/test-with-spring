@@ -5,3 +5,8 @@ build
 target
 .idea
 .DS_Store
+
+# for eclipse
+.settings/
+*.classpath
+*.project
