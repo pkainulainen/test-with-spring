@@ -56,6 +56,9 @@ public class TaskCrudControllerTest {
     private static final int MAX_LENGTH_DESCRIPTION = 500;
     private static final int MAX_LENGTH_TITLE = 100;
 
+    private static final String VALIDATION_ERROR_CODE_EMPTY_FIELD = "NotBlank";
+    private static final String VALIDATION_ERROR_CODE_LONG_FIELD_VALUE = "Size";
+
     //Form fields / model attribute fields
     private static final String TASK_PROPERTY_NAME_ASSIGNEE = "assigneeId";
     private static final String TASK_PROPERTY_NAME_CLOSER = "closerId";
@@ -246,7 +249,10 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attributeHasFieldErrors(MODEL_ATTRIBUTE_NAME_TASK, TASK_PROPERTY_NAME_TITLE));
+                            .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                                    TASK_PROPERTY_NAME_TITLE,
+                                    is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
+                            ));
                 }
 
                 @Test
@@ -316,7 +322,10 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrors(MODEL_ATTRIBUTE_NAME_TASK, TASK_PROPERTY_NAME_DESCRIPTION));
+                            .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                                    TASK_PROPERTY_NAME_DESCRIPTION,
+                                    is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
+                            ));
                 }
 
                 @Test
@@ -386,7 +395,10 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrors(MODEL_ATTRIBUTE_NAME_TASK, TASK_PROPERTY_NAME_TITLE));
+                            .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                                    TASK_PROPERTY_NAME_TITLE,
+                                    is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
+                            ));
                 }
 
                 @Test
@@ -798,7 +810,10 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attributeHasFieldErrors(MODEL_ATTRIBUTE_NAME_TASK, TASK_PROPERTY_NAME_TITLE));
+                            .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                                    TASK_PROPERTY_NAME_TITLE,
+                                    is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
+                            ));
                 }
 
                 @Test
@@ -876,7 +891,10 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrors(MODEL_ATTRIBUTE_NAME_TASK, TASK_PROPERTY_NAME_DESCRIPTION));
+                            .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                                    TASK_PROPERTY_NAME_DESCRIPTION,
+                                    is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
+                            ));
                 }
 
                 @Test
@@ -954,7 +972,10 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrors(MODEL_ATTRIBUTE_NAME_TASK, TASK_PROPERTY_NAME_TITLE));
+                            .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                                    TASK_PROPERTY_NAME_TITLE,
+                                    is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
+                            ));
                 }
 
                 @Test
