@@ -63,7 +63,7 @@ public class TaskCrudControllerTest {
     private static final Long CREATOR_ID = 99L;
     private static final String TASK_DESCRIPTION = "description";
     private static final Long TASK_ID = 1L;
-    private static final String TASK_TITLE = "maxLengthTitle";
+    private static final String TASK_TITLE = "title";
 
     private TaskCrudService crudService;
     private MockMvc mockMvc;
