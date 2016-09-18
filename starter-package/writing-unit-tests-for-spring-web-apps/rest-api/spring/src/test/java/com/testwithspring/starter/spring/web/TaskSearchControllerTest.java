@@ -145,8 +145,10 @@ public class TaskSearchControllerTest {
                 )
                         .andExpect(jsonPath("$[0].id", is(FIRST_TASK_ID.intValue())))
                         .andExpect(jsonPath("$[0].title", is(FIRST_TASK_TITLE)))
+                        .andExpect(jsonPath("$[0].status", is(TaskStatus.OPEN.toString())))
                         .andExpect(jsonPath("$[1].id", is(SECOND_TASK_ID.intValue())))
-                        .andExpect(jsonPath("$[1].title", is(SECOND_TASK_TITLE)));
+                        .andExpect(jsonPath("$[1].title", is(SECOND_TASK_TITLE)))
+                        .andExpect(jsonPath("$[1].status", is(TaskStatus.OPEN.toString())));
             }
         }
     }

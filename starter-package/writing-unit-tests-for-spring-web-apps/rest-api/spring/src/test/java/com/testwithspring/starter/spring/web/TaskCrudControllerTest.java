@@ -63,7 +63,7 @@ public class TaskCrudControllerTest {
     private static final Long CREATOR_ID = 99L;
     private static final String TASK_DESCRIPTION = "description";
     private static final Long TASK_ID = 1L;
-    private static final String TASK_TITLE = "title";
+    private static final String TASK_TITLE = "maxLengthTitle";
 
     private TaskCrudService crudService;
     private MockMvc mockMvc;
@@ -268,6 +268,7 @@ public class TaskCrudControllerTest {
                         .andExpect(jsonPath("$.assigneeId", nullValue()))
                         .andExpect(jsonPath("$.closerId", nullValue()))
                         .andExpect(jsonPath("$.creatorId", is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath("$.id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$.title", is(maxLengthTitle)))
                         .andExpect(jsonPath("$.description", isEmptyString()))
                         .andExpect(jsonPath("$.status", is(TaskStatus.OPEN.toString())))
@@ -370,6 +371,7 @@ public class TaskCrudControllerTest {
                         .andExpect(jsonPath("$.assigneeId", nullValue()))
                         .andExpect(jsonPath("$.closerId", nullValue()))
                         .andExpect(jsonPath("$.creatorId", is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath("$.id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$.title", is(maxLengthTitle)))
                         .andExpect(jsonPath("$.description", is(maxLengthDescription)))
                         .andExpect(jsonPath("$.status", is(TaskStatus.OPEN.toString())))
@@ -463,6 +465,7 @@ public class TaskCrudControllerTest {
                         .andExpect(jsonPath("$.assigneeId", nullValue()))
                         .andExpect(jsonPath("$.closerId", nullValue()))
                         .andExpect(jsonPath("$.creatorId", is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath("$.id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$.title", is(TASK_TITLE)))
                         .andExpect(jsonPath("$.description", is(TASK_DESCRIPTION)))
                         .andExpect(jsonPath("$.status", is(TaskStatus.OPEN.toString())))
@@ -542,8 +545,10 @@ public class TaskCrudControllerTest {
                 mockMvc.perform(get("/api/task"))
                         .andExpect(jsonPath("$[0].id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$[0].title", is(TASK_TITLE)))
+                        .andExpect(jsonPath("$[0].status", is(TaskStatus.OPEN.toString())))
                         .andExpect(jsonPath("$[1].id", is(SECOND_TASK_ID.intValue())))
-                        .andExpect(jsonPath("$[1].title", is(SECOND_TASK_TITLE)));
+                        .andExpect(jsonPath("$[1].title", is(SECOND_TASK_TITLE)))
+                        .andExpect(jsonPath("$[1].status", is(TaskStatus.OPEN.toString())));
             }
         }
     }
@@ -597,6 +602,7 @@ public class TaskCrudControllerTest {
                         .andExpect(jsonPath("$.assigneeId", nullValue()))
                         .andExpect(jsonPath("$.closerId", nullValue()))
                         .andExpect(jsonPath("$.creatorId", is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath("$.id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$.title", is(TASK_TITLE)))
                         .andExpect(jsonPath("$.description", is(TASK_DESCRIPTION)))
                         .andExpect(jsonPath("$.status", is(TaskStatus.OPEN.toString())))
@@ -793,6 +799,7 @@ public class TaskCrudControllerTest {
                         .andExpect(jsonPath("$.assigneeId", nullValue()))
                         .andExpect(jsonPath("$.closerId", nullValue()))
                         .andExpect(jsonPath("$.creatorId", is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath("$.id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$.title", is(maxLengthTitle)))
                         .andExpect(jsonPath("$.description", isEmptyString()))
                         .andExpect(jsonPath("$.status", is(TaskStatus.OPEN.toString())))
@@ -896,6 +903,7 @@ public class TaskCrudControllerTest {
                         .andExpect(jsonPath("$.assigneeId", nullValue()))
                         .andExpect(jsonPath("$.closerId", nullValue()))
                         .andExpect(jsonPath("$.creatorId", is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath("$.id", is(TASK_ID.intValue())))
                         .andExpect(jsonPath("$.title", is(maxLengthTitle)))
                         .andExpect(jsonPath("$.description", is(maxLengthDescription)))
                         .andExpect(jsonPath("$.status", is(TaskStatus.OPEN.toString())))
