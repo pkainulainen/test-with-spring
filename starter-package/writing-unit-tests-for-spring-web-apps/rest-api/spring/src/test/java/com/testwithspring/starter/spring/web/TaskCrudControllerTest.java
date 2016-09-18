@@ -24,7 +24,6 @@ import static com.testwithspring.starter.spring.web.WebTestConfig.objectMapperHt
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isEmptyString;
@@ -190,14 +189,12 @@ public class TaskCrudControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(WebTestUtil.convertObjectToJsonBytes(input))
                 )
-                        .andExpect(jsonPath("$.fieldErrors[*].field", containsInAnyOrder(
-                                JSON_FIELD_DESCRIPTION,
-                                JSON_FIELD_TITLE
-                        )))
-                        .andExpect(jsonPath("$.fieldErrors[*].errorCode", contains(
-                                ERROR_CODE_TOO_LONG_FIELD_VALUE,
-                                ERROR_CODE_TOO_LONG_FIELD_VALUE
-                        )));
+                        .andExpect(jsonPath("$.fieldErrors[?(@.field == 'title')].errorCode",
+                                contains(ERROR_CODE_TOO_LONG_FIELD_VALUE)
+                        ))
+                        .andExpect(jsonPath("$.fieldErrors[?(@.field == 'description')].errorCode",
+                                contains(ERROR_CODE_TOO_LONG_FIELD_VALUE)
+                        ));
             }
 
             @Test
@@ -720,14 +717,12 @@ public class TaskCrudControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(WebTestUtil.convertObjectToJsonBytes(input))
                 )
-                        .andExpect(jsonPath("$.fieldErrors[*].field", containsInAnyOrder(
-                                JSON_FIELD_DESCRIPTION,
-                                JSON_FIELD_TITLE
-                        )))
-                        .andExpect(jsonPath("$.fieldErrors[*].errorCode", contains(
-                                ERROR_CODE_TOO_LONG_FIELD_VALUE,
-                                ERROR_CODE_TOO_LONG_FIELD_VALUE
-                        )));
+                        .andExpect(jsonPath("$.fieldErrors[?(@.field == 'title')].errorCode",
+                                contains(ERROR_CODE_TOO_LONG_FIELD_VALUE)
+                        ))
+                        .andExpect(jsonPath("$.fieldErrors[?(@.field == 'description')].errorCode",
+                                contains(ERROR_CODE_TOO_LONG_FIELD_VALUE)
+                        ));
             }
 
             @Test
