@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0'
+        )
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.unbroken-dome.test-sets'
+
+//If you are using Gradle 2.1+, you can use the new Plugins DSL. The
+//following snippet replaces every line above this comment:
+/*plugins {
+    id 'java'
+    id 'org.unbroken-dome.test-sets' version '1.2.0'
+}*/
+
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile(
+            'junit:junit:4.12'
+    )
+    integrationTestCompile(
+            //Add dependencies that are required to compile
+            //our integration tests.
+    )
+    integrationTestRuntime(
+            //Add dependencies that are required to run
+            //our integration tests.
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.unittests.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+integrationTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.integrationtests.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
