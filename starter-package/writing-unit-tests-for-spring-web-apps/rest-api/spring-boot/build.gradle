@@ -1,0 +1,37 @@
+buildscript {
+    repositories{
+        mavenCentral()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.springframework.boot:spring-boot-starter-web',
+            'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.1',
+            'org.springframework.boot:spring-boot-starter-thymeleaf'
+    )
+    testCompile(
+            'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
+            'org.springframework.boot:spring-boot-starter-test',
+            'info.solidsoft.mockito:mockito-java8:0.3.1'
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.starter.springboot.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
