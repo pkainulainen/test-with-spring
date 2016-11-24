@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-//@ContextConfiguration(locations = {"classpath:message-context.xml"})
+//@ContextConfiguration(locations = {"classpath:persistence-context.xml"})
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
