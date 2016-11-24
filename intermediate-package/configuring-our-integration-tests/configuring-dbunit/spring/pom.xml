@@ -6,8 +6,8 @@
     <version>0.1</version>
     <name>DbUnit Configuration Example: Spring</name>
     <description>
-	    This example demonstrates how you can configure the application context
-	    that configures the system under test.
+	    This example demonstrates how you can integrate DbUnit with
+        Spring Test Framework.
     </description>
 
     <properties>
