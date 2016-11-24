@@ -60,13 +60,11 @@ dependencies {
             'junit:junit',
             'org.hamcrest:hamcrest-library',
             'org.assertj:assertj-core:3.5.2',
-            'org.springframework:spring-test',
-            'org.dbunit:dbunit:2.5.3',
-            'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+            'org.springframework:spring-test'
     )
     integrationTestCompile(
-            //Add dependencies that are required to compile
-            //our integration tests.
+            'org.dbunit:dbunit:2.5.3',
+            'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
     )
     integrationTestRuntime(
             //Add dependencies that are required to run
