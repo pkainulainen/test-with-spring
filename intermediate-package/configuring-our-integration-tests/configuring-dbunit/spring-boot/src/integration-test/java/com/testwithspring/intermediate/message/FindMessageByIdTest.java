@@ -2,7 +2,10 @@ package com.testwithspring.intermediate.message;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.testwithspring.intermediate.IntegrationTest;
+import com.testwithspring.intermediate.IntegrationTestContext;
+import com.testwithspring.intermediate.ReplacementDataSetLoader;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -17,13 +20,14 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {MessageApplication.class})
+@SpringBootTest(classes = {IntegrationTestContext.class})
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class
 })
 @DatabaseSetup("messages.xml")
+@DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 public class FindMessageByIdTest {
 
