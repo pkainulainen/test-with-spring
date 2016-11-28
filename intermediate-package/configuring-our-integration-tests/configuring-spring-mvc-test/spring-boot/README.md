@@ -1,4 +1,4 @@
-# Configuring the Application Context of Our Integration Tests
+# Configuring Spring MVC Test
 
 ## Running Unit Tests
 
