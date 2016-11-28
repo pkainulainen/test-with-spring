@@ -2,14 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.testwithspring.intermediate.message"/>
     <context:property-placeholder location="classpath:application.properties"/>
-
-    <bean id="propertyPlaceHolderConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="${db.driver}"/>
@@ -20,5 +15,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <constructor-arg index="0" ref="hikariConfig"/>
+    </bean>
+
+    <bean id="springLiquibase" class="liquibase.integration.spring.SpringLiquibase">
+        <property name="changeLog" value="classpath:/db/changelog/db.changelog.xml"/>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 </beans>
