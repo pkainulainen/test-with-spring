@@ -5,7 +5,8 @@ buildscript {
     dependencies {
         classpath(
                 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE',
-                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0'
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0',
+                'org.akhikhl.gretty:gretty:+'
         )
     }
 }
@@ -13,6 +14,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.unbroken-dome.test-sets'
+apply plugin: 'org.akhikhl.gretty'
 
 //If you are using Gradle 2.1+, you can use the new Plugins DSL. The
 //following snippet replaces every line above this comment:
@@ -31,6 +33,13 @@ integrationTest.mustRunAfter test
 
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+
+gretty {
+    port = 8080
+    contextPath = '/'
+    servletContainer = 'jetty9'
+    systemProperty 'spring.profiles.active', 'application'
 }
 
 repositories {

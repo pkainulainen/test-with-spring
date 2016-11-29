@@ -1,5 +1,21 @@
 # Using Spring Profiles
 
+## Running the Web Application
+
+You can run the web application by using either Maven or Gradle.
+
+### Running the Web Application with Maven
+
+You can run the web application by using the following command:
+
+	mvn clean jetty:run -P dev
+
+### Running the Web Application with Gradle
+
+You can run the web application by using the following command:
+
+	gradle clean appRun
+
 ## Running Unit Tests
 
 You can run unit tests by using either Maven or Gradle.
