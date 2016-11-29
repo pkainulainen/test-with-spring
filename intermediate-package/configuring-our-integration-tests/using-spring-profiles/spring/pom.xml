@@ -6,7 +6,8 @@
     <version>0.1</version>
     <name>Using Spring Profiles: Spring Example</name>
     <description>
-	    This example demonstrates how you can leverage Spring profiles.
+	    This example demonstrates how you can leverage Spring profiles
+        when you configure your integration tests.
     </description>
 
     <properties>
