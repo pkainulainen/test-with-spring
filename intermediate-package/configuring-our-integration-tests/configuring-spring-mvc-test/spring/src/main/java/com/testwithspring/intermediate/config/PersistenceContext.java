@@ -25,7 +25,7 @@ public class PersistenceContext {
     }
 
     @Bean
-    public SpringLiquibase liquibase(DataSource dataSource, ResourceLoader resourceLoader) {
+    SpringLiquibase liquibase(DataSource dataSource, ResourceLoader resourceLoader) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setChangeLog("classpath:/db/changelog/db.changelog.xml");
         liquibase.setDataSource(dataSource);
