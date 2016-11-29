@@ -1,5 +1,21 @@
 # Configuring Spring MVC Test
 
+## Running the Web Application
+
+You can run the web application by using Maven or Gradle.
+
+### Running the Web Application With Maven
+
+You can run the web application by using the following command:
+
+	mvn clean spring-boot:run -P dev
+	
+### Running the Web Application With Gradle
+
+You can run the web application by using the following command:
+
+	gradle clean bootRun
+
 ## Running Unit Tests
 
 You can run unit tests by using either Maven or Gradle.
