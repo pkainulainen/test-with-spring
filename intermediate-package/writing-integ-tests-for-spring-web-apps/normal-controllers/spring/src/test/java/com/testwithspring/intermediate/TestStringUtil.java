@@ -1,11 +1,11 @@
-package com.testwithspring.intermediate.web;
+package com.testwithspring.intermediate;
 
-public final class WebTestUtil {
+public final class TestStringUtil {
 
     /**
      * Prevents instantiation.
      */
-    private WebTestUtil() {}
+    private TestStringUtil() {}
 
     /**
      * Creates a new {@code String} object.

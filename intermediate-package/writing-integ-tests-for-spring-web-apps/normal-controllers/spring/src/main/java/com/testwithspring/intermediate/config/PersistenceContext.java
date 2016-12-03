@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.auditing.DateTimeProvider;
@@ -61,6 +62,7 @@ public class PersistenceContext {
     }
 
     @Bean
+    @DependsOn("liquibase")
     LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);

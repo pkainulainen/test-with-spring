@@ -1,6 +1,7 @@
 package com.testwithspring.intermediate.web;
 
 import com.testwithspring.intermediate.UnitTest;
+import com.testwithspring.intermediate.TestStringUtil;
 import com.testwithspring.intermediate.task.TaskCrudService;
 import com.testwithspring.intermediate.task.TaskDTO;
 import com.testwithspring.intermediate.task.TaskDTOBuilder;
@@ -294,8 +295,8 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void createTitleAndDescription() {
-                    maxLengthTitle = WebTestUtil.createStringWithLength(MAX_LENGTH_TITLE);
-                    tooLongDescription = WebTestUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1);
+                    maxLengthTitle = TestStringUtil.createStringWithLength(MAX_LENGTH_TITLE);
+                    tooLongDescription = TestStringUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1);
                 }
 
                 @Test
@@ -367,8 +368,8 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void createTitleAndDescription() {
-                    tooLongTitle = WebTestUtil.createStringWithLength(MAX_LENGTH_TITLE + 1);
-                    maxLengthDescription = WebTestUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
+                    tooLongTitle = TestStringUtil.createStringWithLength(MAX_LENGTH_TITLE + 1);
+                    maxLengthDescription = TestStringUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
                 }
 
                 @Test
@@ -454,8 +455,8 @@ public class TaskCrudControllerTest {
             }
 
             private void createTitleAndDescription() {
-                maxLengthDescription = WebTestUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
-                maxLengthTitle = WebTestUtil.createStringWithLength(MAX_LENGTH_TITLE);
+                maxLengthDescription = TestStringUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
+                maxLengthTitle = TestStringUtil.createStringWithLength(MAX_LENGTH_TITLE);
             }
 
             private void returnCreatedTask() {
@@ -860,8 +861,8 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void createTitleAndDescription() {
-                    maxLengthTitle = WebTestUtil.createStringWithLength(MAX_LENGTH_TITLE);
-                    tooLongDescription = WebTestUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1);
+                    maxLengthTitle = TestStringUtil.createStringWithLength(MAX_LENGTH_TITLE);
+                    tooLongDescription = TestStringUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1);
                 }
 
                 @Test
@@ -941,8 +942,8 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void createTitleAndDescription() {
-                    tooLongTitle = WebTestUtil.createStringWithLength(MAX_LENGTH_TITLE + 1);
-                    maxLengthDescription = WebTestUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
+                    tooLongTitle = TestStringUtil.createStringWithLength(MAX_LENGTH_TITLE + 1);
+                    maxLengthDescription = TestStringUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
                 }
 
                 @Test
@@ -1023,8 +1024,8 @@ public class TaskCrudControllerTest {
 
             @Before
             public void createTitleAndDescription() {
-                maxLengthDescription = WebTestUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
-                maxLengthTitle = WebTestUtil.createStringWithLength(MAX_LENGTH_TITLE);
+                maxLengthDescription = TestStringUtil.createStringWithLength(MAX_LENGTH_DESCRIPTION);
+                maxLengthTitle = TestStringUtil.createStringWithLength(MAX_LENGTH_TITLE);
             }
 
             public class WhenUpdatedTaskIsNotFound {
