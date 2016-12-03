@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.config;
 
+import com.testwithspring.intermediate.common.AuditingDateTimeProvider;
+import com.testwithspring.intermediate.common.DateTimeService;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
@@ -7,21 +9,80 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.auditing.DateTimeProvider;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
+@EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
+@EnableJpaRepositories(basePackages = {
+        "com.testwithspring.intermediate.task"
+})
+@EnableTransactionManagement
 public class PersistenceContext {
 
+    private static final String[] ENTITY_PACKAGES = {
+            "com.testwithspring.intermediate.task"
+    };
+
+
+    private static final String PROPERTY_NAME_DB_DRIVER_CLASS = "db.driver";
+    private static final String PROPERTY_NAME_DB_PASSWORD = "db.password";
+    private static final String PROPERTY_NAME_DB_URL = "db.url";
+    private static final String PROPERTY_NAME_DB_USER = "db.username";
+    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
+    private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "hibernate.format_sql";
+    private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
+    private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
+    private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+
     @Bean
+    DateTimeProvider dateTimeProvider(DateTimeService dateTimeService) {
+        return new AuditingDateTimeProvider(dateTimeService);
+    }
+
+    @Bean(destroyMethod = "close")
     DataSource dataSource(Environment env) {
         HikariConfig dataSourceConfig = new HikariConfig();
-        dataSourceConfig.setDriverClassName(env.getRequiredProperty("db.driver"));
-        dataSourceConfig.setJdbcUrl(env.getRequiredProperty("db.url"));
-        dataSourceConfig.setUsername(env.getRequiredProperty("db.username"));
-        dataSourceConfig.setPassword(env.getRequiredProperty("db.password"));
+        dataSourceConfig.setDriverClassName(env.getRequiredProperty(PROPERTY_NAME_DB_DRIVER_CLASS));
+        dataSourceConfig.setJdbcUrl(env.getRequiredProperty(PROPERTY_NAME_DB_URL));
+        dataSourceConfig.setUsername(env.getRequiredProperty(PROPERTY_NAME_DB_USER));
+        dataSourceConfig.setPassword(env.getRequiredProperty(PROPERTY_NAME_DB_PASSWORD));
 
         return new HikariDataSource(dataSourceConfig);
+    }
+
+    @Bean
+    LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Environment env) {
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setDataSource(dataSource);
+        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactoryBean.setPackagesToScan(ENTITY_PACKAGES);
+
+        Properties jpaProperties = new Properties();
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, env.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
+        entityManagerFactoryBean.setJpaProperties(jpaProperties);
+
+        return entityManagerFactoryBean;
+    }
+
+    @Bean
+    JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory);
+        return transactionManager;
     }
 
     @Bean

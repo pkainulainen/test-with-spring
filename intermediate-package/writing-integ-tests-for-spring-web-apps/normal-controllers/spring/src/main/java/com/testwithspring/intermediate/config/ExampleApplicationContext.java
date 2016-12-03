@@ -1,5 +1,9 @@
 package com.testwithspring.intermediate.config;
 
+import com.testwithspring.intermediate.common.ConstantDateTimeService;
+import com.testwithspring.intermediate.common.CurrentTimeDateTimeService;
+import com.testwithspring.intermediate.common.DateTimeService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -30,4 +34,16 @@ public class ExampleApplicationContext {
     @Configuration
     @PropertySource("classpath:integration-test.properties")
     static class IntegrationTestProperties {}
+
+    @Profile(Profiles.APPLICATION)
+    @Bean
+    DateTimeService currentTimeDateTimeService() {
+        return new CurrentTimeDateTimeService();
+    }
+
+    @Profile(Profiles.INTEGRATION_TEST)
+    @Bean
+    DateTimeService constantDateTimeService() {
+        return new ConstantDateTimeService();
+    }
 }
