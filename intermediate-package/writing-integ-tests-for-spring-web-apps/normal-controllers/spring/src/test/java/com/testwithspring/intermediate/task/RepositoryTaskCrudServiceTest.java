@@ -8,6 +8,8 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static com.testwithspring.intermediate.TestDoubles.stub;
@@ -19,6 +21,9 @@ import static org.mockito.BDDMockito.given;
 @Category(UnitTest.class)
 public class RepositoryTaskCrudServiceTest {
 
+    private static final Long TASK_ID = 1L;
+    private static final String TITLE = "Write an example test";
+
     private TaskRepository repository;
     private RepositoryTaskCrudService service;
 
@@ -28,9 +33,43 @@ public class RepositoryTaskCrudServiceTest {
         service = new RepositoryTaskCrudService(repository);
     }
 
-    public class FindById {
+    public class FindAll {
 
-        private final Long TASK_ID = 1L;
+        private final TaskStatus STATUS = TaskStatus.OPEN;
+
+        @Before
+        public void returnOneTask() {
+            TaskListDTO task = createTask();
+            given(repository.findAll()).willReturn(Collections.singletonList(task));
+        }
+
+        private TaskListDTO createTask() {
+            TaskListDTO task = new TaskListDTO();
+
+            task.setId(TASK_ID);
+            task.setStatus(STATUS);
+            task.setTitle(TITLE);
+
+            return task;
+        }
+
+        @Test
+        public void shouldReturnOneTask() {
+            List<TaskListDTO> tasks = service.findAll();
+            assertThat(tasks).hasSize(1);
+        }
+
+        @Test
+        public void shouldReturnTaskWithCorrectInformation() {
+            TaskListDTO task = service.findAll().get(0);
+
+            assertThat(task.getId()).isEqualByComparingTo(TASK_ID);
+            assertThat(task.getStatus()).isEqualTo(STATUS);
+            assertThat(task.getTitle()).isEqualTo(TITLE);
+        }
+    }
+
+    public class FindById {
 
         public class WhenTaskIsNotFound {
 
@@ -48,10 +87,9 @@ public class RepositoryTaskCrudServiceTest {
         public class WhenTaskIsFound {
 
             private final Long ASSIGNEE_ID = 7L;
-            private Long CREATOR_ID = 5L;
-            private String DESCRIPTION = "test the method that finds tasks";
-            private ZonedDateTime NOW = ZonedDateTime.now();
-            private String TITLE = "Write an example test";
+            private final Long CREATOR_ID = 5L;
+            private final String DESCRIPTION = "test the method that finds tasks";
+            private final ZonedDateTime NOW = ZonedDateTime.now();
 
             @Before
             public void returnFoundTask() {

@@ -35,7 +35,12 @@ class RepositoryTaskCrudService implements TaskCrudService {
 
     @Override
     public List<TaskListDTO> findAll() {
-        return null;
+        LOGGER.info("Finding all tasks");
+
+        List<TaskListDTO> tasks = repository.findAll();
+        LOGGER.info("Found {} tasks", tasks.size());
+
+        return tasks;
     }
 
     @Transactional(readOnly = true)

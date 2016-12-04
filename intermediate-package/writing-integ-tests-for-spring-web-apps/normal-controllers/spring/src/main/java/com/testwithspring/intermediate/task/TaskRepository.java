@@ -4,7 +4,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.Optional;
 
-interface TaskRepository extends Repository<Task, Long> {
+interface TaskRepository extends Repository<Task, Long>, CustomTaskRepository {
 
     Optional<Task> findOne(Long id);
 }
