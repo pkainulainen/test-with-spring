@@ -117,7 +117,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.delete(TASK_ID)).willThrow(new TaskNotFoundException());
+                given(crudService.delete(TASK_ID)).willThrow(new TaskNotFoundException(""));
             }
 
             @Test
@@ -549,7 +549,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException());
+                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
             }
 
             @Test
@@ -719,7 +719,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException());
+                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
             }
 
             @Test
@@ -1032,7 +1032,7 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void throwNotFoundException() {
-                    given(crudService.update(isA(TaskFormDTO.class))).willThrow(new TaskNotFoundException());
+                    given(crudService.update(isA(TaskFormDTO.class))).willThrow(new TaskNotFoundException(""));
                 }
 
                 @Test

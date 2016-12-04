@@ -1,12 +1,16 @@
 package com.testwithspring.intermediate.task;
 
+import java.time.ZonedDateTime;
+
 public class TaskDTO {
 
     private Long assigneeId;
     private Long closerId;
+    private ZonedDateTime creationTime;
     private Long creatorId;
     private String description;
     private Long id;
+    private ZonedDateTime modificationTime;
     private TaskResolution resolution;
     private TaskStatus status;
     private String title;
@@ -21,6 +25,10 @@ public class TaskDTO {
         return closerId;
     }
 
+    public ZonedDateTime getCreationTime() {
+        return creationTime;
+    }
+
     public Long getCreatorId() {
         return creatorId;
     }
@@ -31,6 +39,10 @@ public class TaskDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public ZonedDateTime getModificationTime() {
+        return modificationTime;
     }
 
     public TaskResolution getResolution() {
@@ -53,6 +65,10 @@ public class TaskDTO {
         this.closerId = closerId;
     }
 
+    public void setCreationTime(ZonedDateTime creationTime) {
+        this.creationTime = creationTime;
+    }
+
     public void setCreatorId(Long creatorId) {
         this.creatorId = creatorId;
     }
@@ -63,6 +79,10 @@ public class TaskDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setModificationTime(ZonedDateTime modificationTime) {
+        this.modificationTime = modificationTime;
     }
 
     public void setResolution(TaskResolution resolution) {
