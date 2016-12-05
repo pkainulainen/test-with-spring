@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -124,6 +125,23 @@ class Task {
 
     Long getVersion() {
         return version;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", this.id)
+                .append("assignee", this.assignee)
+                .append("closer", this.closer)
+                .append("creationTime", this.creationTime)
+                .append("creator", this.creator)
+                .append("description", this.description)
+                .append("modificationTime", this.modificationTime)
+                .append("resolution", this.resolution)
+                .append("status", this.status)
+                .append("title", this.title)
+                .append("version", this.version)
+                .build();
     }
 
     static class Builder {

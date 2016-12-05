@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Size;
@@ -41,5 +42,14 @@ public class TaskFormDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", this.id)
+                .append("description", this.description)
+                .append("title", this.title)
+                .build();
     }
 }

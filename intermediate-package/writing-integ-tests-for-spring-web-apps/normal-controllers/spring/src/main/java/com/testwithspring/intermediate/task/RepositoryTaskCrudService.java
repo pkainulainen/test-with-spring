@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 class RepositoryTaskCrudService implements TaskCrudService {
 
+    private static final Long CREATOR_ID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryTaskCrudService.class);
 
     private final TaskRepository repository;
@@ -23,9 +24,22 @@ class RepositoryTaskCrudService implements TaskCrudService {
         this.repository = repository;
     }
 
+    @Transactional
     @Override
     public TaskDTO create(TaskFormDTO task) {
-        return null;
+        LOGGER.info("Creating a new task with information: {}", task);
+
+        //The creator is hardcoded because our application doesn't use
+        //Spring Security (yet)
+        Task newTask = Task.getBuilder()
+                .withCreator(CREATOR_ID)
+                .withDescription(task.getDescription())
+                .withTitle(task.getTitle())
+                .build();
+        newTask = repository.save(newTask);
+        LOGGER.info("Created a new task with information: {}", task);
+
+        return mapToDTO(newTask);
     }
 
     @Override
@@ -33,6 +47,7 @@ class RepositoryTaskCrudService implements TaskCrudService {
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<TaskListDTO> findAll() {
         LOGGER.info("Finding all tasks");

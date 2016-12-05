@@ -3,12 +3,14 @@ package com.testwithspring.intermediate.config;
 import com.testwithspring.intermediate.common.ConstantDateTimeService;
 import com.testwithspring.intermediate.common.CurrentTimeDateTimeService;
 import com.testwithspring.intermediate.common.DateTimeService;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
 @ComponentScan("com.testwithspring.intermediate.task")
@@ -45,5 +47,15 @@ public class ExampleApplicationContext {
     @Bean
     DateTimeService constantDateTimeService() {
         return new ConstantDateTimeService();
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+
+        messageSource.setBasename("i18n/messages");
+        messageSource.setUseCodeAsDefaultMessage(true);
+
+        return messageSource;
     }
 }

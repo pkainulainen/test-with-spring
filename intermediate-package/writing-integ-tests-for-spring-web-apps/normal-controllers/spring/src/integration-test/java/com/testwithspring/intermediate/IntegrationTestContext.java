@@ -6,6 +6,7 @@ import com.testwithspring.intermediate.config.ExampleApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 
@@ -27,5 +28,10 @@ public class IntegrationTestContext {
         cf.setDataSource(dataSource);
         cf.setDatabaseConfig(databaseConfigBean);
         return cf;
+    }
+
+    @Bean
+    DbSequenceResetor dbSequenceResetor(NamedParameterJdbcTemplate jdbcTemplate) {
+        return new DbSequenceResetor(jdbcTemplate);
     }
 }
