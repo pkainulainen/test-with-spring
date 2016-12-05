@@ -1,3 +1,4 @@
+
 package com.testwithspring.intermediate.web;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -8,6 +9,7 @@ import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.testwithspring.intermediate.IntegrationTest;
 import com.testwithspring.intermediate.IntegrationTestContext;
 import com.testwithspring.intermediate.ReplacementDataSetLoader;
+import com.testwithspring.intermediate.Tasks;
 import com.testwithspring.intermediate.config.Profiles;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,13 +29,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -47,19 +44,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DbUnitTestExecutionListener.class,
         ServletTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/empty-database.xml")
+@DatabaseSetup("task.xml")
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ProcessCreateNewTaskFormWhenValidationFailTest {
+public class ProcessUpdateTaskFormWhenTaskIsNotFoundTest {
 
-    private static final String MODEL_ATTRIBUTE_NAME_TASK = "task";
+    private static final String FEEDBACK_MESSAGE_TASK_CREATED = "The information of a task was updated successfully.";
+    private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
+
+    private static final String MODEL_ATTRIBUTE_TASK_ID = "taskId";
+
+    private static final String NEW_DESCRIPTION = "The old lesson was not good";
+    private static final String NEW_TITLE = "Rewrite an existing lesson";
 
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_ID = "id";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
-    private static final String VALIDATION_ERROR_CODE_EMPTY_FIELD = "NotBlank";
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -73,60 +74,34 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     }
 
     @Test
-    public void shouldReturnHttpStatusCodeOk() throws Exception {
-        submitEmptyCreateTaskForm()
-                .andExpect(status().isOk());
+    public void shouldReturnHttpStatusCodeNotFound() throws Exception {
+        submitUpdateTaskForm()
+                .andExpect(status().isNotFound());
     }
 
     @Test
-    public void shouldRenderCreateNewTaskView() throws Exception {
-        submitEmptyCreateTaskForm()
-                .andExpect(view().name("task/create"));
+    public void shouldRenderNotFoundView() throws Exception {
+        submitUpdateTaskForm()
+                .andExpect(view().name("error/404"));
     }
 
     @Test
-    public void shouldForwardUserToCreateNewTaskPageUrl() throws Exception {
-        submitEmptyCreateTaskForm()
-                .andExpect(forwardedUrl("/WEB-INF/jsp/task/create.jsp"));
+    public void shouldForwardUserToNotFoundPageUrl() throws Exception {
+        submitUpdateTaskForm()
+                .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
     }
 
     @Test
-    public void shouldShowValidationErrorForEmptyTitle() throws Exception {
-        submitEmptyCreateTaskForm()
-                .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
-                        TASK_PROPERTY_NAME_TITLE,
-                        is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
-                ));
+    @ExpectedDatabase(value = "task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotUpdateTheInformationOfTask() throws Exception {
+        submitUpdateTaskForm();
     }
 
-
-    @Test
-    public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
-        submitEmptyCreateTaskForm()
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
-                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
-                )));
-    }
-
-    @Test
-    public void shouldNotModifyHiddenIdParameter() throws Exception {
-        submitEmptyCreateTaskForm()
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
-                )));
-    }
-
-    @Test
-    @ExpectedDatabase(value = "/com/testwithspring/intermediate/empty-database.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldNotCreateNewTask() throws Exception {
-        submitEmptyCreateTaskForm();
-    }
-
-    private ResultActions submitEmptyCreateTaskForm() throws Exception {
-        return  mockMvc.perform(post("/task/create")
-                .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
-                .param(TASK_PROPERTY_NAME_TITLE, "")
+    private ResultActions submitUpdateTaskForm() throws Exception {
+        return  mockMvc.perform(post("/task/{taskId}/update", Tasks.TASK_ID_NOT_FOUND)
+                .param(TASK_PROPERTY_NAME_DESCRIPTION, NEW_DESCRIPTION)
+                .param(TASK_PROPERTY_NAME_ID, Tasks.TASK_ID_NOT_FOUND.toString())
+                .param(TASK_PROPERTY_NAME_TITLE, NEW_TITLE)
         );
     }
 }

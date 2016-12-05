@@ -26,7 +26,9 @@ import static org.mockito.Mockito.verify;
 @Category(UnitTest.class)
 public class RepositoryTaskCrudServiceTest {
 
-    private final String DESCRIPTION = "test the method that finds tasks";
+    private static final Long CREATOR_ID = 1L;
+    private static final String DESCRIPTION = "test the method that finds tasks";
+    private static final ZonedDateTime NOW = ZonedDateTime.now();
     private static final Long TASK_ID = 1L;
     private static final String TITLE = "Write an example test";
 
@@ -40,9 +42,6 @@ public class RepositoryTaskCrudServiceTest {
     }
 
     public class Create {
-
-        private final Long CREATOR_ID = 1L;
-        private final ZonedDateTime NOW = ZonedDateTime.now();
 
         private TaskFormDTO input;
 
@@ -65,18 +64,10 @@ public class RepositoryTaskCrudServiceTest {
             given(repository.save(isA(Task.class)))
                     .willAnswer(invocation -> {
                         Task saved = (Task) invocation.getArguments()[0];
-
-                        Task returned = Task.getBuilder()
-                                .withCreator(saved.getCreator().getUserId())
-                                .withDescription(saved.getDescription())
-                                .withTitle(saved.getTitle())
-                                .build();
-
-                        ReflectionTestUtils.setField(returned, "creationTime", NOW);
-                        ReflectionTestUtils.setField(returned, "id", TASK_ID);
-                        ReflectionTestUtils.setField(returned, "modificationTime", NOW);
-
-                        return returned;
+                        ReflectionTestUtils.setField(saved, "creationTime", NOW);
+                        ReflectionTestUtils.setField(saved, "id", TASK_ID);
+                        ReflectionTestUtils.setField(saved, "modificationTime", NOW);
+                        return saved;
                     });
         }
 
@@ -122,21 +113,23 @@ public class RepositoryTaskCrudServiceTest {
             assertThatTask(task).isOpen();
         }
 
+        /**
+         * We cannot write tests which ensure that the tested method
+         * creates a new task that has no creationTime, id, and
+         * modificationTime because we set the field values of these
+         * fields when we configure the returned object.
+         *
+         * That is why we have to write integration tests which ensure
+         * that the created task has the correct creationTime, id, and
+         * modificationTime.
+         */
+
         @Test
         public void shouldCreateTaskWithoutAssignee() {
             service.create(input);
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getAssignee()).isNull()
-            ));
-        }
-
-        @Test
-        public void shouldCreateTaskWithoutCreationTime() {
-            service.create(input);
-
-            verify(repository, times(1)).save(assertArg(
-                    t -> assertThat(t.getCreationTime()).isNull()
             ));
         }
 
@@ -155,24 +148,6 @@ public class RepositoryTaskCrudServiceTest {
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getDescription()).isEqualTo(DESCRIPTION)
-            ));
-        }
-
-        @Test
-        public void shouldCreateTaskWithoutId() {
-            service.create(input);
-
-            verify(repository, times(1)).save(assertArg(
-                    t -> assertThat(t.getId()).isNull()
-            ));
-        }
-
-        @Test
-        public void shouldCreateTaskWithoutModificationTime() {
-            service.create(input);
-
-            verify(repository, times(1)).save(assertArg(
-                    t -> assertThat(t.getModificationTime()).isNull()
             ));
         }
 
@@ -250,7 +225,6 @@ public class RepositoryTaskCrudServiceTest {
 
             private final Long ASSIGNEE_ID = 7L;
             private final Long CREATOR_ID = 5L;
-            private final ZonedDateTime NOW = ZonedDateTime.now();
 
             @Before
             public void returnFoundTask() {
@@ -402,6 +376,163 @@ public class RepositoryTaskCrudServiceTest {
 
             private void returnTask(Task found) {
                 given(repository.findOne(TASK_ID)).willReturn(Optional.of(found));
+            }
+        }
+    }
+
+    public class Update {
+
+        public class WhenTaskIsNotFound {
+
+            @Before
+            public void returnEmptyOptional() {
+                given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
+            }
+
+            @Test(expected = TaskNotFoundException.class)
+            public void shouldThrowException() {
+                TaskFormDTO input = createInput();
+                service.update(input);
+            }
+
+            private TaskFormDTO createInput() {
+                TaskFormDTO input = new TaskFormDTO();
+
+                input.setId(TASK_ID);
+
+                return input;
+            }
+        }
+
+        public class WhenTaskIsFound {
+
+            private final String NEW_DESCRIPTION = "Test the method that updates a task";
+            private final String NEW_TITLE = "Write new unit test";
+
+            private TaskFormDTO input;
+            private Task updated;
+
+            @Before
+            public void configureTestCases() {
+                input = createInput();
+                updated = createOpenTask();
+                returnTask(updated);
+            }
+
+            private TaskFormDTO createInput() {
+                TaskFormDTO input = new TaskFormDTO();
+
+                input.setId(TASK_ID);
+                input.setDescription(NEW_DESCRIPTION);
+                input.setTitle(NEW_TITLE);
+
+                return input;
+            }
+
+            private Task createOpenTask() {
+                return new TaskBuilder()
+                        .withCreationTime(NOW)
+                        .withCreator(CREATOR_ID)
+                        .withDescription(DESCRIPTION)
+                        .withId(TASK_ID)
+                        .withModificationTime(NOW)
+                        .withTitle(TITLE)
+                        .withStatusOpen()
+                        .build();
+            }
+
+            private void returnTask(Task task) {
+                given(repository.findOne(TASK_ID)).willReturn(Optional.of(task));
+            }
+
+            @Test
+            public void shouldNotSetAssignee() {
+                service.update(input);
+                assertThat(updated.getAssignee()).isNull();
+            }
+
+            @Test
+            public void shouldNotSetCloser() {
+                service.update(input);
+                assertThat(updated.getCloser()).isNull();
+            }
+
+            @Test
+            public void shouldNotChangeCreator() {
+                service.update(input);
+                assertThat(updated.getCreator().getUserId()).isEqualTo(CREATOR_ID);
+            }
+
+            @Test
+            public void shouldUpdateDescription() {
+                service.update(input);
+                assertThat(updated.getDescription()).isEqualTo(NEW_DESCRIPTION);
+            }
+
+            @Test
+            public void shouldUpdateTitle() {
+                service.update(input);
+                assertThat(updated.getTitle()).isEqualTo(NEW_TITLE);
+            }
+
+            @Test
+            public void shouldNotChangeStatusOfTask() {
+                service.update(input);
+                TaskAssert.assertThatTask(updated).isOpen();
+            }
+
+            @Test
+            public void shouldReturnTaskWithoutAssignee() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getAssigneeId()).isNull();
+            }
+
+            @Test
+            public void shouldReturnTaskWithoutCloser() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getCloserId()).isNull();
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectCreationTime() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getCreationTime()).isEqualTo(NOW);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectCreator() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getCreatorId()).isEqualByComparingTo(CREATOR_ID);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectDescription() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getDescription()).isEqualTo(NEW_DESCRIPTION);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectId() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getId()).isEqualByComparingTo(TASK_ID);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectModificationTime() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getModificationTime()).isEqualTo(NOW);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectTitle() {
+                TaskDTO updated = service.update(input);
+                assertThat(updated.getTitle()).isEqualTo(NEW_TITLE);
+            }
+
+            @Test
+            public void shouldReturnOpenTask() {
+                TaskDTO updated = service.update(input);
+                assertThatTask(updated).isOpen();
             }
         }
     }

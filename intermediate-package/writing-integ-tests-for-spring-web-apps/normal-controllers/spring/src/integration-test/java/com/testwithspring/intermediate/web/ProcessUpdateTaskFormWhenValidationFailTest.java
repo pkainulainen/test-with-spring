@@ -3,6 +3,8 @@ package com.testwithspring.intermediate.web;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.testwithspring.intermediate.IntegrationTest;
 import com.testwithspring.intermediate.IntegrationTestContext;
 import com.testwithspring.intermediate.ReplacementDataSetLoader;
@@ -29,7 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,24 +47,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DbUnitTestExecutionListener.class,
         ServletTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/tasks.xml")
+@DatabaseSetup("task.xml")
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ShowTaskTestWhenTaskIsFoundTest {
+public class ProcessUpdateTaskFormWhenValidationFailTest {
 
     private static final String MODEL_ATTRIBUTE_NAME_TASK = "task";
 
-    private static final String TASK_PROPERTY_NAME_ASSIGNEE = "assigneeId";
-    private static final String TASK_PROPERTY_NAME_CLOSER = "closerId";
-    private static final String TASK_PROPERTY_NAME_CREATION_TIME = "creationTime";
-    private static final String TASK_PROPERTY_NAME_CREATOR = "creatorId";
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_MODIFICATION_TIME = "modificationTime";
-    private static final String TASK_PROPERTY_NAME_RESOLUTION = "resolution";
-    private static final String TASK_PROPERTY_NAME_STATUS = "status";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
+
+    private static final String VALIDATION_ERROR_CODE_EMPTY_FIELD = "NotBlank";
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -77,40 +74,60 @@ public class ShowTaskTestWhenTaskIsFoundTest {
 
     @Test
     public void shouldReturnHttpStatusCodeOk() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID)
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void shouldRenderShowTaskView() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
-                .andExpect(view().name("task/view"));
+    public void shouldRenderUpdateTaskView() throws Exception {
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID)
+                .andExpect(view().name("task/update"));
     }
 
     @Test
-    public void shouldForwardUserToShowTaskPageUrl() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
-                .andExpect(forwardedUrl("/WEB-INF/jsp/task/view.jsp"));
+    public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID)
+                .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
     }
 
     @Test
-    public void shouldShowFoundTask() throws Exception {
-        mockMvc.perform(get("/task/{taskId}", Tasks.WriteExampleApp.ID))
+    public void shouldShowValidationErrorForEmptyTitle() throws Exception {
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID)
+                .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                        TASK_PROPERTY_NAME_TITLE,
+                        is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
+                ));
+    }
+
+
+    @Test
+    public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID)
                 .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID)),
-                        hasProperty(TASK_PROPERTY_NAME_CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
-                        hasProperty(TASK_PROPERTY_NAME_CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),
-                        hasProperty(TASK_PROPERTY_NAME_CREATOR, is(Tasks.WriteExampleApp.CREATOR_ID)),
-                        hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteExampleApp.ID)),
-                        hasProperty(TASK_PROPERTY_NAME_MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
-                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteExampleApp.TITLE)),
-                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)),
-                        hasProperty(TASK_PROPERTY_NAME_STATUS, is(Tasks.WriteExampleApp.STATUS)),
-                        hasProperty(TASK_PROPERTY_NAME_RESOLUTION, is(Tasks.WriteExampleApp.RESOLUTION))
+                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
+                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
                 )));
     }
 
-    private ResultActions openShowTaskPage(Long taskId) throws Exception {
-        return  mockMvc.perform(get("/task/{taskId}", taskId));
+    @Test
+    public void shouldNotModifyHiddenIdParameter() throws Exception {
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID)
+                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
+                        hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID))
+                )));
+    }
+
+    @Test
+    @ExpectedDatabase(value = "task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotUpdateTask() throws Exception {
+        submitEmptyUpdateTaskForm(Tasks.WriteLesson.ID);
+    }
+
+    private ResultActions submitEmptyUpdateTaskForm(Long taskId) throws Exception {
+        return  mockMvc.perform(post("/task/{taskId}/update", taskId)
+                .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
+                .param(TASK_PROPERTY_NAME_ID, taskId.toString())
+                .param(TASK_PROPERTY_NAME_TITLE, "")
+        );
     }
 }

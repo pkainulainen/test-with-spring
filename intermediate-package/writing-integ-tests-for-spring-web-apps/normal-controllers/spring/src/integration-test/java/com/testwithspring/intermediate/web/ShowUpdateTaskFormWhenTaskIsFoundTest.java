@@ -45,23 +45,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DbUnitTestExecutionListener.class,
         ServletTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/tasks.xml")
+@DatabaseSetup("task.xml")
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ShowTaskTestWhenTaskIsFoundTest {
+public class ShowUpdateTaskFormWhenTaskIsFoundTest {
 
     private static final String MODEL_ATTRIBUTE_NAME_TASK = "task";
 
-    private static final String TASK_PROPERTY_NAME_ASSIGNEE = "assigneeId";
-    private static final String TASK_PROPERTY_NAME_CLOSER = "closerId";
-    private static final String TASK_PROPERTY_NAME_CREATION_TIME = "creationTime";
-    private static final String TASK_PROPERTY_NAME_CREATOR = "creatorId";
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_MODIFICATION_TIME = "modificationTime";
-    private static final String TASK_PROPERTY_NAME_RESOLUTION = "resolution";
-    private static final String TASK_PROPERTY_NAME_STATUS = "status";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
 
     @Autowired
@@ -77,40 +70,33 @@ public class ShowTaskTestWhenTaskIsFoundTest {
 
     @Test
     public void shouldReturnHttpStatusCodeOk() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
+        openUpdateTaskPage(Tasks.WriteLesson.ID)
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void shouldRenderShowTaskView() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
-                .andExpect(view().name("task/view"));
+    public void shouldRenderUpdateTaskView() throws Exception {
+        openUpdateTaskPage(Tasks.WriteLesson.ID)
+                .andExpect(view().name("task/update"));
     }
 
     @Test
-    public void shouldForwardUserToShowTaskPageUrl() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
-                .andExpect(forwardedUrl("/WEB-INF/jsp/task/view.jsp"));
+    public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
+        openUpdateTaskPage(Tasks.WriteLesson.ID)
+                .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
     }
 
     @Test
-    public void shouldShowFoundTask() throws Exception {
-        mockMvc.perform(get("/task/{taskId}", Tasks.WriteExampleApp.ID))
+    public void shouldShowInformationOfUpdatedTask() throws Exception {
+       openUpdateTaskPage(Tasks.WriteLesson.ID)
                 .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID)),
-                        hasProperty(TASK_PROPERTY_NAME_CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
-                        hasProperty(TASK_PROPERTY_NAME_CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),
-                        hasProperty(TASK_PROPERTY_NAME_CREATOR, is(Tasks.WriteExampleApp.CREATOR_ID)),
-                        hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteExampleApp.ID)),
-                        hasProperty(TASK_PROPERTY_NAME_MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
-                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteExampleApp.TITLE)),
-                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)),
-                        hasProperty(TASK_PROPERTY_NAME_STATUS, is(Tasks.WriteExampleApp.STATUS)),
-                        hasProperty(TASK_PROPERTY_NAME_RESOLUTION, is(Tasks.WriteExampleApp.RESOLUTION))
+                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)),
+                        hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID)),
+                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteLesson.TITLE))
                 )));
     }
 
-    private ResultActions openShowTaskPage(Long taskId) throws Exception {
-        return  mockMvc.perform(get("/task/{taskId}", taskId));
+    private ResultActions openUpdateTaskPage(Long taskId) throws Exception {
+        return  mockMvc.perform(get("/task/{taskId}/update", taskId));
     }
 }

@@ -96,8 +96,21 @@ class RepositoryTaskCrudService implements TaskCrudService {
         return dto;
     }
 
+    @Transactional
     @Override
     public TaskDTO update(TaskFormDTO task) {
-        return null;
+        LOGGER.info("Updating existing task by using information: {}", task);
+
+        Task updated = repository.findOne(task.getId()).orElseThrow(
+                () -> new TaskNotFoundException(String.format("No task found with id: %d", task.getId()))
+        );
+        LOGGER.debug("Found task: {}", updated);
+
+        updated.setDescription(task.getDescription());
+        updated.setTitle(task.getTitle());
+
+        LOGGER.info("Updated existing task: {}", updated);
+
+        return mapToDTO(updated);
     }
 }

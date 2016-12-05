@@ -127,6 +127,14 @@ class Task {
         return version;
     }
 
+    void setDescription(String description) {
+        this.description = description;
+    }
+
+    void setTitle(String title) {
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

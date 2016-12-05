@@ -1,0 +1,13 @@
+<dataset>
+    <tasks id="2"
+           assignee_id="[null]"
+           closer_id="[null]"
+           creation_time="2016-12-4 11:41:28"
+           creator_id="1"
+           description="This lesson talks about integration testing"
+           modification_time="2016-12-4 11:41:28"
+           resolution="[null]"
+           status="OPEN"
+           title="Write lesson"
+           version="0"/>
+</dataset>

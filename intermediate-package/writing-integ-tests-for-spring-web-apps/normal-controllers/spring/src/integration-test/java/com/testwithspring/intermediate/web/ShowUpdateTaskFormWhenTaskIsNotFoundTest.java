@@ -3,9 +3,6 @@ package com.testwithspring.intermediate.web;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.testwithspring.intermediate.DbSequenceResetor;
 import com.testwithspring.intermediate.IntegrationTest;
 import com.testwithspring.intermediate.IntegrationTestContext;
 import com.testwithspring.intermediate.ReplacementDataSetLoader;
@@ -29,11 +26,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -47,22 +41,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DbUnitTestExecutionListener.class,
         ServletTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/empty-database.xml")
+@DatabaseSetup("task.xml")
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
-
-    private static final String FEEDBACK_MESSAGE_TASK_CREATED = "A new task was created successfully.";
-    private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
-
-    private static final String MODEL_ATTRIBUTE_TASK_ID = "taskId";
-
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
-    @Autowired
-    DbSequenceResetor sequenceResetor;
+public class ShowUpdateTaskFormWhenTaskIsNotFoundTest {
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -73,45 +56,27 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
                 .build();
-
-        sequenceResetor.resetIdColumnSequences("tasks");
     }
 
     @Test
-    public void shouldReturnHttpStatusCodeFound() throws Exception {
-        submitCreateTaskForm()
-                .andExpect(status().isFound());
+    public void shouldReturnHttpStatusCodeNotFound() throws Exception {
+        openUpdateTaskPage(Tasks.TASK_ID_NOT_FOUND)
+                .andExpect(status().isNotFound());
     }
 
     @Test
-    public void shouldRedirectUserToViewTaskView() throws Exception {
-        submitCreateTaskForm()
-                .andExpect(view().name("redirect:/task/{taskId}"))
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_TASK_ID, is("1")));
+    public void shouldRenderNotFoundView()  throws Exception {
+        openUpdateTaskPage(Tasks.TASK_ID_NOT_FOUND)
+                .andExpect(view().name( "error/404"));
     }
 
     @Test
-    public void shouldRedirectUserToViewTaskPageUrl() throws Exception {
-        submitCreateTaskForm()
-                .andExpect(redirectedUrl("/task/1"));
+    public void shouldForwardUserToNotFoundPageUrl() throws Exception {
+        openUpdateTaskPage(Tasks.TASK_ID_NOT_FOUND)
+                .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
     }
 
-    @Test
-    public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
-        submitCreateTaskForm()
-                .andExpect(flash().attribute(FLASH_MESSAGE_KEY_FEEDBACK, FEEDBACK_MESSAGE_TASK_CREATED));
-    }
-
-    @Test
-    @ExpectedDatabase(value = "create-new-task-should-create-new-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldCreateOpenTask() throws Exception {
-        submitCreateTaskForm();
-    }
-
-    private ResultActions submitCreateTaskForm() throws Exception {
-        return  mockMvc.perform(post("/task/create")
-                .param(TASK_PROPERTY_NAME_DESCRIPTION, Tasks.WriteExampleApp.DESCRIPTION)
-                .param(TASK_PROPERTY_NAME_TITLE, Tasks.WriteExampleApp.TITLE)
-        );
+    private ResultActions openUpdateTaskPage(Long taskId) throws Exception {
+        return  mockMvc.perform(get("/task/{taskId}/update", taskId));
     }
 }
