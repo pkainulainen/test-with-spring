@@ -77,7 +77,7 @@ public class ProcessUpdateTaskFormWhenTaskIsNotFoundTest {
     @Test
     public void shouldRenderNotFoundView() throws Exception {
         submitUpdateTaskForm()
-                .andExpect(view().name("error/404"));
+                .andExpect(view().name(WebTestConstants.ErrorViews.NOT_FOUND));
     }
 
     @Test

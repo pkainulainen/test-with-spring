@@ -67,7 +67,7 @@ public class ShowTaskWhenTaskIsNotFoundTest {
     @Test
     public void shouldRenderNotFoundView()  throws Exception {
         openShowTaskPage()
-                .andExpect(view().name( "error/404"));
+                .andExpect(view().name(WebTestConstants.ErrorViews.NOT_FOUND));
     }
 
     @Test

@@ -21,4 +21,12 @@ public final class WebTestConstants {
         public static String TASK_ID = "taskId";
         public static String TASK_LIST = "tasks";
     }
+
+    /**
+     * This class contains the view names of the required error views
+     */
+    public static class ErrorViews {
+
+        public static String NOT_FOUND = "error/404";
+    }
 }

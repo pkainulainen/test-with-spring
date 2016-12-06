@@ -71,7 +71,6 @@ public class TaskCrudControllerTest {
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
 
     //Views
-    private static final String ERROR_VIEW_NAME_NOT_FOUND = "error/404";
     private static final String VIEW_NAME_CREATE_TASK = "task/create";
     private static final String VIEW_NAME_TASK_LIST = "task/list";
     private static final String VIEW_NAME_UPDATE_TASK = "task/update";
@@ -124,7 +123,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldRenderNotFoundView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/delete", TASK_ID))
-                        .andExpect(view().name(ERROR_VIEW_NAME_NOT_FOUND));
+                        .andExpect(view().name(WebTestConstants.ErrorViews.NOT_FOUND));
             }
         }
 
@@ -562,7 +561,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldRenderNotFoundView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}", TASK_ID))
-                        .andExpect(view().name(ERROR_VIEW_NAME_NOT_FOUND));
+                        .andExpect(view().name(WebTestConstants.ErrorViews.NOT_FOUND));
             }
         }
 
@@ -732,7 +731,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldRenderNotFoundView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/update", TASK_ID))
-                        .andExpect(view().name(ERROR_VIEW_NAME_NOT_FOUND));
+                        .andExpect(view().name(WebTestConstants.ErrorViews.NOT_FOUND));
             }
         }
 
@@ -1053,7 +1052,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(view().name(ERROR_VIEW_NAME_NOT_FOUND));
+                            .andExpect(view().name(WebTestConstants.ErrorViews.NOT_FOUND));
                 }
             }
 
