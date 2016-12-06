@@ -54,7 +54,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
 
     private static final String FEEDBACK_MESSAGE_TASK_CREATED = "A new task was created successfully.";
-    private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
 
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
@@ -97,7 +96,9 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     @Test
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         submitCreateTaskForm()
-                .andExpect(flash().attribute(FLASH_MESSAGE_KEY_FEEDBACK, FEEDBACK_MESSAGE_TASK_CREATED));
+                .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                        FEEDBACK_MESSAGE_TASK_CREATED
+                ));
     }
 
     @Test

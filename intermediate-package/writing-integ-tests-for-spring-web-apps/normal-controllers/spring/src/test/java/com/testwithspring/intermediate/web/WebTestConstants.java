@@ -13,6 +13,14 @@ public final class WebTestConstants {
     private WebTestConstants() {}
 
     /**
+     * This class contains the keys of the used flash messages.
+     */
+    public static class FlashMessageKeys {
+
+        public static final String FEEDBACK_MESSAGE = "feedbackMessage";
+    }
+
+    /**
      * This class contains the required model attributes.
      */
     public static class ModelAttributes {

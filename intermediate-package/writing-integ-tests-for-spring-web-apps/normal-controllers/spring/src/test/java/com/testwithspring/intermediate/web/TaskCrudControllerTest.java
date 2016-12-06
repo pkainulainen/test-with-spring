@@ -50,9 +50,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Category(UnitTest.class)
 public class TaskCrudControllerTest {
 
-    //Feedback messages
-    private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
-
     //Validation
     private static final int MAX_LENGTH_DESCRIPTION = 500;
     private static final int MAX_LENGTH_TITLE = 100;
@@ -164,7 +161,9 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/delete", TASK_ID))
-                        .andExpect(flash().attribute(FLASH_MESSAGE_KEY_FEEDBACK, FEEDBACK_MESSAGE_TASK_DELETED));
+                        .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                                FEEDBACK_MESSAGE_TASK_DELETED
+                        ));
             }
 
             @Test
@@ -494,7 +493,9 @@ public class TaskCrudControllerTest {
                         .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                         .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                 )
-                        .andExpect(flash().attribute(FLASH_MESSAGE_KEY_FEEDBACK, FEEDBACK_MESSAGE_TASK_CREATED));
+                        .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                                FEEDBACK_MESSAGE_TASK_CREATED
+                        ));
             }
 
             @Test
@@ -1108,7 +1109,9 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(flash().attribute(FLASH_MESSAGE_KEY_FEEDBACK, FEEDBACK_MESSAGE_TASK_UPDATED));
+                            .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                                    FEEDBACK_MESSAGE_TASK_UPDATED
+                            ));
                 }
 
                 @Test

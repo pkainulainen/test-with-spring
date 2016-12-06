@@ -50,7 +50,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class DeleteTaskWhenTaskIsFoundTest {
 
-    private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
     private static final String FEEDBACK_MESSAGE_TASK_DELETED = "Task was deleted successfully.";
 
     @Autowired
@@ -85,7 +84,9 @@ public class DeleteTaskWhenTaskIsFoundTest {
     @Test
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         deleteTask()
-                .andExpect(flash().attribute(FLASH_MESSAGE_KEY_FEEDBACK, FEEDBACK_MESSAGE_TASK_DELETED));
+                .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                        FEEDBACK_MESSAGE_TASK_DELETED
+                ));
     }
 
     @Test
