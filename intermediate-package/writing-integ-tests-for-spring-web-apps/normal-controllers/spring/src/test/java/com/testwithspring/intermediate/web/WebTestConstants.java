@@ -39,6 +39,14 @@ public final class WebTestConstants {
     }
 
     /**
+     * This class contains the required validation error codes.
+     */
+    public class ValidationErrorCode {
+
+        public static final String EMPTY_FIELD = "NotBlank";
+    }
+
+    /**
      * This class contains the view names of the required "normal" views.
      */
     public static class View {

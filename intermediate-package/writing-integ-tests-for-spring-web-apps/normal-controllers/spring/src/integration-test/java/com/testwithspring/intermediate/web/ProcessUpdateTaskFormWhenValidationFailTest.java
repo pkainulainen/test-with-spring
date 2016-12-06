@@ -57,8 +57,6 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     private static final String TASK_PROPERTY_NAME_ID = "id";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
 
-    private static final String VALIDATION_ERROR_CODE_EMPTY_FIELD = "NotBlank";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -93,7 +91,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
                         TASK_PROPERTY_NAME_TITLE,
-                        is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
+                        is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                 ));
     }
 

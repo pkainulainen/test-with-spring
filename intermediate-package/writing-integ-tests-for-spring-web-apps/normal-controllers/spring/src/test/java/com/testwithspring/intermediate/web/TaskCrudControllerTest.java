@@ -54,7 +54,6 @@ public class TaskCrudControllerTest {
     private static final int MAX_LENGTH_DESCRIPTION = 500;
     private static final int MAX_LENGTH_TITLE = 100;
 
-    private static final String VALIDATION_ERROR_CODE_EMPTY_FIELD = "NotBlank";
     private static final String VALIDATION_ERROR_CODE_LONG_FIELD_VALUE = "Size";
 
     //Form fields / model attribute fields
@@ -237,7 +236,7 @@ public class TaskCrudControllerTest {
                     )
                             .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
                                     TASK_PROPERTY_NAME_TITLE,
-                                    is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
+                                    is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                             ));
                 }
 
@@ -806,7 +805,7 @@ public class TaskCrudControllerTest {
                     )
                             .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
                                     TASK_PROPERTY_NAME_TITLE,
-                                    is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
+                                    is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                             ));
                 }
 
