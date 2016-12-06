@@ -170,7 +170,7 @@ public class TaskCrudControllerTest {
             }
 
             @Test
-            public void shouldRedirectUserToViewTaskView() throws Exception {
+            public void shouldRedirectUserToViewTaskListView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/delete", TASK_ID))
                         .andExpect(view().name(REDIRECT_VIEW_TASK_LIST));
             }

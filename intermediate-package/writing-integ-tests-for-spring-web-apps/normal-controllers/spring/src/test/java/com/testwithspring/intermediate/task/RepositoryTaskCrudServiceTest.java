@@ -13,12 +13,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.testwithspring.intermediate.TestDoubles.stub;
 import static com.testwithspring.intermediate.task.TaskDTOAssert.assertThatTask;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -37,7 +37,7 @@ public class RepositoryTaskCrudServiceTest {
 
     @Before
     public void configureSystemUnderTest() {
-        repository = stub(TaskRepository.class);
+        repository = mock(TaskRepository.class);
         service = new RepositoryTaskCrudService(repository);
     }
 
@@ -167,6 +167,103 @@ public class RepositoryTaskCrudServiceTest {
             verify(repository, times(1)).save(assertArg(
                     t -> TaskAssert.assertThatTask(t).isOpen()
             ));
+        }
+    }
+
+    public class Delete {
+
+        public class WhenTaskIsNotFound {
+
+            @Before
+            public void returnNoTask() {
+                given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
+            }
+
+            @Test(expected = TaskNotFoundException.class)
+            public void shouldThrowException() {
+                service.delete(TASK_ID);
+            }
+        }
+
+        public class WhenTaskIsFound {
+
+            private Task found;
+
+            @Before
+            public void configureTestCases() {
+                found = createOpenTask();
+                returnTask(found);
+            }
+
+            private Task createOpenTask() {
+                return new TaskBuilder()
+                        .withId(TASK_ID)
+                        .withCreationTime(NOW)
+                        .withCreator(CREATOR_ID)
+                        .withDescription(DESCRIPTION)
+                        .withModificationTime(NOW)
+                        .withTitle(TITLE)
+                        .withStatusOpen()
+                        .build();
+            }
+
+            private void returnTask(Task found) {
+                given(repository.findOne(TASK_ID)).willReturn(Optional.of(found));
+            }
+
+            @Test
+            public void shouldDeleteFoundTask() {
+                service.delete(TASK_ID);
+                verify(repository, times(1)).delete(found);
+            }
+
+            @Test
+            public void shouldReturnTaskWithoutAssignee() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getAssigneeId()).isNull();
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectCreationTime() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getCreationTime()).isEqualTo(NOW);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectCreator() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getCreatorId()).isEqualTo(CREATOR_ID);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectDescription() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getDescription()).isEqualTo(DESCRIPTION);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectId() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getId()).isEqualTo(TASK_ID);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectModificationTime() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getModificationTime()).isEqualTo(NOW);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectTitle() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThat(deleted.getTitle()).isEqualTo(TITLE);
+            }
+
+            @Test
+            public void shouldReturnOpenTask() {
+                TaskDTO deleted = service.delete(TASK_ID);
+                assertThatTask(deleted).isOpen();
+            }
         }
     }
 

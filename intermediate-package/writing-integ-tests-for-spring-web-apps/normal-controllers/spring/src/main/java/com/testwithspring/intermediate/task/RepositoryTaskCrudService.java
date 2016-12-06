@@ -42,9 +42,18 @@ class RepositoryTaskCrudService implements TaskCrudService {
         return mapToDTO(newTask);
     }
 
+    @Transactional
     @Override
     public TaskDTO delete(Long id) {
-        return null;
+        LOGGER.info("Deleting a task with id: {}", id);
+
+        Task deleted = repository.findOne(id).orElseThrow(
+                () -> new TaskNotFoundException(String.format("No task found with id: %d", id))
+        );
+        repository.delete(deleted);
+        LOGGER.info("Deleted the task: {}", deleted);
+
+        return mapToDTO(deleted);
     }
 
     @Transactional(readOnly = true)
