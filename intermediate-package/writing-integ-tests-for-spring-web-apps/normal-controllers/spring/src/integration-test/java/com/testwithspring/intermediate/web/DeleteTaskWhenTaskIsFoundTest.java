@@ -73,7 +73,7 @@ public class DeleteTaskWhenTaskIsFoundTest {
     @Test
     public void shouldRedirectUserToViewTaskListView() throws Exception {
         deleteTask()
-                .andExpect(view().name("redirect:/"));
+                .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK_LIST));
     }
 
     @Test

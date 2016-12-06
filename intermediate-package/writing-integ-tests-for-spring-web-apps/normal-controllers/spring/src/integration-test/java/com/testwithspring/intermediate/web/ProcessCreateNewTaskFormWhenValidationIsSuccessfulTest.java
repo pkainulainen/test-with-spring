@@ -84,7 +84,7 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     @Test
     public void shouldRedirectUserToViewTaskView() throws Exception {
         submitCreateTaskForm()
-                .andExpect(view().name("redirect:/task/{taskId}"))
+                .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK))
                 .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_ID, is("1")));
     }
 

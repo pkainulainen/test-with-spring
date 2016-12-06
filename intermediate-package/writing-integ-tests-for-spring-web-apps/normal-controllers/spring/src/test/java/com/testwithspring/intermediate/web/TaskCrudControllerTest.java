@@ -75,8 +75,6 @@ public class TaskCrudControllerTest {
     private static final String VIEW_NAME_TASK_LIST = "task/list";
     private static final String VIEW_NAME_UPDATE_TASK = "task/update";
     private static final String VIEW_NAME_VIEW_TASK = "task/view";
-    private static final String REDIRECT_VIEW_TASK_LIST = "redirect:/";
-    private static final String REDIRECT_VIEW_TASK = "redirect:/task/{taskId}";
 
     //Task
     private static final Long CREATOR_ID = 99L;
@@ -166,7 +164,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldRedirectUserToViewTaskListView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/delete", TASK_ID))
-                        .andExpect(view().name(REDIRECT_VIEW_TASK_LIST));
+                        .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK_LIST));
             }
 
             @Test
@@ -492,7 +490,7 @@ public class TaskCrudControllerTest {
                         .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                         .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                 )
-                        .andExpect(view().name(REDIRECT_VIEW_TASK))
+                        .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK))
                         .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_ID, is(TASK_ID.toString())));
             }
 
@@ -1105,7 +1103,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(view().name(REDIRECT_VIEW_TASK))
+                            .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK))
                             .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_ID, is(TASK_ID.toString())));
                 }
 

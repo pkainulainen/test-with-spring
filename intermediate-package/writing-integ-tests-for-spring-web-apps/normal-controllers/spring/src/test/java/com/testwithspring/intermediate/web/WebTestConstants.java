@@ -17,16 +17,25 @@ public final class WebTestConstants {
      */
     public static class ModelAttributes {
 
-        public static String TASK = "task";
-        public static String TASK_ID = "taskId";
-        public static String TASK_LIST = "tasks";
+        public static final String TASK = "task";
+        public static final String TASK_ID = "taskId";
+        public static final String TASK_LIST = "tasks";
     }
 
     /**
-     * This class contains the view names of the required error views
+     * This class contains the view names of the required error views.
      */
     public static class ErrorViews {
 
-        public static String NOT_FOUND = "error/404";
+        public static final String NOT_FOUND = "error/404";
+    }
+
+    /**
+     * This class contains the view names of the used redirect views.
+     */
+    public static class RedirectViews {
+
+        public static final String SHOW_TASK = "redirect:/task/{taskId}";
+        public static final String SHOW_TASK_LIST = "redirect:/";
     }
 }
