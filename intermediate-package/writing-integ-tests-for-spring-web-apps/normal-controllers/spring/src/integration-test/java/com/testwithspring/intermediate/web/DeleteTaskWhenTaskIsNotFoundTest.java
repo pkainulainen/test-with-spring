@@ -69,7 +69,7 @@ public class DeleteTaskWhenTaskIsNotFoundTest {
     @Test
     public void shouldRenderNotFoundView()  throws Exception {
         deleteTask()
-                .andExpect(view().name( WebTestConstants.ErrorViews.NOT_FOUND));
+                .andExpect(view().name( WebTestConstants.ErrorView.NOT_FOUND));
     }
 
     @Test

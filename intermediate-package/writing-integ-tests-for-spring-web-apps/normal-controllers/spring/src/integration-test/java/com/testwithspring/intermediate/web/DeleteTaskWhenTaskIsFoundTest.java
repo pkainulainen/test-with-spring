@@ -72,7 +72,7 @@ public class DeleteTaskWhenTaskIsFoundTest {
     @Test
     public void shouldRedirectUserToViewTaskListView() throws Exception {
         deleteTask()
-                .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK_LIST));
+                .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK_LIST));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class DeleteTaskWhenTaskIsFoundTest {
     @Test
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         deleteTask()
-                .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                .andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
                         FEEDBACK_MESSAGE_TASK_DELETED
                 ));
     }

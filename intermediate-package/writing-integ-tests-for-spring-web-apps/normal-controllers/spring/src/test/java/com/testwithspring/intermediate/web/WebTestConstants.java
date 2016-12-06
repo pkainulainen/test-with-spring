@@ -15,7 +15,7 @@ public final class WebTestConstants {
     /**
      * This class contains the keys of the used flash messages.
      */
-    public static class FlashMessageKeys {
+    public static class FlashMessageKey {
 
         public static final String FEEDBACK_MESSAGE = "feedbackMessage";
     }
@@ -23,7 +23,7 @@ public final class WebTestConstants {
     /**
      * This class contains the required model attributes.
      */
-    public static class ModelAttributes {
+    public static class ModelAttribute {
 
         public static final String TASK = "task";
         public static final String TASK_ID = "taskId";
@@ -33,7 +33,7 @@ public final class WebTestConstants {
     /**
      * This class contains the view names of the required error views.
      */
-    public static class ErrorViews {
+    public static class ErrorView {
 
         public static final String NOT_FOUND = "error/404";
     }
@@ -41,7 +41,7 @@ public final class WebTestConstants {
     /**
      * This class contains the view names of the required "normal" views.
      */
-    public static class Views {
+    public static class View {
 
         public static final String CREATE_TASK = "task/create";
         public static final String TASK_LIST = "task/list";
@@ -52,7 +52,7 @@ public final class WebTestConstants {
     /**
      * This class contains the view names of the used redirect views.
      */
-    public static class RedirectViews {
+    public static class RedirectView {
 
         public static final String SHOW_TASK = "redirect:/task/{taskId}";
         public static final String SHOW_TASK_LIST = "redirect:/";

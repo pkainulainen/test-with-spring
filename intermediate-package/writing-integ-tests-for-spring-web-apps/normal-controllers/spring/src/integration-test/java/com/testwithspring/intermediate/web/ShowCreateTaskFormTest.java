@@ -74,7 +74,7 @@ public class ShowCreateTaskFormTest {
     @Test
     public void shouldRenderCreateNewTaskView() throws Exception {
         openCreateTaskPage()
-                .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
+                .andExpect(view().name(WebTestConstants.View.CREATE_TASK));
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ShowCreateTaskFormTest {
     @Test
     public void shouldShowEmptyCreateTaskForm() throws Exception {
         openCreateTaskPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, nullValue()),
                         hasProperty(TASK_PROPERTY_NAME_ID, nullValue()),
                         hasProperty(TASK_PROPERTY_NAME_TITLE, nullValue())

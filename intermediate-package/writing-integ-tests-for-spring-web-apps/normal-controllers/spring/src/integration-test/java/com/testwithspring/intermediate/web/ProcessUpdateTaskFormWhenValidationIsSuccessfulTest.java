@@ -82,8 +82,8 @@ public class ProcessUpdateTaskFormWhenValidationIsSuccessfulTest {
     @Test
     public void shouldRedirectUserToViewTaskView() throws Exception {
         submitUpdateTaskForm()
-                .andExpect(view().name(WebTestConstants.RedirectViews.SHOW_TASK))
-                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_ID, is(Tasks.WriteLesson.ID.toString())));
+                .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
+                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_ID, is(Tasks.WriteLesson.ID.toString())));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ProcessUpdateTaskFormWhenValidationIsSuccessfulTest {
     @Test
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         submitUpdateTaskForm()
-                .andExpect(flash().attribute(WebTestConstants.FlashMessageKeys.FEEDBACK_MESSAGE,
+                .andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
                         FEEDBACK_MESSAGE_TASK_CREATED
                 ));
     }

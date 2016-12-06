@@ -79,7 +79,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     @Test
     public void shouldRenderUpdateTaskView() throws Exception {
         submitEmptyUpdateTaskForm()
-                .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
+                .andExpect(view().name(WebTestConstants.View.UPDATE_TASK));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     @Test
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyUpdateTaskForm()
-                .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributes.TASK,
+                .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
                         TASK_PROPERTY_NAME_TITLE,
                         is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
                 ));
@@ -101,7 +101,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     @Test
     public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
         submitEmptyUpdateTaskForm()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
                 )));
@@ -110,7 +110,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     @Test
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyUpdateTaskForm()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID))
                 )));
     }

@@ -76,7 +76,7 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
     @Test
     public void shouldRenderTaskListView() throws Exception {
         openTaskListPage()
-                .andExpect(view().name(WebTestConstants.Views.TASK_LIST));
+                .andExpect(view().name(WebTestConstants.View.TASK_LIST));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
     @Test
     public void shouldShowCorrectTasks() throws Exception {
         openTaskListPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_LIST, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, allOf(
                         hasItem(allOf(
                                 hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteExampleApp.ID)),
                                 hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteExampleApp.TITLE)),
