@@ -70,12 +70,6 @@ public class TaskCrudControllerTest {
     private static final String TASK_PROPERTY_NAME_STATUS = "status";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
 
-    //Views
-    private static final String VIEW_NAME_CREATE_TASK = "task/create";
-    private static final String VIEW_NAME_TASK_LIST = "task/list";
-    private static final String VIEW_NAME_UPDATE_TASK = "task/update";
-    private static final String VIEW_NAME_VIEW_TASK = "task/view";
-
     //Task
     private static final Long CREATOR_ID = 99L;
     private static final String TASK_DESCRIPTION = "description";
@@ -193,7 +187,7 @@ public class TaskCrudControllerTest {
         @Test
         public void shouldRenderCreateTaskView() throws Exception {
             mockMvc.perform(get("/task/create"))
-                    .andExpect(view().name(VIEW_NAME_CREATE_TASK));
+                    .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
         }
 
         @Test
@@ -233,7 +227,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(view().name(VIEW_NAME_CREATE_TASK));
+                            .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
                 }
 
                 @Test
@@ -308,7 +302,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(view().name(VIEW_NAME_CREATE_TASK));
+                            .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
                 }
 
                 @Test
@@ -383,7 +377,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(view().name(VIEW_NAME_CREATE_TASK));
+                            .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
                 }
 
                 @Test
@@ -589,7 +583,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldRenderViewTaskView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}", TASK_ID))
-                        .andExpect(view().name(VIEW_NAME_VIEW_TASK));
+                        .andExpect(view().name(WebTestConstants.Views.VIEW_TASK));
             }
 
             @Test
@@ -629,7 +623,7 @@ public class TaskCrudControllerTest {
         @Test
         public void shouldRenderTaskListView() throws Exception {
             mockMvc.perform(get("/"))
-                    .andExpect(view().name(VIEW_NAME_TASK_LIST));
+                    .andExpect(view().name(WebTestConstants.Views.TASK_LIST));
         }
 
         public class WhenNoTasksIsFound {
@@ -756,7 +750,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldRenderUpdateTaskView() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/update", TASK_ID))
-                        .andExpect(view().name(VIEW_NAME_UPDATE_TASK));
+                        .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
             }
 
             @Test
@@ -799,7 +793,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(view().name(VIEW_NAME_UPDATE_TASK));
+                            .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
                 }
 
                 @Test
@@ -880,7 +874,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(view().name(VIEW_NAME_UPDATE_TASK));
+                            .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
                 }
 
                 @Test
@@ -961,7 +955,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(view().name(VIEW_NAME_UPDATE_TASK));
+                            .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
                 }
 
                 @Test

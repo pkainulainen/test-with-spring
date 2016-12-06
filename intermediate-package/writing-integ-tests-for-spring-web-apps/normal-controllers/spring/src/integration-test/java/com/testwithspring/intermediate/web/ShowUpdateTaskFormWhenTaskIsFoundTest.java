@@ -75,7 +75,7 @@ public class ShowUpdateTaskFormWhenTaskIsFoundTest {
     @Test
     public void shouldRenderUpdateTaskView() throws Exception {
         openUpdateTaskPage()
-                .andExpect(view().name("task/update"));
+                .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
     }
 
     @Test

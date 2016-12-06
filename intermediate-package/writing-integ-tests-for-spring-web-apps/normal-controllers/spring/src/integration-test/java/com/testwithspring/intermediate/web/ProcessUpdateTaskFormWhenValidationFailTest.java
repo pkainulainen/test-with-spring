@@ -79,7 +79,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     @Test
     public void shouldRenderUpdateTaskView() throws Exception {
         submitEmptyUpdateTaskForm()
-                .andExpect(view().name("task/update"));
+                .andExpect(view().name(WebTestConstants.Views.UPDATE_TASK));
     }
 
     @Test

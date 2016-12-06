@@ -79,7 +79,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldRenderCreateNewTaskView() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(view().name("task/create"));
+                .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
     }
 
     @Test

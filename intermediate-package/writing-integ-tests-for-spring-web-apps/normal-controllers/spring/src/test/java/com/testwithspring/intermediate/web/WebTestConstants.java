@@ -31,6 +31,17 @@ public final class WebTestConstants {
     }
 
     /**
+     * This class contains the view names of the required "normal" views.
+     */
+    public static class Views {
+
+        public static final String CREATE_TASK = "task/create";
+        public static final String TASK_LIST = "task/list";
+        public static final String UPDATE_TASK = "task/update";
+        public static final String VIEW_TASK = "task/view";
+    }
+
+    /**
      * This class contains the view names of the used redirect views.
      */
     public static class RedirectViews {

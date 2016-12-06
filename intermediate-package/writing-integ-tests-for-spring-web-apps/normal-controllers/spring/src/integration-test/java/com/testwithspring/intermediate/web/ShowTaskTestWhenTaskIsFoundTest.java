@@ -82,7 +82,7 @@ public class ShowTaskTestWhenTaskIsFoundTest {
     @Test
     public void shouldRenderShowTaskView() throws Exception {
         openShowTaskPage()
-                .andExpect(view().name("task/view"));
+                .andExpect(view().name(WebTestConstants.Views.VIEW_TASK));
     }
 
     @Test

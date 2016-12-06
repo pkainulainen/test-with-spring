@@ -74,7 +74,7 @@ public class ShowCreateTaskFormTest {
     @Test
     public void shouldRenderCreateNewTaskView() throws Exception {
         openCreateTaskPage()
-                .andExpect(view().name("task/create"));
+                .andExpect(view().name(WebTestConstants.Views.CREATE_TASK));
     }
 
     @Test

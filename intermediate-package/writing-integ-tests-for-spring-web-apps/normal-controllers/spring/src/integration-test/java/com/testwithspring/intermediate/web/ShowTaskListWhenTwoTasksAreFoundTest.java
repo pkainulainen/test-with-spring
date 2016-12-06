@@ -76,7 +76,7 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
     @Test
     public void shouldRenderTaskListView() throws Exception {
         openTaskListPage()
-                .andExpect(view().name("task/list"));
+                .andExpect(view().name(WebTestConstants.Views.TASK_LIST));
     }
 
     @Test
