@@ -56,9 +56,6 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
     private static final String TASK_PROPERTY_NAME_STATUS = "status";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
 
-    //Model attributes
-    private static final String MODEL_ATTRIBUTE_NAME_TASKS = "tasks";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -91,7 +88,7 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
     @Test
     public void shouldShowCorrectTasks() throws Exception {
         openTaskListPage()
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASKS, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_LIST, allOf(
                         hasItem(allOf(
                                 hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteExampleApp.ID)),
                                 hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteExampleApp.TITLE)),

@@ -51,8 +51,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ShowTaskTestWhenTaskIsFoundTest {
 
-    private static final String MODEL_ATTRIBUTE_NAME_TASK = "task";
-
     private static final String TASK_PROPERTY_NAME_ASSIGNEE = "assigneeId";
     private static final String TASK_PROPERTY_NAME_CLOSER = "closerId";
     private static final String TASK_PROPERTY_NAME_CREATION_TIME = "creationTime";
@@ -77,26 +75,26 @@ public class ShowTaskTestWhenTaskIsFoundTest {
 
     @Test
     public void shouldReturnHttpStatusCodeOk() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
+        openShowTaskPage()
                 .andExpect(status().isOk());
     }
 
     @Test
     public void shouldRenderShowTaskView() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
+        openShowTaskPage()
                 .andExpect(view().name("task/view"));
     }
 
     @Test
     public void shouldForwardUserToShowTaskPageUrl() throws Exception {
-        openShowTaskPage(Tasks.WriteExampleApp.ID)
+        openShowTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/view.jsp"));
     }
 
     @Test
     public void shouldShowFoundTask() throws Exception {
         mockMvc.perform(get("/task/{taskId}", Tasks.WriteExampleApp.ID))
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID)),
                         hasProperty(TASK_PROPERTY_NAME_CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
                         hasProperty(TASK_PROPERTY_NAME_CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),
@@ -110,7 +108,7 @@ public class ShowTaskTestWhenTaskIsFoundTest {
                 )));
     }
 
-    private ResultActions openShowTaskPage(Long taskId) throws Exception {
-        return  mockMvc.perform(get("/task/{taskId}", taskId));
+    private ResultActions openShowTaskPage() throws Exception {
+        return  mockMvc.perform(get("/task/{taskId}", Tasks.WriteExampleApp.ID));
     }
 }

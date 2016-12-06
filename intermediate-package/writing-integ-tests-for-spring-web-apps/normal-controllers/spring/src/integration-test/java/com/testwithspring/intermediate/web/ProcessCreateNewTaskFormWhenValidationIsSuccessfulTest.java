@@ -56,8 +56,6 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     private static final String FEEDBACK_MESSAGE_TASK_CREATED = "A new task was created successfully.";
     private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
 
-    private static final String MODEL_ATTRIBUTE_TASK_ID = "taskId";
-
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
 
@@ -87,7 +85,7 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     public void shouldRedirectUserToViewTaskView() throws Exception {
         submitCreateTaskForm()
                 .andExpect(view().name("redirect:/task/{taskId}"))
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_TASK_ID, is("1")));
+                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_ID, is("1")));
     }
 
     @Test

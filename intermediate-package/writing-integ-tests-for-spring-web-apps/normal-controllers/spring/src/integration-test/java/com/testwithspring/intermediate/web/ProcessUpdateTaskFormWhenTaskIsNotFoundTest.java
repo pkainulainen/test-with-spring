@@ -50,11 +50,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ProcessUpdateTaskFormWhenTaskIsNotFoundTest {
 
-    private static final String FEEDBACK_MESSAGE_TASK_CREATED = "The information of a task was updated successfully.";
-    private static final String FLASH_MESSAGE_KEY_FEEDBACK = "feedbackMessage";
-
-    private static final String MODEL_ATTRIBUTE_TASK_ID = "taskId";
-
     private static final String NEW_DESCRIPTION = "The old lesson was not good";
     private static final String NEW_TITLE = "Rewrite an existing lesson";
 

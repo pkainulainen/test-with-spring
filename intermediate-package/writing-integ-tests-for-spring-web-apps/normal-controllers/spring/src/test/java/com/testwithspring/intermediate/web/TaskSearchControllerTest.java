@@ -52,9 +52,6 @@ public class TaskSearchControllerTest {
 
     public class ShowSearchResults {
 
-        //Model attributes
-        private final String MODEL_ATTRIBUTE_NAME_TASKS = "tasks";
-
         //Request parameters
         private final String REQUEST_PARAMETER_SEARCH_TERM = "searchTerm";
 
@@ -100,7 +97,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASKS, hasSize(0)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_LIST, hasSize(0)));
             }
         }
 
@@ -150,7 +147,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASKS, hasSize(2)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_LIST, hasSize(2)));
             }
 
             @Test
@@ -158,7 +155,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASKS, contains(first, second)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_LIST, contains(first, second)));
             }
 
             @Test
@@ -166,7 +163,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASKS, allOf(
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK_LIST, allOf(
                                 hasItem(allOf(
                                         hasProperty(TASK_PROPERTY_NAME_ID, is(FIRST_TASK_ID)),
                                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(FIRST_TASK_TITLE)),

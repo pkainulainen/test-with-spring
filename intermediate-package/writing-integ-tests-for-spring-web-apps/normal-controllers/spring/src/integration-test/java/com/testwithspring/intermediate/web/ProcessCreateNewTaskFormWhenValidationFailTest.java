@@ -53,8 +53,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ProcessCreateNewTaskFormWhenValidationFailTest {
 
-    private static final String MODEL_ATTRIBUTE_NAME_TASK = "task";
-
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_ID = "id";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
@@ -93,7 +91,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(model().attributeHasFieldErrorCode(MODEL_ATTRIBUTE_NAME_TASK,
+                .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributes.TASK,
                         TASK_PROPERTY_NAME_TITLE,
                         is(VALIDATION_ERROR_CODE_EMPTY_FIELD)
                 ));
@@ -103,7 +101,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
                 )));
@@ -112,7 +110,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
                 )));
     }

@@ -60,23 +60,23 @@ public class ShowUpdateTaskFormWhenTaskIsNotFoundTest {
 
     @Test
     public void shouldReturnHttpStatusCodeNotFound() throws Exception {
-        openUpdateTaskPage(Tasks.TASK_ID_NOT_FOUND)
+        openUpdateTaskPage()
                 .andExpect(status().isNotFound());
     }
 
     @Test
     public void shouldRenderNotFoundView()  throws Exception {
-        openUpdateTaskPage(Tasks.TASK_ID_NOT_FOUND)
+        openUpdateTaskPage()
                 .andExpect(view().name( "error/404"));
     }
 
     @Test
     public void shouldForwardUserToNotFoundPageUrl() throws Exception {
-        openUpdateTaskPage(Tasks.TASK_ID_NOT_FOUND)
+        openUpdateTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
     }
 
-    private ResultActions openUpdateTaskPage(Long taskId) throws Exception {
-        return  mockMvc.perform(get("/task/{taskId}/update", taskId));
+    private ResultActions openUpdateTaskPage() throws Exception {
+        return  mockMvc.perform(get("/task/{taskId}/update", Tasks.TASK_ID_NOT_FOUND));
     }
 }

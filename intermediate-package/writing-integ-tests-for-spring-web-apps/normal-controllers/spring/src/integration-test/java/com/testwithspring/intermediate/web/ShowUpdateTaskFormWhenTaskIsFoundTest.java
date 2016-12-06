@@ -51,8 +51,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ShowUpdateTaskFormWhenTaskIsFoundTest {
 
-    private static final String MODEL_ATTRIBUTE_NAME_TASK = "task";
-
     private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
     private static final String TASK_PROPERTY_NAME_ID = "id";
     private static final String TASK_PROPERTY_NAME_TITLE = "title";
@@ -70,33 +68,33 @@ public class ShowUpdateTaskFormWhenTaskIsFoundTest {
 
     @Test
     public void shouldReturnHttpStatusCodeOk() throws Exception {
-        openUpdateTaskPage(Tasks.WriteLesson.ID)
+        openUpdateTaskPage()
                 .andExpect(status().isOk());
     }
 
     @Test
     public void shouldRenderUpdateTaskView() throws Exception {
-        openUpdateTaskPage(Tasks.WriteLesson.ID)
+        openUpdateTaskPage()
                 .andExpect(view().name("task/update"));
     }
 
     @Test
     public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
-        openUpdateTaskPage(Tasks.WriteLesson.ID)
+        openUpdateTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
     }
 
     @Test
     public void shouldShowInformationOfUpdatedTask() throws Exception {
-       openUpdateTaskPage(Tasks.WriteLesson.ID)
-                .andExpect(model().attribute(MODEL_ATTRIBUTE_NAME_TASK, allOf(
+       openUpdateTaskPage()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributes.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)),
                         hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID)),
                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteLesson.TITLE))
                 )));
     }
 
-    private ResultActions openUpdateTaskPage(Long taskId) throws Exception {
-        return  mockMvc.perform(get("/task/{taskId}/update", taskId));
+    private ResultActions openUpdateTaskPage() throws Exception {
+        return  mockMvc.perform(get("/task/{taskId}/update", Tasks.WriteLesson.ID));
     }
 }
