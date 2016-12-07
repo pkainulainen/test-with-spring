@@ -13,6 +13,8 @@ public final class Tasks {
     private Tasks() {}
 
     public static final Long TASK_ID_NOT_FOUND = 599L;
+    public static final String SEARCH_TERM = "Esso";
+    public static final String SEARCH_TERM_NOT_FOUND = "NO_PE";
 
     public static class WriteExampleApp {
 

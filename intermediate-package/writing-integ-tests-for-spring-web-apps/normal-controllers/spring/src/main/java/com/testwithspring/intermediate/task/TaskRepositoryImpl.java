@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class TaskRepositoryImpl implements CustomTaskRepository {
@@ -18,6 +20,12 @@ public class TaskRepositoryImpl implements CustomTaskRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskRepositoryImpl.class);
 
     private static final String QUERY_FIND_ALL = "SELECT id, status, title FROM tasks";
+    private static final String QUERY_SEARCH = "SELECT id, status, title " +
+            "FROM tasks t " +
+            "WHERE " +
+            "LOWER(t.title) LIKE LOWER(CONCAT('%',:searchTerm, '%')) OR " +
+            "LOWER(t.description) LIKE LOWER(CONCAT('%',:searchTerm, '%')) " +
+            "ORDER BY t.title ASC";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -35,6 +43,20 @@ public class TaskRepositoryImpl implements CustomTaskRepository {
         LOGGER.info("Found {} tasks", tasks.size());
 
         return tasks;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<TaskListDTO> search(String searchTerm) {
+        LOGGER.info("Finding tasks by using search term: {}", searchTerm);
+
+        Map<String, String> queryParams = new HashMap<>();
+        queryParams.put("searchTerm", searchTerm);
+
+        List<TaskListDTO> results = jdbcTemplate.query(QUERY_SEARCH, queryParams, new TaskListRowMapper());
+        LOGGER.info("Found {} tasks by using search term: {}", results.size(), searchTerm);
+
+        return results;
     }
 
     private class TaskListRowMapper implements RowMapper<TaskListDTO> {

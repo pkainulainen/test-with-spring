@@ -13,4 +13,13 @@ interface CustomTaskRepository {
      * @return
      */
     List<TaskListDTO> findAll();
+
+    /**
+     * Finds tasks whose title or description contains the given
+     * search term.
+     * @param searchTerm
+     * @return  A list of found tasks. If no tasks is found, this method
+     *          returns an empty list.
+     */
+    List<TaskListDTO> search(String searchTerm);
 }

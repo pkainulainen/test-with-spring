@@ -8,9 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * A dummy implementation which ensures that we can run the application
- */
 @Service
 class RepositoryTaskCrudService implements TaskCrudService {
 

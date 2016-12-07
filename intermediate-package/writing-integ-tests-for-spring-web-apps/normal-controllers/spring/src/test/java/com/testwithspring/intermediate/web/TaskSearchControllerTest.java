@@ -52,12 +52,6 @@ public class TaskSearchControllerTest {
 
     public class ShowSearchResults {
 
-        //Request parameters
-        private final String REQUEST_PARAMETER_SEARCH_TERM = "searchTerm";
-
-        //Views
-        private final String VIEW_NAME_SEARCH_RESULT_VIEW = "task/search-results";
-
         private final String SEARCH_TERM = "searchTerm";
 
         /**
@@ -72,7 +66,7 @@ public class TaskSearchControllerTest {
         @Test
         public void shouldReturnHttpStatusCodeOk() throws Exception {
             mockMvc.perform(post("/task/search")
-                    .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
+                    .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
             )
                     .andExpect(status().isOk());
         }
@@ -80,9 +74,9 @@ public class TaskSearchControllerTest {
         @Test
         public void shouldRenderSearchResultView() throws Exception {
             mockMvc.perform(post("/task/search")
-                    .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
+                    .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
             )
-                    .andExpect(view().name(VIEW_NAME_SEARCH_RESULT_VIEW));
+                    .andExpect(view().name(WebTestConstants.View.SEARCH_RESULTS));
         }
 
         public class WhenNoTasksIsFound {
@@ -95,7 +89,7 @@ public class TaskSearchControllerTest {
             @Test
             public void shouldShowEmptyTaskList() throws Exception {
                 mockMvc.perform(post("/task/search")
-                        .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
+                        .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
                 )
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)));
             }
@@ -141,7 +135,7 @@ public class TaskSearchControllerTest {
             @Test
             public void shouldShowTaskListThatHasTwoTasks() throws Exception {
                 mockMvc.perform(post("/task/search")
-                        .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
+                        .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
                 )
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(2)));
             }
@@ -149,7 +143,7 @@ public class TaskSearchControllerTest {
             @Test
             public void shouldShowTwoTasksInCorrectOrder() throws Exception {
                 mockMvc.perform(post("/task/search")
-                        .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
+                        .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
                 )
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, contains(first, second)));
             }
@@ -157,7 +151,7 @@ public class TaskSearchControllerTest {
             @Test
             public void shouldShowCorrectInformation() throws Exception {
                 mockMvc.perform(post("/task/search")
-                        .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
+                        .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
                 )
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
                                 hasItem(allOf(

@@ -72,6 +72,7 @@ public final class WebTestConstants {
     public static class View {
 
         public static final String CREATE_TASK = "task/create";
+        public static final String SEARCH_RESULTS = "task/search-results";
         public static final String TASK_LIST = "task/list";
         public static final String UPDATE_TASK = "task/update";
         public static final String VIEW_TASK = "task/view";
@@ -84,5 +85,10 @@ public final class WebTestConstants {
 
         public static final String SHOW_TASK = "redirect:/task/{taskId}";
         public static final String SHOW_TASK_LIST = "redirect:/";
+    }
+
+    public static class RequestParameter {
+
+        public static final String SEARCH_TERM = "searchTerm";
     }
 }
