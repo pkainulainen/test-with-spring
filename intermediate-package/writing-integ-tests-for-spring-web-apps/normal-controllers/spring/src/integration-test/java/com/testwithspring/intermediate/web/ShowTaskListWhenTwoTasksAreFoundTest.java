@@ -52,10 +52,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ShowTaskListWhenTwoTasksAreFoundTest {
 
-    private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_STATUS = "status";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -90,14 +86,14 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
         openTaskListPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
                         hasItem(allOf(
-                                hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteExampleApp.ID)),
-                                hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteExampleApp.TITLE)),
-                                hasProperty(TASK_PROPERTY_NAME_STATUS, is(Tasks.WriteExampleApp.STATUS))
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteExampleApp.ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(Tasks.WriteExampleApp.STATUS))
                         )),
                         hasItem(allOf(
-                                hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID)),
-                                hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteLesson.TITLE)),
-                                hasProperty(TASK_PROPERTY_NAME_STATUS, is(Tasks.WriteLesson.STATUS))
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteLesson.ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteLesson.TITLE)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(Tasks.WriteLesson.STATUS))
                         ))
                 )));
     }

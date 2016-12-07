@@ -58,10 +58,6 @@ public class ProcessUpdateTaskFormWhenValidationIsSuccessfulTest {
     private static final String NEW_DESCRIPTION = "The old lesson was not good";
     private static final String NEW_TITLE = "Rewrite an existing lesson";
 
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -108,9 +104,9 @@ public class ProcessUpdateTaskFormWhenValidationIsSuccessfulTest {
 
     private ResultActions submitUpdateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/{taskId}/update", Tasks.WriteLesson.ID)
-                .param(TASK_PROPERTY_NAME_DESCRIPTION, NEW_DESCRIPTION)
-                .param(TASK_PROPERTY_NAME_ID, Tasks.WriteLesson.ID.toString())
-                .param(TASK_PROPERTY_NAME_TITLE, NEW_TITLE)
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, NEW_DESCRIPTION)
+                .param(WebTestConstants.ModelAttributeProperty.Task.ID, Tasks.WriteLesson.ID.toString())
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, NEW_TITLE)
         );
     }
 }

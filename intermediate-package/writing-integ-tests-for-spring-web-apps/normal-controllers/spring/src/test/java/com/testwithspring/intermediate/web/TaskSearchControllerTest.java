@@ -102,11 +102,7 @@ public class TaskSearchControllerTest {
         }
 
         public class WhenTwoTasksAreFound {
-
-            //Model attribute fields
-            private static final String TASK_PROPERTY_NAME_ID = "id";
-            private static final String TASK_PROPERTY_NAME_STATUS = "status";
-            private static final String TASK_PROPERTY_NAME_TITLE = "title";
+            
 
             private final Long FIRST_TASK_ID = 1L;
             private final String FIRST_TASK_TITLE = "firstTask";
@@ -165,14 +161,14 @@ public class TaskSearchControllerTest {
                 )
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
                                 hasItem(allOf(
-                                        hasProperty(TASK_PROPERTY_NAME_ID, is(FIRST_TASK_ID)),
-                                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(FIRST_TASK_TITLE)),
-                                        hasProperty(TASK_PROPERTY_NAME_STATUS, is(TaskStatus.OPEN))
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(FIRST_TASK_ID)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(FIRST_TASK_TITLE)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN))
                                 )),
                                 hasItem(allOf(
-                                        hasProperty(TASK_PROPERTY_NAME_ID, is(SECOND_TASK_ID)),
-                                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(SECOND_TASK_TITLE)),
-                                        hasProperty(TASK_PROPERTY_NAME_STATUS, is(TaskStatus.OPEN))
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(SECOND_TASK_ID)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(SECOND_TASK_TITLE)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN))
                                 ))
                         )));
             }

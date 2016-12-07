@@ -21,6 +21,26 @@ public final class WebTestConstants {
     }
 
     /**
+     * This class contains the property names of the required model attributes.
+     */
+    public static class ModelAttributeProperty {
+
+        public static class Task {
+
+            public static final String ASSIGNEE = "assigneeId";
+            public static final String CLOSER = "closerId";
+            public static final String CREATION_TIME = "creationTime";
+            public static final String CREATOR = "creatorId";
+            public static final String DESCRIPTION = "description";
+            public static final String ID = "id";
+            public static final String MODIFICATION_TIME = "modificationTime";
+            public static final String RESOLUTION = "resolution";
+            public static final String STATUS = "status";
+            public static final String TITLE = "title";
+        }
+    }
+
+    /**
      * This class contains the names of the required model attributes.
      */
     public static class ModelAttributeName {

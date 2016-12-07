@@ -50,10 +50,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ShowCreateTaskFormTest {
 
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -87,9 +83,9 @@ public class ShowCreateTaskFormTest {
     public void shouldShowEmptyCreateTaskForm() throws Exception {
         openCreateTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, nullValue()),
-                        hasProperty(TASK_PROPERTY_NAME_ID, nullValue()),
-                        hasProperty(TASK_PROPERTY_NAME_TITLE, nullValue())
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, nullValue()),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue()),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, nullValue())
                 )));
     }
 

@@ -50,11 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ShowUpdateTaskFormWhenTaskIsFoundTest {
-
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
+    
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -88,9 +84,9 @@ public class ShowUpdateTaskFormWhenTaskIsFoundTest {
     public void shouldShowInformationOfUpdatedTask() throws Exception {
        openUpdateTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)),
-                        hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID)),
-                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteLesson.TITLE))
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteLesson.ID)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteLesson.TITLE))
                 )));
     }
 

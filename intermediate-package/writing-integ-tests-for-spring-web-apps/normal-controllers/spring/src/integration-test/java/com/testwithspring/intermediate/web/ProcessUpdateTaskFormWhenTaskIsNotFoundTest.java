@@ -53,10 +53,6 @@ public class ProcessUpdateTaskFormWhenTaskIsNotFoundTest {
     private static final String NEW_DESCRIPTION = "The old lesson was not good";
     private static final String NEW_TITLE = "Rewrite an existing lesson";
 
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -94,9 +90,9 @@ public class ProcessUpdateTaskFormWhenTaskIsNotFoundTest {
 
     private ResultActions submitUpdateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/{taskId}/update", Tasks.TASK_ID_NOT_FOUND)
-                .param(TASK_PROPERTY_NAME_DESCRIPTION, NEW_DESCRIPTION)
-                .param(TASK_PROPERTY_NAME_ID, Tasks.TASK_ID_NOT_FOUND.toString())
-                .param(TASK_PROPERTY_NAME_TITLE, NEW_TITLE)
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, NEW_DESCRIPTION)
+                .param(WebTestConstants.ModelAttributeProperty.Task.ID, Tasks.TASK_ID_NOT_FOUND.toString())
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, NEW_TITLE)
         );
     }
 }

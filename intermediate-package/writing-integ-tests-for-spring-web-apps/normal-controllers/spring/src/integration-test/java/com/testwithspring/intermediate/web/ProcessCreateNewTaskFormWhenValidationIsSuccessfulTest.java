@@ -55,9 +55,6 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
 
     private static final String FEEDBACK_MESSAGE_TASK_CREATED = "A new task was created successfully.";
 
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
     @Autowired
     DbSequenceResetor sequenceResetor;
 
@@ -109,8 +106,8 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
 
     private ResultActions submitCreateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/create")
-                .param(TASK_PROPERTY_NAME_DESCRIPTION, Tasks.WriteExampleApp.DESCRIPTION)
-                .param(TASK_PROPERTY_NAME_TITLE, Tasks.WriteExampleApp.TITLE)
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, Tasks.WriteExampleApp.DESCRIPTION)
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, Tasks.WriteExampleApp.TITLE)
         );
     }
 }

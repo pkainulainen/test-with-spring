@@ -53,10 +53,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ProcessCreateNewTaskFormWhenValidationFailTest {
 
-    private static final String TASK_PROPERTY_NAME_DESCRIPTION = "description";
-    private static final String TASK_PROPERTY_NAME_ID = "id";
-    private static final String TASK_PROPERTY_NAME_TITLE = "title";
-
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -90,7 +86,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
-                        TASK_PROPERTY_NAME_TITLE,
+                        WebTestConstants.ModelAttributeProperty.Task.TITLE,
                         is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                 ));
     }
@@ -100,8 +96,8 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
-                        hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is("")),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(""))
                 )));
     }
 
@@ -109,7 +105,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                        hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue())
                 )));
     }
 
@@ -121,8 +117,8 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
 
     private ResultActions submitEmptyCreateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/create")
-                .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
-                .param(TASK_PROPERTY_NAME_TITLE, "")
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, "")
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
         );
     }
 }
