@@ -1,4 +1,4 @@
-# Using Spring Profiles
+# Writing Integration Tests for Spring Web Applications - Normal Controllers
 
 ## Running the Web Application
 
