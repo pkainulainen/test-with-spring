@@ -94,7 +94,7 @@ public class ShowTaskTestWhenTaskIsFoundTest {
     @Test
     public void shouldShowFoundTask() throws Exception {
         mockMvc.perform(get("/task/{taskId}", Tasks.WriteExampleApp.ID))
-                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID)),
                         hasProperty(TASK_PROPERTY_NAME_CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
                         hasProperty(TASK_PROPERTY_NAME_CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),

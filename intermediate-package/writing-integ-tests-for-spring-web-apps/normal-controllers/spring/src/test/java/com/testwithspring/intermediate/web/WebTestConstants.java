@@ -21,9 +21,9 @@ public final class WebTestConstants {
     }
 
     /**
-     * This class contains the required model attributes.
+     * This class contains the names of the required model attributes.
      */
-    public static class ModelAttribute {
+    public static class ModelAttributeName {
 
         public static final String TASK = "task";
         public static final String TASK_ID = "taskId";

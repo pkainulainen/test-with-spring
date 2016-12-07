@@ -80,7 +80,7 @@ public class ShowTaskListWhenNoTasksIsFoundTest {
     @Test
     public void shouldNotShowAnyTasks() throws Exception {
         openTaskListPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, hasSize(0)));
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)));
     }
 
     private ResultActions openTaskListPage() throws Exception {

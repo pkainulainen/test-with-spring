@@ -89,7 +89,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                         TASK_PROPERTY_NAME_TITLE,
                         is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                 ));
@@ -99,7 +99,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
                 )));
@@ -108,7 +108,7 @@ public class ProcessCreateNewTaskFormWhenValidationFailTest {
     @Test
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyCreateTaskForm()
-                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
                 )));
     }

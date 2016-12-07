@@ -88,7 +88,7 @@ public class ShowTaskListWhenTwoTasksAreFoundTest {
     @Test
     public void shouldShowCorrectTasks() throws Exception {
         openTaskListPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
                         hasItem(allOf(
                                 hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteExampleApp.ID)),
                                 hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteExampleApp.TITLE)),

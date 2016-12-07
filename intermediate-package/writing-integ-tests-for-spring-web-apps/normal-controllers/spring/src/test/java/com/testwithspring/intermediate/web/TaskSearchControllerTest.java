@@ -97,7 +97,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, hasSize(0)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)));
             }
         }
 
@@ -147,7 +147,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, hasSize(2)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(2)));
             }
 
             @Test
@@ -155,7 +155,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, contains(first, second)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, contains(first, second)));
             }
 
             @Test
@@ -163,7 +163,7 @@ public class TaskSearchControllerTest {
                 mockMvc.perform(post("/task/search")
                         .param(REQUEST_PARAMETER_SEARCH_TERM, SEARCH_TERM)
                 )
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, allOf(
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
                                 hasItem(allOf(
                                         hasProperty(TASK_PROPERTY_NAME_ID, is(FIRST_TASK_ID)),
                                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(FIRST_TASK_TITLE)),

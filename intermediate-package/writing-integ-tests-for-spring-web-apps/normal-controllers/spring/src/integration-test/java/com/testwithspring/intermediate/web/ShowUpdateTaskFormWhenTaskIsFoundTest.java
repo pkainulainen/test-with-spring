@@ -87,7 +87,7 @@ public class ShowUpdateTaskFormWhenTaskIsFoundTest {
     @Test
     public void shouldShowInformationOfUpdatedTask() throws Exception {
        openUpdateTaskPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)),
                         hasProperty(TASK_PROPERTY_NAME_ID, is(Tasks.WriteLesson.ID)),
                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(Tasks.WriteLesson.TITLE))

@@ -191,7 +191,7 @@ public class TaskCrudControllerTest {
         @Test
         public void shouldCreateAnEmptyFormObject() throws Exception {
             mockMvc.perform(get("/task/create"))
-                    .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                    .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                             hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, nullValue()),
                             hasProperty(TASK_PROPERTY_NAME_ID, nullValue()),
                             hasProperty(TASK_PROPERTY_NAME_TITLE, nullValue())
@@ -234,7 +234,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                                     TASK_PROPERTY_NAME_TITLE,
                                     is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                             ));
@@ -246,7 +246,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(""))
                             )));
@@ -258,7 +258,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                                     hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
                             ));
                 }
@@ -309,7 +309,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                                     TASK_PROPERTY_NAME_DESCRIPTION,
                                     is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
                             ));
@@ -321,7 +321,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(tooLongDescription)),
                                     hasProperty(TASK_PROPERTY_NAME_TITLE, is(maxLengthTitle))
                             )));
@@ -333,7 +333,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                                     hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
                             ));
                 }
@@ -384,7 +384,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                                     TASK_PROPERTY_NAME_TITLE,
                                     is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
                             ));
@@ -396,7 +396,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(maxLengthDescription)),
                                     hasProperty(TASK_PROPERTY_NAME_TITLE, is(tooLongTitle))
                             )));
@@ -408,7 +408,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                                     hasProperty(TASK_PROPERTY_NAME_ID, nullValue())
                             ));
                 }
@@ -483,7 +483,7 @@ public class TaskCrudControllerTest {
                         .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                 )
                         .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_ID, is(TASK_ID.toString())));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is(TASK_ID.toString())));
             }
 
             @Test
@@ -589,7 +589,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldShowFoundTask() throws Exception {
                 mockMvc.perform(get("/task/{taskId}", TASK_ID))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                 hasProperty(TASK_PROPERTY_NAME_ASSIGNEE, nullValue()),
                                 hasProperty(TASK_PROPERTY_NAME_CLOSER, nullValue()),
                                 hasProperty(TASK_PROPERTY_NAME_CREATOR, is(CREATOR_ID)),
@@ -636,7 +636,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldShowEmptyTaskList() throws Exception {
                 mockMvc.perform(get("/"))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, hasSize(0)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)));
             }
         }
 
@@ -677,19 +677,19 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldShowTaskListThatHasTwoTasks() throws Exception {
                 mockMvc.perform(get("/"))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, hasSize(2)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(2)));
             }
 
             @Test
             public void shouldShowTwoTasksInCorrectOrder() throws Exception {
                 mockMvc.perform(get("/"))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, contains(first, second)));
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, contains(first, second)));
             }
 
             @Test
             public void shouldShowCorrectInformation() throws Exception {
                 mockMvc.perform(get("/"))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_LIST, allOf(
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
                                 hasItem(allOf(
                                         hasProperty(TASK_PROPERTY_NAME_ID, is(TASK_ID)),
                                         hasProperty(TASK_PROPERTY_NAME_TITLE, is(TASK_TITLE)),
@@ -756,7 +756,7 @@ public class TaskCrudControllerTest {
             @Test
             public void shouldShowInformationOfUpdatedTask() throws Exception {
                 mockMvc.perform(get("/task/{taskId}/update", TASK_ID))
-                        .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                 hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(TASK_DESCRIPTION)),
                                 hasProperty(TASK_PROPERTY_NAME_ID, is(TASK_ID)),
                                 hasProperty(TASK_PROPERTY_NAME_TITLE, is(TASK_TITLE))
@@ -803,7 +803,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                                     TASK_PROPERTY_NAME_TITLE,
                                     is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
                             ));
@@ -816,7 +816,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is("")),
                                     hasProperty(TASK_PROPERTY_NAME_TITLE, is(""))
                             )));
@@ -829,7 +829,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, "")
                             .param(TASK_PROPERTY_NAME_TITLE, "")
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                                     hasProperty(TASK_PROPERTY_NAME_ID, is(TASK_ID))
                             ));
                 }
@@ -884,7 +884,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                                     TASK_PROPERTY_NAME_DESCRIPTION,
                                     is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
                             ));
@@ -897,7 +897,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(tooLongDescription)),
                                     hasProperty(TASK_PROPERTY_NAME_TITLE, is(maxLengthTitle))
                             )));
@@ -910,7 +910,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, tooLongDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                                     hasProperty(TASK_PROPERTY_NAME_ID, is(TASK_ID))
                             ));
                 }
@@ -965,7 +965,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
                                     TASK_PROPERTY_NAME_TITLE,
                                     is(VALIDATION_ERROR_CODE_LONG_FIELD_VALUE)
                             ));
@@ -978,7 +978,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK, allOf(
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                     hasProperty(TASK_PROPERTY_NAME_DESCRIPTION, is(maxLengthDescription)),
                                     hasProperty(TASK_PROPERTY_NAME_TITLE, is(tooLongTitle))
                             )));
@@ -991,7 +991,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_DESCRIPTION, maxLengthDescription)
                             .param(TASK_PROPERTY_NAME_TITLE, tooLongTitle)
                     )
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK,
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                                     hasProperty(TASK_PROPERTY_NAME_ID, is(TASK_ID))
                             ));
                 }
@@ -1098,7 +1098,7 @@ public class TaskCrudControllerTest {
                             .param(TASK_PROPERTY_NAME_TITLE, maxLengthTitle)
                     )
                             .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
-                            .andExpect(model().attribute(WebTestConstants.ModelAttribute.TASK_ID, is(TASK_ID.toString())));
+                            .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is(TASK_ID.toString())));
                 }
 
                 @Test
