@@ -54,6 +54,7 @@ dependencyManagement {
 
 dependencies {
     compile(
+            'org.apache.commons:commons-lang3',
             'org.slf4j:slf4j-api',
             'log4j:log4j',
             'org.slf4j:slf4j-log4j12',
@@ -67,6 +68,9 @@ dependencies {
             'org.springframework:spring-webmvc',
             'com.h2database:h2',
             'com.zaxxer:HikariCP',
+            'org.hibernate:hibernate-entitymanager',
+            'org.springframework.data:spring-data-jpa',
+            'org.jadira.usertype:usertype.extended:4.0.0.GA',
             'org.liquibase:liquibase-core'
     )
     testCompile(
