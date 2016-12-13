@@ -177,7 +177,7 @@ public class TaskAssert extends AbstractAssert<TaskAssert, Task> {
                         closerId,
                         actualCloser.getUserId()
                 )
-                .isEqualByComparingTo(actualCloser.getUserId());
+                .isEqualByComparingTo(closerId);
 
         assertions.assertThat(actual.getStatus())
                 .overridingErrorMessage("The status of a closed task must be: %s but was: %s",
