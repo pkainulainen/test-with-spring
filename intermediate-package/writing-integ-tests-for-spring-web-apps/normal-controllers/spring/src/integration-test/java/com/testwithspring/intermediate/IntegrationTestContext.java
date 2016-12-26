@@ -32,7 +32,7 @@ public class IntegrationTestContext {
     }
 
     @Bean
-    IdColumnReset dbSequenceResetor(NamedParameterJdbcTemplate jdbcTemplate) {
+    IdColumnReset idColumnReset(NamedParameterJdbcTemplate jdbcTemplate) {
         return new IdColumnReset(jdbcTemplate);
     }
 }
