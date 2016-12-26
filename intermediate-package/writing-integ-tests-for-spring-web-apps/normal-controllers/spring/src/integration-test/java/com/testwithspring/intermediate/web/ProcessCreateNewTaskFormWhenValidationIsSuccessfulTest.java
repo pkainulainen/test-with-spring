@@ -5,7 +5,7 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.testwithspring.intermediate.DbSequenceResetor;
+import com.testwithspring.intermediate.IdColumnReset;
 import com.testwithspring.intermediate.IntegrationTest;
 import com.testwithspring.intermediate.IntegrationTestContext;
 import com.testwithspring.intermediate.ReplacementDataSetLoader;
@@ -56,7 +56,7 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     private static final String FEEDBACK_MESSAGE_TASK_CREATED = "A new task was created successfully.";
 
     @Autowired
-    DbSequenceResetor sequenceResetor;
+    IdColumnReset sequenceResetor;
 
     @Autowired
     private WebApplicationContext webAppContext;

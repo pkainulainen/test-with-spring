@@ -24,14 +24,15 @@ public class IntegrationTestContext {
     @Bean
     DatabaseDataSourceConnectionFactoryBean dbUnitDatabaseConnection(DataSource dataSource,
                                                                      DatabaseConfigBean databaseConfigBean) {
-        DatabaseDataSourceConnectionFactoryBean cf = new DatabaseDataSourceConnectionFactoryBean();
+        DatabaseDataSourceConnectionFactoryBean cf =
+                new DatabaseDataSourceConnectionFactoryBean();
         cf.setDataSource(dataSource);
         cf.setDatabaseConfig(databaseConfigBean);
         return cf;
     }
 
     @Bean
-    DbSequenceResetor dbSequenceResetor(NamedParameterJdbcTemplate jdbcTemplate) {
-        return new DbSequenceResetor(jdbcTemplate);
+    IdColumnReset dbSequenceResetor(NamedParameterJdbcTemplate jdbcTemplate) {
+        return new IdColumnReset(jdbcTemplate);
     }
 }
