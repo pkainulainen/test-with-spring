@@ -56,7 +56,7 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     private static final String FEEDBACK_MESSAGE_TASK_CREATED = "A new task was created successfully.";
 
     @Autowired
-    IdColumnReset sequenceResetor;
+    IdColumnReset idColumnReset;
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -68,7 +68,7 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
                 .build();
 
-        sequenceResetor.resetIdColumns("tasks");
+        idColumnReset.resetIdColumns("tasks");
     }
 
     @Test
