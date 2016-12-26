@@ -68,7 +68,7 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
                 .build();
 
-        sequenceResetor.resetIdColumnSequences("tasks");
+        sequenceResetor.resetIdColumns("tasks");
     }
 
     @Test

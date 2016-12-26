@@ -23,7 +23,7 @@ public class IdColumnReset {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void resetIdColumnSequences(String... tableNames) {
+    public void resetIdColumns(String... tableNames) {
         Arrays.asList(tableNames).forEach(t -> {
             String query = String.format(QUERY_RESET_ID_COLUMN_TEMPLATE, t);
             jdbcTemplate.update(query, new HashMap<>());
