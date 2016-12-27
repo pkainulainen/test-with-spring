@@ -47,4 +47,26 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="03-create_tasks_tags-table" author="Petri Kainulainen">
+        <createTable tableName="tasks_tags">
+            <column name="task_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="tasks_tags"
+                                 baseColumnNames="task_id"
+                                 constraintName="tags_task_fk"
+                                 referencedTableName="tasks"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="tasks_tags"
+                                 baseColumnNames="tag_id"
+                                 constraintName="task_tags_fk"
+                                 referencedTableName="tags"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
 </databaseChangeLog>
