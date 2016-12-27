@@ -25,6 +25,12 @@ public final class WebTestConstants {
      */
     public static class ModelAttributeProperty {
 
+        public static class Tag {
+
+            public static final String ID = "id";
+            public static final String NAME = "name";
+        }
+
         public static class Task {
 
             public static final String ASSIGNEE = "assigneeId";
@@ -36,6 +42,7 @@ public final class WebTestConstants {
             public static final String MODIFICATION_TIME = "modificationTime";
             public static final String RESOLUTION = "resolution";
             public static final String STATUS = "status";
+            public static final String TAGS = "tags";
             public static final String TITLE = "title";
         }
     }

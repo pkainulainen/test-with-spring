@@ -4,6 +4,10 @@ import com.testwithspring.intermediate.ReflectionFieldUtil;
 
 import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class TaskBuilder {
 
@@ -20,6 +24,7 @@ public final class TaskBuilder {
     private ZonedDateTime modificationTime = NOT_SET;
     private TaskResolution resolution = null;
     private TaskStatus status = null;
+    private Set<Tag> tags = new HashSet<>();
     private String title = NOT_IMPORTANT;
 
     public TaskBuilder() {
@@ -86,6 +91,11 @@ public final class TaskBuilder {
         return this;
     }
 
+    public TaskBuilder withTags(Tag... tags) {
+        this.tags = new HashSet<>(Arrays.asList(tags));
+        return this;
+    }
+
     public TaskBuilder withTitle(String title) {
         this.title = title;
         return this;
@@ -110,6 +120,7 @@ public final class TaskBuilder {
         ReflectionFieldUtil.setFieldValue(task, "modificationTime", modificationTime);
         ReflectionFieldUtil.setFieldValue(task, "status", status);
         ReflectionFieldUtil.setFieldValue(task, "resolution", resolution);
+        ReflectionFieldUtil.setFieldValue(task, "tags", tags);
 
         return task;
     }

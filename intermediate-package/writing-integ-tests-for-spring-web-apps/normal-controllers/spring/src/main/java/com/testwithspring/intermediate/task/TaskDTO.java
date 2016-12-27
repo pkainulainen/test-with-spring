@@ -1,6 +1,8 @@
 package com.testwithspring.intermediate.task;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskDTO {
 
@@ -13,6 +15,7 @@ public class TaskDTO {
     private ZonedDateTime modificationTime;
     private TaskResolution resolution;
     private TaskStatus status;
+    private List<TagDTO> tags = new ArrayList<>();
     private String title;
 
     public TaskDTO() {}
@@ -53,6 +56,10 @@ public class TaskDTO {
         return status;
     }
 
+    public List<TagDTO> getTags() {
+        return tags;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -91,6 +98,10 @@ public class TaskDTO {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    public void setTags(List<TagDTO> tags) {
+        this.tags = tags;
     }
 
     public void setTitle(String title) {

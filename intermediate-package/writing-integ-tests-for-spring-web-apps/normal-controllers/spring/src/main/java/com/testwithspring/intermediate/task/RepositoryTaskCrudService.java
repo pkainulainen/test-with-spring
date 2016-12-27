@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 class RepositoryTaskCrudService implements TaskCrudService {
@@ -98,6 +100,19 @@ class RepositoryTaskCrudService implements TaskCrudService {
         dto.setStatus(model.getStatus());
         dto.setResolution(model.getResolution());
         dto.setTitle(model.getTitle());
+
+        List<TagDTO> tagDTOs = new ArrayList<>();
+
+        Set<Tag> tagModels = model.getTags();
+        for (Tag tagModel: tagModels) {
+            TagDTO tagDTO = new TagDTO();
+
+            tagDTO.setId(tagModel.getId());
+            tagDTO.setName(tagModel.getName());
+
+            tagDTOs.add(tagDTO);
+        }
+        dto.setTags(tagDTOs);
 
         return dto;
     }

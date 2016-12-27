@@ -26,9 +26,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.contains;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -49,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ShowTaskTestWhenTaskIsFoundTest {
+public class ShowTaskWhenTaskIsFoundTest {
     
     @Autowired
     private WebApplicationContext webAppContext;
@@ -82,7 +81,7 @@ public class ShowTaskTestWhenTaskIsFoundTest {
 
     @Test
     public void shouldShowFoundTask() throws Exception {
-        mockMvc.perform(get("/task/{taskId}", Tasks.WriteExampleApp.ID))
+        openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
@@ -94,6 +93,34 @@ public class ShowTaskTestWhenTaskIsFoundTest {
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(Tasks.WriteExampleApp.STATUS)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, is(Tasks.WriteExampleApp.RESOLUTION))
+                )));
+    }
+
+
+    @Test
+    public void shouldShowOneTagOfFoundTask() throws Exception {
+        openShowTaskPage()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, hasSize(1))
+                )));
+    }
+
+    @Test
+    public void shouldShowFoundTag() throws Exception {
+        openShowTaskPage()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, contains(
+                                allOf(
+                                        hasProperty(
+                                                WebTestConstants.ModelAttributeProperty.Tag.ID,
+                                                is(Tasks.WriteExampleApp.Tags.Example.ID)
+                                        ),
+                                        hasProperty(
+                                                WebTestConstants.ModelAttributeProperty.Tag.NAME,
+                                                is(Tasks.WriteExampleApp.Tags.Example.NAME)
+                                        )
+                                )
+                        ))
                 )));
     }
 

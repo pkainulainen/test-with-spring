@@ -104,6 +104,13 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
         submitCreateTaskForm();
     }
 
+    @Test
+    @ExpectedDatabase(value = "create-new-task-should-not-create-any-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotCreateAnyTags() throws Exception {
+        submitCreateTaskForm();
+    }
+
+
     private ResultActions submitCreateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/create")
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, Tasks.WriteExampleApp.DESCRIPTION)

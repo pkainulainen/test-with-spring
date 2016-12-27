@@ -1,5 +1,9 @@
 package com.testwithspring.intermediate.task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * You should consider using a builder because the information
  * of a {@code TaskDTO} object depends from the status of the
@@ -15,6 +19,7 @@ public class TaskDTOBuilder {
     private Long id;
     private TaskResolution resolution;
     private TaskStatus status;
+    private List<TagDTO> tags = new ArrayList<>();
     private String title;
 
     public TaskDTOBuilder() {
@@ -76,6 +81,10 @@ public class TaskDTOBuilder {
         return this;
     }
 
+    public TaskDTOBuilder withTags(TagDTO... tags) {
+        this.tags = Arrays.asList(tags);
+        return this;
+    }
 
     public TaskDTOBuilder withTitle(String title) {
         this.title = title;
@@ -91,6 +100,7 @@ public class TaskDTOBuilder {
         dto.setId(this.id);
         dto.setResolution(this.resolution);
         dto.setStatus(this.status);
+        dto.setTags(this.tags);
         dto.setTitle(this.title);
         return dto;
     }

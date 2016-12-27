@@ -102,6 +102,12 @@ public class ProcessUpdateTaskFormWhenValidationIsSuccessfulTest {
         submitUpdateTaskForm();
     }
 
+    @Test
+    @ExpectedDatabase(value = "update-task-should-not-change-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotMakeAnyChangesToTagsOfUpdatedTask() throws Exception {
+        submitUpdateTaskForm();
+    }
+
     private ResultActions submitUpdateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/{taskId}/update", Tasks.WriteLesson.ID)
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, NEW_DESCRIPTION)

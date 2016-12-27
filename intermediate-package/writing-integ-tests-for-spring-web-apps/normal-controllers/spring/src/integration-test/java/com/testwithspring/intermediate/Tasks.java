@@ -28,6 +28,15 @@ public final class Tasks {
         public static final TaskResolution RESOLUTION = TaskResolution.DONE;
         public static final TaskStatus STATUS = TaskStatus.CLOSED;
         public static final String TITLE = "Write example application";
+
+        public static class Tags {
+
+            public static class Example {
+
+                public static final Long ID = 1L;
+                public static final String NAME = "example";
+            }
+        }
     }
 
     public static class WriteLesson {
@@ -40,6 +49,14 @@ public final class Tasks {
         public static final TaskStatus STATUS = TaskStatus.OPEN;
         public static final String TITLE = "Write lesson";
 
+        public static class Tags {
+
+            public static class Lesson {
+
+                public static final Long ID = 1L;
+                public static final String NAME = "lesson";
+            }
+        }
     }
 
     private static ZonedDateTime parseDateTime(String dateTime) {

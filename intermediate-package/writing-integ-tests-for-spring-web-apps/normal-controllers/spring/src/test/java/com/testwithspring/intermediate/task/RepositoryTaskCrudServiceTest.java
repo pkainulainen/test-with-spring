@@ -18,6 +18,7 @@ import static com.testwithspring.intermediate.task.TaskDTOAssert.assertThatTask;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.byteThat;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -32,6 +33,9 @@ public class RepositoryTaskCrudServiceTest {
     private static final ZonedDateTime NOW = ZonedDateTime.now();
     private static final Long TASK_ID = 1L;
     private static final String TITLE = "Write an example test";
+
+    private static final Long TAG_ID = 44L;
+    private static final String TAG_NAME = "testing";
 
     private TaskRepository repository;
     private RepositoryTaskCrudService service;
@@ -109,6 +113,12 @@ public class RepositoryTaskCrudServiceTest {
         }
 
         @Test
+        public void shouldReturnTaskThatHasNoTags() {
+            TaskDTO task = service.create(input);
+            assertThat(task.getTags()).isEmpty();
+        }
+
+        @Test
         public void shouldReturnOpenTask() {
             TaskDTO task = service.create(input);
             assertThatTask(task).isOpen();
@@ -167,6 +177,15 @@ public class RepositoryTaskCrudServiceTest {
 
             verify(repository, times(1)).save(assertArg(
                     t -> TaskAssert.assertThatTask(t).isOpen()
+            ));
+        }
+
+        @Test
+        public void shouldCreateTaskThatHasNoTags() {
+            service.create(input);
+
+            verify(repository, times(1)).save(assertArg(
+                    t -> assertThat(t.getTags()).isEmpty()
             ));
         }
     }
@@ -265,6 +284,58 @@ public class RepositoryTaskCrudServiceTest {
                 TaskDTO deleted = service.delete(TASK_ID);
                 assertThatTask(deleted).isOpen();
             }
+
+            public class WhenFoundTaskHasNoTags {
+
+                @Test
+                public void shouldReturnTaskThatHasNoTags() {
+                    TaskDTO deleted = service.delete(TASK_ID);
+                    assertThat(deleted.getTags()).isEmpty();
+                }
+            }
+
+            public class WhenFoundTaskHasOneTag {
+
+                @Before
+                public void returnFoundTask() {
+                    Task found = createTask();
+                    returnTask(found);
+                }
+
+                private Task createTask() {
+                    Tag tag = new TagBuilder()
+                            .withId(TAG_ID)
+                            .withName(TAG_NAME)
+                            .build();
+
+                    return new TaskBuilder()
+                            .withId(TASK_ID)
+                            .withCreationTime(NOW)
+                            .withCreator(CREATOR_ID)
+                            .withDescription(DESCRIPTION)
+                            .withModificationTime(NOW)
+                            .withTags(tag)
+                            .withTitle(TITLE)
+                            .withStatusOpen()
+                            .build();
+                }
+
+                @Test
+                public void shouldReturnTaskThatHasOneTag() {
+                    TaskDTO deleted = service.delete(TASK_ID);
+                    assertThat(deleted.getTags()).hasSize(1);
+                }
+
+                @Test
+                public void shouldReturnTaskThatHasCorrectTag() {
+                    TaskDTO deleted = service.delete(TASK_ID);
+                    TagDTO tag = deleted.getTags().get(0);
+
+                    assertThat(tag.getId()).isEqualByComparingTo(TAG_ID);
+                    assertThat(tag.getName()).isEqualTo(TAG_NAME);
+                }
+            }
+
         }
     }
 
@@ -472,6 +543,58 @@ public class RepositoryTaskCrudServiceTest {
                 }
             }
 
+            public class WhenFoundTaskHasNoTags {
+
+                @Test
+                public void shouldReturnTaskThatHasNoTags() {
+                    TaskDTO task = service.findById(TASK_ID);
+                    assertThat(task.getTags()).isEmpty();
+                }
+            }
+
+            public class WhenFoundTaskHasOneTag {
+
+                @Before
+                public void returnFoundTask() {
+                    Task found = createTask();
+                    returnTask(found);
+                }
+
+                private Task createTask() {
+                    Tag tag = new TagBuilder()
+                            .withId(TAG_ID)
+                            .withName(TAG_NAME)
+                            .build();
+
+                    return new TaskBuilder()
+                            .withId(TASK_ID)
+                            .withAssignee(ASSIGNEE_ID)
+                            .withCreationTime(NOW)
+                            .withCreator(CREATOR_ID)
+                            .withDescription(DESCRIPTION)
+                            .withModificationTime(NOW)
+                            .withTags(tag)
+                            .withTitle(TITLE)
+                            .withStatusOpen()
+                            .build();
+                }
+
+                @Test
+                public void shouldReturnTaskThatHasOneTag() {
+                    TaskDTO task = service.findById(TASK_ID);
+                    assertThat(task.getTags()).hasSize(1);
+                }
+
+                @Test
+                public void shouldReturnTaskThatHasCorrectTag() {
+                    TaskDTO task = service.findById(TASK_ID);
+                    TagDTO tag = task.getTags().get(0);
+
+                    assertThat(tag.getId()).isEqualByComparingTo(TAG_ID);
+                    assertThat(tag.getName()).isEqualTo(TAG_NAME);
+                }
+            }
+
             private void returnTask(Task found) {
                 given(repository.findOne(TASK_ID)).willReturn(Optional.of(found));
             }
@@ -632,6 +755,58 @@ public class RepositoryTaskCrudServiceTest {
                 TaskDTO updated = service.update(input);
                 assertThatTask(updated).isOpen();
             }
+
+            public class WhenFoundTaskHasNoTags {
+
+                @Test
+                public void shouldReturnTaskThatHasNoTags() {
+                    TaskDTO updated = service.update(input);
+                    assertThat(updated.getTags()).isEmpty();
+                }
+            }
+
+            public class WhenFoundTaskHasOneTag {
+
+                @Before
+                public void returnFoundTask() {
+                    Task found = createTask();
+                    returnTask(found);
+                }
+
+                private Task createTask() {
+                    Tag tag = new TagBuilder()
+                            .withId(TAG_ID)
+                            .withName(TAG_NAME)
+                            .build();
+
+                    return new TaskBuilder()
+                            .withId(TASK_ID)
+                            .withCreationTime(NOW)
+                            .withCreator(CREATOR_ID)
+                            .withDescription(DESCRIPTION)
+                            .withModificationTime(NOW)
+                            .withTags(tag)
+                            .withTitle(TITLE)
+                            .withStatusOpen()
+                            .build();
+                }
+
+                @Test
+                public void shouldReturnTaskThatHasOneTag() {
+                    TaskDTO updated = service.update(input);
+                    assertThat(updated.getTags()).hasSize(1);
+                }
+
+                @Test
+                public void shouldReturnTaskThatHasCorrectTag() {
+                    TaskDTO updated = service.update(input);
+                    TagDTO tag = updated.getTags().get(0);
+
+                    assertThat(tag.getId()).isEqualByComparingTo(TAG_ID);
+                    assertThat(tag.getName()).isEqualTo(TAG_NAME);
+                }
+            }
+
         }
     }
 }

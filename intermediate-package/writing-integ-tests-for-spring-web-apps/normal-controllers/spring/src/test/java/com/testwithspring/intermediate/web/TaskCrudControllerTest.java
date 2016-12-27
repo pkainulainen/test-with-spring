@@ -2,13 +2,7 @@ package com.testwithspring.intermediate.web;
 
 import com.testwithspring.intermediate.UnitTest;
 import com.testwithspring.intermediate.TestStringUtil;
-import com.testwithspring.intermediate.task.TaskCrudService;
-import com.testwithspring.intermediate.task.TaskDTO;
-import com.testwithspring.intermediate.task.TaskDTOBuilder;
-import com.testwithspring.intermediate.task.TaskFormDTO;
-import com.testwithspring.intermediate.task.TaskListDTO;
-import com.testwithspring.intermediate.task.TaskNotFoundException;
-import com.testwithspring.intermediate.task.TaskStatus;
+import com.testwithspring.intermediate.task.*;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -549,13 +543,21 @@ public class TaskCrudControllerTest {
 
         public class WhenTaskIsFound {
 
+            private final Long TAG_ID = 33L;
+            private final String TAG_NAME = "testing";
+
             private TaskDTO found;
 
             @Before
-            public void returnFoundTask() {
+            public void returnFoundTaskWithOneTag() {
+                TagDTO tag = new TagDTO();
+                tag.setId(TAG_ID);
+                tag.setName(TAG_NAME);
+
                 found = new TaskDTOBuilder()
                         .withId(TASK_ID)
                         .withCreator(CREATOR_ID)
+                        .withTags(tag)
                         .withTitle(TASK_TITLE)
                         .withDescription(TASK_DESCRIPTION)
                         .withStatusOpen()
@@ -588,6 +590,27 @@ public class TaskCrudControllerTest {
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, nullValue())
+                        )));
+            }
+
+            @Test
+            public void shouldShowOneTagOfFoundTask() throws Exception {
+                mockMvc.perform(get("/task/{taskId}", TASK_ID))
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, hasSize(1))
+                        )));
+            }
+
+            @Test
+            public void shouldShowFoundTag() throws Exception {
+                mockMvc.perform(get("/task/{taskId}", TASK_ID))
+                        .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, contains(
+                                        allOf(
+                                                hasProperty(WebTestConstants.ModelAttributeProperty.Tag.ID, is(TAG_ID)),
+                                                hasProperty(WebTestConstants.ModelAttributeProperty.Tag.NAME, is(TAG_NAME))
+                                        )
+                                ))
                         )));
             }
         }
