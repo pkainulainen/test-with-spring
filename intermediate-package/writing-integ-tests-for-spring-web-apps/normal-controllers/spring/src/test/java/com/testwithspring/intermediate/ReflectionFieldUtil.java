@@ -38,17 +38,24 @@ public final class ReflectionFieldUtil {
      * @param fieldName The name of the requested field.
      * @return
      */
-    private static Field findFieldFromClassHierarchy(Class<?> clazz, String fieldName) {
+    private static Field findFieldFromClassHierarchy(Class<?> clazz, String fieldName) throws NoSuchFieldException {
         Class<?> current = clazz;
+
+        //Iterate the class hierarchy from the actual class
+        //to the super class and try to find the requested field.
         do {
             try {
                 return current.getDeclaredField(fieldName);
             }
             catch(Exception e) {
-                //An exception simply means that field is found.
+                //An exception simply means that field is not found.
             }
         } while((current = current.getSuperclass()) != null);
 
-        return null;
+        //This signals that the requested field is not found.
+        throw new NoSuchFieldException(String.format(
+                "No field found with the field name %s",
+                fieldName
+        ));
     }
 }
