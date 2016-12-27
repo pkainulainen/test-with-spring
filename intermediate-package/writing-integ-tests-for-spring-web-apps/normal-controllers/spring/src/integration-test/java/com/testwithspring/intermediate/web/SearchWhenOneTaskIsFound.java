@@ -102,7 +102,7 @@ public class SearchWhenOneTaskIsFound {
 
     private ResultActions submitSearchForm() throws Exception {
         return mockMvc.perform(post("/task/search")
-                .param(WebTestConstants.RequestParameter.SEARCH_TERM, Tasks.SEARCH_TERM)
+                .param(WebTestConstants.RequestParameter.SEARCH_TERM, Tasks.SEARCH_TERM_ONE_MATCH)
         );
     }
 }

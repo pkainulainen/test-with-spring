@@ -39,23 +39,32 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class SearchTasksWhenOneTaskIsFoundTest {
+public class SearchTasksWhenTwoTasksAreFound {
 
     @Autowired
     private TaskRepository repository;
 
     @Test
-    public void shouldReturnListThatHasOneTask() {
-        List<TaskListDTO> tasks = repository.search(Tasks.SEARCH_TERM_ONE_MATCH);
-        assertThat(tasks).hasSize(1);
+    public void shouldReturnListThatHasTwoTasks() {
+        List<TaskListDTO> tasks = repository.search(Tasks.SEARCH_TERM_TWO_MATCHES);
+        assertThat(tasks).hasSize(2);
     }
 
     @Test
-    public void shouldReturnInformationOfCorrectTask() {
-        TaskListDTO found = repository.search(Tasks.SEARCH_TERM_ONE_MATCH).get(0);
+    public void shouldReturnCorrectInformationOfFirstTask() {
+        TaskListDTO first = repository.search(Tasks.SEARCH_TERM_TWO_MATCHES).get(0);
 
-        assertThat(found.getId()).isEqualByComparingTo(Tasks.WriteLesson.ID);
-        assertThat(found.getStatus()).isEqualTo(Tasks.WriteLesson.STATUS);
-        assertThat(found.getTitle()).isEqualTo(Tasks.WriteLesson.TITLE);
+        assertThat(first.getId()).isEqualByComparingTo(Tasks.WriteExampleApp.ID);
+        assertThat(first.getStatus()).isEqualTo(Tasks.WriteExampleApp.STATUS);
+        assertThat(first.getTitle()).isEqualTo(Tasks.WriteExampleApp.TITLE);
+    }
+
+    @Test
+    public void shouldReturnCorrectInformationOfSecondTask() {
+        TaskListDTO second = repository.search(Tasks.SEARCH_TERM_TWO_MATCHES).get(1);
+
+        assertThat(second.getId()).isEqualByComparingTo(Tasks.WriteLesson.ID);
+        assertThat(second.getStatus()).isEqualTo(Tasks.WriteLesson.STATUS);
+        assertThat(second.getTitle()).isEqualTo(Tasks.WriteLesson.TITLE);
     }
 }
