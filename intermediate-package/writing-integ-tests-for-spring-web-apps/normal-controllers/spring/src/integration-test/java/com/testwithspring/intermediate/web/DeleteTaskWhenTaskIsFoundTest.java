@@ -95,6 +95,19 @@ public class DeleteTaskWhenTaskIsFoundTest {
         deleteTask();
     }
 
+    @Test
+    @ExpectedDatabase(value = "delete-task-should-delete-link-between-tag-and-deleted-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldDeleteLinkBetweenTagAndDeletedTask() throws Exception {
+        deleteTask();
+    }
+
+
+    @Test
+    @ExpectedDatabase(value = "delete-task-should-not-delete-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotDeleteTags() throws Exception {
+        deleteTask();
+    }
+
     private ResultActions deleteTask() throws Exception {
         return  mockMvc.perform(get("/task/{taskId}/delete", Tasks.WriteLesson.ID));
     }
