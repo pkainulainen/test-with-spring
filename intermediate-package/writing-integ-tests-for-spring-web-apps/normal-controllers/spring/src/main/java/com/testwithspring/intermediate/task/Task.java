@@ -20,16 +20,11 @@ import javax.persistence.Version;
 import java.time.ZonedDateTime;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tasks")
-class Task {
+class Task extends AbstractEntity {
 
     private static final int MAX_LENGTH_DESCRIPTION = 500;
     private static final int MAX_LENGTH_TITLE = 100;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Embedded
     private Assignee assignee;
@@ -37,21 +32,11 @@ class Task {
     @Embedded
     private Closer closer;
 
-    @Column(name = "creation_time", nullable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
-    @CreatedDate
-    private ZonedDateTime creationTime;
-
     @Embedded
     private Creator creator;
 
     @Column(name = "description", length = MAX_LENGTH_DESCRIPTION)
     private String description;
-
-    @Column(name = "modification_time")
-    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
-    @LastModifiedDate
-    private ZonedDateTime modificationTime;
 
     @Column(name = "resolution")
     @Enumerated(EnumType.STRING)
@@ -63,9 +48,6 @@ class Task {
 
     @Column(name = "title", nullable = false, length = MAX_LENGTH_TITLE)
     private String title;
-
-    @Version
-    private Long version;
 
     /**
      * Required by Hibernate.
@@ -83,10 +65,6 @@ class Task {
         return new Builder();
     }
 
-    Long getId() {
-        return id;
-    }
-
     Assignee getAssignee() {
         return assignee;
     }
@@ -95,20 +73,12 @@ class Task {
         return closer;
     }
 
-    ZonedDateTime getCreationTime() {
-        return creationTime;
-    }
-
     Creator getCreator() {
         return creator;
     }
 
     String getDescription() {
         return description;
-    }
-
-    ZonedDateTime getModificationTime() {
-        return modificationTime;
     }
 
     TaskResolution getResolution() {
@@ -123,10 +93,6 @@ class Task {
         return title;
     }
 
-    Long getVersion() {
-        return version;
-    }
-
     void setDescription(String description) {
         this.description = description;
     }
@@ -138,17 +104,17 @@ class Task {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("id", this.id)
+                .append("id", this.getId())
                 .append("assignee", this.assignee)
                 .append("closer", this.closer)
-                .append("creationTime", this.creationTime)
+                .append("creationTime", this.getCreationTime())
                 .append("creator", this.creator)
                 .append("description", this.description)
-                .append("modificationTime", this.modificationTime)
+                .append("modificationTime", this.getModificationTime())
                 .append("resolution", this.resolution)
                 .append("status", this.status)
                 .append("title", this.title)
-                .append("version", this.version)
+                .append("version", this.getVersion())
                 .build();
     }
 

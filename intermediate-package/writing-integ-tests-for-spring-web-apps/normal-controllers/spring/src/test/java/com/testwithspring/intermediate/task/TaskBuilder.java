@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.ReflectionFieldUtil;
+
 import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 
@@ -97,32 +99,18 @@ public final class TaskBuilder {
                 .build();
 
         if (assigneeId != null) {
-            setFieldValue(task, "assignee", new Assignee(assigneeId));
+            ReflectionFieldUtil.setFieldValue(task, "assignee", new Assignee(assigneeId));
         }
         if (closerId != null) {
-            setFieldValue(task, "closer", new Closer(closerId));
+            ReflectionFieldUtil.setFieldValue(task, "closer", new Closer(closerId));
         }
 
-        setFieldValue(task, "creationTime", creationTime);
-        setFieldValue(task, "id", id);
-        setFieldValue(task, "modificationTime", modificationTime);
-        setFieldValue(task, "status", status);
-        setFieldValue(task, "resolution", resolution);
+        ReflectionFieldUtil.setFieldValue(task, "creationTime", creationTime);
+        ReflectionFieldUtil.setFieldValue(task, "id", id);
+        ReflectionFieldUtil.setFieldValue(task, "modificationTime", modificationTime);
+        ReflectionFieldUtil.setFieldValue(task, "status", status);
+        ReflectionFieldUtil.setFieldValue(task, "resolution", resolution);
 
         return task;
-    }
-
-    private void setFieldValue(Task target, String fieldName, Object fieldValue) {
-        try {
-            Field targetField = target.getClass().getDeclaredField(fieldName);
-            targetField.setAccessible(true);
-            targetField.set(target, fieldValue);
-        }
-        catch (Exception ex) {
-            throw new RuntimeException(
-                    String.format("Cannot set the value of the field: %s because of an error", fieldName),
-                    ex
-            );
-        }
     }
 }

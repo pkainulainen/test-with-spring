@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.ReflectionFieldUtil;
 import com.testwithspring.intermediate.UnitTest;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
@@ -64,9 +65,9 @@ public class RepositoryTaskCrudServiceTest {
             given(repository.save(isA(Task.class)))
                     .willAnswer(invocation -> {
                         Task saved = (Task) invocation.getArguments()[0];
-                        ReflectionTestUtils.setField(saved, "creationTime", NOW);
-                        ReflectionTestUtils.setField(saved, "id", TASK_ID);
-                        ReflectionTestUtils.setField(saved, "modificationTime", NOW);
+                        ReflectionFieldUtil.setFieldValue(saved, "creationTime", NOW);
+                        ReflectionFieldUtil.setFieldValue(saved, "id", TASK_ID);
+                        ReflectionFieldUtil.setFieldValue(saved, "modificationTime", NOW);
                         return saved;
                     });
         }
