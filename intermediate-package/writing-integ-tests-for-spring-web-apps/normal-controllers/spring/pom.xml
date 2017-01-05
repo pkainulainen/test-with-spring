@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.testwithspring.intermediate</groupId>
-    <artifactId>writing-integration-tests-for-normal-controllers</artifactId>
+    <artifactId>normal-controllers-spring</artifactId>
     <version>0.1</version>
     <name>Writing Integration Tests for Normal Controllers: Spring Example</name>
     <description>
-	    This example demonstrates how you can leverage Spring profiles
-        when you configure your integration tests.
+        This example demonstrates how you can write integration tests for a normal
+        controllers when you use Spring Framework.
     </description>
 
     <properties>
@@ -43,7 +43,7 @@
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>2.0.8.RELEASE</version>
+                <version>Athens-SR2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -118,13 +118,12 @@
             <artifactId>hibernate-entitymanager</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jadira.usertype</groupId>
-            <artifactId>usertype.extended</artifactId>
-            <version>4.0.0.GA</version>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>

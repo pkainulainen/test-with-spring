@@ -48,7 +48,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.spring.platform:platform-bom:2.0.8.RELEASE'
+        mavenBom 'io.spring.platform:platform-bom:Athens-SR2'
     }
 }
 
@@ -69,8 +69,8 @@ dependencies {
             'com.h2database:h2',
             'com.zaxxer:HikariCP',
             'org.hibernate:hibernate-entitymanager',
+            'org.hibernate:hibernate-java8',
             'org.springframework.data:spring-data-jpa',
-            'org.jadira.usertype:usertype.extended:4.0.0.GA',
             'org.liquibase:liquibase-core'
     )
     testCompile(

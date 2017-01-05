@@ -17,12 +17,10 @@ abstract class AbstractEntity {
     private Long id;
 
     @Column(name = "creation_time", nullable = false)
-    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
     @CreatedDate
     private ZonedDateTime creationTime;
 
     @Column(name = "modification_time")
-    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
     @LastModifiedDate
     private ZonedDateTime modificationTime;
 
