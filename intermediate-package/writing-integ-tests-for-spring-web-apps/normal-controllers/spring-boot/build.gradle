@@ -1,20 +1,19 @@
 buildscript {
-    repositories {
+    repositories{
+        mavenCentral()
         jcenter()
     }
     dependencies {
         classpath(
-                'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE',
-                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0',
-                'org.akhikhl.gretty:gretty:+'
+                'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE',
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0'
         )
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'org.unbroken-dome.test-sets'
-apply plugin: 'org.akhikhl.gretty'
 
 //If you are using Gradle 2.1+, you can use the new Plugins DSL. The
 //following snippet replaces every line above this comment:
@@ -35,54 +34,28 @@ tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
-gretty {
-    port = 8080
-    contextPath = '/'
-    servletContainer = 'jetty9'
-    systemProperty 'spring.profiles.active', 'application'
-}
-
 repositories {
     mavenCentral()
 }
 
-dependencyManagement {
-    imports {
-        mavenBom 'io.spring.platform:platform-bom:2.0.8.RELEASE'
-    }
-}
 
 dependencies {
     compile(
-            'org.apache.commons:commons-lang3',
-            'org.slf4j:slf4j-api',
-            'log4j:log4j',
-            'org.slf4j:slf4j-log4j12',
-            'org.slf4j:jcl-over-slf4j',
-            'org.springframework:spring-aspects',
-            'org.springframework:spring-context-support',
-            'org.springframework:spring-jdbc',
-            'javax.servlet:javax.servlet-api',
-            'javax.servlet:jstl',
-            'org.hibernate:hibernate-validator',
-            'org.springframework:spring-webmvc',
+            'org.apache.commons:commons-lang3:3.5',
+            'org.springframework.boot:spring-boot-starter-jdbc',
             'com.h2database:h2',
             'com.zaxxer:HikariCP',
-            'org.hibernate:hibernate-entitymanager',
-            'org.springframework.data:spring-data-jpa',
-            'org.jadira.usertype:usertype.extended:4.0.0.GA',
-            'org.liquibase:liquibase-core'
+            'org.liquibase:liquibase-core',
+            'org.hibernate:hibernate-java8',
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-thymeleaf'
     )
     testCompile(
-            'javax.el:javax.el-api',
-            'org.glassfish.web:el-impl:2.2',
-            'junit:junit',
-            'org.hamcrest:hamcrest-library',
+            'org.springframework.boot:spring-boot-starter-test',
             'org.assertj:assertj-core:3.5.2',
             'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
-            'org.mockito:mockito-core',
-            'info.solidsoft.mockito:mockito-java8:0.3.1',
-            'org.springframework:spring-test'
+            'info.solidsoft.mockito:mockito-java8:0.3.1'
     )
     integrationTestCompile sourceSets.test.output
     integrationTestCompile(
