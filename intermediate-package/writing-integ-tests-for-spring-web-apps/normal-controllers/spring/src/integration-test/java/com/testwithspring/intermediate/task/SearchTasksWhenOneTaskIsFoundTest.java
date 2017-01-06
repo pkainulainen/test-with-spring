@@ -45,7 +45,7 @@ public class SearchTasksWhenOneTaskIsFoundTest {
     private TaskRepository repository;
 
     @Test
-    public void shouldReturnListThatHasOneTask() {
+    public void shouldReturnOneTask() {
         List<TaskListDTO> tasks = repository.search(Tasks.SEARCH_TERM_ONE_MATCH);
         assertThat(tasks).hasSize(1);
     }

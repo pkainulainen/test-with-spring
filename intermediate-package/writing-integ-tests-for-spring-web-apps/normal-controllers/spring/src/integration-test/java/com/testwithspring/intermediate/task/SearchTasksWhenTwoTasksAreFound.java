@@ -45,7 +45,7 @@ public class SearchTasksWhenTwoTasksAreFound {
     private TaskRepository repository;
 
     @Test
-    public void shouldReturnListThatHasTwoTasks() {
+    public void shouldReturnTwoTasks() {
         List<TaskListDTO> tasks = repository.search(Tasks.SEARCH_TERM_TWO_MATCHES);
         assertThat(tasks).hasSize(2);
     }

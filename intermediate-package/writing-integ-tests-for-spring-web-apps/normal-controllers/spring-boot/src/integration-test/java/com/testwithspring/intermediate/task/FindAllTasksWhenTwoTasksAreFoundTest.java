@@ -40,7 +40,7 @@ public class FindAllTasksWhenTwoTasksAreFoundTest {
     private TaskRepository repository;
 
     @Test
-    public void shouldReturnListThatHasTwoTasks() {
+    public void shouldReturnTwoTasks() {
         List<TaskListDTO> tasks = repository.findAll();
         assertThat(tasks).hasSize(2);
     }
