@@ -100,15 +100,15 @@ public class ShowTaskWhenTaskIsFoundTest {
     @Test
     public void shouldShowOneTagOfFoundTask() throws Exception {
         openShowTaskPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, hasSize(1))
-                )));
+                ));
     }
 
     @Test
     public void shouldShowFoundTag() throws Exception {
         openShowTaskPage()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, contains(
                                 allOf(
                                         hasProperty(
@@ -121,7 +121,7 @@ public class ShowTaskWhenTaskIsFoundTest {
                                         )
                                 )
                         ))
-                )));
+                ));
     }
 
     private ResultActions openShowTaskPage() throws Exception {
