@@ -93,7 +93,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
 
 
     @Test
-    public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
+    public void shouldShowFieldValuesOfUpdateTaskForm() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is("")),
