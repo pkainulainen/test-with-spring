@@ -73,13 +73,13 @@ public class SearchWhenOneTaskIsFound {
     @Test
     public void shouldShowCorrectTask() throws Exception {
         submitSearchForm()
-                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST,
                         hasItem(allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteLesson.ID)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteLesson.TITLE)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(Tasks.WriteLesson.STATUS))
                         ))
-                )));
+                ));
     }
 
     private ResultActions submitSearchForm() throws Exception {
