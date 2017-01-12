@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:example-context.xml"/>
+
+    <bean id="databaseConfigBean" class="com.github.springtestdbunit.bean.DatabaseConfigBean">
+        <property name="allowEmptyFields" value="true"/>
+    </bean>
+
+    <bean id="dbUnitDatabaseConnection" class="com.github.springtestdbunit.bean.DatabaseDataSourceConnectionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="databaseConfig" ref="databaseConfigBean"/>
+    </bean>
+</beans>

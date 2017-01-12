@@ -1,0 +1,13 @@
+<dataset>
+    <tasks id="2"
+           assignee_id="[null]"
+           closer_id="[null]"
+           creation_time="2016-12-4 11:41:28"
+           creator_id="1"
+           description="The old lesson was not good"
+           modification_time="2016-12-03 21:14:28.0"
+           resolution="[null]"
+           status="OPEN"
+           title="Rewrite an existing lesson"
+           version="1"/>
+</dataset>

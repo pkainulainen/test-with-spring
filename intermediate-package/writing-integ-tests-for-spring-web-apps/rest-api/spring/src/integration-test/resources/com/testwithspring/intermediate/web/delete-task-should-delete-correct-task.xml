@@ -1,0 +1,13 @@
+<dataset>
+    <tasks id="1"
+           assignee_id="1"
+           closer_id="1"
+           creation_time="2016-12-3 11:41:28"
+           creator_id="1"
+           description="This example contains integration tests"
+           modification_time="2016-12-3 11:41:28"
+           resolution="DONE"
+           status="CLOSED"
+           title="Write example application"
+           version="0"/>
+</dataset>

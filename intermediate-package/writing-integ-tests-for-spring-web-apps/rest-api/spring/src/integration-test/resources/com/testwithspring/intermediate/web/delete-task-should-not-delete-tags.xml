@@ -1,0 +1,12 @@
+<dataset>
+    <tags id="1"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="example"
+          version="0"/>
+    <tags id="2"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="lesson"
+          version="0"/>
+</dataset>

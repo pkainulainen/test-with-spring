@@ -1,0 +1,9 @@
+<dataset>
+    <tags id="2"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="lesson"
+          version="0"/>
+
+    <tasks_tags task_id="2" tag_id="2"/>
+</dataset>
