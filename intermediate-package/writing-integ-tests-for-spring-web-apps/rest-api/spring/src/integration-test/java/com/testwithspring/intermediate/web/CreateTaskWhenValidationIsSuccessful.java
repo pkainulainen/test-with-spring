@@ -9,7 +9,6 @@ import com.testwithspring.intermediate.*;
 import com.testwithspring.intermediate.common.ConstantDateTimeService;
 import com.testwithspring.intermediate.config.Profiles;
 import com.testwithspring.intermediate.task.TaskFormDTO;
-import com.testwithspring.intermediate.task.TaskResolution;
 import com.testwithspring.intermediate.task.TaskStatus;
 import org.junit.Before;
 import org.junit.Test;
