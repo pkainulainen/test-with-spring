@@ -83,6 +83,7 @@ public class ProcessUpdateTaskFormWhenValidationIsSuccessfulTest {
                         FEEDBACK_MESSAGE_TASK_CREATED
                 ));
     }
+
     @Test
     @ExpectedDatabase(value = "update-task-should-update-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldUpdateTitleAndDescription() throws Exception {
