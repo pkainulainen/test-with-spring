@@ -128,7 +128,6 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
         submitCreateTaskForm();
     }
 
-
     private ResultActions submitCreateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/create")
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, Tasks.WriteExampleApp.DESCRIPTION)
