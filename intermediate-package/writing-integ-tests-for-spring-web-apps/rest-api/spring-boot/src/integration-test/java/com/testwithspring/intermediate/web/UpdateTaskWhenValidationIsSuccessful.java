@@ -98,8 +98,26 @@ public class UpdateTaskWhenValidationIsSuccessful {
     }
 
     @Test
-    @ExpectedDatabase(value = "update-task-should-update-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldUpdateTheInformationOfTask() throws Exception {
+    @ExpectedDatabase(value = "update-task-should-update-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldUpdateTitleAndDescription() throws Exception {
+        updateTask();
+    }
+
+    @Test
+    @ExpectedDatabase(value = "update-task-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldUpdateModificationTimeAndVersion() throws Exception {
+        updateTask();
+    }
+
+    @Test
+    @ExpectedDatabase(value = "update-task-should-not-change-status.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotChangeStatus() throws Exception {
+        updateTask();
+    }
+
+    @Test
+    @ExpectedDatabase(value = "update-task-should-not-change-assignee.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotChangeAssignee() throws Exception {
         updateTask();
     }
 
