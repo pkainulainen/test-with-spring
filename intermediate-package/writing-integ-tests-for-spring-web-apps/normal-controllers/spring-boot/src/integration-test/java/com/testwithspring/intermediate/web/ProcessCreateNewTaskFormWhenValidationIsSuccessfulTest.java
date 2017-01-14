@@ -91,17 +91,34 @@ public class ProcessCreateNewTaskFormWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @ExpectedDatabase(value = "create-new-task-should-create-new-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @ExpectedDatabase(value = "create-task-should-create-open-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateOpenTask() throws Exception {
         submitCreateTaskForm();
     }
 
     @Test
-    @ExpectedDatabase(value = "create-new-task-should-not-create-any-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldNotCreateAnyTags() throws Exception {
+    @ExpectedDatabase(value = "create-task-should-set-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldCreateTaskWithCorrectTitleAndDescription() throws Exception {
         submitCreateTaskForm();
     }
 
+    @Test
+    @ExpectedDatabase(value = "create-task-should-set-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldCreateTaskWithCorrectLifecycleFieldValues() throws Exception {
+        submitCreateTaskForm();
+    }
+
+    @Test
+    @ExpectedDatabase(value = "create-task-should-create-unassigned-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldCreateTaskThatIsNotAssignedToAnyone() throws Exception {
+        submitCreateTaskForm();
+    }
+
+    @Test
+    @ExpectedDatabase(value = "create-task-should-not-create-any-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotCreateAnyTags() throws Exception {
+        submitCreateTaskForm();
+    }
 
     private ResultActions submitCreateTaskForm() throws Exception {
         return  mockMvc.perform(post("/task/create")
