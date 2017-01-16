@@ -92,7 +92,7 @@ public class UpdateTaskWhenValidationIsSuccessful {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(ConstantDateTimeService.CURRENT_DATE_AND_TIME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(NEW_TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(NEW_DESCRIPTION)))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(Tasks.WriteLesson.STATUS)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()));
     }
 

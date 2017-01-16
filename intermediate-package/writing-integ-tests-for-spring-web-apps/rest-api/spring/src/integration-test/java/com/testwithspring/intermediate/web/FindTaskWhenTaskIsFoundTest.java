@@ -86,12 +86,12 @@ public class FindTaskWhenTaskIsFoundTest {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.CLOSED.toString())))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, is(TaskResolution.DONE.toString())));
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(Tasks.WriteExampleApp.STATUS.toString())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, is(Tasks.WriteExampleApp.RESOLUTION.toString())));
     }
 
     @Test
-    public void shouldTaskThatHasOneTag() throws Exception {
+    public void shouldReturnTaskThatHasOneTag() throws Exception {
         findTask()
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)));
     }
