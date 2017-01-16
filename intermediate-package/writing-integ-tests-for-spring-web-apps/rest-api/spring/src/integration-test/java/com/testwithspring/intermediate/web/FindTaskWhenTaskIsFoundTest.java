@@ -8,8 +8,6 @@ import com.testwithspring.intermediate.IntegrationTestContext;
 import com.testwithspring.intermediate.ReplacementDataSetLoader;
 import com.testwithspring.intermediate.Tasks;
 import com.testwithspring.intermediate.config.Profiles;
-import com.testwithspring.intermediate.task.TaskResolution;
-import com.testwithspring.intermediate.task.TaskStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
