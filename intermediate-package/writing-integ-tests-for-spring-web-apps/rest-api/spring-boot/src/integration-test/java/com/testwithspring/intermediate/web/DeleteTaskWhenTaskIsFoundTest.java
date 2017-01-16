@@ -10,7 +10,6 @@ import com.testwithspring.intermediate.IntegrationTestContext;
 import com.testwithspring.intermediate.ReplacementDataSetLoader;
 import com.testwithspring.intermediate.Tasks;
 import com.testwithspring.intermediate.config.Profiles;
-import com.testwithspring.intermediate.task.TaskStatus;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -27,9 +26,7 @@ import org.springframework.test.context.web.ServletTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -76,8 +73,8 @@ public class DeleteTaskWhenTaskIsFoundTest {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(Tasks.WriteLesson.MODIFICATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(Tasks.WriteLesson.TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()));
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(Tasks.WriteLesson.STATUS.toString())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, isEmptyOrNullString()));
     }
 
     @Test
