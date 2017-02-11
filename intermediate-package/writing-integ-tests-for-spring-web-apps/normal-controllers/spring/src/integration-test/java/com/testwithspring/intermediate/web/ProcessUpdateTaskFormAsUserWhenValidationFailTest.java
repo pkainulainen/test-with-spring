@@ -5,16 +5,15 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.testwithspring.intermediate.IntegrationTest;
-import com.testwithspring.intermediate.IntegrationTestContext;
-import com.testwithspring.intermediate.ReplacementDataSetLoader;
-import com.testwithspring.intermediate.Tasks;
+import com.testwithspring.intermediate.*;
 import com.testwithspring.intermediate.config.Profiles;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -31,6 +30,8 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -45,13 +46,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("task.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "task.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ProcessUpdateTaskFormWhenValidationFailTest {
+public class ProcessUpdateTaskFormAsUserWhenValidationFailTest {
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -61,28 +66,33 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldRenderUpdateTaskView() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(view().name(WebTestConstants.View.UPDATE_TASK));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
@@ -93,6 +103,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
 
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldShowFieldValuesOfUpdateTaskForm() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -102,6 +113,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -110,6 +122,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     @ExpectedDatabase(value = "task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotUpdateTask() throws Exception {
         submitEmptyUpdateTaskForm();
@@ -120,6 +133,7 @@ public class ProcessUpdateTaskFormWhenValidationFailTest {
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, "")
                 .param(WebTestConstants.ModelAttributeProperty.Task.ID, Tasks.WriteLesson.ID.toString())
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
+                .with(csrf())
         );
     }
 }
