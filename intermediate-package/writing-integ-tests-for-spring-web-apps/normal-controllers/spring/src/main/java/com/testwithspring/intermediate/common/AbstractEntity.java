@@ -1,4 +1,4 @@
-package com.testwithspring.intermediate.task;
+package com.testwithspring.intermediate.common;
 
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-abstract class AbstractEntity {
+public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,19 +27,19 @@ abstract class AbstractEntity {
     @Version
     private Long version;
 
-    ZonedDateTime getCreationTime() {
+    public ZonedDateTime getCreationTime() {
         return creationTime;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
-    ZonedDateTime getModificationTime() {
+    public ZonedDateTime getModificationTime() {
         return modificationTime;
     }
 
-    Long getVersion() {
+    public Long getVersion() {
         return version;
     }
 }

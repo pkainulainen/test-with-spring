@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.common.AbstractEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
