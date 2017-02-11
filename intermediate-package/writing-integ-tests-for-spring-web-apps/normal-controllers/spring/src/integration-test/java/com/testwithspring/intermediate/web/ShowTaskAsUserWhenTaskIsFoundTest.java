@@ -3,16 +3,15 @@ package com.testwithspring.intermediate.web;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import com.testwithspring.intermediate.IntegrationTest;
-import com.testwithspring.intermediate.IntegrationTestContext;
-import com.testwithspring.intermediate.ReplacementDataSetLoader;
-import com.testwithspring.intermediate.Tasks;
+import com.testwithspring.intermediate.*;
 import com.testwithspring.intermediate.config.Profiles;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -28,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.contains;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -42,13 +42,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/tasks.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/tasks.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ShowTaskWhenTaskIsFoundTest {
+public class ShowTaskAsUserWhenTaskIsFoundTest {
     
     @Autowired
     private WebApplicationContext webAppContext;
@@ -58,28 +62,33 @@ public class ShowTaskWhenTaskIsFoundTest {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         openShowTaskPage()
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldRenderShowTaskView() throws Exception {
         openShowTaskPage()
                 .andExpect(view().name(WebTestConstants.View.VIEW_TASK));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldForwardUserToShowTaskPageUrl() throws Exception {
         openShowTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/view.jsp"));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldShowFoundTask() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -98,6 +107,7 @@ public class ShowTaskWhenTaskIsFoundTest {
 
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldShowOneTagOfFoundTask() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
@@ -106,6 +116,7 @@ public class ShowTaskWhenTaskIsFoundTest {
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
     public void shouldShowFoundTag() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
