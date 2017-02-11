@@ -23,6 +23,9 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     /**
      * We use this password encoder here because this is just an example application.
      * DO NOT USE THIS IN A REAL APPLICATION.
@@ -40,19 +43,10 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
         return hierarchy;
     }
 
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        return super.userDetailsService();
-    }
-
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .jdbcAuthentication()
-                    .dataSource(dataSource)
-                    .authoritiesByUsernameQuery("select username,role from user_accounts where username = ?")
-                    .usersByUsernameQuery("select username,password,is_enabled from user_accounts where username = ?");
+                .userDetailsService(userDetailsService);
     }
 
     @Override

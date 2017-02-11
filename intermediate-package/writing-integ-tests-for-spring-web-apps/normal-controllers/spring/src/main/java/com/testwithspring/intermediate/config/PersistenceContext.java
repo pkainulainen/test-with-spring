@@ -33,7 +33,8 @@ import java.util.Properties;
 public class PersistenceContext {
 
     private static final String[] ENTITY_PACKAGES = {
-            "com.testwithspring.intermediate.task"
+            "com.testwithspring.intermediate.task",
+            "com.testwithspring.intermediate.user"
     };
 
 

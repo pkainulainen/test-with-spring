@@ -1,6 +1,7 @@
 package com.testwithspring.intermediate.user;
 
 import com.testwithspring.intermediate.common.AbstractEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 
@@ -42,5 +43,19 @@ class User extends AbstractEntity {
 
     String getUsername() {
         return username;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", this.getId())
+                .append("creationTime", this.getCreationTime())
+                .append("enabled", this.enabled)
+                .append("modificationTime", this.getModificationTime())
+                .append("name", this.name)
+                .append("role", this.role)
+                .append("username", this.username)
+                .append("version", this.getVersion())
+                .toString();
     }
 }
