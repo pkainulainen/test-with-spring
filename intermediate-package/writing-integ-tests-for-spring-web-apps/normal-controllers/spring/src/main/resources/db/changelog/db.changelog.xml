@@ -95,4 +95,11 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="05-add-is_enabled-column-to-user_accounts-table" author="Petri Kainulainen">
+        <addColumn tableName="user_accounts">
+            <column name="is_enabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

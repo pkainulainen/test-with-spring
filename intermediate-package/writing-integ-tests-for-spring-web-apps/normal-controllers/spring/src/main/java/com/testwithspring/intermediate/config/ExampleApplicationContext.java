@@ -16,7 +16,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 @ComponentScan("com.testwithspring.intermediate.task")
 @Import({
         PersistenceContext.class,
-        WebMvcContext.class
+        WebMvcContext.class,
+        SecurityContext.class
 })
 public class ExampleApplicationContext {
 

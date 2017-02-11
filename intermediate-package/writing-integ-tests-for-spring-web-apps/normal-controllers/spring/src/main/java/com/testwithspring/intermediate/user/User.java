@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Table(name = "user_accounts")
 class User extends AbstractEntity {
 
+    @Column(name = "is_enabled", nullable = false)
+    private boolean enabled;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -20,6 +23,10 @@ class User extends AbstractEntity {
 
     @Column(name = "username", nullable = false)
     private String username;
+
+    boolean isEnabled() {
+        return enabled;
+    }
 
     String getName() {
         return name;
