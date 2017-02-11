@@ -33,6 +33,19 @@ public class LoggedInUserService implements UserDetailsService {
                 )));
         LOGGER.info("Found user: {}", found);
 
-        return new LoggedInUser(found);
+        return mapToUserDetailsObject(found);
+    }
+
+    private LoggedInUser mapToUserDetailsObject(User user) {
+        LoggedInUser userDetails = new LoggedInUser();
+
+        userDetails.setEnabled(user.isEnabled());
+        userDetails.setId(user.getId());
+        userDetails.setName(user.getName());
+        userDetails.setPassword(user.getPassword());
+        userDetails.setRole(user.getRole());
+        userDetails.setUsername(user.getUsername());
+
+        return userDetails;
     }
 }

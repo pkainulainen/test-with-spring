@@ -4,10 +4,12 @@ import com.testwithspring.intermediate.task.TaskCrudService;
 import com.testwithspring.intermediate.task.TaskDTO;
 import com.testwithspring.intermediate.task.TaskFormDTO;
 import com.testwithspring.intermediate.task.TaskListDTO;
+import com.testwithspring.intermediate.user.LoggedInUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -105,7 +107,8 @@ public class TaskCrudController {
     public String processCreateTaskForm(@Valid @ModelAttribute(MODEL_ATTRIBUTE_NAME_TASK) TaskFormDTO formObject,
                                         BindingResult bindingResult,
                                         RedirectAttributes redirectAttributes,
-                                        Locale currentLocale) {
+                                        Locale currentLocale,
+                                        @AuthenticationPrincipal LoggedInUser loggedInUser) {
         LOGGER.info("Creating a new task with information: {}", formObject);
 
         if (bindingResult.hasErrors()) {
@@ -113,7 +116,7 @@ public class TaskCrudController {
             return VIEW_NAME_CREATE_TASK;
         }
 
-        TaskDTO created = crudService.create(formObject);
+        TaskDTO created = crudService.create(formObject, loggedInUser);
         LOGGER.info("Created new task with information: {}", created);
 
         addFeedbackMessage(redirectAttributes, FEEDBACK_MESSAGE_KEY_TASK_CREATED, currentLocale, created.getTitle());

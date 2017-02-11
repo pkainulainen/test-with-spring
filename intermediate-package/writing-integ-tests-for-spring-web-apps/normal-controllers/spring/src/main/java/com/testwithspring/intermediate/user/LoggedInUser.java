@@ -13,20 +13,14 @@ import java.util.Collections;
  */
 public class LoggedInUser implements UserDetails {
 
-    private final Long id;
-    private final boolean enabled;
-    private final String name;
-    private final String password;
-    private final UserRole role;
-    private final String username;
+    private Long id;
+    private boolean enabled;
+    private String name;
+    private String password;
+    private UserRole role;
+    private String username;
 
-    LoggedInUser(User user) {
-        this.id = user.getId();
-        this.enabled = user.isEnabled();
-        this.name = user.getName();
-        this.password = user.getPassword();
-        this.role = user.getRole();
-        this.username = user.getUsername();
+    public LoggedInUser() {
     }
 
     @Override
@@ -72,6 +66,30 @@ public class LoggedInUser implements UserDetails {
         return enabled;
     }
 
+    void setId(Long id) {
+        this.id = id;
+    }
+
+    void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    void setName(String name) {
+        this.name = name;
+    }
+
+    void setPassword(String password) {
+        this.password = password;
+    }
+
+    void setRole(UserRole role) {
+        this.role = role;
+    }
+
+    void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -82,4 +100,6 @@ public class LoggedInUser implements UserDetails {
                 .append("role", this.role)
                 .toString();
     }
+
+
 }

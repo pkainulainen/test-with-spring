@@ -2,6 +2,8 @@ package com.testwithspring.intermediate.task;
 
 import com.testwithspring.intermediate.ReflectionFieldUtil;
 import com.testwithspring.intermediate.UnitTest;
+import com.testwithspring.intermediate.user.LoggedInUser;
+import com.testwithspring.intermediate.user.LoggedInUserBuilder;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,10 +51,12 @@ public class RepositoryTaskCrudServiceTest {
     public class Create {
 
         private TaskFormDTO input;
+        private LoggedInUser loggedInUser;
 
         @Before
         public void configureTestCases() {
             input = createInput();
+            loggedInUser = createLoggedInUser();
             returnPersistedTask();
         }
 
@@ -63,6 +67,12 @@ public class RepositoryTaskCrudServiceTest {
             task.setTitle(TITLE);
 
             return task;
+        }
+
+        private LoggedInUser createLoggedInUser() {
+            return new LoggedInUserBuilder()
+                    .withId(CREATOR_ID)
+                    .build();
         }
 
         private void returnPersistedTask() {
@@ -78,49 +88,49 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldReturnTaskWithoutAssignee() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getAssigneeId()).isNull();
         }
 
         @Test
         public void shouldReturnTaskWithCorrectCreationTime() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getCreationTime()).isEqualTo(NOW);
         }
 
         @Test
         public void shouldReturnTaskWithCorrectCreator() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getCreatorId()).isEqualTo(CREATOR_ID);
         }
 
         @Test
         public void shouldReturnTaskWithCorrectDescription() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getDescription()).isEqualTo(DESCRIPTION);
         }
 
         @Test
         public void shouldReturnTaskWithCorrectId() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getId()).isEqualByComparingTo(TASK_ID);
         }
 
         @Test
         public void shouldReturnTaskWithCorrectModificationTime() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getModificationTime()).isEqualTo(NOW);
         }
 
         @Test
         public void shouldReturnTaskThatHasNoTags() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThat(task.getTags()).isEmpty();
         }
 
         @Test
         public void shouldReturnOpenTask() {
-            TaskDTO task = service.create(input);
+            TaskDTO task = service.create(input, loggedInUser);
             assertThatTask(task).isOpen();
         }
 
@@ -137,7 +147,7 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldCreateTaskWithoutAssignee() {
-            service.create(input);
+            service.create(input, loggedInUser);
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getAssignee()).isNull()
@@ -146,7 +156,7 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldCreateTaskWithCorrectCreator() {
-            service.create(input);
+            service.create(input, loggedInUser);
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getCreator().getUserId()).isEqualByComparingTo(CREATOR_ID)
@@ -155,7 +165,7 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldCreateTaskWithCorrectDescription() {
-            service.create(input);
+            service.create(input, loggedInUser);
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getDescription()).isEqualTo(DESCRIPTION)
@@ -164,7 +174,7 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldCreateTaskWithCorrectTitle() {
-            service.create(input);
+            service.create(input, loggedInUser);
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getTitle()).isEqualTo(TITLE)
@@ -173,7 +183,7 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldCreateOpenTask() {
-            service.create(input);
+            service.create(input, loggedInUser);
 
             verify(repository, times(1)).save(assertArg(
                     t -> TaskAssert.assertThatTask(t).isOpen()
@@ -182,7 +192,7 @@ public class RepositoryTaskCrudServiceTest {
 
         @Test
         public void shouldCreateTaskThatHasNoTags() {
-            service.create(input);
+            service.create(input, loggedInUser);
 
             verify(repository, times(1)).save(assertArg(
                     t -> assertThat(t.getTags()).isEmpty()

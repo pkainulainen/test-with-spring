@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.LoggedInUser;
+
 import java.util.List;
 
 /**
@@ -9,10 +11,11 @@ public interface TaskCrudService {
 
     /**
      * Creates a new task and saves it in the database.
-     * @param task  The information of the new task.
+     * @param task          The information of the new task.
+     * @param loggedInUser  The user that is currently logged in.
      * @return      The information of the created task.
      */
-    public TaskDTO create(TaskFormDTO task);
+    public TaskDTO create(TaskFormDTO task, LoggedInUser loggedInUser);
 
     /**
      * Deletes an existing task.

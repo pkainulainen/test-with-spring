@@ -3,6 +3,7 @@ package com.testwithspring.intermediate.web;
 import com.testwithspring.intermediate.UnitTest;
 import com.testwithspring.intermediate.TestStringUtil;
 import com.testwithspring.intermediate.task.*;
+import com.testwithspring.intermediate.user.LoggedInUser;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -254,7 +255,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).create(isA(TaskFormDTO.class));
+                    verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -329,7 +330,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).create(isA(TaskFormDTO.class));
+                    verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -404,7 +405,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).create(isA(TaskFormDTO.class));
+                    verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
         }
@@ -441,7 +442,7 @@ public class TaskCrudControllerTest {
                         .withDescription(maxLengthDescription)
                         .withStatusOpen()
                         .build();
-                given(crudService.create(isA(TaskFormDTO.class))).willReturn(created);
+                given(crudService.create(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(created);
             }
 
             private void returnFeedbackMessage() {
@@ -489,8 +490,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
-                ));
+                            task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -501,8 +504,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getId()).isNull()
-                ));
+                            task -> assertThat(task.getId()).isNull()
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -513,8 +518,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                ));
+                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
         }
     }
@@ -622,7 +629,7 @@ public class TaskCrudControllerTest {
          * These two test methods are added into this test class because both of them
          * test behavior that should happen in every case (tasks are not found and
          * tasks are not found).
-         *
+         * <p>
          * You can, of course, move these test methods into the lower inner cases,
          * but you should understand that this will your tests harder to change
          * if you decide to change the behavior of the {@code TaskCrudController} class.
@@ -674,7 +681,7 @@ public class TaskCrudControllerTest {
              * I used copy paste because I think that it makes these tests easier to read. However,
              * if there would be a third test class that requires this method, I would move it into
              * an object mother class.
-             *
+             * <p>
              * Also, I didn't use factory methods or test data builder because the {@code TaskListDTO}
              * objects are just dummy data containers.
              */
@@ -1075,6 +1082,7 @@ public class TaskCrudControllerTest {
                     returnUpdatedTask();
                     returnFeedbackMessage();
                 }
+
                 private void returnUpdatedTask() {
                     TaskDTO updated = new TaskDTOBuilder()
                             .withId(TASK_ID)

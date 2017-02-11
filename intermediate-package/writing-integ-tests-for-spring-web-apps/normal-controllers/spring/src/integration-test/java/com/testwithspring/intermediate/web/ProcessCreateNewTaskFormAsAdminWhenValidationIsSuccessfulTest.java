@@ -119,7 +119,7 @@ public class ProcessCreateNewTaskFormAsAdminWhenValidationIsSuccessfulTest {
 
     @Test
     @WithUserDetails(Users.AnneAdmin.USERNAME)
-    @ExpectedDatabase(value = "create-task-should-set-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @ExpectedDatabase(value = "create-task-as-admin-should-set-lifecycle-field-values.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskWithCorrectLifecycleFieldValues() throws Exception {
         submitCreateTaskForm();
     }

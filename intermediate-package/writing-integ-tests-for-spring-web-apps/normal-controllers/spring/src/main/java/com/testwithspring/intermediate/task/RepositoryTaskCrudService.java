@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.LoggedInUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,11 @@ class RepositoryTaskCrudService implements TaskCrudService {
 
     @Transactional
     @Override
-    public TaskDTO create(TaskFormDTO task) {
+    public TaskDTO create(TaskFormDTO task, LoggedInUser loggedInUser) {
         LOGGER.info("Creating a new task with information: {}", task);
 
-        //The creator is hardcoded because our application doesn't use
-        //Spring Security (yet)
         Task newTask = Task.getBuilder()
-                .withCreator(CREATOR_ID)
+                .withCreator(loggedInUser.getId())
                 .withDescription(task.getDescription())
                 .withTitle(task.getTitle())
                 .build();
