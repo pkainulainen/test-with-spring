@@ -3,16 +3,15 @@ package com.testwithspring.intermediate.web;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import com.testwithspring.intermediate.IntegrationTest;
-import com.testwithspring.intermediate.IntegrationTestContext;
-import com.testwithspring.intermediate.ReplacementDataSetLoader;
-import com.testwithspring.intermediate.Tasks;
+import com.testwithspring.intermediate.*;
 import com.testwithspring.intermediate.config.Profiles;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -26,8 +25,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -39,14 +43,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("task.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "task.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class ShowUpdateTaskFormWhenTaskIsNotFoundTest {
-
+public class ShowUpdateTaskFormAsUserWhenTaskIsFoundTest {
+    
     @Autowired
     private WebApplicationContext webAppContext;
 
@@ -55,28 +63,43 @@ public class ShowUpdateTaskFormWhenTaskIsNotFoundTest {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
-    public void shouldReturnHttpStatusCodeNotFound() throws Exception {
+    @WithUserDetails(Users.JohnDoe.USERNAME)
+    public void shouldReturnHttpStatusCodeOk() throws Exception {
         openUpdateTaskPage()
-                .andExpect(status().isNotFound());
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void shouldRenderNotFoundView()  throws Exception {
+    @WithUserDetails(Users.JohnDoe.USERNAME)
+    public void shouldRenderUpdateTaskView() throws Exception {
         openUpdateTaskPage()
-                .andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND));
+                .andExpect(view().name(WebTestConstants.View.UPDATE_TASK));
     }
 
     @Test
-    public void shouldForwardUserToNotFoundPageUrl() throws Exception {
+    @WithUserDetails(Users.JohnDoe.USERNAME)
+    public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
         openUpdateTaskPage()
-                .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
+    }
+
+    @Test
+    @WithUserDetails(Users.JohnDoe.USERNAME)
+    public void shouldShowInformationOfUpdatedTask() throws Exception {
+       openUpdateTaskPage()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(Tasks.WriteLesson.DESCRIPTION)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteLesson.ID)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteLesson.TITLE))
+                )));
     }
 
     private ResultActions openUpdateTaskPage() throws Exception {
-        return  mockMvc.perform(get("/task/{taskId}/update", Tasks.TASK_ID_NOT_FOUND));
+        return  mockMvc.perform(get("/task/{taskId}/update", Tasks.WriteLesson.ID));
     }
 }
