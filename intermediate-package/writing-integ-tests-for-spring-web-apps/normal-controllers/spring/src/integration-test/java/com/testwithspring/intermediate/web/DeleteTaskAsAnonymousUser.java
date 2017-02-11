@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -28,11 +29,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {IntegrationTestContext.class})
@@ -42,15 +41,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/tasks.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/tasks.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class DeleteTaskWhenTaskIsFoundTest {
-
-    private static final String FEEDBACK_MESSAGE_TASK_DELETED = "Task was deleted successfully.";
+public class DeleteTaskAsAnonymousUser {
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -60,6 +61,7 @@ public class DeleteTaskWhenTaskIsFoundTest {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
     }
 
@@ -70,41 +72,14 @@ public class DeleteTaskWhenTaskIsFoundTest {
     }
 
     @Test
-    public void shouldRedirectUserToViewTaskListView() throws Exception {
+    public void shouldRedirectUserToLoginPage() throws Exception {
         deleteTask()
-                .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK_LIST));
+                .andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL));
     }
 
     @Test
-    public void shouldRedirectUserToViewTaskListPageUrl() throws Exception {
-        deleteTask()
-                .andExpect(redirectedUrl("/"));
-    }
-
-    @Test
-    public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
-        deleteTask()
-                .andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
-                        FEEDBACK_MESSAGE_TASK_DELETED
-                ));
-    }
-
-    @Test
-    @ExpectedDatabase(value = "delete-task-should-delete-correct-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldDeleteCorrectTask() throws Exception {
-        deleteTask();
-    }
-
-    @Test
-    @ExpectedDatabase(value = "delete-task-should-delete-link-between-tag-and-deleted-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldDeleteLinkBetweenTagAndDeletedTask() throws Exception {
-        deleteTask();
-    }
-
-
-    @Test
-    @ExpectedDatabase(value = "delete-task-should-not-delete-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldNotDeleteTags() throws Exception {
+    @ExpectedDatabase(value = "/com/testwithspring/intermediate/tasks.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldNotDeleteTask() throws Exception {
         deleteTask();
     }
 
