@@ -13,8 +13,7 @@ import java.util.Set;
 
 @Service
 class RepositoryTaskCrudService implements TaskCrudService {
-
-    private static final Long CREATOR_ID = 1L;
+    
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryTaskCrudService.class);
 
     private final TaskRepository repository;
