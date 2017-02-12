@@ -1,7 +1,11 @@
 package com.testwithspring.intermediate.user;
 
 /**
- * Created by loke on 11/02/2017.
+ * Declares the legal user roles. These roles are:
+ * <ul>
+ *     <li>The <code>ROLE_USER</code> means that the user is a regular user.</li>
+ *     <li>The <code>ROLE_ADMIN</code> means that the user in question is an administrator.</li>
+ * </ul>
  */
 public enum UserRole {
     ROLE_USER,
