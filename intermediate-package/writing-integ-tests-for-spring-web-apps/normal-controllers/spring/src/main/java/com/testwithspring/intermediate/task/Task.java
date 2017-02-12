@@ -26,6 +26,9 @@ class Task extends AbstractEntity {
     @Column(name = "description", length = MAX_LENGTH_DESCRIPTION)
     private String description;
 
+    @Embedded
+    private Modifier modifier;
+
     @Column(name = "resolution")
     @Enumerated(EnumType.STRING)
     private TaskResolution resolution;
@@ -52,6 +55,11 @@ class Task extends AbstractEntity {
     private Task(Builder builder) {
         this.creator = builder.creator;
         this.description = builder.description;
+
+        if (builder.creator != null) {
+            this.modifier = new Modifier(builder.creator.getUserId());
+        }
+
         this.title = builder.title;
         this.status = TaskStatus.OPEN;
     }
@@ -74,6 +82,10 @@ class Task extends AbstractEntity {
 
     String getDescription() {
         return description;
+    }
+
+    Modifier getModifier() {
+        return modifier;
     }
 
     TaskResolution getResolution() {
@@ -110,6 +122,7 @@ class Task extends AbstractEntity {
                 .append("creator", this.creator)
                 .append("description", this.description)
                 .append("modificationTime", this.getModificationTime())
+                .append("modifier", this.modifier)
                 .append("resolution", this.resolution)
                 .append("status", this.status)
                 .append("title", this.title)

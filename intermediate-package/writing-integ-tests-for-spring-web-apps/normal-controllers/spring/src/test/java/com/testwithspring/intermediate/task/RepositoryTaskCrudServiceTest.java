@@ -164,6 +164,15 @@ public class RepositoryTaskCrudServiceTest {
         }
 
         @Test
+        public void shouldCreateTaskWithCorrectModifier() {
+            service.create(input, loggedInUser);
+
+            verify(repository, times(1)).save(assertArg(
+                    t -> assertThat(t.getModifier().getUserId()).isEqualByComparingTo(CREATOR_ID)
+            ));
+        }
+
+        @Test
         public void shouldCreateTaskWithCorrectDescription() {
             service.create(input, loggedInUser);
 
