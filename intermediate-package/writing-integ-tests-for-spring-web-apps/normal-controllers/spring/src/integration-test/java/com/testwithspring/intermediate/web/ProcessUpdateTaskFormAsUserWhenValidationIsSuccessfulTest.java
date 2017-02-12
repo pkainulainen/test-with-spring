@@ -115,8 +115,8 @@ public class ProcessUpdateTaskFormAsUserWhenValidationIsSuccessfulTest {
 
     @Test
     @WithUserDetails(Users.JohnDoe.USERNAME)
-    @ExpectedDatabase(value = "update-task-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldUpdateModificationTimeAndVersion() throws Exception {
+    @ExpectedDatabase(value = "update-task-as-user-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldUpdateModificationInformationAndVersion() throws Exception {
         submitUpdateTaskForm();
     }
 

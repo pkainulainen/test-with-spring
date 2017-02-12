@@ -862,7 +862,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).update(isA(TaskFormDTO.class));
+                    verify(crudService, never()).update(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -943,7 +943,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
                     );
 
-                    verify(crudService, never()).update(isA(TaskFormDTO.class));
+                    verify(crudService, never()).update(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -1024,7 +1024,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
                     );
 
-                    verify(crudService, never()).update(isA(TaskFormDTO.class));
+                    verify(crudService, never()).update(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
         }
@@ -1044,7 +1044,7 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void throwNotFoundException() {
-                    given(crudService.update(isA(TaskFormDTO.class))).willThrow(new TaskNotFoundException(""));
+                    given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willThrow(new TaskNotFoundException(""));
                 }
 
                 @Test
@@ -1091,7 +1091,7 @@ public class TaskCrudControllerTest {
                             .withDescription(maxLengthDescription)
                             .withStatusOpen()
                             .build();
-                    given(crudService.update(isA(TaskFormDTO.class))).willReturn(updated);
+                    given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(updated);
                 }
 
                 private void returnFeedbackMessage() {
@@ -1143,8 +1143,10 @@ public class TaskCrudControllerTest {
                     );
 
                     verify(crudService, times(1)).update(assertArg(
-                            task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
-                    ));
+                                task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
+                            ),
+                            isA(LoggedInUser.class)
+                    );
                 }
 
                 @Test
@@ -1156,8 +1158,10 @@ public class TaskCrudControllerTest {
                     );
 
                     verify(crudService, times(1)).update(assertArg(
-                            task -> assertThat(task.getId()).isEqualTo(TASK_ID)
-                    ));
+                                task -> assertThat(task.getId()).isEqualTo(TASK_ID)
+                            ),
+                            isA(LoggedInUser.class)
+                    );
                 }
 
                 @Test
@@ -1169,8 +1173,10 @@ public class TaskCrudControllerTest {
                     );
 
                     verify(crudService, times(1)).update(assertArg(
-                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                    ));
+                                task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                            ),
+                            isA(LoggedInUser.class)
+                    );
                 }
             }
         }

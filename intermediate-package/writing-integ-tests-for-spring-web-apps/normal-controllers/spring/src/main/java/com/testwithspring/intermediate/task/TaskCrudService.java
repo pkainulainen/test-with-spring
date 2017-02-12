@@ -41,8 +41,9 @@ public interface TaskCrudService {
 
     /**
      * Updates the information of an existing task.
-     * @param task  The new information of an existing task.
+     * @param task          The new information of an existing task.
+     * @param loggedInUser  The user that is currently logged in.
      * @return      The information of the updated task.
      */
-    public TaskDTO update(TaskFormDTO task);
+    public TaskDTO update(TaskFormDTO task, LoggedInUser loggedInUser);
 }

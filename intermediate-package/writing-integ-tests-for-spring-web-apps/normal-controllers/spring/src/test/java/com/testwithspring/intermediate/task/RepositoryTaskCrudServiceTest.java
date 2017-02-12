@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.testwithspring.intermediate.TestDoubles.dummy;
 import static com.testwithspring.intermediate.task.TaskDTOAssert.assertThatTask;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -632,7 +633,7 @@ public class RepositoryTaskCrudServiceTest {
             @Test(expected = TaskNotFoundException.class)
             public void shouldThrowException() {
                 TaskFormDTO input = createInput();
-                service.update(input);
+                service.update(input, dummy(LoggedInUser.class));
             }
 
             private TaskFormDTO createInput() {
@@ -646,15 +647,22 @@ public class RepositoryTaskCrudServiceTest {
 
         public class WhenTaskIsFound {
 
+            private final Long MODIFIER_ID = 456L;
             private final String NEW_DESCRIPTION = "Test the method that updates a task";
             private final String NEW_TITLE = "Write new unit test";
 
             private TaskFormDTO input;
+            private LoggedInUser loggedInUser;
             private Task updated;
 
             @Before
             public void configureTestCases() {
                 input = createInput();
+
+                loggedInUser = new LoggedInUserBuilder()
+                        .withId(MODIFIER_ID)
+                        .build();
+
                 updated = createOpenTask();
                 returnTask(updated);
             }
@@ -687,91 +695,97 @@ public class RepositoryTaskCrudServiceTest {
 
             @Test
             public void shouldNotSetAssignee() {
-                service.update(input);
+                service.update(input, loggedInUser);
                 assertThat(updated.getAssignee()).isNull();
             }
 
             @Test
             public void shouldNotSetCloser() {
-                service.update(input);
+                service.update(input, loggedInUser);
                 assertThat(updated.getCloser()).isNull();
             }
 
             @Test
             public void shouldNotChangeCreator() {
-                service.update(input);
-                assertThat(updated.getCreator().getUserId()).isEqualTo(CREATOR_ID);
+                service.update(input, loggedInUser);
+                assertThat(updated.getCreator().getUserId()).isEqualByComparingTo(CREATOR_ID);
+            }
+
+            @Test
+            public void shouldUpdateModifier() {
+                service.update(input, loggedInUser);
+                assertThat(updated.getModifier().getUserId()).isEqualByComparingTo(MODIFIER_ID);
             }
 
             @Test
             public void shouldUpdateDescription() {
-                service.update(input);
+                service.update(input, loggedInUser);
                 assertThat(updated.getDescription()).isEqualTo(NEW_DESCRIPTION);
             }
 
             @Test
             public void shouldUpdateTitle() {
-                service.update(input);
+                service.update(input, loggedInUser);
                 assertThat(updated.getTitle()).isEqualTo(NEW_TITLE);
             }
 
             @Test
             public void shouldNotChangeStatusOfTask() {
-                service.update(input);
+                service.update(input, loggedInUser);
                 TaskAssert.assertThatTask(updated).isOpen();
             }
 
             @Test
             public void shouldReturnTaskWithoutAssignee() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getAssigneeId()).isNull();
             }
 
             @Test
             public void shouldReturnTaskWithoutCloser() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getCloserId()).isNull();
             }
 
             @Test
             public void shouldReturnTaskWithCorrectCreationTime() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getCreationTime()).isEqualTo(NOW);
             }
 
             @Test
             public void shouldReturnTaskWithCorrectCreator() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getCreatorId()).isEqualByComparingTo(CREATOR_ID);
             }
 
             @Test
             public void shouldReturnTaskWithCorrectDescription() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getDescription()).isEqualTo(NEW_DESCRIPTION);
             }
 
             @Test
             public void shouldReturnTaskWithCorrectId() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getId()).isEqualByComparingTo(TASK_ID);
             }
 
             @Test
             public void shouldReturnTaskWithCorrectModificationTime() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getModificationTime()).isEqualTo(NOW);
             }
 
             @Test
             public void shouldReturnTaskWithCorrectTitle() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getTitle()).isEqualTo(NEW_TITLE);
             }
 
             @Test
             public void shouldReturnOpenTask() {
-                TaskDTO updated = service.update(input);
+                TaskDTO updated = service.update(input, loggedInUser);
                 assertThatTask(updated).isOpen();
             }
 
@@ -779,7 +793,7 @@ public class RepositoryTaskCrudServiceTest {
 
                 @Test
                 public void shouldReturnTaskThatHasNoTags() {
-                    TaskDTO updated = service.update(input);
+                    TaskDTO updated = service.update(input, loggedInUser);
                     assertThat(updated.getTags()).isEmpty();
                 }
             }
@@ -812,13 +826,13 @@ public class RepositoryTaskCrudServiceTest {
 
                 @Test
                 public void shouldReturnTaskThatHasOneTag() {
-                    TaskDTO updated = service.update(input);
+                    TaskDTO updated = service.update(input, loggedInUser);
                     assertThat(updated.getTags()).hasSize(1);
                 }
 
                 @Test
                 public void shouldReturnTaskThatHasCorrectTag() {
-                    TaskDTO updated = service.update(input);
+                    TaskDTO updated = service.update(input, loggedInUser);
                     TagDTO tag = updated.getTags().get(0);
 
                     assertThat(tag.getId()).isEqualByComparingTo(TAG_ID);

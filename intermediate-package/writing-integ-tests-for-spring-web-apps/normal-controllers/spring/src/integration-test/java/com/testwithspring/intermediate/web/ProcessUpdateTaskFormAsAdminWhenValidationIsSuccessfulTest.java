@@ -111,8 +111,8 @@ public class ProcessUpdateTaskFormAsAdminWhenValidationIsSuccessfulTest {
 
     @Test
     @WithUserDetails(Users.AnneAdmin.USERNAME)
-    @ExpectedDatabase(value = "update-task-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldUpdateModificationTimeAndVersion() throws Exception {
+    @ExpectedDatabase(value = "update-task-as-admin-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void shouldUpdateModificationInformationAndVersion() throws Exception {
         submitUpdateTaskForm();
     }
 

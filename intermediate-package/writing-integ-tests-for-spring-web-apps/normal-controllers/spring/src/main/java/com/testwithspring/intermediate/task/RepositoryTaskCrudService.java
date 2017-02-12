@@ -118,7 +118,7 @@ class RepositoryTaskCrudService implements TaskCrudService {
 
     @Transactional
     @Override
-    public TaskDTO update(TaskFormDTO task) {
+    public TaskDTO update(TaskFormDTO task, LoggedInUser loggedInUser) {
         LOGGER.info("Updating existing task by using information: {}", task);
 
         Task updated = repository.findOne(task.getId()).orElseThrow(
@@ -126,6 +126,7 @@ class RepositoryTaskCrudService implements TaskCrudService {
         );
         LOGGER.debug("Found task: {}", updated);
 
+        updated.setModifier(loggedInUser.getId());
         updated.setDescription(task.getDescription());
         updated.setTitle(task.getTitle());
 

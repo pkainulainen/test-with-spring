@@ -108,6 +108,10 @@ class Task extends AbstractEntity {
         this.description = description;
     }
 
+    void setModifier(Long modifierId) {
+        this.modifier = new Modifier(modifierId);
+    }
+
     void setTitle(String title) {
         this.title = title;
     }

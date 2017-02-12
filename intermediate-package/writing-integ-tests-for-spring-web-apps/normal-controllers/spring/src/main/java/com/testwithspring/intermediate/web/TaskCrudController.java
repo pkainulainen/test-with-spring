@@ -205,7 +205,8 @@ public class TaskCrudController {
     public String processUpdateTaskForm(@Valid @ModelAttribute(MODEL_ATTRIBUTE_NAME_TASK) TaskFormDTO formObject,
                                         BindingResult bindingResult,
                                         RedirectAttributes redirectAttributes,
-                                        Locale currentLocale) {
+                                        Locale currentLocale,
+                                        @AuthenticationPrincipal LoggedInUser loggedInUser) {
         LOGGER.info("Updating the information of an existing task by using information: {}", formObject);
 
         if (bindingResult.hasErrors()) {
@@ -213,7 +214,7 @@ public class TaskCrudController {
             return VIEW_NAME_UPDATE_TASK;
         }
 
-        TaskDTO updated = crudService.update(formObject);
+        TaskDTO updated = crudService.update(formObject, loggedInUser);
         LOGGER.info("Updated the information of an existing task: {}", updated);
 
         addFeedbackMessage(redirectAttributes, FEEDBACK_MESSAGE_KEY_TASK_UPDATED, currentLocale, updated.getTitle());
