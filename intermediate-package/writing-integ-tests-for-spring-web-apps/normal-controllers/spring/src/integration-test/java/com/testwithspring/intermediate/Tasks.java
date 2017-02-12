@@ -7,6 +7,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This constant class contains the test data that is either
+ * found from the DbUnit data sets (<em>tasks.xml</em> and <em>task.xml</em>)
+ * that insert task data into our database OR that is required
+ * to write integration tests for methods that process
+ * task data.
+ */
 public final class Tasks {
 
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME;

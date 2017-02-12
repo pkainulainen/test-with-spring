@@ -2,6 +2,13 @@ package com.testwithspring.intermediate;
 
 import com.testwithspring.intermediate.user.UserRole;
 
+/**
+ * This constant class contains the test data that is either
+ * found from the DbUnit data set (<em>users.xml</em>) that
+ * inserts user data into our database OR that is required
+ * to write integration tests for methods that process
+ * user data.
+ */
 public final class Users {
 
     private Users() {}
