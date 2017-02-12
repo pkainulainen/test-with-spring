@@ -28,6 +28,8 @@ public final class Tasks {
         public static final String DESCRIPTION = "This example contains integration tests";
         public static final Long ID = 1L;
         public static final ZonedDateTime MODIFICATION_TIME = parseDateTime("2016-12-03T11:41:28");
+        public static final Long MODIFIER_ID = 1L;
+        public static final String MODIFIER_NAME = "John Doe";
         public static final TaskResolution RESOLUTION = TaskResolution.DONE;
         public static final TaskStatus STATUS = TaskStatus.CLOSED;
         public static final String TITLE = "Write example application";

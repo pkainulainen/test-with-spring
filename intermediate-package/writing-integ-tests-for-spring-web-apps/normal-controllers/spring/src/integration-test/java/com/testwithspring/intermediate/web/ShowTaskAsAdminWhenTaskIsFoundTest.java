@@ -103,10 +103,10 @@ public class ShowTaskAsAdminWhenTaskIsFoundTest {
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                        is(Tasks.WriteExampleApp.CREATOR_NAME)
+                                        is(Tasks.WriteExampleApp.MODIFIER_NAME)
                                 ),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
-                                        is(Tasks.WriteExampleApp.CREATOR_ID)
+                                        is(Tasks.WriteExampleApp.MODIFIER_ID)
                                 )
                         )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)),
