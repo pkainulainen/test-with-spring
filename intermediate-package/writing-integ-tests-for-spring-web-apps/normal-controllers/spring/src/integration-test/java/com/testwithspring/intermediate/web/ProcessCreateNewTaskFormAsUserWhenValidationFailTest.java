@@ -75,28 +75,28 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationFailTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderCreateNewTaskView() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(view().name(WebTestConstants.View.CREATE_TASK));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToCreateNewTaskPageUrl() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/create.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
@@ -107,7 +107,7 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationFailTest {
 
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowFieldValuesOfCreateTaskForm() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -117,7 +117,7 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationFailTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyCreateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -126,7 +126,7 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationFailTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "/com/testwithspring/intermediate/empty-database.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotCreateNewTask() throws Exception {
         submitEmptyCreateTaskForm();

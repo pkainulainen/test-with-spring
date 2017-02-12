@@ -64,28 +64,28 @@ public class SearchAsAdminWhenNoTasksIsFound {
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         submitSearchForm()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldRenderSearchResultView() throws Exception {
         submitSearchForm()
                 .andExpect(view().name(WebTestConstants.View.SEARCH_RESULTS));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldForwardUserToSearchResultPageUrl() throws Exception {
         submitSearchForm()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/search-results.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldNotShowAnyTasks() throws Exception {
         submitSearchForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)));

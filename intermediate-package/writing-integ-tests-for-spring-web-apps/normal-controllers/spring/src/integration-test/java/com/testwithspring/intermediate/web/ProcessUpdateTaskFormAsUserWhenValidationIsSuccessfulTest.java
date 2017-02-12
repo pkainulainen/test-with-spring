@@ -76,14 +76,14 @@ public class ProcessUpdateTaskFormAsUserWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeFound() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(status().isFound());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRedirectUserToViewTaskView() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
@@ -91,14 +91,14 @@ public class ProcessUpdateTaskFormAsUserWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRedirectUserToViewTaskPageUrl() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(redirectedUrl("/task/2"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
@@ -107,35 +107,35 @@ public class ProcessUpdateTaskFormAsUserWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-update-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldUpdateTitleAndDescription() throws Exception {
         submitUpdateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-as-user-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldUpdateModificationInformationAndVersion() throws Exception {
         submitUpdateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-not-change-status.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotChangeStatus() throws Exception {
         submitUpdateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-not-change-assignee.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotChangeAssignee() throws Exception {
         submitUpdateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-not-change-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotMakeAnyChangesToTagsOfUpdatedTask() throws Exception {
         submitUpdateTaskForm();

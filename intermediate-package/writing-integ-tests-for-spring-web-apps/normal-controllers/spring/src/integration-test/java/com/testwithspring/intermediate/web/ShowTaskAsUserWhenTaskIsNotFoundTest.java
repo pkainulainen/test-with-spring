@@ -64,21 +64,21 @@ public class ShowTaskAsUserWhenTaskIsNotFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeNotFound() throws Exception {
         openShowTaskPage()
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderNotFoundView()  throws Exception {
         openShowTaskPage()
                 .andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToNotFoundPageUrl() throws Exception {
         openShowTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));

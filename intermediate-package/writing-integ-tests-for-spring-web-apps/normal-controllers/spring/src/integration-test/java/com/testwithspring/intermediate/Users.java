@@ -12,16 +12,16 @@ public final class Users {
     public static class JohnDoe {
 
         public static final Long ID = 1L;
+        public static final String EMAIL_ADDRESS = "john.doe@gmail.com";
         public static final String NAME = "John Doe";
         public static final String PASSWORD = "user";
         public static final UserRole ROLE = UserRole.ROLE_USER;
-        public static final String USERNAME = "johndoe";
     }
 
     public static class AnneAdmin {
 
         public static final Long ID = 2L;
+        public static final String EMAIL_ADDRESS = "anne.admin@gmail.com";
         public static final String NAME = "Anne Admin";
-        public static final String USERNAME = "admin";
     }
 }

@@ -67,28 +67,28 @@ public class DeleteTaskAsAdminWhenTaskIsFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnHttpResponseStatusFound() throws Exception {
         deleteTask()
                 .andExpect(status().isFound());
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldRedirectUserToViewTaskListView() throws Exception {
         deleteTask()
                 .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK_LIST));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldRedirectUserToViewTaskListPageUrl() throws Exception {
         deleteTask()
                 .andExpect(redirectedUrl("/"));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         deleteTask()
                 .andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
@@ -97,14 +97,14 @@ public class DeleteTaskAsAdminWhenTaskIsFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "delete-task-should-delete-correct-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldDeleteCorrectTask() throws Exception {
         deleteTask();
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "delete-task-should-delete-link-between-tag-and-deleted-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldDeleteLinkBetweenTagAndDeletedTask() throws Exception {
         deleteTask();
@@ -112,7 +112,7 @@ public class DeleteTaskAsAdminWhenTaskIsFoundTest {
 
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "delete-task-should-not-delete-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotDeleteTags() throws Exception {
         deleteTask();

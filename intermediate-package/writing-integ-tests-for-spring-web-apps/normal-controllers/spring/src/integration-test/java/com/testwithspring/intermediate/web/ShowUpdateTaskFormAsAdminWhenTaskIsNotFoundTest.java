@@ -62,21 +62,21 @@ public class ShowUpdateTaskFormAsAdminWhenTaskIsNotFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeNotFound() throws Exception {
         openUpdateTaskPage()
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldRenderNotFoundView()  throws Exception {
         openUpdateTaskPage()
                 .andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldForwardUserToNotFoundPageUrl() throws Exception {
         openUpdateTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));

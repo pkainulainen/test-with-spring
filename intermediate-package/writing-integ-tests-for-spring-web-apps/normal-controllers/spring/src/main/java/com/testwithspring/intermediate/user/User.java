@@ -9,6 +9,9 @@ import javax.persistence.*;
 @Table(name = "user_accounts")
 class User extends AbstractEntity {
 
+    @Column(name = "email_address", nullable = false)
+    private String emailAddress;
+
     @Column(name = "is_enabled", nullable = false)
     private boolean enabled;
 
@@ -21,9 +24,6 @@ class User extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRole role;
-
-    @Column(name = "username", nullable = false)
-    private String username;
 
     boolean isEnabled() {
         return enabled;
@@ -41,8 +41,8 @@ class User extends AbstractEntity {
         return role;
     }
 
-    String getUsername() {
-        return username;
+    String getEmailAddress() {
+        return emailAddress;
     }
 
     @Override
@@ -50,11 +50,11 @@ class User extends AbstractEntity {
         return new ToStringBuilder(this)
                 .append("id", this.getId())
                 .append("creationTime", this.getCreationTime())
+                .append("emailAddress", this.emailAddress)
                 .append("enabled", this.enabled)
                 .append("modificationTime", this.getModificationTime())
                 .append("name", this.name)
                 .append("role", this.role)
-                .append("username", this.username)
                 .append("version", this.getVersion())
                 .toString();
     }

@@ -6,5 +6,5 @@ import java.util.Optional;
 
 interface UserRepository extends Repository<User, Long>, CustomUserRepository {
 
-    Optional<User> findByUsername(String username);
+    Optional<User> findByEmailAddress(String emailAddress);
 }

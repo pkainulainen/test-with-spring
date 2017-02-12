@@ -69,28 +69,28 @@ public class ProcessUpdateTaskFormAsAdminWhenTaskIsNotFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeNotFound() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldRenderNotFoundView() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldForwardUserToNotFoundPageUrl() throws Exception {
         submitUpdateTaskForm()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotUpdateTheInformationOfTask() throws Exception {
         submitUpdateTaskForm();

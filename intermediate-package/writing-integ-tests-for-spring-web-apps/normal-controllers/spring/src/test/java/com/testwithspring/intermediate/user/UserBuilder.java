@@ -14,12 +14,12 @@ import com.testwithspring.intermediate.ReflectionFieldUtil;
  */
 final class UserBuilder {
 
+    private String emailAddress;
     private boolean enabled;
     private Long id;
     private String name;
     private String password;
     private UserRole role;
-    private String username;
 
     UserBuilder() {
 
@@ -27,6 +27,11 @@ final class UserBuilder {
 
     UserBuilder isEnabled() {
         this.enabled = true;
+        return this;
+    }
+
+    UserBuilder withEmailAddress(String username) {
+        this.emailAddress = username;
         return this;
     }
 
@@ -50,20 +55,15 @@ final class UserBuilder {
         return this;
     }
 
-    UserBuilder withUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
     User build() {
         User user = new User();
 
+        ReflectionFieldUtil.setFieldValue(user, "emailAddress", emailAddress);
         ReflectionFieldUtil.setFieldValue(user, "enabled", enabled);
         ReflectionFieldUtil.setFieldValue(user, "id", id);
         ReflectionFieldUtil.setFieldValue(user, "name", name);
         ReflectionFieldUtil.setFieldValue(user, "password", password);
         ReflectionFieldUtil.setFieldValue(user, "role", role);
-        ReflectionFieldUtil.setFieldValue(user, "username", username);
 
         return user;
     }

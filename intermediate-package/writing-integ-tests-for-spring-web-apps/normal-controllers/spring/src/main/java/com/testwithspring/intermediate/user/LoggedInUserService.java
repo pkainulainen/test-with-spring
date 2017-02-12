@@ -26,7 +26,7 @@ public class LoggedInUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LOGGER.info("Loading user by username: {}", username);
 
-        User found = repository.findByUsername(username)
+        User found = repository.findByEmailAddress(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(
                         "No user found with username: %s",
                         username
@@ -44,7 +44,7 @@ public class LoggedInUserService implements UserDetailsService {
         userDetails.setName(user.getName());
         userDetails.setPassword(user.getPassword());
         userDetails.setRole(user.getRole());
-        userDetails.setUsername(user.getUsername());
+        userDetails.setUsername(user.getEmailAddress());
 
         return userDetails;
     }

@@ -68,28 +68,28 @@ public class ShowUpdateTaskFormAsUserWhenTaskIsFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         openUpdateTaskPage()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderUpdateTaskView() throws Exception {
         openUpdateTaskPage()
                 .andExpect(view().name(WebTestConstants.View.UPDATE_TASK));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
         openUpdateTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowInformationOfUpdatedTask() throws Exception {
        openUpdateTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(

@@ -67,28 +67,28 @@ public class ShowTaskAsUserWhenTaskIsFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         openShowTaskPage()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderShowTaskView() throws Exception {
         openShowTaskPage()
                 .andExpect(view().name(WebTestConstants.View.VIEW_TASK));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToShowTaskPageUrl() throws Exception {
         openShowTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/view.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowFoundTask() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -136,7 +136,7 @@ public class ShowTaskAsUserWhenTaskIsFoundTest {
 
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowOneTagOfFoundTask() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
@@ -145,7 +145,7 @@ public class ShowTaskAsUserWhenTaskIsFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowFoundTag() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,

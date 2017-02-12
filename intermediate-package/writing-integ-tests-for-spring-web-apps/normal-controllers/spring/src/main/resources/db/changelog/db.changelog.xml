@@ -109,4 +109,7 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="07-change-username-column-to-email_address" author="Petri Kainulainen">
+        <renameColumn tableName="user_accounts" oldColumnName="username" newColumnName="email_address"/>
+    </changeSet>
 </databaseChangeLog>

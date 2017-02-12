@@ -67,28 +67,28 @@ public class DeleteTaskAsUserWhenTaskIsNotFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeNotFound() throws Exception {
         deleteTask()
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderNotFoundView()  throws Exception {
         deleteTask()
                 .andExpect(view().name( WebTestConstants.ErrorView.NOT_FOUND));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToNotFoundPageUrl() throws Exception {
         deleteTask()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/error/404.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "/com/testwithspring/intermediate/tasks.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotDeleteAnyTask() throws Exception {
         deleteTask();

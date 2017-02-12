@@ -13,9 +13,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -50,17 +48,17 @@ public class LoadUserByUsernameWhenUserIsFound {
 
     @Test
     public void shouldReturnFoundUserWithCorrectUserInformation() {
-        LoggedInUser user = (LoggedInUser) service.loadUserByUsername(Users.JohnDoe.USERNAME);
+        LoggedInUser user = (LoggedInUser) service.loadUserByUsername(Users.JohnDoe.EMAIL_ADDRESS);
 
         assertThat(user.getId()).isEqualTo(Users.JohnDoe.ID);
         assertThat(user.getName()).isEqualTo(Users.JohnDoe.NAME);
         assertThat(user.getPassword()).isEqualTo(Users.JohnDoe.PASSWORD);
-        assertThat(user.getUsername()).isEqualTo(Users.JohnDoe.USERNAME);
+        assertThat(user.getUsername()).isEqualTo(Users.JohnDoe.EMAIL_ADDRESS);
     }
 
     @Test
     public void shouldReturnFoundUserWhoCanBeAuthenticated() {
-        LoggedInUser user = (LoggedInUser) service.loadUserByUsername(Users.JohnDoe.USERNAME);
+        LoggedInUser user = (LoggedInUser) service.loadUserByUsername(Users.JohnDoe.EMAIL_ADDRESS);
 
         assertThat(user.isAccountNonExpired()).isTrue();
         assertThat(user.isAccountNonLocked()).isTrue();
@@ -70,7 +68,7 @@ public class LoadUserByUsernameWhenUserIsFound {
 
     @Test
     public void shouldReturnUserWithCorrectGrantedAuthority() {
-        LoggedInUser user = (LoggedInUser) service.loadUserByUsername(Users.JohnDoe.USERNAME);
+        LoggedInUser user = (LoggedInUser) service.loadUserByUsername(Users.JohnDoe.EMAIL_ADDRESS);
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         assertThat(authorities).hasSize(1);

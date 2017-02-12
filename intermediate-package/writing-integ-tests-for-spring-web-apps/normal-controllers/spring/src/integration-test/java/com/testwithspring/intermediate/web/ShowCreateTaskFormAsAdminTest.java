@@ -66,28 +66,28 @@ public class ShowCreateTaskFormAsAdminTest {
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         openCreateTaskPage()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldRenderCreateNewTaskView() throws Exception {
         openCreateTaskPage()
                 .andExpect(view().name(WebTestConstants.View.CREATE_TASK));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldForwardUserToCreateNewTaskPageUrl() throws Exception {
         openCreateTaskPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/create.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.AnneAdmin.USERNAME)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldShowEmptyCreateTaskForm() throws Exception {
         openCreateTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(

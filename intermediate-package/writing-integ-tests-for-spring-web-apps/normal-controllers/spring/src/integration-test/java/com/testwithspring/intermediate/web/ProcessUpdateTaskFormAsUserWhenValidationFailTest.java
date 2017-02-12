@@ -71,28 +71,28 @@ public class ProcessUpdateTaskFormAsUserWhenValidationFailTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderUpdateTaskView() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(view().name(WebTestConstants.View.UPDATE_TASK));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToUpdateTaskPageUrl() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/update.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowValidationErrorForEmptyTitle() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
@@ -103,7 +103,7 @@ public class ProcessUpdateTaskFormAsUserWhenValidationFailTest {
 
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowFieldValuesOfUpdateTaskForm() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -113,7 +113,7 @@ public class ProcessUpdateTaskFormAsUserWhenValidationFailTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldNotModifyHiddenIdParameter() throws Exception {
         submitEmptyUpdateTaskForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -122,7 +122,7 @@ public class ProcessUpdateTaskFormAsUserWhenValidationFailTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotUpdateTask() throws Exception {
         submitEmptyUpdateTaskForm();

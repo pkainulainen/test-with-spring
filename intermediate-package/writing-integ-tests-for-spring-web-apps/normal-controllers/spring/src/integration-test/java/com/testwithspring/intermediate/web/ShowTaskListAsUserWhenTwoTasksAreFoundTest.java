@@ -69,28 +69,28 @@ public class ShowTaskListAsUserWhenTwoTasksAreFoundTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         openTaskListPage()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRenderTaskListView() throws Exception {
         openTaskListPage()
                 .andExpect(view().name(WebTestConstants.View.TASK_LIST));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldForwardUserToTaskListPageUrl() throws Exception {
         openTaskListPage()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/task/list.jsp"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldShowCorrectTasks() throws Exception {
         openTaskListPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, allOf(

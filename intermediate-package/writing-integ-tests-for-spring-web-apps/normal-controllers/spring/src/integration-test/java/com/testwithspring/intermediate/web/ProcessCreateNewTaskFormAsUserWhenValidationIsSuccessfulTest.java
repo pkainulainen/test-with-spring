@@ -77,14 +77,14 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeFound() throws Exception {
         submitCreateTaskForm()
                 .andExpect(status().isFound());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRedirectUserToViewTaskView() throws Exception {
         submitCreateTaskForm()
                 .andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
@@ -92,14 +92,14 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldRedirectUserToViewTaskPageUrl() throws Exception {
         submitCreateTaskForm()
                 .andExpect(redirectedUrl("/task/1"));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldAddFeedbackMessageAsAFlashAttribute() throws Exception {
         submitCreateTaskForm()
                 .andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
@@ -108,35 +108,35 @@ public class ProcessCreateNewTaskFormAsUserWhenValidationIsSuccessfulTest {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-create-open-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateOpenTask() throws Exception {
         submitCreateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-set-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskWithCorrectTitleAndDescription() throws Exception {
         submitCreateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-as-user-should-set-lifecycle-field-values.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskWithCorrectLifecycleFieldValues() throws Exception {
         submitCreateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-create-unassigned-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskThatIsNotAssignedToAnyone() throws Exception {
         submitCreateTaskForm();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.USERNAME)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-not-create-any-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotCreateAnyTags() throws Exception {
         submitCreateTaskForm();

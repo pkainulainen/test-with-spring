@@ -30,19 +30,19 @@ public class LoggedInUserServiceTest {
 
     public class LoadUserByUsername {
 
-        private final String USERNAME = "johndoe";
+        private final String EMAIL_ADDRESS = "john.doe@gmail.com";
 
         public class WhenUserIsNotFound {
 
             @Before
             public void returnEmptyOptional() {
-                given(repository.findByUsername(USERNAME))
+                given(repository.findByEmailAddress(EMAIL_ADDRESS))
                         .willReturn(Optional.empty());
             }
 
             @Test(expected = UsernameNotFoundException.class)
             public void shouldThrowException() {
-                service.loadUserByUsername(USERNAME);
+                service.loadUserByUsername(EMAIL_ADDRESS);
             }
         }
 
@@ -57,48 +57,48 @@ public class LoggedInUserServiceTest {
                 User found = new UserBuilder()
                         .isEnabled()
                         .withId(ID)
+                        .withEmailAddress(EMAIL_ADDRESS)
                         .withName(NAME)
                         .withPassword(PASSWORD)
                         .withRoleUser()
-                        .withUsername(USERNAME)
                         .build();
-                given(repository.findByUsername(USERNAME))
+                given(repository.findByEmailAddress(EMAIL_ADDRESS))
                         .willReturn(Optional.of(found));
             }
 
             @Test
             public void shouldReturnLoggedInUserWithCorrectId() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.getId()).isEqualTo(ID);
             }
 
             @Test
             public void shouldReturnLoggedInUserWithCorrectName() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.getName()).isEqualTo(NAME);
             }
 
             @Test
             public void shouldReturnLoggedInUserWithCorrectPassword() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.getPassword()).isEqualTo(PASSWORD);
             }
 
             @Test
             public void shouldReturnLoggedInUserWithCorrectUsername() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
-                assertThat(user.getUsername()).isEqualTo(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
+                assertThat(user.getUsername()).isEqualTo(EMAIL_ADDRESS);
             }
 
             @Test
             public void shouldReturnLoggedInUserThatHasOneGrantedAuthority() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.getAuthorities()).hasSize(1);
             }
 
             @Test
             public void shouldReturnLoggedInUSerThatHasCorrectGrantedAuthority() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 GrantedAuthority authority = user.getAuthorities().iterator().next();
 
                 assertThat(authority.getAuthority()).isEqualTo(UserRole.ROLE_USER.name());
@@ -106,25 +106,25 @@ public class LoggedInUserServiceTest {
 
             @Test
             public void shouldReturnLoggedInUserThatIsEnabled() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.isEnabled()).isTrue();
             }
 
             @Test
             public void shouldReturnLoggedInUserWhoseAccountIsNotExpired() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.isAccountNonExpired()).isTrue();
             }
 
             @Test
             public void shouldReturnLoggedInUserWhoseAccountIsNotLocked() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.isAccountNonLocked()).isTrue();
             }
 
             @Test
             public void shouldReturnLoggedInUserWhoseCredentialsAreNotExpired() {
-                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(USERNAME);
+                LoggedInUser user = (LoggedInUser) service.loadUserByUsername(EMAIL_ADDRESS);
                 assertThat(user.isCredentialsNonExpired()).isTrue();
             }
         }
