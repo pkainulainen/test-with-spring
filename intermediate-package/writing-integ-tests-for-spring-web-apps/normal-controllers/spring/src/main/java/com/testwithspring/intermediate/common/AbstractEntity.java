@@ -7,6 +7,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+/**
+ * This is a base class that should be extended by all entity
+ * classes. This class declares common fields that are useful
+ * for most entities. These fields are: id, creation time,
+ * modification time, and version.
+ */
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
 public abstract class AbstractEntity {
