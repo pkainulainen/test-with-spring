@@ -2,6 +2,7 @@ package com.testwithspring.intermediate.web;
 
 import com.testwithspring.intermediate.UnitTest;
 import com.testwithspring.intermediate.TestStringUtil;
+import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.task.*;
 import com.testwithspring.intermediate.user.LoggedInUser;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
@@ -84,7 +85,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.delete(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.delete(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -532,7 +533,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.findById(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -731,7 +732,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.findById(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -1044,7 +1045,7 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void throwNotFoundException() {
-                    given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willThrow(new TaskNotFoundException(""));
+                    given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willThrow(new NotFoundException(""));
                 }
 
                 @Test

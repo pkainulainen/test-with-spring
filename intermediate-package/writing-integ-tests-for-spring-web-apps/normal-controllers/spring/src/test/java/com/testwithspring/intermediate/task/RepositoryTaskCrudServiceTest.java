@@ -2,6 +2,7 @@ package com.testwithspring.intermediate.task;
 
 import com.testwithspring.intermediate.ReflectionFieldUtil;
 import com.testwithspring.intermediate.UnitTest;
+import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.user.LoggedInUser;
 import com.testwithspring.intermediate.user.LoggedInUserBuilder;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
@@ -9,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
@@ -21,7 +21,6 @@ import static com.testwithspring.intermediate.task.TaskDTOAssert.assertThatTask;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.byteThat;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -219,7 +218,7 @@ public class RepositoryTaskCrudServiceTest {
                 given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
             }
 
-            @Test(expected = TaskNotFoundException.class)
+            @Test(expected = NotFoundException.class)
             public void shouldThrowException() {
                 service.delete(TASK_ID);
             }
@@ -404,7 +403,7 @@ public class RepositoryTaskCrudServiceTest {
                 given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
             }
 
-            @Test(expected = TaskNotFoundException.class)
+            @Test(expected = NotFoundException.class)
             public void shouldThrowException() {
                 service.findById(TASK_ID);
             }
@@ -630,7 +629,7 @@ public class RepositoryTaskCrudServiceTest {
                 given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
             }
 
-            @Test(expected = TaskNotFoundException.class)
+            @Test(expected = NotFoundException.class)
             public void shouldThrowException() {
                 TaskFormDTO input = createInput();
                 service.update(input, dummy(LoggedInUser.class));

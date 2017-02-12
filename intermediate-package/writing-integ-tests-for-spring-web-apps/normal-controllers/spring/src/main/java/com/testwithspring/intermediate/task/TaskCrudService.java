@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.user.LoggedInUser;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface TaskCrudService {
      * Deletes an existing task.
      * @param id    The id of the deleted task.
      * @return      The information of the deleted task.
-     * @throws TaskNotFoundException    If the deleted task is not found.
+     * @throws NotFoundException    If the deleted task is not found.
      */
     public TaskDTO delete(Long id);
 
@@ -35,7 +36,7 @@ public interface TaskCrudService {
      * Finds an existing task.
      * @param id    The id of the requested task.
      * @return      The information of the found task.
-     * @throws TaskNotFoundException    If no task is found with the given id.
+     * @throws NotFoundException    If no task is found with the given id.
      */
     public TaskDTO findById(Long id);
 

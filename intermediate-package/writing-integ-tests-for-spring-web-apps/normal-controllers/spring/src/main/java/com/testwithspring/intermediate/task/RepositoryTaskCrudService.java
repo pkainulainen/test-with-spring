@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.user.LoggedInUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,7 +46,7 @@ class RepositoryTaskCrudService implements TaskCrudService {
         LOGGER.info("Deleting a task with id: {}", id);
 
         Task deleted = repository.findOne(id).orElseThrow(
-                () -> new TaskNotFoundException(String.format("No task found with id: %d", id))
+                () -> new NotFoundException(String.format("No task found with id: %d", id))
         );
         repository.delete(deleted);
         LOGGER.info("Deleted the task: {}", deleted);
@@ -70,7 +71,7 @@ class RepositoryTaskCrudService implements TaskCrudService {
         LOGGER.info("Finding task with id: {}", id);
 
         Task found = repository.findOne(id).orElseThrow(
-                () -> new TaskNotFoundException(String.format("No task found with id: %d", id))
+                () -> new NotFoundException(String.format("No task found with id: %d", id))
         );
         LOGGER.info("Found task: {}", found);
         return mapToDTO(found);
@@ -121,7 +122,7 @@ class RepositoryTaskCrudService implements TaskCrudService {
         LOGGER.info("Updating existing task by using information: {}", task);
 
         Task updated = repository.findOne(task.getId()).orElseThrow(
-                () -> new TaskNotFoundException(String.format("No task found with id: %d", task.getId()))
+                () -> new NotFoundException(String.format("No task found with id: %d", task.getId()))
         );
         LOGGER.debug("Found task: {}", updated);
 
