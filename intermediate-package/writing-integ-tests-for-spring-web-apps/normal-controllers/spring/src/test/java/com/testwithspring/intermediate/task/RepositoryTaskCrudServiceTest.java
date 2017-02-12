@@ -36,6 +36,8 @@ public class RepositoryTaskCrudServiceTest {
     private static final Long CREATOR_ID = 1L;
     private static final String CREATOR_NAME = "John Doe";
     private static final String DESCRIPTION = "test the method that finds tasks";
+    private final Long MODIFIER_ID = 456L;
+    private final String MODIFIER_NAME = "Jane Doe";
     private static final ZonedDateTime NOW = ZonedDateTime.now();
     private static final Long TASK_ID = 1L;
     private static final String TITLE = "Write an example test";
@@ -112,6 +114,15 @@ public class RepositoryTaskCrudServiceTest {
             PersonDTO creator = task.getCreator();
             assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
             assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
+        }
+
+        @Test
+        public void shouldReturnTaskWithCorrectModifier() {
+            TaskDTO task = service.create(input, loggedInUser);
+
+            PersonDTO modifier = task.getModifier();
+            assertThat(modifier.getName()).isEqualTo(CREATOR_NAME);
+            assertThat(modifier.getUserId()).isEqualTo(CREATOR_ID);
         }
 
         @Test
@@ -252,6 +263,7 @@ public class RepositoryTaskCrudServiceTest {
                         .withCreator(CREATOR_ID)
                         .withDescription(DESCRIPTION)
                         .withModificationTime(NOW)
+                        .withModifier(CREATOR_ID)
                         .withTitle(TITLE)
                         .withStatusOpen()
                         .build();
@@ -286,6 +298,15 @@ public class RepositoryTaskCrudServiceTest {
                 PersonDTO creator = deleted.getCreator();
                 assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
                 assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectModifier() {
+                TaskDTO deleted = service.delete(TASK_ID);
+
+                PersonDTO modifier = deleted.getModifier();
+                assertThat(modifier.getName()).isEqualTo(CREATOR_NAME);
+                assertThat(modifier.getUserId()).isEqualTo(CREATOR_ID);
             }
 
             @Test
@@ -441,6 +462,7 @@ public class RepositoryTaskCrudServiceTest {
                         .withCreator(CREATOR_ID)
                         .withDescription(DESCRIPTION)
                         .withModificationTime(NOW)
+                        .withModifier(CREATOR_ID)
                         .withTitle(TITLE)
                         .withStatusOpen()
                         .build();
@@ -465,6 +487,15 @@ public class RepositoryTaskCrudServiceTest {
                 PersonDTO creator = task.getCreator();
                 assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
                 assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
+            }
+
+            @Test
+            public void shouldReturnTaskWithCorrectModifier() {
+                TaskDTO task = service.findById(TASK_ID);
+
+                PersonDTO modifier = task.getModifier();
+                assertThat(modifier.getName()).isEqualTo(CREATOR_NAME);
+                assertThat(modifier.getUserId()).isEqualTo(CREATOR_ID);
             }
 
             @Test
@@ -663,7 +694,6 @@ public class RepositoryTaskCrudServiceTest {
 
         public class WhenTaskIsFound {
 
-            private final Long MODIFIER_ID = 456L;
             private final String NEW_DESCRIPTION = "Test the method that updates a task";
             private final String NEW_TITLE = "Write new unit test";
 
@@ -682,6 +712,7 @@ public class RepositoryTaskCrudServiceTest {
                 updated = createOpenTask();
                 returnTask(updated);
                 returnCreator();
+                returnModifier();
             }
 
             private TaskFormDTO createInput() {
@@ -780,6 +811,15 @@ public class RepositoryTaskCrudServiceTest {
             }
 
             @Test
+            public void shouldReturnTaskWithCorrectModifier() {
+                TaskDTO updated = service.update(input, loggedInUser);
+
+                PersonDTO modifier = updated.getModifier();
+                assertThat(modifier.getName()).isEqualTo(MODIFIER_NAME);
+                assertThat(modifier.getUserId()).isEqualTo(MODIFIER_ID);
+            }
+
+            @Test
             public void shouldReturnTaskWithCorrectDescription() {
                 TaskDTO updated = service.update(input, loggedInUser);
                 assertThat(updated.getDescription()).isEqualTo(NEW_DESCRIPTION);
@@ -869,5 +909,13 @@ public class RepositoryTaskCrudServiceTest {
         creator.setUserId(CREATOR_ID);
 
         given(personFinder.findPersonInformationByUserId(CREATOR_ID)).willReturn(creator);
+    }
+
+    private void returnModifier() {
+        PersonDTO modifier = new PersonDTO();
+        modifier.setName(MODIFIER_NAME);
+        modifier.setUserId(MODIFIER_ID);
+
+        given(personFinder.findPersonInformationByUserId(MODIFIER_ID)).willReturn(modifier);
     }
 }

@@ -103,6 +103,10 @@ class RepositoryTaskCrudService implements TaskCrudService {
 
         dto.setDescription(model.getDescription());
         dto.setModificationTime(model.getModificationTime());
+
+        PersonDTO modifier = personFinder.findPersonInformationByUserId(model.getModifier().getUserId());
+        dto.setModifier(modifier);
+
         dto.setStatus(model.getStatus());
         dto.setResolution(model.getResolution());
         dto.setTitle(model.getTitle());

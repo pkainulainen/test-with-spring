@@ -56,6 +56,8 @@ public class TaskCrudControllerTest {
     //Task
     private static final Long CREATOR_ID = 99L;
     private static final String CREATOR_NAME = "John Doe";
+    private static final Long MODIFIER_ID = 33L;
+    private static final String MODIFIER_NAME = "Jane Doe";
     private static final String TASK_DESCRIPTION = "description";
     private static final Long TASK_ID = 1L;
     private static final String TASK_TITLE = "title";
@@ -568,6 +570,10 @@ public class TaskCrudControllerTest {
                 creator.setName(CREATOR_NAME);
                 creator.setUserId(CREATOR_ID);
 
+                PersonDTO modifier = new PersonDTO();
+                modifier.setName(MODIFIER_NAME);
+                modifier.setUserId(MODIFIER_ID);
+
                 TagDTO tag = new TagDTO();
                 tag.setId(TAG_ID);
                 tag.setName(TAG_NAME);
@@ -575,6 +581,7 @@ public class TaskCrudControllerTest {
                 found = new TaskDTOBuilder()
                         .withId(TASK_ID)
                         .withCreator(creator)
+                        .withModifier(modifier)
                         .withTags(tag)
                         .withTitle(TASK_TITLE)
                         .withDescription(TASK_DESCRIPTION)
@@ -607,6 +614,10 @@ public class TaskCrudControllerTest {
                                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CREATOR_ID))
                                 )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(TASK_ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(MODIFIER_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(MODIFIER_ID))
+                                )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(TASK_TITLE)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN)),

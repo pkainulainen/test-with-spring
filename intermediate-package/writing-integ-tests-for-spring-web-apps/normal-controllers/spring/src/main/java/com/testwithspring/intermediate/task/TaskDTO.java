@@ -15,6 +15,7 @@ public class TaskDTO {
     private String description;
     private Long id;
     private ZonedDateTime modificationTime;
+    private PersonDTO modifier;
     private TaskResolution resolution;
     private TaskStatus status;
     private List<TagDTO> tags = new ArrayList<>();
@@ -48,6 +49,10 @@ public class TaskDTO {
 
     public ZonedDateTime getModificationTime() {
         return modificationTime;
+    }
+
+    public PersonDTO getModifier() {
+        return modifier;
     }
 
     public TaskResolution getResolution() {
@@ -92,6 +97,10 @@ public class TaskDTO {
 
     public void setModificationTime(ZonedDateTime modificationTime) {
         this.modificationTime = modificationTime;
+    }
+
+    public void setModifier(PersonDTO modifier) {
+        this.modifier = modifier;
     }
 
     public void setResolution(TaskResolution resolution) {

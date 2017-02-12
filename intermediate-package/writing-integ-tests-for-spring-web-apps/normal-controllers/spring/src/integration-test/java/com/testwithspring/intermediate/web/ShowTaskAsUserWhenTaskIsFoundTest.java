@@ -105,6 +105,14 @@ public class ShowTaskAsUserWhenTaskIsFoundTest {
                         )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteExampleApp.ID)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
+                                        is(Tasks.WriteExampleApp.CREATOR_NAME)
+                                ),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
+                                        is(Tasks.WriteExampleApp.CREATOR_ID)
+                                )
+                        )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(Tasks.WriteExampleApp.STATUS)),

@@ -42,6 +42,7 @@ public final class WebTestConstants {
             public static final String DESCRIPTION = "description";
             public static final String ID = "id";
             public static final String MODIFICATION_TIME = "modificationTime";
+            public static final String MODIFIER = "modifier";
             public static final String RESOLUTION = "resolution";
             public static final String STATUS = "status";
             public static final String TAGS = "tags";

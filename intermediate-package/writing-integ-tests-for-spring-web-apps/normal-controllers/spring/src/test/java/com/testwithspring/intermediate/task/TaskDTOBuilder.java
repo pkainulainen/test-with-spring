@@ -19,6 +19,7 @@ public class TaskDTOBuilder {
     private PersonDTO creator;
     private String description;
     private Long id;
+    private PersonDTO modifier;
     private TaskResolution resolution;
     private TaskStatus status;
     private List<TagDTO> tags = new ArrayList<>();
@@ -49,6 +50,11 @@ public class TaskDTOBuilder {
 
     public TaskDTOBuilder withDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public TaskDTOBuilder withModifier(PersonDTO modifier) {
+        this.modifier = modifier;
         return this;
     }
 
@@ -100,6 +106,7 @@ public class TaskDTOBuilder {
         dto.setCreator(this.creator);
         dto.setDescription(this.description);
         dto.setId(this.id);
+        dto.setModifier(this.modifier);
         dto.setResolution(this.resolution);
         dto.setStatus(this.status);
         dto.setTags(this.tags);
