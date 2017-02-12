@@ -17,11 +17,11 @@ public class PersonDTO {
         return userId;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    void setUserId(Long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

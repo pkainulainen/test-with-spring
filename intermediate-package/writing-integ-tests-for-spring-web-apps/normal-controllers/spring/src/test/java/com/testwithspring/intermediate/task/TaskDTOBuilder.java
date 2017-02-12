@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.PersonDTO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +16,7 @@ public class TaskDTOBuilder {
 
     private Long assigneeId;
     private Long closerId;
-    private Long creatorId;
+    private PersonDTO creator;
     private String description;
     private Long id;
     private TaskResolution resolution;
@@ -40,8 +42,8 @@ public class TaskDTOBuilder {
         return this;
     }
 
-    public TaskDTOBuilder withCreator(Long creatorId) {
-        this.creatorId = creatorId;
+    public TaskDTOBuilder withCreator(PersonDTO creator) {
+        this.creator = creator;
         return this;
     }
 
@@ -95,7 +97,7 @@ public class TaskDTOBuilder {
         TaskDTO dto = new TaskDTO();
         dto.setAssigneeId(this.assigneeId);
         dto.setCloserId(this.closerId);
-        dto.setCreatorId(this.creatorId);
+        dto.setCreator(this.creator);
         dto.setDescription(this.description);
         dto.setId(this.id);
         dto.setResolution(this.resolution);

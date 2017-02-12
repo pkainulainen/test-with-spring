@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.PersonDTO;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ public class TaskDTO {
     private Long assigneeId;
     private Long closerId;
     private ZonedDateTime creationTime;
-    private Long creatorId;
+    private PersonDTO creator;
     private String description;
     private Long id;
     private ZonedDateTime modificationTime;
@@ -32,8 +34,8 @@ public class TaskDTO {
         return creationTime;
     }
 
-    public Long getCreatorId() {
-        return creatorId;
+    public PersonDTO getCreator() {
+        return creator;
     }
 
     public String getDescription() {
@@ -76,8 +78,8 @@ public class TaskDTO {
         this.creationTime = creationTime;
     }
 
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(PersonDTO creator) {
+        this.creator = creator;
     }
 
     public void setDescription(String description) {

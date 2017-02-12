@@ -24,6 +24,7 @@ public final class Tasks {
         public static final Long CLOSER_ID = 1L;
         public static final ZonedDateTime CREATION_TIME = parseDateTime("2016-12-03T11:41:28");
         public static final Long CREATOR_ID = 1L;
+        public static final String CREATOR_NAME = "John Doe";
         public static final String DESCRIPTION = "This example contains integration tests";
         public static final Long ID = 1L;
         public static final ZonedDateTime MODIFICATION_TIME = parseDateTime("2016-12-03T11:41:28");

@@ -5,6 +5,8 @@ import com.testwithspring.intermediate.UnitTest;
 import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.user.LoggedInUser;
 import com.testwithspring.intermediate.user.LoggedInUserBuilder;
+import com.testwithspring.intermediate.user.PersonDTO;
+import com.testwithspring.intermediate.user.PersonFinder;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.testwithspring.intermediate.TestDoubles.dummy;
+import static com.testwithspring.intermediate.TestDoubles.stub;
 import static com.testwithspring.intermediate.task.TaskDTOAssert.assertThatTask;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,6 +34,7 @@ import static org.mockito.Mockito.verify;
 public class RepositoryTaskCrudServiceTest {
 
     private static final Long CREATOR_ID = 1L;
+    private static final String CREATOR_NAME = "John Doe";
     private static final String DESCRIPTION = "test the method that finds tasks";
     private static final ZonedDateTime NOW = ZonedDateTime.now();
     private static final Long TASK_ID = 1L;
@@ -39,13 +43,15 @@ public class RepositoryTaskCrudServiceTest {
     private static final Long TAG_ID = 44L;
     private static final String TAG_NAME = "testing";
 
-    private TaskRepository repository;
+    private PersonFinder personFinder;
+    private TaskRepository taskRepository;
     private RepositoryTaskCrudService service;
 
     @Before
     public void configureSystemUnderTest() {
-        repository = mock(TaskRepository.class);
-        service = new RepositoryTaskCrudService(repository);
+        personFinder = stub(PersonFinder.class);
+        taskRepository = mock(TaskRepository.class);
+        service = new RepositoryTaskCrudService(personFinder, taskRepository);
     }
 
     public class Create {
@@ -57,6 +63,7 @@ public class RepositoryTaskCrudServiceTest {
         public void configureTestCases() {
             input = createInput();
             loggedInUser = createLoggedInUser();
+            returnCreator();
             returnPersistedTask();
         }
 
@@ -76,7 +83,7 @@ public class RepositoryTaskCrudServiceTest {
         }
 
         private void returnPersistedTask() {
-            given(repository.save(isA(Task.class)))
+            given(taskRepository.save(isA(Task.class)))
                     .willAnswer(invocation -> {
                         Task saved = (Task) invocation.getArguments()[0];
                         ReflectionFieldUtil.setFieldValue(saved, "creationTime", NOW);
@@ -101,7 +108,10 @@ public class RepositoryTaskCrudServiceTest {
         @Test
         public void shouldReturnTaskWithCorrectCreator() {
             TaskDTO task = service.create(input, loggedInUser);
-            assertThat(task.getCreatorId()).isEqualTo(CREATOR_ID);
+
+            PersonDTO creator = task.getCreator();
+            assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
+            assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
         }
 
         @Test
@@ -149,7 +159,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateTaskWithoutAssignee() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> assertThat(t.getAssignee()).isNull()
             ));
         }
@@ -158,7 +168,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateTaskWithCorrectCreator() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> assertThat(t.getCreator().getUserId()).isEqualByComparingTo(CREATOR_ID)
             ));
         }
@@ -167,7 +177,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateTaskWithCorrectModifier() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> assertThat(t.getModifier().getUserId()).isEqualByComparingTo(CREATOR_ID)
             ));
         }
@@ -176,7 +186,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateTaskWithCorrectDescription() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> assertThat(t.getDescription()).isEqualTo(DESCRIPTION)
             ));
         }
@@ -185,7 +195,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateTaskWithCorrectTitle() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> assertThat(t.getTitle()).isEqualTo(TITLE)
             ));
         }
@@ -194,7 +204,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateOpenTask() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> TaskAssert.assertThatTask(t).isOpen()
             ));
         }
@@ -203,7 +213,7 @@ public class RepositoryTaskCrudServiceTest {
         public void shouldCreateTaskThatHasNoTags() {
             service.create(input, loggedInUser);
 
-            verify(repository, times(1)).save(assertArg(
+            verify(taskRepository, times(1)).save(assertArg(
                     t -> assertThat(t.getTags()).isEmpty()
             ));
         }
@@ -215,7 +225,7 @@ public class RepositoryTaskCrudServiceTest {
 
             @Before
             public void returnNoTask() {
-                given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
+                given(taskRepository.findOne(TASK_ID)).willReturn(Optional.empty());
             }
 
             @Test(expected = NotFoundException.class)
@@ -232,6 +242,7 @@ public class RepositoryTaskCrudServiceTest {
             public void configureTestCases() {
                 found = createOpenTask();
                 returnTask(found);
+                returnCreator();
             }
 
             private Task createOpenTask() {
@@ -247,13 +258,13 @@ public class RepositoryTaskCrudServiceTest {
             }
 
             private void returnTask(Task found) {
-                given(repository.findOne(TASK_ID)).willReturn(Optional.of(found));
+                given(taskRepository.findOne(TASK_ID)).willReturn(Optional.of(found));
             }
 
             @Test
             public void shouldDeleteFoundTask() {
                 service.delete(TASK_ID);
-                verify(repository, times(1)).delete(found);
+                verify(taskRepository, times(1)).delete(found);
             }
 
             @Test
@@ -271,7 +282,10 @@ public class RepositoryTaskCrudServiceTest {
             @Test
             public void shouldReturnTaskWithCorrectCreator() {
                 TaskDTO deleted = service.delete(TASK_ID);
-                assertThat(deleted.getCreatorId()).isEqualTo(CREATOR_ID);
+
+                PersonDTO creator = deleted.getCreator();
+                assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
+                assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
             }
 
             @Test
@@ -365,7 +379,7 @@ public class RepositoryTaskCrudServiceTest {
         @Before
         public void returnOneTask() {
             TaskListDTO task = createTask();
-            given(repository.findAll()).willReturn(Collections.singletonList(task));
+            given(taskRepository.findAll()).willReturn(Collections.singletonList(task));
         }
 
         private TaskListDTO createTask() {
@@ -400,7 +414,7 @@ public class RepositoryTaskCrudServiceTest {
 
             @Before
             public void returnEmptyOptional() {
-                given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
+                given(taskRepository.findOne(TASK_ID)).willReturn(Optional.empty());
             }
 
             @Test(expected = NotFoundException.class)
@@ -412,12 +426,12 @@ public class RepositoryTaskCrudServiceTest {
         public class WhenTaskIsFound {
 
             private final Long ASSIGNEE_ID = 7L;
-            private final Long CREATOR_ID = 5L;
 
             @Before
             public void returnFoundTask() {
                 Task found = createTask();
                 returnTask(found);
+                returnCreator();
             }
 
             private Task createTask() {
@@ -447,7 +461,10 @@ public class RepositoryTaskCrudServiceTest {
             @Test
             public void shouldReturnTaskWithCorrectCreator() {
                 TaskDTO task = service.findById(TASK_ID);
-                assertThat(task.getCreatorId()).isEqualTo(CREATOR_ID);
+
+                PersonDTO creator = task.getCreator();
+                assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
+                assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
             }
 
             @Test
@@ -615,7 +632,7 @@ public class RepositoryTaskCrudServiceTest {
             }
 
             private void returnTask(Task found) {
-                given(repository.findOne(TASK_ID)).willReturn(Optional.of(found));
+                given(taskRepository.findOne(TASK_ID)).willReturn(Optional.of(found));
             }
         }
     }
@@ -626,7 +643,7 @@ public class RepositoryTaskCrudServiceTest {
 
             @Before
             public void returnEmptyOptional() {
-                given(repository.findOne(TASK_ID)).willReturn(Optional.empty());
+                given(taskRepository.findOne(TASK_ID)).willReturn(Optional.empty());
             }
 
             @Test(expected = NotFoundException.class)
@@ -664,6 +681,7 @@ public class RepositoryTaskCrudServiceTest {
 
                 updated = createOpenTask();
                 returnTask(updated);
+                returnCreator();
             }
 
             private TaskFormDTO createInput() {
@@ -689,7 +707,7 @@ public class RepositoryTaskCrudServiceTest {
             }
 
             private void returnTask(Task task) {
-                given(repository.findOne(TASK_ID)).willReturn(Optional.of(task));
+                given(taskRepository.findOne(TASK_ID)).willReturn(Optional.of(task));
             }
 
             @Test
@@ -755,7 +773,10 @@ public class RepositoryTaskCrudServiceTest {
             @Test
             public void shouldReturnTaskWithCorrectCreator() {
                 TaskDTO updated = service.update(input, loggedInUser);
-                assertThat(updated.getCreatorId()).isEqualByComparingTo(CREATOR_ID);
+
+                PersonDTO creator = updated.getCreator();
+                assertThat(creator.getName()).isEqualTo(CREATOR_NAME);
+                assertThat(creator.getUserId()).isEqualTo(CREATOR_ID);
             }
 
             @Test
@@ -840,5 +861,13 @@ public class RepositoryTaskCrudServiceTest {
             }
 
         }
+    }
+
+    private void returnCreator() {
+        PersonDTO creator = new PersonDTO();
+        creator.setName(CREATOR_NAME);
+        creator.setUserId(CREATOR_ID);
+
+        given(personFinder.findPersonInformationByUserId(CREATOR_ID)).willReturn(creator);
     }
 }

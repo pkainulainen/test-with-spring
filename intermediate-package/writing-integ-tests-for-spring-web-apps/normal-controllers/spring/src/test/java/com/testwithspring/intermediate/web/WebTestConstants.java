@@ -38,7 +38,7 @@ public final class WebTestConstants {
             public static final String ASSIGNEE = "assigneeId";
             public static final String CLOSER = "closerId";
             public static final String CREATION_TIME = "creationTime";
-            public static final String CREATOR = "creatorId";
+            public static final String CREATOR = "creator";
             public static final String DESCRIPTION = "description";
             public static final String ID = "id";
             public static final String MODIFICATION_TIME = "modificationTime";
@@ -46,6 +46,12 @@ public final class WebTestConstants {
             public static final String STATUS = "status";
             public static final String TAGS = "tags";
             public static final String TITLE = "title";
+
+            public static class Person {
+
+                public static final String NAME = "name";
+                public static final String USER_ID = "userId";
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import com.testwithspring.intermediate.TestStringUtil;
 import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.task.*;
 import com.testwithspring.intermediate.user.LoggedInUser;
+import com.testwithspring.intermediate.user.PersonDTO;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,7 @@ public class TaskCrudControllerTest {
 
     //Task
     private static final Long CREATOR_ID = 99L;
+    private static final String CREATOR_NAME = "John Doe";
     private static final String TASK_DESCRIPTION = "description";
     private static final Long TASK_ID = 1L;
     private static final String TASK_TITLE = "title";
@@ -436,9 +438,13 @@ public class TaskCrudControllerTest {
             }
 
             private void returnCreatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setName(CREATOR_NAME);
+                creator.setUserId(CREATOR_ID);
+
                 TaskDTO created = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
                         .withTitle(maxLengthTitle)
                         .withDescription(maxLengthDescription)
                         .withStatusOpen()
@@ -558,13 +564,17 @@ public class TaskCrudControllerTest {
 
             @Before
             public void returnFoundTaskWithOneTag() {
+                PersonDTO creator = new PersonDTO();
+                creator.setName(CREATOR_NAME);
+                creator.setUserId(CREATOR_ID);
+
                 TagDTO tag = new TagDTO();
                 tag.setId(TAG_ID);
                 tag.setName(TAG_NAME);
 
                 found = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
                         .withTags(tag)
                         .withTitle(TASK_TITLE)
                         .withDescription(TASK_DESCRIPTION)
@@ -592,7 +602,10 @@ public class TaskCrudControllerTest {
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, nullValue()),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, nullValue()),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, is(CREATOR_ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CREATOR_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CREATOR_ID))
+                                )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(TASK_ID)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(TASK_TITLE)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
@@ -752,8 +765,12 @@ public class TaskCrudControllerTest {
 
             @Before
             public void returnUpdatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setName(CREATOR_NAME);
+                creator.setUserId(CREATOR_ID);
+
                 TaskDTO found = new TaskDTOBuilder()
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
                         .withDescription(TASK_DESCRIPTION)
                         .withId(TASK_ID)
                         .withStatusOpen()
@@ -1085,9 +1102,13 @@ public class TaskCrudControllerTest {
                 }
 
                 private void returnUpdatedTask() {
+                    PersonDTO creator = new PersonDTO();
+                    creator.setName(CREATOR_NAME);
+                    creator.setUserId(CREATOR_ID);
+
                     TaskDTO updated = new TaskDTOBuilder()
                             .withId(TASK_ID)
-                            .withCreator(CREATOR_ID)
+                            .withCreator(creator)
                             .withTitle(maxLengthTitle)
                             .withDescription(maxLengthDescription)
                             .withStatusOpen()
