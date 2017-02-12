@@ -6,6 +6,7 @@ public final class Users {
 
     private Users() {}
 
+    public static final Long ID_NOT_FOUND = 343L;
     public static final String USERNAME_NOT_FOUND = "notfound";
 
     public static class JohnDoe {

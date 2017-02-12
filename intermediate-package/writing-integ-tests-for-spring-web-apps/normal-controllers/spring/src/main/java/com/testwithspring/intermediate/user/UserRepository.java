@@ -4,7 +4,7 @@ import org.springframework.data.repository.Repository;
 
 import java.util.Optional;
 
-interface UserRepository extends Repository<User, Long> {
+interface UserRepository extends Repository<User, Long>, CustomUserRepository {
 
     Optional<User> findByUsername(String username);
 }
