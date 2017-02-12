@@ -559,8 +559,10 @@ public class TaskCrudControllerTest {
             }
         }
 
-        public class WhenTaskIsFound {
+        public class WhenClosedTaskIsFound {
 
+            private final Long CLOSER_ID = 931L;
+            private final String CLOSER_NAME = "Chris Closer";
             private final Long TAG_ID = 33L;
             private final String TAG_NAME = "testing";
 
@@ -571,6 +573,10 @@ public class TaskCrudControllerTest {
                 PersonDTO assignee = new PersonDTO();
                 assignee.setName(ASSIGNEE_NAME);
                 assignee.setUserId(ASSIGNEE_ID);
+
+                PersonDTO closer = new PersonDTO();
+                closer.setName(CLOSER_NAME);
+                closer.setUserId(CLOSER_ID);
 
                 PersonDTO creator = new PersonDTO();
                 creator.setName(CREATOR_NAME);
@@ -592,7 +598,7 @@ public class TaskCrudControllerTest {
                         .withTags(tag)
                         .withTitle(TASK_TITLE)
                         .withDescription(TASK_DESCRIPTION)
-                        .withStatusOpen()
+                        .withResolutionDone(closer)
                         .build();
 
                 given(crudService.findById(TASK_ID)).willReturn(found);
@@ -618,7 +624,10 @@ public class TaskCrudControllerTest {
                                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(ASSIGNEE_NAME)),
                                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(ASSIGNEE_ID))
                                 )),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, nullValue()),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CLOSER_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CLOSER_ID))
+                                )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
                                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CREATOR_NAME)),
                                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CREATOR_ID))
@@ -630,8 +639,8 @@ public class TaskCrudControllerTest {
                                 )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(TASK_TITLE)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN)),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, nullValue())
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.CLOSED)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, is(TaskResolution.DONE))
                         )));
             }
 

@@ -100,7 +100,14 @@ public class ShowTaskAsUserWhenTaskIsFoundTest {
                                         is(Tasks.WriteExampleApp.ASSIGNEE_ID)
                                 )
                         )),
-                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, allOf(
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
+                                        is(Tasks.WriteExampleApp.CLOSER_NAME)
+                                ),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
+                                        is(Tasks.WriteExampleApp.CLOSER_ID)
+                                )
+                        )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,

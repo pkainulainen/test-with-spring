@@ -94,7 +94,8 @@ class RepositoryTaskCrudService implements TaskCrudService {
 
         Closer closer = model.getCloser();
         if (closer != null) {
-            dto.setCloserId(closer.getUserId());
+            PersonDTO closerInformation = personFinder.findPersonInformationByUserId(closer.getUserId());
+            dto.setCloser(closerInformation);
         }
 
         dto.setCreationTime(model.getCreationTime());

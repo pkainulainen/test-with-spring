@@ -588,12 +588,17 @@ public class RepositoryTaskCrudServiceTest {
             public class WhenFinishedTaskIsFound {
 
                 private final Long CLOSER_ID = 9L;
+                private final String CLOSER_NAME = "Chris Closer";
+
+                private PersonDTO closer;
 
                 @Before
                 public void returnOpenTask() {
                     Task finishedTask = createOpenTask();
                     returnTask(finishedTask);
                     returnAssignee();
+                    closer = createCloser();
+                    returnCloser(closer);
                 }
 
                 private Task createOpenTask() {
@@ -609,10 +614,21 @@ public class RepositoryTaskCrudServiceTest {
                             .build();
                 }
 
+                private PersonDTO createCloser() {
+                    PersonDTO closer = new PersonDTO();
+                    closer.setName(CLOSER_NAME);
+                    closer.setUserId(CLOSER_ID);
+                    return closer;
+                }
+
+                private void returnCloser(PersonDTO closer) {
+                    given(personFinder.findPersonInformationByUserId(CLOSER_ID)).willReturn(closer);
+                }
+
                 @Test
                 public void shouldReturnTaskThatWasClosedWithResolutionDone() {
                     TaskDTO task = service.findById(TASK_ID);
-                    assertThatTask(task).wasClosedWithResolutionDoneBy(CLOSER_ID);
+                    assertThatTask(task).wasClosedWithResolutionDoneBy(closer);
                 }
             }
 
@@ -806,7 +822,7 @@ public class RepositoryTaskCrudServiceTest {
             @Test
             public void shouldReturnTaskWithoutCloser() {
                 TaskDTO updated = service.update(input, loggedInUser);
-                assertThat(updated.getCloserId()).isNull();
+                assertThat(updated.getCloser()).isNull();
             }
 
             @Test
