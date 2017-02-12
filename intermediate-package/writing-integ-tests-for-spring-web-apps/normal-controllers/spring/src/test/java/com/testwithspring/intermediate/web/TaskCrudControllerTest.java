@@ -54,6 +54,8 @@ public class TaskCrudControllerTest {
     private static final String VALIDATION_ERROR_CODE_LONG_FIELD_VALUE = "Size";
 
     //Task
+    private static final Long ASSIGNEE_ID = 44L;
+    private static final String ASSIGNEE_NAME = "Anne Assignee";
     private static final Long CREATOR_ID = 99L;
     private static final String CREATOR_NAME = "John Doe";
     private static final Long MODIFIER_ID = 33L;
@@ -566,6 +568,10 @@ public class TaskCrudControllerTest {
 
             @Before
             public void returnFoundTaskWithOneTag() {
+                PersonDTO assignee = new PersonDTO();
+                assignee.setName(ASSIGNEE_NAME);
+                assignee.setUserId(ASSIGNEE_ID);
+
                 PersonDTO creator = new PersonDTO();
                 creator.setName(CREATOR_NAME);
                 creator.setUserId(CREATOR_ID);
@@ -580,6 +586,7 @@ public class TaskCrudControllerTest {
 
                 found = new TaskDTOBuilder()
                         .withId(TASK_ID)
+                        .withAssignee(assignee)
                         .withCreator(creator)
                         .withModifier(modifier)
                         .withTags(tag)
@@ -607,7 +614,10 @@ public class TaskCrudControllerTest {
             public void shouldShowFoundTask() throws Exception {
                 mockMvc.perform(get("/task/{taskId}", TASK_ID))
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, nullValue()),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(ASSIGNEE_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(ASSIGNEE_ID))
+                                )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, nullValue()),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
                                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CREATOR_NAME)),

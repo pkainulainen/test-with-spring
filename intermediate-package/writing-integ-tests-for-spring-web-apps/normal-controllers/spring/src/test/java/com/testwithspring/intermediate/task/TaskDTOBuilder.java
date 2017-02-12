@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class TaskDTOBuilder {
 
-    private Long assigneeId;
+    private PersonDTO assignee;
     private Long closerId;
     private PersonDTO creator;
     private String description;
@@ -33,8 +33,8 @@ public class TaskDTOBuilder {
         return this;
     }
 
-    public TaskDTOBuilder withAssignee(Long assigneeId) {
-        this.assigneeId = assigneeId;
+    public TaskDTOBuilder withAssignee(PersonDTO assignee) {
+        this.assignee = assignee;
         return this;
     }
 
@@ -101,7 +101,7 @@ public class TaskDTOBuilder {
 
     public TaskDTO build() {
         TaskDTO dto = new TaskDTO();
-        dto.setAssigneeId(this.assigneeId);
+        dto.setAssignee(this.assignee);
         dto.setCloserId(this.closerId);
         dto.setCreator(this.creator);
         dto.setDescription(this.description);

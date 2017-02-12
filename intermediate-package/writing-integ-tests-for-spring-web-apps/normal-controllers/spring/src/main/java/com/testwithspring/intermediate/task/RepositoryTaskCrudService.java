@@ -88,7 +88,8 @@ class RepositoryTaskCrudService implements TaskCrudService {
 
         Assignee assignee = model.getAssignee();
         if (assignee != null) {
-            dto.setAssigneeId(assignee.getUserId());
+            PersonDTO assigneeInformation = personFinder.findPersonInformationByUserId(assignee.getUserId());
+            dto.setAssignee(assigneeInformation);
         }
 
         Closer closer = model.getCloser();

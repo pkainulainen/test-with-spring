@@ -21,6 +21,7 @@ public final class Tasks {
     public static class WriteExampleApp {
 
         public static final Long ASSIGNEE_ID = 1L;
+        public static final String ASSIGNEE_NAME = "John Doe";
         public static final Long CLOSER_ID = 1L;
         public static final ZonedDateTime CREATION_TIME = parseDateTime("2016-12-03T11:41:28");
         public static final Long CREATOR_ID = 1L;

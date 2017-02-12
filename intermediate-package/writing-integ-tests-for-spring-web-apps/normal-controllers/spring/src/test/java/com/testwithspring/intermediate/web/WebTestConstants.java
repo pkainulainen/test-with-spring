@@ -35,7 +35,7 @@ public final class WebTestConstants {
 
         public static class Task {
 
-            public static final String ASSIGNEE = "assigneeId";
+            public static final String ASSIGNEE = "assignee";
             public static final String CLOSER = "closerId";
             public static final String CREATION_TIME = "creationTime";
             public static final String CREATOR = "creator";

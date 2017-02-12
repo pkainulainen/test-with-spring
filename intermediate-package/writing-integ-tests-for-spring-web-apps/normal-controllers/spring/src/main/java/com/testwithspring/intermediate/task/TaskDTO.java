@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TaskDTO {
 
-    private Long assigneeId;
+    private PersonDTO assignee;
     private Long closerId;
     private ZonedDateTime creationTime;
     private PersonDTO creator;
@@ -23,8 +23,8 @@ public class TaskDTO {
 
     public TaskDTO() {}
 
-    public Long getAssigneeId() {
-        return assigneeId;
+    public PersonDTO getAssignee() {
+        return assignee;
     }
 
     public Long getCloserId() {
@@ -71,8 +71,8 @@ public class TaskDTO {
         return title;
     }
 
-    public void setAssigneeId(Long assigneeId) {
-        this.assigneeId = assigneeId;
+    public void setAssignee(PersonDTO assignee) {
+        this.assignee = assignee;
     }
 
     public void setCloserId(Long closerId) {

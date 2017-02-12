@@ -98,7 +98,7 @@ public class RepositoryTaskCrudServiceTest {
         @Test
         public void shouldReturnTaskWithoutAssignee() {
             TaskDTO task = service.create(input, loggedInUser);
-            assertThat(task.getAssigneeId()).isNull();
+            assertThat(task.getAssignee()).isNull();
         }
 
         @Test
@@ -282,7 +282,7 @@ public class RepositoryTaskCrudServiceTest {
             @Test
             public void shouldReturnTaskWithoutAssignee() {
                 TaskDTO deleted = service.delete(TASK_ID);
-                assertThat(deleted.getAssigneeId()).isNull();
+                assertThat(deleted.getAssignee()).isNull();
             }
 
             @Test
@@ -447,6 +447,7 @@ public class RepositoryTaskCrudServiceTest {
         public class WhenTaskIsFound {
 
             private final Long ASSIGNEE_ID = 7L;
+            private final String ASSIGNEE_NAME = "Anne Assignee";
 
             @Before
             public void returnFoundTask() {
@@ -521,7 +522,7 @@ public class RepositoryTaskCrudServiceTest {
                 @Test
                 public void shouldReturnTaskWithoutAssignee() {
                     TaskDTO task = service.findById(TASK_ID);
-                    assertThat(task.getAssigneeId()).isNull();
+                    assertThat(task.getAssignee()).isNull();
                 }
             }
 
@@ -531,6 +532,7 @@ public class RepositoryTaskCrudServiceTest {
                 public void returnFoundTask() {
                     Task found = createTask();
                     returnTask(found);
+                    returnAssignee();
                 }
 
                 private Task createTask() {
@@ -549,7 +551,10 @@ public class RepositoryTaskCrudServiceTest {
                 @Test
                 public void shouldReturnTaskWithCorrectAssignee() {
                     TaskDTO task = service.findById(TASK_ID);
-                    assertThat(task.getAssigneeId()).isEqualTo(ASSIGNEE_ID);
+
+                    PersonDTO assignee = task.getAssignee();
+                    assertThat(assignee.getName()).isEqualTo(ASSIGNEE_NAME);
+                    assertThat(assignee.getUserId()).isEqualByComparingTo(ASSIGNEE_ID);
                 }
             }
 
@@ -588,6 +593,7 @@ public class RepositoryTaskCrudServiceTest {
                 public void returnOpenTask() {
                     Task finishedTask = createOpenTask();
                     returnTask(finishedTask);
+                    returnAssignee();
                 }
 
                 private Task createOpenTask() {
@@ -664,6 +670,14 @@ public class RepositoryTaskCrudServiceTest {
 
             private void returnTask(Task found) {
                 given(taskRepository.findOne(TASK_ID)).willReturn(Optional.of(found));
+            }
+
+            private void returnAssignee() {
+                PersonDTO assignee = new PersonDTO();
+                assignee.setName(ASSIGNEE_NAME);
+                assignee.setUserId(ASSIGNEE_ID);
+
+                given(personFinder.findPersonInformationByUserId(ASSIGNEE_ID)).willReturn(assignee);
             }
         }
     }
@@ -786,7 +800,7 @@ public class RepositoryTaskCrudServiceTest {
             @Test
             public void shouldReturnTaskWithoutAssignee() {
                 TaskDTO updated = service.update(input, loggedInUser);
-                assertThat(updated.getAssigneeId()).isNull();
+                assertThat(updated.getAssignee()).isNull();
             }
 
             @Test

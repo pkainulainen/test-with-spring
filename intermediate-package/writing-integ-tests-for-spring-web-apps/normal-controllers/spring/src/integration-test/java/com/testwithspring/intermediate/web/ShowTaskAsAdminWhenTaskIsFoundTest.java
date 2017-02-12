@@ -88,7 +88,14 @@ public class ShowTaskAsAdminWhenTaskIsFoundTest {
     public void shouldShowFoundTask() throws Exception {
         openShowTaskPage()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, allOf(
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
+                                        is(Tasks.WriteExampleApp.ASSIGNEE_NAME)
+                                ),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
+                                        is(Tasks.WriteExampleApp.ASSIGNEE_ID)
+                                )
+                        )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
