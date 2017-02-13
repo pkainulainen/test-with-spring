@@ -48,7 +48,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.spring.platform:platform-bom:Athens-SR2'
+        mavenBom 'io.spring.platform:platform-bom:Athens-SR3'
     }
 }
 
