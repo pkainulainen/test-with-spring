@@ -19,7 +19,7 @@ public final class WebTestConfig {
 
     private static final String HTTP_STATUS_CODE_INTERNAL_SERVER_ERROR = "500";
     private static final String HTTP_STATUS_CODE_NOT_FOUND = "404";
-    
+
     private static final String VIEW_BASE_PATH = "/WEB-INF/templates";
     private static final String VIEW_FILENAME_SUFFIX = ".html";
     private static final String VIEW_NAME_ERROR_VIEW = "error/error";
