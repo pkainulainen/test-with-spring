@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.testwithspring.intermediate.TestDoubles.stub;
-import static com.testwithspring.intermediate.web.WebTestConfig.jspViewResolver;
+import static com.testwithspring.intermediate.web.WebTestConfig.viewResolver;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,7 +39,7 @@ public class TaskSearchControllerTest {
         service = stub(TaskSearchService.class);
 
         mockMvc = MockMvcBuilders.standaloneSetup(new TaskSearchController(service))
-                .setViewResolvers(jspViewResolver())
+                .setViewResolvers(viewResolver())
                 .build();
     }
 

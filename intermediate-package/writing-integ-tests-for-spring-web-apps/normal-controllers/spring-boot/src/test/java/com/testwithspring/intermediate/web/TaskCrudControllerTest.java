@@ -68,7 +68,7 @@ public class TaskCrudControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new TaskCrudController(crudService, messageSource))
                 .setHandlerExceptionResolvers(exceptionResolver())
                 .setLocaleResolver(fixedLocaleResolver())
-                .setViewResolvers(jspViewResolver())
+                .setViewResolvers(viewResolver())
                 .build();
     }
 
