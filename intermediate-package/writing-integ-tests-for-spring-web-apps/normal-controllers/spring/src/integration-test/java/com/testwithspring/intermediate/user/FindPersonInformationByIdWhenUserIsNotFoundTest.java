@@ -35,7 +35,10 @@ import static org.assertj.core.api.Assertions.assertThat;
         DbUnitTestExecutionListener.class,
         ServletTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/users.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/empty-database.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
