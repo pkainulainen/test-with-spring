@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 })
 @DatabaseSetup({
         "/com/testwithspring/intermediate/users.xml",
-        "/com/testwithspring/intermediate/empty-database.xml"
+        "/com/testwithspring/intermediate/no-tasks-and-tags.xml"
 })
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
@@ -76,7 +76,7 @@ public class ProcessCreateNewTaskFormAsAnonymousUser {
     }
 
     @Test
-    @ExpectedDatabase(value = "/com/testwithspring/intermediate/empty-database.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @ExpectedDatabase(value = "/com/testwithspring/intermediate/no-tasks-and-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotCreateNewTask() throws Exception {
         submitCreateTaskForm();
     }
