@@ -1,8 +1,11 @@
 package com.testwithspring.intermediate.web;
 
-import com.testwithspring.intermediate.UnitTest;
 import com.testwithspring.intermediate.TestStringUtil;
+import com.testwithspring.intermediate.UnitTest;
+import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.task.*;
+import com.testwithspring.intermediate.user.LoggedInUser;
+import com.testwithspring.intermediate.user.PersonDTO;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,30 +18,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static com.testwithspring.intermediate.web.WebTestConfig.exceptionResolver;
-import static com.testwithspring.intermediate.web.WebTestConfig.fixedLocaleResolver;
-import static com.testwithspring.intermediate.web.WebTestConfig.jspViewResolver;
+import static com.testwithspring.intermediate.web.WebTestConfig.*;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(HierarchicalContextRunner.class)
 @Category(UnitTest.class)
@@ -51,7 +41,12 @@ public class TaskCrudControllerTest {
     private static final String VALIDATION_ERROR_CODE_LONG_FIELD_VALUE = "Size";
 
     //Task
+    private static final Long ASSIGNEE_ID = 44L;
+    private static final String ASSIGNEE_NAME = "Anne Assignee";
     private static final Long CREATOR_ID = 99L;
+    private static final String CREATOR_NAME = "John Doe";
+    private static final Long MODIFIER_ID = 33L;
+    private static final String MODIFIER_NAME = "Jane Doe";
     private static final String TASK_DESCRIPTION = "description";
     private static final Long TASK_ID = 1L;
     private static final String TASK_TITLE = "title";
@@ -83,7 +78,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.delete(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.delete(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -254,7 +249,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).create(isA(TaskFormDTO.class));
+                    verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -329,7 +324,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).create(isA(TaskFormDTO.class));
+                    verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -404,7 +399,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).create(isA(TaskFormDTO.class));
+                    verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
         }
@@ -434,14 +429,18 @@ public class TaskCrudControllerTest {
             }
 
             private void returnCreatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setName(CREATOR_NAME);
+                creator.setUserId(CREATOR_ID);
+
                 TaskDTO created = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
                         .withTitle(maxLengthTitle)
                         .withDescription(maxLengthDescription)
                         .withStatusOpen()
                         .build();
-                given(crudService.create(isA(TaskFormDTO.class))).willReturn(created);
+                given(crudService.create(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(created);
             }
 
             private void returnFeedbackMessage() {
@@ -489,8 +488,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
-                ));
+                            task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -501,8 +502,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getId()).isNull()
-                ));
+                            task -> assertThat(task.getId()).isNull()
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -513,8 +516,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                ));
+                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
         }
     }
@@ -525,7 +530,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.findById(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -541,8 +546,10 @@ public class TaskCrudControllerTest {
             }
         }
 
-        public class WhenTaskIsFound {
+        public class WhenClosedTaskIsFound {
 
+            private final Long CLOSER_ID = 931L;
+            private final String CLOSER_NAME = "Chris Closer";
             private final Long TAG_ID = 33L;
             private final String TAG_NAME = "testing";
 
@@ -550,17 +557,35 @@ public class TaskCrudControllerTest {
 
             @Before
             public void returnFoundTaskWithOneTag() {
+                PersonDTO assignee = new PersonDTO();
+                assignee.setName(ASSIGNEE_NAME);
+                assignee.setUserId(ASSIGNEE_ID);
+
+                PersonDTO closer = new PersonDTO();
+                closer.setName(CLOSER_NAME);
+                closer.setUserId(CLOSER_ID);
+
+                PersonDTO creator = new PersonDTO();
+                creator.setName(CREATOR_NAME);
+                creator.setUserId(CREATOR_ID);
+
+                PersonDTO modifier = new PersonDTO();
+                modifier.setName(MODIFIER_NAME);
+                modifier.setUserId(MODIFIER_ID);
+
                 TagDTO tag = new TagDTO();
                 tag.setId(TAG_ID);
                 tag.setName(TAG_NAME);
 
                 found = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withAssignee(assignee)
+                        .withCreator(creator)
+                        .withModifier(modifier)
                         .withTags(tag)
                         .withTitle(TASK_TITLE)
                         .withDescription(TASK_DESCRIPTION)
-                        .withStatusOpen()
+                        .withResolutionDone(closer)
                         .build();
 
                 given(crudService.findById(TASK_ID)).willReturn(found);
@@ -582,14 +607,27 @@ public class TaskCrudControllerTest {
             public void shouldShowFoundTask() throws Exception {
                 mockMvc.perform(get("/task/{taskId}", TASK_ID))
                         .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, nullValue()),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, nullValue()),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, is(CREATOR_ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(ASSIGNEE_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(ASSIGNEE_ID))
+                                )),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CLOSER_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CLOSER_ID))
+                                )),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CREATOR_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CREATOR_ID))
+                                )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(TASK_ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(MODIFIER_NAME)),
+                                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(MODIFIER_ID))
+                                )),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(TASK_TITLE)),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN)),
-                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, nullValue())
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.CLOSED)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, is(TaskResolution.DONE))
                         )));
             }
 
@@ -622,7 +660,7 @@ public class TaskCrudControllerTest {
          * These two test methods are added into this test class because both of them
          * test behavior that should happen in every case (tasks are not found and
          * tasks are not found).
-         *
+         * <p>
          * You can, of course, move these test methods into the lower inner cases,
          * but you should understand that this will your tests harder to change
          * if you decide to change the behavior of the {@code TaskCrudController} class.
@@ -674,7 +712,7 @@ public class TaskCrudControllerTest {
              * I used copy paste because I think that it makes these tests easier to read. However,
              * if there would be a third test class that requires this method, I would move it into
              * an object mother class.
-             *
+             * <p>
              * Also, I didn't use factory methods or test data builder because the {@code TaskListDTO}
              * objects are just dummy data containers.
              */
@@ -724,7 +762,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.findById(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -744,8 +782,12 @@ public class TaskCrudControllerTest {
 
             @Before
             public void returnUpdatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setName(CREATOR_NAME);
+                creator.setUserId(CREATOR_ID);
+
                 TaskDTO found = new TaskDTOBuilder()
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
                         .withDescription(TASK_DESCRIPTION)
                         .withId(TASK_ID)
                         .withStatusOpen()
@@ -855,7 +897,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, "")
                     );
 
-                    verify(crudService, never()).update(isA(TaskFormDTO.class));
+                    verify(crudService, never()).update(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -936,7 +978,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
                     );
 
-                    verify(crudService, never()).update(isA(TaskFormDTO.class));
+                    verify(crudService, never()).update(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
 
@@ -1017,7 +1059,7 @@ public class TaskCrudControllerTest {
                             .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
                     );
 
-                    verify(crudService, never()).update(isA(TaskFormDTO.class));
+                    verify(crudService, never()).update(isA(TaskFormDTO.class), isA(LoggedInUser.class));
                 }
             }
         }
@@ -1037,7 +1079,7 @@ public class TaskCrudControllerTest {
 
                 @Before
                 public void throwNotFoundException() {
-                    given(crudService.update(isA(TaskFormDTO.class))).willThrow(new TaskNotFoundException(""));
+                    given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willThrow(new NotFoundException(""));
                 }
 
                 @Test
@@ -1075,15 +1117,20 @@ public class TaskCrudControllerTest {
                     returnUpdatedTask();
                     returnFeedbackMessage();
                 }
+
                 private void returnUpdatedTask() {
+                    PersonDTO creator = new PersonDTO();
+                    creator.setName(CREATOR_NAME);
+                    creator.setUserId(CREATOR_ID);
+
                     TaskDTO updated = new TaskDTOBuilder()
                             .withId(TASK_ID)
-                            .withCreator(CREATOR_ID)
+                            .withCreator(creator)
                             .withTitle(maxLengthTitle)
                             .withDescription(maxLengthDescription)
                             .withStatusOpen()
                             .build();
-                    given(crudService.update(isA(TaskFormDTO.class))).willReturn(updated);
+                    given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(updated);
                 }
 
                 private void returnFeedbackMessage() {
@@ -1135,8 +1182,10 @@ public class TaskCrudControllerTest {
                     );
 
                     verify(crudService, times(1)).update(assertArg(
-                            task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
-                    ));
+                                task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
+                            ),
+                            isA(LoggedInUser.class)
+                    );
                 }
 
                 @Test
@@ -1148,8 +1197,10 @@ public class TaskCrudControllerTest {
                     );
 
                     verify(crudService, times(1)).update(assertArg(
-                            task -> assertThat(task.getId()).isEqualTo(TASK_ID)
-                    ));
+                                task -> assertThat(task.getId()).isEqualTo(TASK_ID)
+                            ),
+                            isA(LoggedInUser.class)
+                    );
                 }
 
                 @Test
@@ -1161,8 +1212,10 @@ public class TaskCrudControllerTest {
                     );
 
                     verify(crudService, times(1)).update(assertArg(
-                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                    ));
+                                task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                            ),
+                            isA(LoggedInUser.class)
+                    );
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.PersonDTO;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,11 +14,12 @@ import java.util.List;
  */
 public class TaskDTOBuilder {
 
-    private Long assigneeId;
-    private Long closerId;
-    private Long creatorId;
+    private PersonDTO assignee;
+    private PersonDTO closer;
+    private PersonDTO creator;
     private String description;
     private Long id;
+    private PersonDTO modifier;
     private TaskResolution resolution;
     private TaskStatus status;
     private List<TagDTO> tags = new ArrayList<>();
@@ -30,18 +33,18 @@ public class TaskDTOBuilder {
         return this;
     }
 
-    public TaskDTOBuilder withAssignee(Long assigneeId) {
-        this.assigneeId = assigneeId;
+    public TaskDTOBuilder withAssignee(PersonDTO assignee) {
+        this.assignee = assignee;
         return this;
     }
 
-    public TaskDTOBuilder withCloser(Long closerId) {
-        this.closerId = closerId;
+    public TaskDTOBuilder withCloser(PersonDTO closer) {
+        this.closer = closer;
         return this;
     }
 
-    public TaskDTOBuilder withCreator(Long creatorId) {
-        this.creatorId = creatorId;
+    public TaskDTOBuilder withCreator(PersonDTO creator) {
+        this.creator = creator;
         return this;
     }
 
@@ -50,22 +53,27 @@ public class TaskDTOBuilder {
         return this;
     }
 
-    public TaskDTOBuilder withResolutionDuplicate(Long closerId) {
-        this.closerId = closerId;
+    public TaskDTOBuilder withModifier(PersonDTO modifier) {
+        this.modifier = modifier;
+        return this;
+    }
+
+    public TaskDTOBuilder withResolutionDuplicate(PersonDTO closer) {
+        this.closer = closer;
         this.resolution = TaskResolution.DUPLICATE;
         this.status = TaskStatus.CLOSED;
         return this;
     }
 
-    public TaskDTOBuilder withResolutionDone(Long closerId) {
-        this.closerId = closerId;
+    public TaskDTOBuilder withResolutionDone(PersonDTO closer) {
+        this.closer = closer;
         this.resolution = TaskResolution.DONE;
         this.status = TaskStatus.CLOSED;
         return this;
     }
 
-    public TaskDTOBuilder withResolutionWontDo(Long closerId) {
-        this.closerId = closerId;
+    public TaskDTOBuilder withResolutionWontDo(PersonDTO closer) {
+        this.closer = closer;
         this.resolution = TaskResolution.WONT_DO;
         this.status = TaskStatus.CLOSED;
         return this;
@@ -93,11 +101,12 @@ public class TaskDTOBuilder {
 
     public TaskDTO build() {
         TaskDTO dto = new TaskDTO();
-        dto.setAssigneeId(this.assigneeId);
-        dto.setCloserId(this.closerId);
-        dto.setCreatorId(this.creatorId);
+        dto.setAssignee(this.assignee);
+        dto.setCloser(this.closer);
+        dto.setCreator(this.creator);
         dto.setDescription(this.description);
         dto.setId(this.id);
+        dto.setModifier(this.modifier);
         dto.setResolution(this.resolution);
         dto.setStatus(this.status);
         dto.setTags(this.tags);

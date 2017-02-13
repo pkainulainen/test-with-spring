@@ -1,18 +1,21 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.PersonDTO;
+
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDTO {
 
-    private Long assigneeId;
-    private Long closerId;
+    private PersonDTO assignee;
+    private PersonDTO closer;
     private ZonedDateTime creationTime;
-    private Long creatorId;
+    private PersonDTO creator;
     private String description;
     private Long id;
     private ZonedDateTime modificationTime;
+    private PersonDTO modifier;
     private TaskResolution resolution;
     private TaskStatus status;
     private List<TagDTO> tags = new ArrayList<>();
@@ -20,20 +23,20 @@ public class TaskDTO {
 
     public TaskDTO() {}
 
-    public Long getAssigneeId() {
-        return assigneeId;
+    public PersonDTO getAssignee() {
+        return assignee;
     }
 
-    public Long getCloserId() {
-        return closerId;
+    public PersonDTO getCloser() {
+        return closer;
     }
 
     public ZonedDateTime getCreationTime() {
         return creationTime;
     }
 
-    public Long getCreatorId() {
-        return creatorId;
+    public PersonDTO getCreator() {
+        return creator;
     }
 
     public String getDescription() {
@@ -46,6 +49,10 @@ public class TaskDTO {
 
     public ZonedDateTime getModificationTime() {
         return modificationTime;
+    }
+
+    public PersonDTO getModifier() {
+        return modifier;
     }
 
     public TaskResolution getResolution() {
@@ -64,20 +71,20 @@ public class TaskDTO {
         return title;
     }
 
-    public void setAssigneeId(Long assigneeId) {
-        this.assigneeId = assigneeId;
+    public void setAssignee(PersonDTO assignee) {
+        this.assignee = assignee;
     }
 
-    public void setCloserId(Long closerId) {
-        this.closerId = closerId;
+    public void setCloser(PersonDTO closer) {
+        this.closer = closer;
     }
 
     public void setCreationTime(ZonedDateTime creationTime) {
         this.creationTime = creationTime;
     }
 
-    public void setCreatorId(Long creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(PersonDTO creator) {
+        this.creator = creator;
     }
 
     public void setDescription(String description) {
@@ -90,6 +97,10 @@ public class TaskDTO {
 
     public void setModificationTime(ZonedDateTime modificationTime) {
         this.modificationTime = modificationTime;
+    }
+
+    public void setModifier(PersonDTO modifier) {
+        this.modifier = modifier;
     }
 
     public void setResolution(TaskResolution resolution) {

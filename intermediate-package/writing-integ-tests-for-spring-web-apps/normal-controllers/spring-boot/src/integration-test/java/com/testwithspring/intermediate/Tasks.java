@@ -7,6 +7,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This constant class contains the test data that is either
+ * found from the DbUnit data sets (<em>tasks.xml</em> and <em>task.xml</em>)
+ * that insert task data into our database OR that is required
+ * to write integration tests for methods that process
+ * task data.
+ */
 public final class Tasks {
 
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME;
@@ -21,12 +28,17 @@ public final class Tasks {
     public static class WriteExampleApp {
 
         public static final Long ASSIGNEE_ID = 1L;
+        public static final String ASSIGNEE_NAME = "John Doe";
         public static final Long CLOSER_ID = 1L;
+        public static final String CLOSER_NAME = "John Doe";
         public static final ZonedDateTime CREATION_TIME = parseDateTime("2016-12-03T11:41:28");
         public static final Long CREATOR_ID = 1L;
+        public static final String CREATOR_NAME = "John Doe";
         public static final String DESCRIPTION = "This example contains integration tests";
         public static final Long ID = 1L;
         public static final ZonedDateTime MODIFICATION_TIME = parseDateTime("2016-12-03T11:41:28");
+        public static final Long MODIFIER_ID = 1L;
+        public static final String MODIFIER_NAME = "John Doe";
         public static final TaskResolution RESOLUTION = TaskResolution.DONE;
         public static final TaskStatus STATUS = TaskStatus.CLOSED;
         public static final String TITLE = "Write example application";

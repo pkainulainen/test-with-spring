@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.user.PersonDTO;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.SoftAssertions;
 
@@ -16,10 +17,10 @@ public final class TaskDTOAssert extends AbstractAssert<TaskDTOAssert, TaskDTO> 
     public TaskDTOAssert isOpen() {
         SoftAssertions assertions = new SoftAssertions();
 
-        assertions.assertThat(actual.getCloserId())
+        assertions.assertThat(actual.getCloser())
                 .overridingErrorMessage(
                         "The closer of an open task must be null but was %d",
-                        actual.getCloserId()
+                        actual.getCloser()
                 )
                 .isNull();
 
@@ -43,16 +44,26 @@ public final class TaskDTOAssert extends AbstractAssert<TaskDTOAssert, TaskDTO> 
         return this;
     }
 
-    public void wasClosedWithResolutionDoneBy(Long closerId) {
+    public void wasClosedWithResolutionDoneBy(PersonDTO closer) {
         SoftAssertions assertions = new SoftAssertions();
 
-        Long actualCloser = actual.getCloserId();
-        assertions.assertThat(actualCloser)
-                .overridingErrorMessage("Expected that the task was closed by user: %d but was closed by user: %d",
-                        closerId,
-                        actualCloser
+        Long actualCloserId = actual.getCloser().getUserId();
+        assertions.assertThat(actualCloserId)
+                .overridingErrorMessage(
+                        "Expected that the task was closed by user with id: %d but was closed by user with id: %d",
+                        closer.getUserId(),
+                        actualCloserId
                 )
-                .isEqualByComparingTo(closerId);
+                .isEqualByComparingTo(closer.getUserId());
+
+        String actualCloserName = actual.getCloser().getName();
+        assertions.assertThat(actualCloserName)
+                .overridingErrorMessage(
+                        "Expected that the task was closed by user with name: %s but was closed by user with name: %s",
+                        closer.getName(),
+                        actualCloserName
+                )
+                .isEqualTo(closer.getName());
 
         assertions.assertThat(actual.getStatus())
                 .overridingErrorMessage("The status of a closed task must be: %s but was: %s",
