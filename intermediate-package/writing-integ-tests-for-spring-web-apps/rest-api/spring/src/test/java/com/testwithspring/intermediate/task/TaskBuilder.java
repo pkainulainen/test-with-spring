@@ -2,10 +2,8 @@ package com.testwithspring.intermediate.task;
 
 import com.testwithspring.intermediate.ReflectionFieldUtil;
 
-import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +20,7 @@ public final class TaskBuilder {
     private String description = NOT_IMPORTANT;
     private Long id = NOT_IN_USE;
     private ZonedDateTime modificationTime = NOT_SET;
+    private Long modifierId = NOT_IN_USE;
     private TaskResolution resolution = null;
     private TaskStatus status = null;
     private Set<Tag> tags = new HashSet<>();
@@ -57,6 +56,11 @@ public final class TaskBuilder {
 
     public TaskBuilder withModificationTime(ZonedDateTime modificationTime) {
         this.modificationTime = modificationTime;
+        return this;
+    }
+
+    public TaskBuilder withModifier(Long modifierId) {
+        this.modifierId = modifierId;
         return this;
     }
 
@@ -118,6 +122,11 @@ public final class TaskBuilder {
         ReflectionFieldUtil.setFieldValue(task, "creationTime", creationTime);
         ReflectionFieldUtil.setFieldValue(task, "id", id);
         ReflectionFieldUtil.setFieldValue(task, "modificationTime", modificationTime);
+
+        if (modifierId != null) {
+            ReflectionFieldUtil.setFieldValue(task, "modifier", new Modifier(modifierId));
+        }
+
         ReflectionFieldUtil.setFieldValue(task, "status", status);
         ReflectionFieldUtil.setFieldValue(task, "resolution", resolution);
         ReflectionFieldUtil.setFieldValue(task, "tags", tags);

@@ -1,6 +1,5 @@
-package com.testwithspring.intermediate.task;
+package com.testwithspring.intermediate.common;
 
-import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -8,9 +7,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+/**
+ * This is a base class that should be extended by all entity
+ * classes. This class declares common fields that are useful
+ * for most entities. These fields are: id, creation time,
+ * modification time, and version.
+ */
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-abstract class AbstractEntity {
+public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,19 +32,19 @@ abstract class AbstractEntity {
     @Version
     private Long version;
 
-    ZonedDateTime getCreationTime() {
+    public ZonedDateTime getCreationTime() {
         return creationTime;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
     }
 
-    ZonedDateTime getModificationTime() {
+    public ZonedDateTime getModificationTime() {
         return modificationTime;
     }
 
-    Long getVersion() {
+    public Long getVersion() {
         return version;
     }
 }

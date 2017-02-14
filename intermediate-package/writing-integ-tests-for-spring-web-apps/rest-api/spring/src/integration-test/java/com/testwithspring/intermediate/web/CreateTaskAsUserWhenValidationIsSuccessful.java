@@ -16,6 +16,8 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -29,9 +31,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -43,13 +45,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/empty-database.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/no-tasks-and-tags.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class CreateTaskWhenValidationIsSuccessful {
+public class CreateTaskAsUserWhenValidationIsSuccessful {
 
     @Autowired
     IdColumnReset idColumnReset;
@@ -62,69 +68,82 @@ public class CreateTaskWhenValidationIsSuccessful {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
 
         idColumnReset.resetIdColumns("tasks");
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeCreated() throws Exception {
         createTask()
                 .andExpect(status().isCreated());
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnCreatedTaskAsJson() throws Exception {
         createTask()
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnInformationOfCreatedTask() throws Exception {
         createTask()
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, isEmptyOrNullString()))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, isEmptyOrNullString()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATION_TIME, is(ConstantDateTimeService.CURRENT_DATE_AND_TIME)))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(Tasks.WriteExampleApp.CREATOR_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(Users.JohnDoe.ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(Users.JohnDoe.NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(Tasks.WriteExampleApp.ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(ConstantDateTimeService.CURRENT_DATE_AND_TIME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(Users.JohnDoe.ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(Users.JohnDoe.NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, isEmptyOrNullString()));
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnTaskThatHasZeroTags() throws Exception {
         createTask()
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(0)));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-create-open-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateOpenTask() throws Exception {
         createTask();
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-set-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskWithCorrectTitleAndDescription() throws Exception {
         createTask();
     }
 
     @Test
-    @ExpectedDatabase(value = "create-task-should-set-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @ExpectedDatabase(value = "create-task-as-user-should-set-lifecycle-field-values.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskWithCorrectLifecycleFieldValues() throws Exception {
         createTask();
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-create-unassigned-task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldCreateTaskThatIsNotAssignedToAnyone() throws Exception {
         createTask();
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "create-task-should-not-create-any-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotCreateAnyTags() throws Exception {
         createTask();
@@ -138,6 +157,7 @@ public class CreateTaskWhenValidationIsSuccessful {
         return mockMvc.perform(post("/api/task")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(WebTestUtil.convertObjectToJsonBytes(input))
+                .with(csrf())
         );
     }
 }

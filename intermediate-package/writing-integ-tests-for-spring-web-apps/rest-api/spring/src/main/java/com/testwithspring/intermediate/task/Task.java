@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.common.AbstractEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -24,6 +25,9 @@ class Task extends AbstractEntity {
 
     @Column(name = "description", length = MAX_LENGTH_DESCRIPTION)
     private String description;
+
+    @Embedded
+    private Modifier modifier;
 
     @Column(name = "resolution")
     @Enumerated(EnumType.STRING)
@@ -51,6 +55,11 @@ class Task extends AbstractEntity {
     private Task(Builder builder) {
         this.creator = builder.creator;
         this.description = builder.description;
+
+        if (builder.creator != null) {
+            this.modifier = new Modifier(builder.creator.getUserId());
+        }
+
         this.title = builder.title;
         this.status = TaskStatus.OPEN;
     }
@@ -75,6 +84,10 @@ class Task extends AbstractEntity {
         return description;
     }
 
+    Modifier getModifier() {
+        return modifier;
+    }
+
     TaskResolution getResolution() {
         return resolution;
     }
@@ -95,6 +108,10 @@ class Task extends AbstractEntity {
         this.description = description;
     }
 
+    void setModifier(Long modifierId) {
+        this.modifier = new Modifier(modifierId);
+    }
+
     void setTitle(String title) {
         this.title = title;
     }
@@ -109,6 +126,7 @@ class Task extends AbstractEntity {
                 .append("creator", this.creator)
                 .append("description", this.description)
                 .append("modificationTime", this.getModificationTime())
+                .append("modifier", this.modifier)
                 .append("resolution", this.resolution)
                 .append("status", this.status)
                 .append("title", this.title)

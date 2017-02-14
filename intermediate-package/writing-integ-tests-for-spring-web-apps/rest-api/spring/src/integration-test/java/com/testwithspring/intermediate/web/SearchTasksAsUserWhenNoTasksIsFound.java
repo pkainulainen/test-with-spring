@@ -3,20 +3,16 @@ package com.testwithspring.intermediate.web;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.testwithspring.intermediate.IntegrationTest;
-import com.testwithspring.intermediate.IntegrationTestContext;
-import com.testwithspring.intermediate.ReplacementDataSetLoader;
-import com.testwithspring.intermediate.Tasks;
+import com.testwithspring.intermediate.*;
 import com.testwithspring.intermediate.config.Profiles;
-import com.testwithspring.intermediate.task.TaskFormDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -31,8 +27,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,13 +39,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("task.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/tasks.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class UpdateTaskWhenValidationFails {
+public class SearchTasksAsUserWhenNoTasksIsFound {
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -59,49 +59,34 @@ public class UpdateTaskWhenValidationFails {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
-    public void shouldReturnHttpStatusCodeBadRequest() throws Exception {
-        updateTaskWithEmptyData()
-                .andExpect(status().isBadRequest());
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    public void shouldReturnHttpStatusCodeOk() throws Exception {
+        search()
+                .andExpect(status().isOk());
     }
 
     @Test
-    public void shouldReturnValidationErrorsAsJson() throws Exception {
-        updateTaskWithEmptyData()
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    public void shouldReturnSearchResultsAsJson() throws Exception {
+        search()
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
-    public void shouldReturnOneValidationError() throws Exception {
-        updateTaskWithEmptyData()
-                .andExpect(jsonPath("$.fieldErrors", hasSize(1)));
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    public void shouldReturnZeroTasks() throws Exception {
+        search()
+                .andExpect(jsonPath("$", hasSize(0)));
     }
 
-    @Test
-    public void shouldReturnValidationErrorAboutEmptyTitle() throws Exception {
-        updateTaskWithEmptyData()
-                .andExpect(jsonPath("$.fieldErrors[0].field", is("title")))
-                .andExpect(jsonPath("$.fieldErrors[0].errorCode", is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)));
-    }
-
-    @Test
-    @ExpectedDatabase(value = "task.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void shouldNotUpdateTask() throws Exception {
-        updateTaskWithEmptyData();
-    }
-
-    private ResultActions updateTaskWithEmptyData() throws Exception {
-        TaskFormDTO input = new TaskFormDTO();
-        input.setDescription("");
-        input.setId(Tasks.WriteLesson.ID);
-        input.setTitle("");
-
-        return mockMvc.perform(put("/api/task/{taskId}", Tasks.WriteLesson.ID)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(WebTestUtil.convertObjectToJsonBytes(input))
+    private ResultActions search() throws Exception {
+        return mockMvc.perform(get("/api/task/search")
+                .param(WebTestConstants.RequestParameter.SEARCH_TERM, Tasks.SEARCH_TERM_NOT_FOUND)
         );
     }
 }

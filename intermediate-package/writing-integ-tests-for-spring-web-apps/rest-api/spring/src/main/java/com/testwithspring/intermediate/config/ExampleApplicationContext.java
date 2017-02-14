@@ -13,10 +13,14 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
-@ComponentScan("com.testwithspring.intermediate.task")
+@ComponentScan({
+        "com.testwithspring.intermediate.task",
+        "com.testwithspring.intermediate.user"
+})
 @Import({
         PersistenceContext.class,
-        WebMvcContext.class
+        WebMvcContext.class,
+        SecurityContext.class
 })
 public class ExampleApplicationContext {
 

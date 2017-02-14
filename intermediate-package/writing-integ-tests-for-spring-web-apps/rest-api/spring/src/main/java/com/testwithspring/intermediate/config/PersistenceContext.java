@@ -26,13 +26,15 @@ import java.util.Properties;
 @Configuration
 @EnableJpaAuditing(dateTimeProviderRef = "dateTimeProvider")
 @EnableJpaRepositories(basePackages = {
-        "com.testwithspring.intermediate.task"
+        "com.testwithspring.intermediate.task",
+        "com.testwithspring.intermediate.user"
 })
 @EnableTransactionManagement
 public class PersistenceContext {
 
     private static final String[] ENTITY_PACKAGES = {
-            "com.testwithspring.intermediate.task"
+            "com.testwithspring.intermediate.task",
+            "com.testwithspring.intermediate.user"
     };
 
 

@@ -8,9 +8,9 @@ interface TaskRepository extends Repository<Task, Long>, CustomTaskRepository {
 
     void delete(Task deleted);
 
-    Optional<Task> findOne(Long id);
-
     void flush();
+
+    Optional<Task> findOne(Long id);
 
     Task save(Task task);
 }

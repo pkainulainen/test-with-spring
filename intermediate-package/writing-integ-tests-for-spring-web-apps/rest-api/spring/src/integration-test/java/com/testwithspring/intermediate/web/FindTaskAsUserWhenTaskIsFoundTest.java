@@ -3,10 +3,7 @@ package com.testwithspring.intermediate.web;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import com.testwithspring.intermediate.IntegrationTest;
-import com.testwithspring.intermediate.IntegrationTestContext;
-import com.testwithspring.intermediate.ReplacementDataSetLoader;
-import com.testwithspring.intermediate.Tasks;
+import com.testwithspring.intermediate.*;
 import com.testwithspring.intermediate.config.Profiles;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +11,8 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -29,10 +28,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {IntegrationTestContext.class})
@@ -42,13 +40,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
-        ServletTestExecutionListener.class
+        ServletTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/tasks.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/tasks.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class FindTaskWhenTaskIsFoundTest {
+public class FindTaskAsUserWhenTaskIsFoundTest {
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -58,30 +60,39 @@ public class FindTaskWhenTaskIsFoundTest {
     @Before
     public void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webAppContext)
+                .apply(springSecurity())
                 .build();
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         findTask()
                 .andExpect(status().isOk());
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnFoundTaskAsJson() throws Exception {
         findTask()
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnInformationOfFoundTask() throws Exception {
         findTask()
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, is(Tasks.WriteExampleApp.ASSIGNEE_ID.intValue())))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, is(Tasks.WriteExampleApp.CLOSER_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.ID, is(Tasks.WriteExampleApp.ASSIGNEE_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.NAME, is(Tasks.WriteExampleApp.ASSIGNEE_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Closer.ID, is(Tasks.WriteExampleApp.CLOSER_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Closer.NAME, is(Tasks.WriteExampleApp.CLOSER_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME_STRING)))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(Tasks.WriteExampleApp.CREATOR_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(Tasks.WriteExampleApp.CREATOR_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(Tasks.WriteExampleApp.CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(Tasks.WriteExampleApp.ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME_STRING)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(Tasks.WriteExampleApp.MODIFIER_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(Tasks.WriteExampleApp.MODIFIER_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(Tasks.WriteExampleApp.DESCRIPTION)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(Tasks.WriteExampleApp.STATUS.toString())))
@@ -89,12 +100,14 @@ public class FindTaskWhenTaskIsFoundTest {
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnTaskThatHasOneTag() throws Exception {
         findTask()
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)));
     }
 
     @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     public void shouldReturnInformationOfCorrectTag() throws Exception {
         findTask()
                 .andExpect(jsonPath("$.tags[0].id", is(Tasks.WriteExampleApp.Tags.Example.ID.intValue())))

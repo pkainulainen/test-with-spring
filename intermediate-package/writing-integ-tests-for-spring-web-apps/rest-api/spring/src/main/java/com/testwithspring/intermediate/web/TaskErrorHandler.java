@@ -1,6 +1,6 @@
 package com.testwithspring.intermediate.web;
 
-import com.testwithspring.intermediate.task.TaskNotFoundException;
+import com.testwithspring.intermediate.common.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -44,7 +44,7 @@ public class TaskErrorHandler {
         return fieldErrorCodes[fieldErrorCodes.length - 1];
     }
 
-    @ExceptionHandler(TaskNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void returnHttpStatusCodeNotFound() {
         LOGGER.error("Task was found not. Returning HTTP status code 404");
