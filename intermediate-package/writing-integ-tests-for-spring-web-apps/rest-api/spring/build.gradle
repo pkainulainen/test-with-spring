@@ -36,7 +36,7 @@ tasks.withType(Test) {
 }
 
 gretty {
-    port = 8080
+    httpPort = 8080
     contextPath = '/'
     servletContainer = 'jetty9'
     systemProperty 'spring.profiles.active', 'application'
