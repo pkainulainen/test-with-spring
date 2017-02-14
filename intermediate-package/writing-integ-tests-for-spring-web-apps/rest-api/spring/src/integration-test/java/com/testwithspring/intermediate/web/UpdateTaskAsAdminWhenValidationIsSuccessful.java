@@ -55,7 +55,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
-public class UpdateTaskWhenValidationIsSuccessful {
+public class UpdateTaskAsAdminWhenValidationIsSuccessful {
 
     private static final String NEW_DESCRIPTION = "The old lesson was not good";
     private static final String NEW_TITLE = "Rewrite an existing lesson";
@@ -73,21 +73,21 @@ public class UpdateTaskWhenValidationIsSuccessful {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnHttpStatusCodeOk() throws Exception {
         updateTask()
                 .andExpect(status().isOk());
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnUpdatedTaskAsJson() throws Exception {
         updateTask()
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnInformationOfUpdatedTask() throws Exception {
         updateTask()
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
@@ -97,8 +97,8 @@ public class UpdateTaskWhenValidationIsSuccessful {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(Tasks.WriteLesson.CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(Tasks.WriteLesson.ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(ConstantDateTimeService.CURRENT_DATE_AND_TIME)))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(Users.JohnDoe.ID.intValue())))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(Users.JohnDoe.NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(Users.AnneAdmin.ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(Users.AnneAdmin.NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(NEW_TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(NEW_DESCRIPTION)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(Tasks.WriteLesson.STATUS.toString())))
@@ -106,14 +106,14 @@ public class UpdateTaskWhenValidationIsSuccessful {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnTaskThatHasOneTag() throws Exception {
         updateTask()
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)));
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldReturnInformationOfCorrectTag() throws Exception {
         updateTask()
                 .andExpect(jsonPath("$.tags[0].id", is(Tasks.WriteLesson.Tags.Lesson.ID.intValue())))
@@ -121,35 +121,35 @@ public class UpdateTaskWhenValidationIsSuccessful {
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-update-title-and-description.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldUpdateTitleAndDescription() throws Exception {
         updateTask();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
-    @ExpectedDatabase(value = "update-task-as-user-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
+    @ExpectedDatabase(value = "update-task-as-admin-should-update-lifecycle-fields.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldUpdateModificationTimeAndVersion() throws Exception {
         updateTask();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-not-change-status.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotChangeStatus() throws Exception {
         updateTask();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-not-change-assignee.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotChangeAssignee() throws Exception {
         updateTask();
     }
 
     @Test
-    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = "update-task-should-not-change-tags.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void shouldNotMakeAnyChangesToTagsOfUpdatedTask() throws Exception {
         updateTask();
