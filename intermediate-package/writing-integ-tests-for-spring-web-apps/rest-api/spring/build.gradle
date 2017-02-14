@@ -71,6 +71,9 @@ dependencies {
             'com.fasterxml.jackson.datatype:jackson-datatype-jdk8',
             'com.fasterxml.jackson.datatype:jackson-datatype-jsr310',
             'org.springframework:spring-webmvc',
+            'org.springframework.security:spring-security-core',
+            'org.springframework.security:spring-security-config',
+            'org.springframework.security:spring-security-web',
             'com.h2database:h2',
             'com.zaxxer:HikariCP',
             'org.hibernate:hibernate-entitymanager',
@@ -88,7 +91,8 @@ dependencies {
             'org.mockito:mockito-core',
             'info.solidsoft.mockito:mockito-java8:0.3.1',
             'com.jayway.jsonpath:json-path',
-            'org.springframework:spring-test'
+            'org.springframework:spring-test',
+            'org.springframework.security:spring-security-test'
     )
     integrationTestCompile sourceSets.test.output
     integrationTestCompile(
