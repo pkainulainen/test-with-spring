@@ -32,6 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -70,6 +71,12 @@ public class DeleteTaskAsAnonymousUser {
     public void shouldReturnHttpStatusCodeUnauthorized() throws Exception {
         deleteTask()
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void shouldReturnEmptyResponseBody() throws Exception {
+        deleteTask()
+                .andExpect(content().string(""));
     }
 
     @Test

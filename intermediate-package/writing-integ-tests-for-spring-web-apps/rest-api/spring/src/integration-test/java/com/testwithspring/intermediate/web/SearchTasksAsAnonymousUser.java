@@ -29,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -67,6 +68,12 @@ public class SearchTasksAsAnonymousUser {
     public void shouldReturnHttpStatusCodeUnauthorized() throws Exception {
         search()
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void shouldReturnEmptyResponseBody() throws Exception {
+        search()
+                .andExpect(content().string(""));
     }
 
     private ResultActions search() throws Exception {

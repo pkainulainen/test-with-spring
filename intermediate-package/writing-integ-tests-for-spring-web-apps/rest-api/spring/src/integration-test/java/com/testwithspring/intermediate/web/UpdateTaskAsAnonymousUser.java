@@ -35,6 +35,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -76,6 +77,12 @@ public class UpdateTaskAsAnonymousUser {
     public void shouldReturnHttpStatusCodeUnauthorized() throws Exception {
         updateTask()
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void shouldReturnEmptyResponseBody() throws Exception {
+        updateTask()
+                .andExpect(content().string(""));
     }
 
     @Test

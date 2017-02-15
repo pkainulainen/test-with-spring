@@ -28,6 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -66,6 +67,12 @@ public class FindAllTasksAsAnonymousUser {
     public void shouldReturnHttpStatusCodeUnauthorized() throws Exception {
         findAllTasks()
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void shouldReturnEmptyResponseBody() throws Exception {
+        findAllTasks()
+                .andExpect(content().string(""));
     }
 
     private ResultActions findAllTasks() throws Exception {
