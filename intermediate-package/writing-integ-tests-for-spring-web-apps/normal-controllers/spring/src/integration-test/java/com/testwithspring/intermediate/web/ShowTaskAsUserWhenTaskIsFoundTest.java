@@ -94,37 +94,37 @@ public class ShowTaskAsUserWhenTaskIsFoundTest {
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                        is(Tasks.WriteExampleApp.ASSIGNEE_NAME)
+                                        is(Tasks.WriteExampleApp.Assignee.NAME)
                                 ),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
-                                        is(Tasks.WriteExampleApp.ASSIGNEE_ID)
+                                        is(Tasks.WriteExampleApp.Assignee.ID)
                                 )
                         )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                        is(Tasks.WriteExampleApp.CLOSER_NAME)
+                                        is(Tasks.WriteExampleApp.Closer.NAME)
                                 ),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
-                                        is(Tasks.WriteExampleApp.CLOSER_ID)
+                                        is(Tasks.WriteExampleApp.Closer.ID)
                                 )
                         )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATION_TIME, is(Tasks.WriteExampleApp.CREATION_TIME)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                        is(Tasks.WriteExampleApp.CREATOR_NAME)
+                                        is(Tasks.WriteExampleApp.Creator.NAME)
                                 ),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
-                                        is(Tasks.WriteExampleApp.CREATOR_ID)
+                                        is(Tasks.WriteExampleApp.Creator.ID)
                                 )
                         )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(Tasks.WriteExampleApp.ID)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                        is(Tasks.WriteExampleApp.MODIFIER_NAME)
+                                        is(Tasks.WriteExampleApp.Modifier.MODIFIER)
                                 ),
                                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
-                                        is(Tasks.WriteExampleApp.MODIFIER_ID)
+                                        is(Tasks.WriteExampleApp.Modifier.ID)
                                 )
                         )),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(Tasks.WriteExampleApp.TITLE)),
