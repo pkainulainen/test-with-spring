@@ -1,5 +1,7 @@
 package com.testwithspring.intermediate.task;
 
+import com.testwithspring.intermediate.common.AbstractEntity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;

@@ -119,6 +119,11 @@ public class TaskTest {
             }
 
             @Test
+            public void shouldCreateTaskWithCorrectCreator() {
+                assertThat(task.getCreator().getUserId()).isEqualByComparingTo(CREATOR_ID);
+            }
+
+            @Test
             public void shouldCreateTaskWithCorrectDescription() {
                 assertThat(task.getDescription()).isEqualTo(expectedDescription);
             }
@@ -131,6 +136,11 @@ public class TaskTest {
             @Test
             public void shouldCreateTaskWithoutModificationTime() {
                 assertThat(task.getModificationTime()).isNull();
+            }
+
+            @Test
+            public void shouldCreateTaskWithCorrectModifier() {
+                assertThat(task.getModifier().getUserId()).isEqualByComparingTo(CREATOR_ID);
             }
 
             @Test

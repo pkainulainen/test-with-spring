@@ -1,7 +1,10 @@
 package com.testwithspring.intermediate.web;
 
 import com.testwithspring.intermediate.UnitTest;
+import com.testwithspring.intermediate.common.NotFoundException;
 import com.testwithspring.intermediate.task.*;
+import com.testwithspring.intermediate.user.LoggedInUser;
+import com.testwithspring.intermediate.user.PersonDTO;
 import de.bechte.junit.runners.context.HierarchicalContextRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,29 +17,17 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 import static com.testwithspring.intermediate.web.WebTestConfig.fixedLocaleResolver;
 import static com.testwithspring.intermediate.web.WebTestConfig.objectMapperHttpMessageConverter;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.isEmptyString;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(HierarchicalContextRunner.class)
 @Category(UnitTest.class)
@@ -52,6 +43,7 @@ public class TaskCrudControllerTest {
 
     //Task
     private static final Long CREATOR_ID = 99L;
+    private static final String CREATOR_NAME = "John Doe";
     private static final String TASK_DESCRIPTION = "description";
     private static final Long TASK_ID = 1L;
     private static final String TASK_TITLE = "maxLengthTitle";
@@ -135,7 +127,7 @@ public class TaskCrudControllerTest {
                         .content(WebTestUtil.convertObjectToJsonBytes(input))
                 );
 
-                verify(crudService, never()).create(isA(TaskFormDTO.class));
+                verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
             }
         }
 
@@ -200,7 +192,7 @@ public class TaskCrudControllerTest {
                         .content(WebTestUtil.convertObjectToJsonBytes(input))
                 );
 
-                verify(crudService, never()).create(isA(TaskFormDTO.class));
+                verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
             }
         }
 
@@ -224,14 +216,19 @@ public class TaskCrudControllerTest {
             }
 
             private void returnCreatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setUserId(CREATOR_ID);
+                creator.setName(CREATOR_NAME);
+
                 TaskDTO created = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
+                        .withModifier(creator)
                         .withTitle(maxLengthTitle)
                         .withDescription("")
                         .withStatusOpen()
                         .build();
-                given(crudService.create(isA(TaskFormDTO.class))).willReturn(created);
+                given(crudService.create(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(created);
             }
 
             @Test
@@ -260,8 +257,11 @@ public class TaskCrudControllerTest {
                 )
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(maxLengthTitle)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, isEmptyString()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
@@ -276,8 +276,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getId()).isNull()
-                ));
+                            task -> assertThat(task.getId()).isNull()
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -288,8 +290,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                ));
+                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -300,8 +304,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getDescription()).isEmpty()
-                ));
+                            task -> assertThat(task.getDescription()).isEmpty()
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
         }
 
@@ -327,14 +333,19 @@ public class TaskCrudControllerTest {
             }
 
             private void returnCreatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setUserId(CREATOR_ID);
+                creator.setName(CREATOR_NAME);
+
                 TaskDTO created = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
+                        .withModifier(creator)
                         .withTitle(maxLengthTitle)
                         .withDescription(maxLengthDescription)
                         .withStatusOpen()
                         .build();
-                given(crudService.create(isA(TaskFormDTO.class))).willReturn(created);
+                given(crudService.create(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(created);
             }
 
             @Test
@@ -363,8 +374,11 @@ public class TaskCrudControllerTest {
                 )
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(maxLengthTitle)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(maxLengthDescription)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
@@ -388,8 +402,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getId()).isNull()
-                ));
+                            task -> assertThat(task.getId()).isNull()
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -400,8 +416,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                ));
+                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -412,8 +430,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).create(assertArg(
-                        task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
-                ));
+                            task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
         }
     }
@@ -424,7 +444,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.delete(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.delete(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -442,9 +462,14 @@ public class TaskCrudControllerTest {
                 tag.setId(TAG_ID);
                 tag.setName(TAG_NAME);
 
+                PersonDTO creator = new PersonDTO();
+                creator.setUserId(CREATOR_ID);
+                creator.setName(CREATOR_NAME);
+
                 TaskDTO deleted = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
+                        .withModifier(creator)
                         .withTitle(TASK_TITLE)
                         .withDescription(TASK_DESCRIPTION)
                         .withStatusOpen()
@@ -471,8 +496,11 @@ public class TaskCrudControllerTest {
                 mockMvc.perform(delete("/api/task/{taskId}", TASK_ID))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(TASK_TITLE)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
@@ -579,7 +607,7 @@ public class TaskCrudControllerTest {
 
             @Before
             public void throwTaskNotFoundException() {
-                given(crudService.findById(TASK_ID)).willThrow(new TaskNotFoundException(""));
+                given(crudService.findById(TASK_ID)).willThrow(new NotFoundException(""));
             }
 
             @Test
@@ -591,66 +619,158 @@ public class TaskCrudControllerTest {
 
         public class WhenTaskIsFound {
 
+            private PersonDTO creator;
+            private TagDTO tag;
+
             @Before
-            public void returnFoundTask() {
-                TagDTO tag = new TagDTO();
+            public void createTestData() {
+                creator = new PersonDTO();
+                creator.setUserId(CREATOR_ID);
+                creator.setName(CREATOR_NAME);
+
+                tag = new TagDTO();
                 tag.setId(TAG_ID);
                 tag.setName(TAG_NAME);
-
-                TaskDTO found = new TaskDTOBuilder()
-                        .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
-                        .withTitle(TASK_TITLE)
-                        .withDescription(TASK_DESCRIPTION)
-                        .withStatusOpen()
-                        .withTags(tag)
-                        .build();
-
-                given(crudService.findById(TASK_ID)).willReturn(found);
             }
 
-            @Test
-            public void shouldReturnHttpStatusCodeOk() throws Exception {
-                mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
-                        .andExpect(status().isOk());
+            public class WhenOpenTaskIsFound {
+
+                @Before
+                public void returnFoundTask() {
+                    TaskDTO found = new TaskDTOBuilder()
+                            .withId(TASK_ID)
+                            .withCreator(creator)
+                            .withModifier(creator)
+                            .withTitle(TASK_TITLE)
+                            .withDescription(TASK_DESCRIPTION)
+                            .withStatusOpen()
+                            .withTags(tag)
+                            .build();
+
+                    given(crudService.findById(TASK_ID)).willReturn(found);
+                }
+
+                @Test
+                public void shouldReturnHttpStatusCodeOk() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(status().isOk());
+                }
+
+                @Test
+                public void shouldReturnFoundTaskAsJson() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+                }
+
+                @Test
+                public void shouldReturnInformationOfFoundTask() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(TASK_TITLE)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()));
+                }
+
+
+                @Test
+                public void shouldReturnTaskThatHasOneTag() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)));
+                }
+
+                @Test
+                public void shouldReturnTagOfFoundTask() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(jsonPath("$.tags[0].id", is(TAG_ID.intValue())))
+                            .andExpect(jsonPath("$.tags[0].name", is(TAG_NAME)));
+                }
             }
 
-            @Test
-            public void shouldReturnFoundTaskAsJson() throws Exception {
-                mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
-                        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-            }
+            public class WhenClosedTaskIsFound {
 
-            @Test
-            public void shouldReturnInformationOfFoundTask() throws Exception {
-                mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(CREATOR_ID.intValue())))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(TASK_TITLE)))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()));
-            }
+                private final Long CLOSER_ID = 124L;
+                private final String CLOSER_NAME = "Chris Closer";
+
+                @Before
+                public void returnFoundTask() {
+                    PersonDTO closer = new PersonDTO();
+                    closer.setUserId(CLOSER_ID);
+                    closer.setName(CLOSER_NAME);
+
+                    TaskDTO found = new TaskDTOBuilder()
+                            .withId(TASK_ID)
+                            .withAssignee(closer)
+                            .withCreator(creator)
+                            .withModifier(creator)
+                            .withTitle(TASK_TITLE)
+                            .withDescription(TASK_DESCRIPTION)
+                            .withResolutionWontDo(closer)
+                            .withTags(tag)
+                            .build();
+
+                    given(crudService.findById(TASK_ID)).willReturn(found);
+                }
+
+                @Test
+                public void shouldReturnHttpStatusCodeOk() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(status().isOk());
+                }
+
+                @Test
+                public void shouldReturnFoundTaskAsJson() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+                }
+
+                @Test
+                public void shouldReturnInformationOfFoundTask() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.ID, is(CLOSER_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.NAME, is(CLOSER_NAME)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Closer.ID, is(CLOSER_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Closer.NAME, is(CLOSER_NAME)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(TASK_TITLE)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.CLOSED.toString())))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, is(TaskResolution.WONT_DO.toString())));
+                }
 
 
-            @Test
-            public void shouldReturnTaskThatHasOneTag() throws Exception {
-                mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)));
-            }
+                @Test
+                public void shouldReturnTaskThatHasOneTag() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)));
+                }
 
-            @Test
-            public void shouldReturnTagOfFoundTask() throws Exception {
-                mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
-                        .andExpect(jsonPath("$.tags[0].id", is(TAG_ID.intValue())))
-                        .andExpect(jsonPath("$.tags[0].name", is(TAG_NAME)));
+                @Test
+                public void shouldReturnTagOfFoundTask() throws Exception {
+                    mockMvc.perform(get("/api/task/{taskId}", TASK_ID))
+                            .andExpect(jsonPath("$.tags[0].id", is(TAG_ID.intValue())))
+                            .andExpect(jsonPath("$.tags[0].name", is(TAG_NAME)));
+                }
             }
         }
     }
 
     public class Update {
+
+        private final Long MODIFIER_ID = 44L;
+        private final String MODIFIER_NAME = "Mike Modifier";
 
         private TaskFormDTO input;
 
@@ -708,7 +828,7 @@ public class TaskCrudControllerTest {
                         .content(WebTestUtil.convertObjectToJsonBytes(input))
                 );
 
-                verify(crudService, never()).create(isA(TaskFormDTO.class));
+                verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
             }
         }
 
@@ -774,7 +894,7 @@ public class TaskCrudControllerTest {
                         .content(WebTestUtil.convertObjectToJsonBytes(input))
                 );
 
-                verify(crudService, never()).create(isA(TaskFormDTO.class));
+                verify(crudService, never()).create(isA(TaskFormDTO.class), isA(LoggedInUser.class));
             }
         }
 
@@ -799,14 +919,23 @@ public class TaskCrudControllerTest {
             }
 
             private void returnUpdatedTask() {
+                PersonDTO creator = new PersonDTO();
+                creator.setUserId(CREATOR_ID);
+                creator.setName(CREATOR_NAME);
+
+                PersonDTO modifier = new PersonDTO();
+                modifier.setUserId(MODIFIER_ID);
+                modifier.setName(MODIFIER_NAME);
+
                 TaskDTO created = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
+                        .withModifier(modifier)
                         .withTitle(maxLengthTitle)
                         .withDescription("")
                         .withStatusOpen()
                         .build();
-                given(crudService.update(isA(TaskFormDTO.class))).willReturn(created);
+                given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(created);
             }
 
             @Test
@@ -835,8 +964,11 @@ public class TaskCrudControllerTest {
                 )
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(MODIFIER_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(MODIFIER_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(maxLengthTitle)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, isEmptyString()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
@@ -851,8 +983,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).update(assertArg(
-                        task -> assertThat(task.getId()).isEqualByComparingTo(TASK_ID)
-                ));
+                            task -> assertThat(task.getId()).isEqualByComparingTo(TASK_ID)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -863,8 +997,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).update(assertArg(
-                        task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                ));
+                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -875,8 +1011,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).update(assertArg(
-                        task -> assertThat(task.getDescription()).isEmpty()
-                ));
+                            task -> assertThat(task.getDescription()).isEmpty()
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
         }
 
@@ -907,15 +1045,24 @@ public class TaskCrudControllerTest {
                 tag.setId(TAG_ID);
                 tag.setName(TAG_NAME);
 
+                PersonDTO creator = new PersonDTO();
+                creator.setUserId(CREATOR_ID);
+                creator.setName(CREATOR_NAME);
+
+                PersonDTO modifier = new PersonDTO();
+                modifier.setUserId(MODIFIER_ID);
+                modifier.setName(MODIFIER_NAME);
+
                 TaskDTO created = new TaskDTOBuilder()
                         .withId(TASK_ID)
-                        .withCreator(CREATOR_ID)
+                        .withCreator(creator)
+                        .withModifier(modifier)
                         .withTitle(maxLengthTitle)
                         .withDescription(maxLengthDescription)
                         .withStatusOpen()
                         .withTags(tag)
                         .build();
-                given(crudService.update(isA(TaskFormDTO.class))).willReturn(created);
+                given(crudService.update(isA(TaskFormDTO.class), isA(LoggedInUser.class))).willReturn(created);
             }
 
             @Test
@@ -944,8 +1091,11 @@ public class TaskCrudControllerTest {
                 )
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
-                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATOR, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(MODIFIER_ID.intValue())))
+                        .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(MODIFIER_NAME)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(maxLengthTitle)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(maxLengthDescription)))
                         .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
@@ -979,8 +1129,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).update(assertArg(
-                        task -> assertThat(task.getId()).isEqualByComparingTo(TASK_ID)
-                ));
+                            task -> assertThat(task.getId()).isEqualByComparingTo(TASK_ID)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -991,8 +1143,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).update(assertArg(
-                        task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
-                ));
+                            task -> assertThat(task.getTitle()).isEqualTo(maxLengthTitle)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
 
             @Test
@@ -1003,8 +1157,10 @@ public class TaskCrudControllerTest {
                 );
 
                 verify(crudService, times(1)).update(assertArg(
-                        task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
-                ));
+                            task -> assertThat(task.getDescription()).isEqualTo(maxLengthDescription)
+                        ),
+                        isA(LoggedInUser.class)
+                );
             }
         }
     }

@@ -17,6 +17,7 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
+import org.springframework.test.context.web.ServletTestExecutionListener;
 
 import java.util.List;
 
@@ -27,9 +28,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class
+        DbUnitTestExecutionListener.class,
+        ServletTestExecutionListener.class
 })
-@DatabaseSetup("/com/testwithspring/intermediate/empty-database.xml")
+@DatabaseSetup({
+        "/com/testwithspring/intermediate/users.xml",
+        "/com/testwithspring/intermediate/no-tasks-and-tags.xml"
+})
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @Category(IntegrationTest.class)
 @ActiveProfiles(Profiles.INTEGRATION_TEST)

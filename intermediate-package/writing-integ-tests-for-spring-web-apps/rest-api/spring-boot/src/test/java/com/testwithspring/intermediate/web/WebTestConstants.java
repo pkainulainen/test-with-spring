@@ -19,13 +19,38 @@ public final class WebTestConstants {
 
         public static class Task {
 
-            public static final String ASSIGNEE = "$.assigneeId";
-            public static final String CLOSER = "$.closerId";
+            public static String ASSIGNEE = "$.assignee";
+            public static class Assignee {
+
+                public static String ID = "$.assignee.userId";
+                public static String NAME = "$.assignee.name";
+            }
+
+            public static String CLOSER = "$.closer";
+            public static class Closer {
+
+                public static String ID = "$.closer.userId";
+                public static String NAME = "$.closer.name";
+            }
+
             public static final String CREATION_TIME = "$.creationTime";
-            public static final String CREATOR = "$.creatorId";
+
+            public static class Creator {
+
+                public static String ID = "$.creator.userId";
+                public static String NAME = "$.creator.name";
+            }
+
             public static final String DESCRIPTION = "$.description";
             public static final String ID = "$.id";
             public static final String MODIFICATION_TIME = "$.modificationTime";
+
+            public static class Modifier {
+
+                public static String ID = "$.modifier.userId";
+                public static String NAME = "$.modifier.name";
+            }
+
             public static final String RESOLUTION = "$.resolution";
             public static final String STATUS = "$.status";
             public static final String TAGS = "$.tags";
