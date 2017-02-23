@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.config;
 
+import org.sitemesh.config.ConfigurableSiteMeshFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -32,6 +33,7 @@ public class WebAppConfig implements WebApplicationInitializer {
 
         configureCharacterEncodingFilter(servletContext, dispatcherTypes);
         configureSpringSecurityFilter(servletContext, dispatcherTypes);
+        configureSitemeshFilter(servletContext, dispatcherTypes);
         servletContext.addListener(new ContextLoaderListener(rootContext));
     }
 
@@ -55,5 +57,10 @@ public class WebAppConfig implements WebApplicationInitializer {
     private void configureSpringSecurityFilter(ServletContext servletContext, EnumSet<DispatcherType> dispatcherTypes) {
         FilterRegistration.Dynamic security = servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy());
         security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+    }
+
+    private void configureSitemeshFilter(ServletContext servletContext, EnumSet<DispatcherType> dispatcherTypes) {
+        FilterRegistration.Dynamic sitemesh = servletContext.addFilter("sitemesh", new ConfigurableSiteMeshFilter());
+        sitemesh.addMappingForUrlPatterns(dispatcherTypes, true, "*.jsp");
     }
 }
