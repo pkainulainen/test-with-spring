@@ -53,8 +53,8 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
+                    .loginPage("/user/login")
+                    .loginProcessingUrl("/user/login")
                     .successForwardUrl("/")
                     .permitAll()
                     .and()

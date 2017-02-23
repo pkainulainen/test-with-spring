@@ -12,7 +12,7 @@ public final class WebTestConstants {
 
     private WebTestConstants() {}
 
-    public static String LOGIN_PAGE_URL = "http://localhost/login";
+    public static String LOGIN_PAGE_URL = "http://localhost/user/login";
 
     /**
      * This class contains the keys of the used flash messages.
