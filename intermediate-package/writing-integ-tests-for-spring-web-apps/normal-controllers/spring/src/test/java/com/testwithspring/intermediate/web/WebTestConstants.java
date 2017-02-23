@@ -88,6 +88,7 @@ public final class WebTestConstants {
     public static class View {
 
         public static final String CREATE_TASK = "task/create";
+        public static final String LOGIN = "user/login";
         public static final String SEARCH_RESULTS = "task/search-results";
         public static final String TASK_LIST = "task/list";
         public static final String UPDATE_TASK = "task/update";
