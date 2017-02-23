@@ -66,6 +66,7 @@ dependencies {
             'javax.servlet:jstl',
             'org.hibernate:hibernate-validator',
             'org.springframework:spring-webmvc',
+            'org.sitemesh:sitemesh:3.0.1',
             'org.springframework.security:spring-security-core',
             'org.springframework.security:spring-security-config',
             'org.springframework.security:spring-security-web',
