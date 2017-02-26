@@ -67,6 +67,7 @@ dependencies {
             'org.hibernate:hibernate-validator',
             'org.springframework:spring-webmvc',
             'org.sitemesh:sitemesh:3.0.1',
+            'net.sargue:java-time-jsptags:1.1.3',
             'org.springframework.security:spring-security-core',
             'org.springframework.security:spring-security-config',
             'org.springframework.security:spring-security-web',
