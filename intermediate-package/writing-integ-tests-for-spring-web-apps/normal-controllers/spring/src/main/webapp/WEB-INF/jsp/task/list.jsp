@@ -19,10 +19,10 @@
     <c:otherwise>
         <table id="task-list" class="table table-striped">
             <tbody>
-            <c:forEach items="tasks" var="task">
+            <c:forEach items="${tasks}" var="task">
                 <tr>
                     <td>
-                        <a href="${pageContext.request.contextPath}/task/${task.id}">${task.title}</a>
+                        <a href="${pageContext.request.contextPath}/task/${task.id}"><c:out value="${task.title}"/></a>
                     </td>
                 </tr>
             </c:forEach>
