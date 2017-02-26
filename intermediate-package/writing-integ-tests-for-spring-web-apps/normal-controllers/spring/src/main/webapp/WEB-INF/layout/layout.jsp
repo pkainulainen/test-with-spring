@@ -45,6 +45,11 @@
             <sec:authorize access="isAuthenticated()">
                 <ul class="nav navbar-nav">
                     <li>
+                        <a id="task-list-link" href="${pageContext.request.contextPath}/">
+                            <spring:message code="navigation.task.list.link.label"/>
+                        </a>
+                    </li>
+                    <li>
                         <a id="create-task-link" href="${pageContext.request.contextPath}/task/create">
                             <spring:message code="navigation.create.task.link.label"/>
                         </a>
