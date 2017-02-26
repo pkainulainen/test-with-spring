@@ -18,11 +18,20 @@
     </c:when>
     <c:otherwise>
         <table id="task-list" class="table table-striped">
+            <thead>
+                <tr>
+                    <th><spring:message code="page.task.list.task.title.header"/></th>
+                    <th><spring:message code="page.task.list.task.status.header"/></th>
+                </tr>
+            </thead>
             <tbody>
             <c:forEach items="${tasks}" var="task">
                 <tr>
                     <td>
                         <a href="${pageContext.request.contextPath}/task/${task.id}"><c:out value="${task.title}"/></a>
+                    </td>
+                    <td>
+                        <spring:message code="${task.status.localizationKey}"/>
                     </td>
                 </tr>
             </c:forEach>
