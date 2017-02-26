@@ -7,7 +7,6 @@
 <html>
 <head>
     <title></title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/app/form.js"></script>
 </head>
 <body>
 <h1 id="task-title"><c:out value="${task.title}"/></h1>
