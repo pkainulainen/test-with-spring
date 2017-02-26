@@ -134,4 +134,31 @@
                                  referencedTableName="user_accounts"
                                  referencedColumnNames="id"/>
     </changeSet>
+    <changeSet id="09-add-unique-constraint-to-email-address-column" author="Petri Kainulainen">
+        <addUniqueConstraint tableName="user_accounts" columnNames="email_address"/>
+    </changeSet>
+    <changeSet id="10-initialize-user-accounts" author="Petri Kainulainen" context="application">
+        <insert tableName="user_accounts">
+            <column name="id" value="1"/>
+            <column name="creation_time" valueComputed="NOW()"/>
+            <column name="email_address" value="john.doe@example.com"/>
+            <column name="is_enabled" value="true"/>
+            <column name="modification_time" valueComputed="NOW()"/>
+            <column name="name" value="John Doe"/>
+            <column name="password" value="password"/>
+            <column name="role" value="ROLE_USER"/>
+            <column name="version" value="0"/>
+        </insert>
+        <insert tableName="user_accounts">
+            <column name="id" value="2"/>
+            <column name="creation_time" valueComputed="NOW()"/>
+            <column name="email_address" value="anne.admin@example.com"/>
+            <column name="is_enabled" value="true"/>
+            <column name="modification_time" valueComputed="NOW()"/>
+            <column name="name" value="Anne Admin"/>
+            <column name="password" value="password"/>
+            <column name="role" value="ROLE_ADMIN"/>
+            <column name="version" value="0"/>
+        </insert>
+    </changeSet>
 </databaseChangeLog>

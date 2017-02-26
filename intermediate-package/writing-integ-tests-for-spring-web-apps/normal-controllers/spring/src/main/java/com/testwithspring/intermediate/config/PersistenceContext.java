@@ -47,6 +47,7 @@ public class PersistenceContext {
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
+    private static final String PROPERTY_NAME_LIQUIBASE_CONTEXTS = "liquibase.contexts";
 
     @Bean
     DateTimeProvider dateTimeProvider(DateTimeService dateTimeService) {
@@ -96,9 +97,10 @@ public class PersistenceContext {
     }
 
     @Bean
-    SpringLiquibase liquibase(DataSource dataSource, ResourceLoader resourceLoader) {
+    SpringLiquibase liquibase(DataSource dataSource, Environment env) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setChangeLog("classpath:/db/changelog/db.changelog.xml");
+        liquibase.setContexts(env.getRequiredProperty(PROPERTY_NAME_LIQUIBASE_CONTEXTS));
         liquibase.setDataSource(dataSource);
         return liquibase;
     }
