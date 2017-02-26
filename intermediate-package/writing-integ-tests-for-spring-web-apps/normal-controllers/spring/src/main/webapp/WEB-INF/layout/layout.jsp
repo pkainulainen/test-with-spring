@@ -16,6 +16,9 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
           crossorigin="anonymous"/>
 
+    <link rel="stylesheet"
+          href="/static/css/styles.css"/>
+
     <!-- Bootstrap Javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -38,7 +41,7 @@
         </div>
     </div>
 </nav>
-<div class="content">
+<div class="container-fluid">
     <div id="view-holder">
         <sitemesh:write property="body"/>
     </div>
