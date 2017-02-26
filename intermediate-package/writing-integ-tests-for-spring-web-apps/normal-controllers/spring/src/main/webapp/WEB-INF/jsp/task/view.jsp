@@ -13,35 +13,31 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div id="task-description">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <c:out value="${task.description}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <spring:message code="page.view.task.creator.description.prefix"/>
-                        <c:out value="${task.creator.name}"/>
-                        <spring:message code="page.view.task.timestamp.prefix"/>
-                        <javatime:format value="${task.creationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
-                    </div>
-                    <div class="col-md-4">
-                        <spring:message code="page.view.task.modifier.description.prefix"/>
-                        <c:out value="${task.modifier.name}"/>
-                        <spring:message code="page.view.task.timestamp.prefix"/>
-                        <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
-                    </div>
-                    <div class="col-md-4">
-                        <c:if test="${task.status == 'CLOSED'}">
-                            <spring:message code="page.view.task.closer.description.prefix"/>
-                            <c:out value="${task.closer.name}"/>
-                            <spring:message code="page.view.task.timestamp.prefix"/>
-                            <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
-                        </c:if>
-                    </div>
-                </div>
-            </div>
+            <c:out value="${task.description}"/>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <spring:message code="page.view.task.creator.description.prefix"/>
+            <c:out value="${task.creator.name}"/>
+            <spring:message code="page.view.task.timestamp.prefix"/>
+            <javatime:format value="${task.creationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
+        </div>
+        <div class="col-md-3">
+            <spring:message code="page.view.task.modifier.description.prefix"/>
+            <c:out value="${task.modifier.name}"/>
+            <spring:message code="page.view.task.timestamp.prefix"/>
+            <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
+        </div>
+        <div class="col-md-3">
+            <c:if test="${task.status == 'CLOSED'}">
+                <spring:message code="page.view.task.closer.description.prefix"/>
+                <c:out value="${task.closer.name}"/>
+                <spring:message code="page.view.task.timestamp.prefix"/>
+                <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
+            </c:if>
         </div>
     </div>
 </div>
