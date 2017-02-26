@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -41,16 +42,18 @@
             <a class="navbar-brand" href="https://www.testwithspring.com">TestWithSpring.com</a>
         </div>
         <div class="collapse navbar-collapse" id="example-menu-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <form action="${pageContext.request.contextPath}/user/logout" method="POST">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button type="submit" class="btn btn-default navbar-btn">
-                            <spring:message code="navigation.logout.link.label"/>
-                        </button>
-                    </form>
-                </li>
-            </ul>
+            <sec:authorize access="isAuthenticated()">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <form action="${pageContext.request.contextPath}/user/logout" method="POST">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-default navbar-btn">
+                                <spring:message code="navigation.logout.link.label"/>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </sec:authorize>
         </div>
     </div>
 </nav>
