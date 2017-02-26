@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -31,13 +32,25 @@
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#example-menu-collapse" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="https://www.testwithspring.com">TestWithSpring.com</a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-menu-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form action="${pageContext.request.contextPath}/user/logout" method="POST">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-default navbar-btn">
+                            <spring:message code="navigation.logout.link.label"/>
+                        </button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
