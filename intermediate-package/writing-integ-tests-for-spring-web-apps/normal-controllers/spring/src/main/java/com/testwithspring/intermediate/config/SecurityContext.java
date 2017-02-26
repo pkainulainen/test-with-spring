@@ -64,6 +64,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/user/login")
                     .loginProcessingUrl("/user/login")
+                    .failureUrl("/user/login?error=bad_credentials")
                     .successForwardUrl("/")
                     .permitAll()
                     .and()
