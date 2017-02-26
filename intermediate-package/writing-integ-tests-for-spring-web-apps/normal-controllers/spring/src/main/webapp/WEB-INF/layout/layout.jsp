@@ -43,6 +43,13 @@
         </div>
         <div class="collapse navbar-collapse" id="example-menu-collapse">
             <sec:authorize access="isAuthenticated()">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a id="create-task-link" href="${pageContext.request.contextPath}/task/create">
+                            <spring:message code="navigation.create.task.link.label"/>
+                        </a>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form action="${pageContext.request.contextPath}/user/logout" method="POST">
