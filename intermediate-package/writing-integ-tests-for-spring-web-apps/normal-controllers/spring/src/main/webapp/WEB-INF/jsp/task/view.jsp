@@ -13,7 +13,14 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div id="task-description">
-            <c:out value="${task.description}"/>
+            <c:choose>
+                <c:when test="${empty task.description}">
+                    <spring:message code="page.view.task.no.description.message"/>
+                </c:when>
+                <c:otherwise>
+                    <c:out value="${task.description}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
