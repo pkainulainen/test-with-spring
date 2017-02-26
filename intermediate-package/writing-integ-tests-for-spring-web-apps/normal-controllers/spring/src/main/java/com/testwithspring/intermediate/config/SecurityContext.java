@@ -14,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -65,7 +67,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                     .loginPage("/user/login")
                     .loginProcessingUrl("/user/login")
                     .failureUrl("/user/login?error=bad_credentials")
-                    .successForwardUrl("/")
+                    .successHandler(authenticationSuccessHandler())
                     .permitAll()
                     .and()
                 .logout()
@@ -75,5 +77,11 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .anyRequest().hasRole("USER");
+    }
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler() {
+        SavedRequestAwareAuthenticationSuccessHandler handler = new SavedRequestAwareAuthenticationSuccessHandler();
+        handler.setDefaultTargetUrl("/");
+        return handler;
     }
 }
