@@ -8,36 +8,30 @@
 </head>
 <body>
 <h1><spring:message code="page.search.results.title"/></h1>
-<c:choose>
-    <c:when test="${empty tasks}">
-        <div id="no-tasks-message" class="panel panel-default">
-            <div class="panel-body">
-                <spring:message code="page.task.list.no.tasks.message"/>
-            </div>
-        </div>
-    </c:when>
-    <c:otherwise>
-        <table id="task-list" class="table table-striped">
-            <thead>
-                <tr>
-                    <th><spring:message code="page.task.list.task.title.header"/></th>
-                    <th><spring:message code="page.task.list.task.status.header"/></th>
-                </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${tasks}" var="task">
-                <tr>
-                    <td>
-                        <a href="${pageContext.request.contextPath}/task/${task.id}"><c:out value="${task.title}"/></a>
-                    </td>
-                    <td>
-                        <spring:message code="${task.status.localizationKey}"/>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </c:otherwise>
-</c:choose>
+<div>
+    <spring:message code="page.search.results.size.message" arguments="${tasks.size()},${searchTerm}"/>
+</div>
+<c:if test="${not empty tasks}">
+    <table id="task-list" class="table table-striped">
+        <thead>
+        <tr>
+            <th><spring:message code="page.task.list.task.title.header"/></th>
+            <th><spring:message code="page.task.list.task.status.header"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${tasks}" var="task">
+            <tr>
+                <td>
+                    <a href="${pageContext.request.contextPath}/task/${task.id}"><c:out value="${task.title}"/></a>
+                </td>
+                <td>
+                    <spring:message code="${task.status.localizationKey}"/>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
 </body>
 </html>

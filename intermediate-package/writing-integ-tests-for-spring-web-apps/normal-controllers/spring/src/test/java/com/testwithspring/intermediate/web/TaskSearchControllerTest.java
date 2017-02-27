@@ -79,6 +79,16 @@ public class TaskSearchControllerTest {
                     .andExpect(view().name(WebTestConstants.View.SEARCH_RESULTS));
         }
 
+        @Test
+        public void shouldShowUsedSearchTerm() throws Exception {
+            mockMvc.perform(post("/task/search")
+                    .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
+            )
+                    .andExpect(model().attribute(WebTestConstants.ModelAttributeName.SEARCH_TERM,
+                            is(SEARCH_TERM)
+                    ));
+        }
+
         public class WhenNoTasksIsFound {
 
             @Before

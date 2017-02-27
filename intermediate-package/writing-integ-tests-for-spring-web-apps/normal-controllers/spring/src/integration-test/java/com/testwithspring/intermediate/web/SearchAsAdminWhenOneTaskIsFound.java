@@ -104,6 +104,15 @@ public class SearchAsAdminWhenOneTaskIsFound {
                 ));
     }
 
+    @Test
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
+    public void shouldShowUsedSearchTerm() throws Exception {
+        submitSearchForm()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.SEARCH_TERM,
+                        is(Tasks.SEARCH_TERM_ONE_MATCH)
+                ));
+    }
+
     private ResultActions submitSearchForm() throws Exception {
         return mockMvc.perform(post("/task/search")
                 .param(WebTestConstants.RequestParameter.SEARCH_TERM, Tasks.SEARCH_TERM_ONE_MATCH)
