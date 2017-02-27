@@ -20,12 +20,12 @@
                    role="form">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="form-group">
-                <label for="title"><spring:message code="page.create.task.title.field.label"/></label>
+                <label for="title"><spring:message code="task.title.field.label"/></label>
                 <form:input id="title" cssClass="form-control" path="title"/>
                 <form:errors id="error-title" cssClass="help-block" path="title"/>
             </div>
             <div class="form-group">
-                <label for="description"><spring:message code="page.create.task.description.textarea.label"/></label>
+                <label for="description"><spring:message code="task.description.textarea.label"/></label>
                 <form:textarea id="description" cssClass="form-control" path="description"/>
                 <form:errors id="error-description" cssClass="help-block" path="description"/>
             </div>
