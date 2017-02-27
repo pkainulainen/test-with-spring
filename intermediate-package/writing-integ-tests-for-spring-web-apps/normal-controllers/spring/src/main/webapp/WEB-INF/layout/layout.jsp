@@ -56,6 +56,13 @@
                         </a>
                     </li>
                 </ul>
+                <form action="${pageContext.request.contextPath}/task/search" class="navbar-form navbar-left" method="POST">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    <div class="form-group">
+                        <input id="task-search-term-field" name="searchTerm" type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <form action="${pageContext.request.contextPath}/user/logout" method="POST">
