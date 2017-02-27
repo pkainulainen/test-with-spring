@@ -59,9 +59,15 @@
                 <form action="${pageContext.request.contextPath}/task/search" class="navbar-form navbar-left" method="POST">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <div class="form-group">
-                        <input id="task-search-term-field" name="searchTerm" type="text" class="form-control" placeholder="Search">
+                        <input id="task-search-term-field"
+                               name="searchTerm"
+                               type="text"
+                               class="form-control"
+                               placeholder="<spring:message code="navigation.search.form.field.placeholder"/>"/>
                     </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" class="btn btn-default">
+                        <spring:message code="navigation.search.form.submit.button.label"/>
+                    </button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
