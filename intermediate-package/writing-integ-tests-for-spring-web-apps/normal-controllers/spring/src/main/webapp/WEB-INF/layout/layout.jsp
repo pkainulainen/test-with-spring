@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
@@ -70,6 +71,14 @@
     </div>
 </nav>
 <div class="container-fluid">
+    <div id="message-holder">
+        <c:if test="${feedbackMessage != null}">
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <c:out value="${feedbackMessage}"/>
+            </div>
+        </c:if>
+    </div>
     <div id="view-holder">
         <sitemesh:write property="body"/>
     </div>

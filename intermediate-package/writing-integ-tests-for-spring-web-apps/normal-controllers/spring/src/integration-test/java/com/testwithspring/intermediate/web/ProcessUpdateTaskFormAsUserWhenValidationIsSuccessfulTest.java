@@ -58,7 +58,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 public class ProcessUpdateTaskFormAsUserWhenValidationIsSuccessfulTest {
 
-    private static final String FEEDBACK_MESSAGE_TASK_UPDATED = "The information of a task was updated successfully.";
+    private static final String FEEDBACK_MESSAGE_TASK_UPDATED = "The information of the task was updated successfully.";
 
     private static final String NEW_DESCRIPTION = "The old lesson was not good";
     private static final String NEW_TITLE = "Rewrite an existing lesson";
