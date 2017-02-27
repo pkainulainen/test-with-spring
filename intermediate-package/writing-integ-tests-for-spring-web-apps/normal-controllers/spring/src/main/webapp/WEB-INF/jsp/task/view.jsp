@@ -47,6 +47,13 @@
             </c:if>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-1">
+            <a id="delete-task-link" href="${pageContext.request.contextPath}/task/${task.id}/delete">
+                <spring:message code="page.view.task.delete.task.link.label"/>
+            </a>
+        </div>
+    </div>
 </div>
 </body>
 </html>
