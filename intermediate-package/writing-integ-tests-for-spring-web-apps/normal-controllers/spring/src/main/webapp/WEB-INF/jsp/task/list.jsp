@@ -20,8 +20,8 @@
         <table id="task-list" class="table table-striped">
             <thead>
                 <tr>
-                    <th><spring:message code="page.task.list.task.title.header"/></th>
-                    <th><spring:message code="page.task.list.task.status.header"/></th>
+                    <th><spring:message code="task.property.title.header"/></th>
+                    <th><spring:message code="task.property.status.header"/></th>
                 </tr>
             </thead>
             <tbody>
