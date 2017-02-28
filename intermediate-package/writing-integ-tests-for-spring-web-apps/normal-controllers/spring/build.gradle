@@ -82,6 +82,9 @@ dependencies {
             'org.springframework.data:spring-data-jpa',
             'org.liquibase:liquibase-core'
     )
+    endToEndTestCompile(
+            'org.seleniumhq.selenium:selenium-java:3.1.0'
+    )
     testCompile(
             'javax.el:javax.el-api',
             'org.glassfish.web:el-impl:2.2',
