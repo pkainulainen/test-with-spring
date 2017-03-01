@@ -1,0 +1,106 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(
+                'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE',
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0',
+                'org.akhikhl.gretty:gretty:+'
+        )
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.unbroken-dome.test-sets'
+apply plugin: 'org.akhikhl.gretty'
+
+//If you are using Gradle 2.1+, you can use the new Plugins DSL. The
+//following snippet replaces every line above this comment:
+/*plugins {
+    id 'java'
+    id 'org.unbroken-dome.test-sets' version '1.2.0'
+}*/
+
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+
+gretty {
+    port = 8080
+    contextPath = '/'
+    servletContainer = 'jetty9'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.spring.platform:platform-bom:2.0.8.RELEASE'
+    }
+}
+
+dependencies {
+    compile(
+            'org.slf4j:slf4j-api',
+            'log4j:log4j',
+            'org.slf4j:slf4j-log4j12',
+            'org.slf4j:jcl-over-slf4j',
+            'org.springframework:spring-aspects',
+            'org.springframework:spring-context-support',
+            'org.springframework:spring-jdbc',
+            'javax.servlet:javax.servlet-api',
+            'org.springframework:spring-webmvc',
+            'com.fasterxml.jackson.core:jackson-annotations',
+            'com.fasterxml.jackson.core:jackson-core',
+            'com.fasterxml.jackson.core:jackson-databind',
+            'com.h2database:h2',
+            'com.zaxxer:HikariCP',
+            'org.liquibase:liquibase-core'
+    )
+    testCompile(
+            'javax.el:javax.el-api',
+            'org.glassfish.web:el-impl:2.2',
+            'junit:junit',
+            'org.hamcrest:hamcrest-library',
+            'org.assertj:assertj-core:3.5.2',
+            'org.springframework:spring-test'
+    )
+    integrationTestCompile(
+            'org.dbunit:dbunit:2.5.3',
+            'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+    )
+    integrationTestRuntime(
+            //Add dependencies that are required to run
+            //our integration tests.
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.unittests.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+integrationTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
