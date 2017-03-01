@@ -1,6 +1,0 @@
-<dataset>
-    <messages id="1"
-              message_text="Hello World!"/>
-    <messages id="2"
-              message_text="[empty_string]"/>
-</dataset>
