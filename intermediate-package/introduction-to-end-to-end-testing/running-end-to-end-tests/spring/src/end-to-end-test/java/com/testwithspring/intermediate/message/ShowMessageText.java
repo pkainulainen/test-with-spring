@@ -1,17 +1,17 @@
-package com.testwithspring.intermediate;
+package com.testwithspring.intermediate.message;
 
+import com.testwithspring.intermediate.EndToEndTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Category(EndToEndTest.class)
-public class EndToEndPlaceHolderTest {
+public class ShowMessageText {
 
     private WebDriver browser;
 
@@ -22,8 +22,8 @@ public class EndToEndPlaceHolderTest {
 
     @Test
     public void shouldOpenGoogleCom() {
-        browser.get("http://www.google.com");
-        assertThat(browser.getTitle()).isEqualTo("Google");
+        browser.get("http://localhost:8080");
+        assertThat(browser.getTitle()).isEqualTo("Hello World!");
     }
 
     @After
