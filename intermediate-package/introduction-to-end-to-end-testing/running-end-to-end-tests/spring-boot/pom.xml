@@ -6,7 +6,8 @@
     <version>0.1</version>
     <name>Running End-to-End Tests: Spring Boot Example</name>
     <description>
-        This example demonstrates how you can configure Spring MVC Test framework.
+        This example demonstrates how you run unit, integration, and end-to-end
+        tests when you are using Spring Boot.
     </description>
 
     <properties>
