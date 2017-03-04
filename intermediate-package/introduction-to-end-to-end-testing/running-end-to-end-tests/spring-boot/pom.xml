@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.testwithspring.intermediate</groupId>
-    <artifactId>running-end-to-end-tests</artifactId>
+    <artifactId>running-end-to-end-tests-boot</artifactId>
     <version>0.1</version>
     <name>Running End-to-End Tests: Spring Boot Example</name>
     <description>
