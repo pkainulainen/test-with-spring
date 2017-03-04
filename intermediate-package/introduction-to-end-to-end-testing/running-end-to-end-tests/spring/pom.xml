@@ -6,7 +6,7 @@
     <version>0.1</version>
     <name>Running End-to-End Tests: Spring Example</name>
     <description>
-	    This example demonstrates how you can configure Spring MVC Test framework.
+	    This example demonstrates how you can run end-to-end tests with Maven.
     </description>
 
     <properties>
