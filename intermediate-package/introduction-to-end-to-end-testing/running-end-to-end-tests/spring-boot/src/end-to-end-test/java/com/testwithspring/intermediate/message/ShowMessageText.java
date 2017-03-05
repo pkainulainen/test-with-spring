@@ -27,7 +27,7 @@ public class ShowMessageText {
     }
 
     @Test
-    public void shouldOpenGoogleCom() {
+    public void shouldOpenFrontPage() {
         browser.get("http://localhost:8080");
         assertThat(browser.getTitle()).isEqualTo("Hello World!");
     }
