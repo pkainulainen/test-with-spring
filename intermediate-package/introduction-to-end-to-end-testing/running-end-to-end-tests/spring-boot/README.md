@@ -50,11 +50,12 @@ You can run integration tests by using the following command:
 
 ### Prerequisites
 
-You have to configure your local development enviroment by following these steps:
+You have to configure your local development environment by following these steps:
 
-1. [Download ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
-2. Unpackage the downloaded archive.
-3. Ensure that the archive is found from the path. 
+1. [Download and install Chrome](https://www.google.com/chrome/).
+2. [Download ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+3. Unpackage the downloaded archive.
+4. Ensure that the archive is found from the path. 
 
 If you need more details about this setup, take a look at the following resources:
 
