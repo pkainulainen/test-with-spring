@@ -41,9 +41,9 @@ tasks.withType(Test) {
 
 gretty {
     httpPort = 8080
-    integrationTestTask = 'endToEndTest'
     contextPath = '/'
     servletContainer = 'jetty9.3'
+    integrationTestTask = 'endToEndTest'
 }
 
 repositories {
