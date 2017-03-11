@@ -38,16 +38,21 @@ public class SeleniumTestExecutionListener extends AbstractTestExecutionListener
         }
         ApplicationContext context = testContext.getApplicationContext();
         if (context instanceof ConfigurableApplicationContext) {
-
-            SeleniumTest seleniumConfig = AnnotationUtils.findAnnotation(
-                    testContext.getTestClass(), SeleniumTest.class);
-            webDriver = BeanUtils.instantiate(seleniumConfig.driver());
-
-            //Register a new WebDriver bean so that it can be injected into the test class
-            ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) context;
-            ConfigurableListableBeanFactory bf = configurableApplicationContext.getBeanFactory();
-            bf.registerResolvableDependency(WebDriver.class, webDriver);
+            webDriver = createConfiguredWebDriver(testContext);
+            registerWebDriverBean(context, webDriver);
         }
+    }
+
+    private WebDriver createConfiguredWebDriver(TestContext testContext) {
+        SeleniumTest seleniumConfig = AnnotationUtils.findAnnotation(
+                testContext.getTestClass(), SeleniumTest.class);
+        return BeanUtils.instantiate(seleniumConfig.driver());
+    }
+
+    private void registerWebDriverBean(ApplicationContext targetContext, WebDriver bean) {
+        ConfigurableApplicationContext configurableApplicationContext = (ConfigurableApplicationContext) targetContext;
+        ConfigurableListableBeanFactory bf = configurableApplicationContext.getBeanFactory();
+        bf.registerResolvableDependency(WebDriver.class, bean);
     }
 
     @Override
