@@ -4,8 +4,6 @@ import com.testwithspring.intermediate.EndToEndTest;
 import com.testwithspring.intermediate.SeleniumTest;
 import com.testwithspring.intermediate.SeleniumTestRunner;
 import com.testwithspring.intermediate.SeleniumWebDriver;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
