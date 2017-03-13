@@ -10,12 +10,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
-/**
- * Creates a new {@code WebDriver} bean by using the configuration provided by
- * the {@code @SeleniumTest} annotation. This {@code TestExecutionListener} will
- * also destroy the created bean after all test methods of the test class
- * have been run.
- */
 public class SeleniumTestExecutionListener extends AbstractTestExecutionListener {
 
     private WebDriver webDriver;
@@ -56,20 +50,10 @@ public class SeleniumTestExecutionListener extends AbstractTestExecutionListener
     }
 
     @Override
-    public void beforeTestMethod(TestContext testContext) throws Exception {
-        //This method has been left blank on purpose
-    }
-
-    @Override
     public void afterTestClass(TestContext testContext) throws Exception {
         if (webDriver != null) {
             webDriver.quit();
         }
-    }
-
-    @Override
-    public void afterTestMethod(TestContext testContext) throws Exception {
-        //This method has been left blank on purpose
     }
 }
 
