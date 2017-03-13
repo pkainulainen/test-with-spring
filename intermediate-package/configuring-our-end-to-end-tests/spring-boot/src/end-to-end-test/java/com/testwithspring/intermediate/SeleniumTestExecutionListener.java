@@ -10,6 +10,12 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.support.AbstractTestExecutionListener;
 
+/**
+ * Creates a new {@code WebDriver} bean by using the configuration provided by
+ * the {@code @SeleniumTest} annotation. This {@code TestExecutionListener} will
+ * also destroy the created bean after all test methods of the test class
+ * have been run.
+ */
 public class SeleniumTestExecutionListener extends AbstractTestExecutionListener {
 
     private WebDriver webDriver;
