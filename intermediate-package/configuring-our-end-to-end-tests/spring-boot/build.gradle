@@ -64,7 +64,7 @@ dependencies {
             //our integration tests.
     )
     endToEndTestCompile(
-            'org.seleniumhq.selenium:selenium-java:3.1.0'
+            'org.seleniumhq.selenium:selenium-java:3.3.1'
     )
     endToEndTestRuntime(
             //Add dependencies that are required to run our
