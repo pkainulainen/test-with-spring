@@ -25,7 +25,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
         "classpath:/com/testwithspring/intermediate/tasks.sql"
 })
 @Sql(
-        value = {"classpath:/com/testwithspring/intermediate/cleandb.sql"},
+        value = "classpath:/com/testwithspring/intermediate/cleandb.sql",
         executionPhase = AFTER_TEST_METHOD
 )
 @ActiveProfiles(Profiles.END_TO_END_TEST)
