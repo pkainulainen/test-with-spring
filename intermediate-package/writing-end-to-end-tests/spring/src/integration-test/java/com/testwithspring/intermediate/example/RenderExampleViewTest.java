@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebAppConfiguration
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 @Category(IntegrationTest.class)
-public class ShowMessageTest {
+public class RenderExampleViewTest {
 
     @Autowired
     private WebApplicationContext webAppContext;
@@ -41,23 +41,23 @@ public class ShowMessageTest {
 
     @Test
     public void shouldReturnHttpStatusCodeOk() throws Exception {
-        showMessage()
+        renderExampleView()
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void shouldRenderShowMessageView() throws Exception {
-        showMessage()
+    public void shouldRenderExampleView() throws Exception {
+        renderExampleView()
                 .andExpect(view().name("index"));
     }
 
     @Test
-    public void shouldForwardUserToShowMessagePage() throws Exception {
-        showMessage()
+    public void shouldForwardUserToExamplePage() throws Exception {
+        renderExampleView()
                 .andExpect(forwardedUrl("/WEB-INF/jsp/index.jsp"));
     }
 
-    private ResultActions showMessage() throws Exception {
+    private ResultActions renderExampleView() throws Exception {
         return mockMvc.perform(get("/"));
     }
 }
