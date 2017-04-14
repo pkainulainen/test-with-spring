@@ -1,6 +1,6 @@
-# Configuring End-to-End Tests
+# Writing End-to-End Tests
 
-This example demonstrates how you can configure your end-to-en tests when you
+This example demonstrates how you can write end-to-en tests when you
 are using Spring Boot.
 
 ## Running the Web Application
