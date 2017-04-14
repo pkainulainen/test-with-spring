@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Hello World!</title>
+</head>
+<body>
+<h1 id="page-header">Hello World!</h1>
+<p class="text-block">Lorem ipsum</p>
+<blockquote>This is a quote.</blockquote>
+<input name="text-input" value="Random text"/>
+<ul>
+    <li><a href="http://www.google.com">Go to Google</a></li>
+    <li><a href="https://www.testwithspring.com">Go to Test With Spring Course</a></li>
+</ul>
+</body>
+</html>
