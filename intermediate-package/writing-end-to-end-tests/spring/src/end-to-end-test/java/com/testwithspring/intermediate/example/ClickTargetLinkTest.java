@@ -12,6 +12,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,6 +36,10 @@ public class ClickTargetLinkTest {
     public void shouldOpenClickTargetPage() {
         WebElement targetLink = browser.findElement(By.id("click-target-link"));
         targetLink.click();
+
+        WebDriverWait wait = new WebDriverWait(browser, 3);
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/click-target"));
+
         assertThat(browser.getTitle()).isEqualTo("Click Target Page");
     }
 }
