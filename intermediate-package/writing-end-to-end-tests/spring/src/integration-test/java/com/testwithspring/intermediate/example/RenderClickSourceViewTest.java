@@ -48,7 +48,7 @@ public class RenderClickSourceViewTest {
     @Test
     public void shouldRenderClickSourceView() throws Exception {
         renderClickSourceView()
-                .andExpect(view().name("click/source"));
+                .andExpect(view().name(WebTestConstants.Views.CLICK_SOURCE_VIEW));
     }
 
     @Test

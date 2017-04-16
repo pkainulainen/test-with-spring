@@ -27,6 +27,9 @@ public final class WebTestConstants {
 
     public static class Views {
 
+        public static final String CLICK_SOURCE_VIEW = "click/source";
+        public static final String CLICK_TARGET_VIEW = "click/target";
+        public static final String EXAMPLE_VIEW = "index";
         public static final String FORM_VIEW = "form/view";
         public static final String FORM_RESULT_VIEW = "form/result";
     }

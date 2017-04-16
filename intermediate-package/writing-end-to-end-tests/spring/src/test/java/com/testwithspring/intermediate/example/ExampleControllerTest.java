@@ -38,7 +38,7 @@ public class ExampleControllerTest {
         @Test
         public void shouldRenderExampleView() throws Exception {
             renderExampleView()
-                    .andExpect(view().name("index"));
+                    .andExpect(view().name(WebTestConstants.Views.EXAMPLE_VIEW));
         }
 
         private ResultActions renderExampleView() throws Exception {

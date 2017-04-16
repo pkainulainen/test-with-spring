@@ -38,7 +38,7 @@ public class ClickExampleControllerTest {
         @Test
         public void shouldRenderClickSourceView() throws Exception {
             renderClickSourceView()
-                    .andExpect(view().name("click/source"));
+                    .andExpect(view().name(WebTestConstants.Views.CLICK_SOURCE_VIEW));
         }
 
         private ResultActions renderClickSourceView() throws Exception {
@@ -57,7 +57,7 @@ public class ClickExampleControllerTest {
         @Test
         public void shouldRenderClickTargetView() throws Exception {
             renderClickTargetView()
-                    .andExpect(view().name("click/target"));
+                    .andExpect(view().name(WebTestConstants.Views.CLICK_TARGET_VIEW));
         }
 
         private ResultActions renderClickTargetView() throws Exception {

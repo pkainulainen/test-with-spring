@@ -48,7 +48,7 @@ public class RenderClickTargetViewTest {
     @Test
     public void shouldRenderClickTargetView() throws Exception {
         renderClickTargetView()
-                .andExpect(view().name("click/target"));
+                .andExpect(view().name(WebTestConstants.Views.CLICK_TARGET_VIEW));
     }
 
     @Test
