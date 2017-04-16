@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {MessageApplication.class})
+@SpringBootTest(classes = {ExampleApplication.class})
 @AutoConfigureMockMvc
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 @Category(IntegrationTest.class)

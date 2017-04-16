@@ -26,7 +26,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
  * of a form and submit that form.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = MessageApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = ExampleApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
 @SeleniumTest(driver = ChromeDriver.class)
 @Sql(value = {
         "classpath:/com/testwithspring/intermediate/users.sql",
