@@ -16,6 +16,10 @@ import org.openqa.selenium.support.ui.Select;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This test class demonstrates how we can
+ * test that a form page is rendered correctly.
+ */
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)

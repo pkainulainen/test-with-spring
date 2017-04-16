@@ -19,6 +19,10 @@ import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This test class demonstrates how we can click
+ * a link by using the {@code WebElement.click()} method.
+ */
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
@@ -37,6 +41,9 @@ public class ClickTargetLinkTest {
         WebElement targetLink = browser.findElement(By.id("click-target-link"));
         targetLink.click();
 
+        //Because the click() method doesn't wait for the next page to load,
+        //we have to make sure that the page is loaded before we can invoke
+        //our assertion.
         WebDriverWait wait = new WebDriverWait(browser, 3);
         wait.until(ExpectedConditions.urlToBe("http://localhost:8080/click-target"));
 

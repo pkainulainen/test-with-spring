@@ -16,6 +16,10 @@ import org.openqa.selenium.support.ui.Select;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This test class demonstrates how fill the form fields
+ * of a form and submit that form.
+ */
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)

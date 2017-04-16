@@ -15,6 +15,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This test class demonstrates how we can find elements
+ * from the loaded HTML document.
+ */
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
