@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Example Form Page</title>
+</head>
+<body>
+    <h1 id="page-header">Example Form Page</h1>
+    <form id="form"
+          th:action="@{/form}"
+          th:object="${form}"
+          method="POST"
+          enctype="utf8"
+          role="form">
+        <div>
+            <label for="message">Message</label>
+            <input id="message" th:field="*{message}"/>
+        </div>
+        <div>
+            <label for="number">Number</label>
+            <select id="number" th:field="*{number}" multiple="false">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div>
+            <label for="checkbox">Checkbox</label>
+            <input type="checkbox" id="checkbox" th:field="*{checkbox}" value="true"/>
+        </div>
+        <div>
+            <label for="radio-button">RadioButton</label>
+            <input type="radio" id="radio-button" th:field="*{radioButton}" value="true"/>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

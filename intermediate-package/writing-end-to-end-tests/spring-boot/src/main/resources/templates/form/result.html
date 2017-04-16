@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Result Page</title>
+</head>
+<body>
+    <h1 id="page-header">Form Result Page</h1>
+    <div id="form-content">
+        <div id="form-message">
+            <div id="form-message-label">Message: </div>
+            <div id="form-message-value" th:text="${form.message}"></div>
+        </div>
+        <div id="form-number">
+            <div id="form-number-label">Number: </div>
+            <div id="form-number-value" th:text="${form.number}"></div>
+        </div>
+        <div id="form-checkbox">
+            <div id="form-checkbox-label">Checkbox: </div>
+            <div id="form-checkbox-value" th:text="${form.checkbox}"></div>
+        </div>
+        <div id="form-radio-button">
+            <div id="form-radio-button-label">Radio Button: </div>
+            <div id="form-radio-button-value" th:text="${form.radioButton}"></div>
+        </div>
+    </div>
+</body>
+</html>
