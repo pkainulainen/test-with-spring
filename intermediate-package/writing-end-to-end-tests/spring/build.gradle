@@ -93,6 +93,7 @@ dependencies {
             'org.assertj:assertj-core:3.5.2',
             'org.springframework:spring-test'
     )
+    integrationTestCompile sourceSets.test.output
     endToEndTestCompile(
             'com.google.guava:guava:21.0',
             'org.seleniumhq.selenium:selenium-java:3.3.1',
