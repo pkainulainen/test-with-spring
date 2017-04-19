@@ -29,6 +29,7 @@
             crossorigin="anonymous"></script>
 
     <sitemesh:write property="head"/>
+    <title><sitemesh:write property="title"/></title>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-static-top">

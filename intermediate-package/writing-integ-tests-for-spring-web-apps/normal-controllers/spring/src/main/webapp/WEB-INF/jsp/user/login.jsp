@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title></title>
+    <title><spring:message code="page.login.title"/></title>
 </head>
 <body>
 <h1><spring:message code="page.login.title"/></h1>
