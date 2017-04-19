@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         classpath(
-                'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE',
+                'io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE',
                 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0',
                 'org.akhikhl.gretty:gretty:+'
         )
@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.unbroken-dome.test-sets'
 apply plugin: 'org.akhikhl.gretty'
@@ -41,8 +42,16 @@ tasks.withType(Test) {
 gretty {
     httpPort = 8080
     contextPath = '/'
-    servletContainer = 'jetty9'
-    systemProperty 'spring.profiles.active', 'application'
+    servletContainer = 'jetty9.3'
+
+    if (gradle.startParameter.taskNames.contains('endToEndTest')) {
+        systemProperty 'spring.profiles.active', 'endToEndTest'
+    }
+    else {
+        systemProperty 'spring.profiles.active', 'application'
+    }
+
+    integrationTestTask = 'endToEndTest'
 }
 
 repositories {
@@ -82,9 +91,6 @@ dependencies {
             'org.springframework.data:spring-data-jpa',
             'org.liquibase:liquibase-core'
     )
-    endToEndTestCompile(
-            'org.seleniumhq.selenium:selenium-java:3.1.0'
-    )
     testCompile(
             'javax.el:javax.el-api',
             'org.glassfish.web:el-impl:2.2',
@@ -102,9 +108,10 @@ dependencies {
             'org.dbunit:dbunit:2.5.3',
             'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
     )
-    integrationTestRuntime(
-            //Add dependencies that are required to run
-            //our integration tests.
+    endToEndTestCompile(
+            'com.google.guava:guava:21.0',
+            'org.seleniumhq.selenium:selenium-java:3.3.1',
+            'org.seleniumhq.selenium:selenium-support:3.3.1'
     )
 }
 
