@@ -36,12 +36,17 @@ public class ExampleApplicationContext {
     @PropertySource("classpath:application.properties")
     static class ApplicationProperties {}
 
+    @Profile(Profiles.END_TO_END_TEST)
+    @Configuration
+    @PropertySource("classpath:end-to-end-test.properties")
+    static class EndToEndTestProperties {}
+
     @Profile(Profiles.INTEGRATION_TEST)
     @Configuration
     @PropertySource("classpath:integration-test.properties")
     static class IntegrationTestProperties {}
 
-    @Profile(Profiles.APPLICATION)
+    @Profile({Profiles.APPLICATION, Profiles.END_TO_END_TEST})
     @Bean
     DateTimeService currentTimeDateTimeService() {
         return new CurrentTimeDateTimeService();
