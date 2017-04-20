@@ -434,6 +434,9 @@
                                 property is true
                             -->
                             <skipTests>${skip.failsafe.plugin}</skipTests>
+                            <systemPropertyVariables>
+                                <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
+                            </systemPropertyVariables>
                         </configuration>
                     </execution>
                 </executions>

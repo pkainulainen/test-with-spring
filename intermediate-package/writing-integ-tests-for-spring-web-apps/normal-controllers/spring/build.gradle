@@ -140,4 +140,5 @@ endToEndTest {
     testLogging {
         showStandardStreams = true
     }
+    systemProperty 'webdriver.base.url', 'http://localhost:8080/'
 }

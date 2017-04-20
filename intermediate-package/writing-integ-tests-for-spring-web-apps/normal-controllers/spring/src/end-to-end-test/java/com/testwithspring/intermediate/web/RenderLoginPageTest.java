@@ -4,6 +4,7 @@ import com.testwithspring.intermediate.EndToEndTest;
 import com.testwithspring.intermediate.SeleniumTest;
 import com.testwithspring.intermediate.SeleniumTestRunner;
 import com.testwithspring.intermediate.SeleniumWebDriver;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -20,9 +21,16 @@ public class RenderLoginPageTest {
     @SeleniumWebDriver
     private WebDriver browser;
 
+    private LoginPage loginPage;
+
+    @Before
+    public void createLoginPage() {
+        loginPage = new LoginPage(browser);
+    }
+
     @Test
     public void shouldOpenLoginPageWithCorrectTitle() {
-        browser.get("http://localhost:8080/user/login");
+        loginPage.open();
         assertThat(browser.getTitle()).isEqualTo("Login");
     }
 }
