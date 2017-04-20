@@ -12,6 +12,7 @@ import java.util.Optional;
  */
 final class LoginPage {
 
+    private static final String AUTHENTICATED_USER_ERROR_ID = "authenticated-user-error";
     private static final String EMAIL_ADDRESS_INPUT_ID = "email-address";
     private static final String LOGIN_ERROR_ALERT_ID = "login-error-alert";
     private static final String LOGIN_FORM_ID = "login-form";
@@ -68,11 +69,27 @@ final class LoginPage {
     }
 
     /**
+     * Returns true if the authenticated user error is visible on the page and false otherwise.
+     * @return
+     */
+    boolean isAuthenticatedUserErrorVisible() {
+        return !browser.findElements(By.id(AUTHENTICATED_USER_ERROR_ID)).isEmpty();
+    }
+
+    /**
      * Returns true if the login error alert is visible on the page and false otherwise.
      * @return
      */
     boolean isLoginAlertVisible() {
         return !browser.findElements(By.id(LOGIN_ERROR_ALERT_ID)).isEmpty();
+    }
+
+    /**
+     * Returns true if login form is not visible and false otherwise.
+     * @return
+     */
+    boolean isLoginFormVisible() {
+        return !browser.findElements(By.id(LOGIN_FORM_ID)).isEmpty();
     }
 
     /**

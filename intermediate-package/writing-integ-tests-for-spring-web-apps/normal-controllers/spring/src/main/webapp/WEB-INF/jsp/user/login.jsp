@@ -42,7 +42,9 @@
             </form>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-            <spring:message code="page.login.authenticated.user.error.message"/>
+            <div id="authenticated-user-error">
+                <spring:message code="page.login.authenticated.user.error.message"/>
+            </div>
         </sec:authorize>
     </div>
 </div>

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
-public class RenderLoginPageAsAnonymousTest {
+public class RenderLoginPageAsAnonymousUserTest {
 
     @SeleniumWebDriver
     private WebDriver browser;
@@ -37,10 +37,24 @@ public class RenderLoginPageAsAnonymousTest {
     }
 
     @Test
+    public void shouldOpenLoginPageWithVisibleLoginForm() {
+        LoginPage shownPage = loginPage.open();
+
+        assertThat(shownPage.isLoginFormVisible()).isTrue();
+    }
+
+    @Test
     public void shouldOpenLoginPageWithEmptyLoginForm() {
         LoginPage shownPage = loginPage.open();
 
         assertThat(shownPage.getEmailAddress()).isEmpty();
         assertThat(shownPage.getPassword()).isEmpty();
+    }
+
+    @Test
+    public void shouldOpenLoginWithoutVisibleAuthenticatedUserError() {
+        LoginPage shownPage = loginPage.open();
+
+        assertThat(shownPage.isAuthenticatedUserErrorVisible()).isFalse();
     }
 }
