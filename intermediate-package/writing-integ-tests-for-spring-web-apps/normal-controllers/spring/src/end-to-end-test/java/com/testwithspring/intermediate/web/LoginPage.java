@@ -5,6 +5,8 @@ import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Optional;
+
 /**
  * This page object is used to interact with the login page.
  */
@@ -123,9 +125,12 @@ final class LoginPage {
      * this method to this class because this way we can manage the
      * logged in user by using a single page object.
      */
-    void logout() {
+     Optional<LoginPage> logout() {
         if (!browser.findElements(By.id(LOGOUT_FORM_ID)).isEmpty()) {
             browser.findElement(By.id(LOGOUT_FORM_ID)).submit();
+            return Optional.of(new LoginPage(browser));
         }
+
+        return Optional.empty();
     }
 }
