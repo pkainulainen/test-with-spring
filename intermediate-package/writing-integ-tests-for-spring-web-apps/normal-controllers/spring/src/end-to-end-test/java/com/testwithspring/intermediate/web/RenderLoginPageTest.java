@@ -29,10 +29,18 @@ public class RenderLoginPageTest {
     }
 
     @Test
-    public void shouldOpenLoginPageWithEmptyLoginForm() {
-        loginPage.open();
+    public void shouldOpenLoginPage() {
+        LoginPage shownPage = loginPage.open();
 
-        assertThat(loginPage.getEmailAddress()).isEmpty();
-        assertThat(loginPage.getPassword()).isEmpty();
+        String loginPageUrl = shownPage.getPageUrl();
+        assertThat(browser.getCurrentUrl()).isEqualTo(loginPageUrl);
+    }
+
+    @Test
+    public void shouldOpenLoginPageWithEmptyLoginForm() {
+        LoginPage shownPage = loginPage.open();
+
+        assertThat(shownPage.getEmailAddress()).isEmpty();
+        assertThat(shownPage.getPassword()).isEmpty();
     }
 }
