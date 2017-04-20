@@ -30,7 +30,7 @@ final class LoginPage {
      */
     LoginPage open() {
         browser.get(pageUrl);
-        return this;
+        return new LoginPage(browser);
     }
 
     /**
@@ -100,7 +100,7 @@ final class LoginPage {
         typePassword(password);
         submitLoginForm();
 
-        return this;
+        return new LoginPage(browser);
     }
 
     private void typeEmailAddress(String emailAddress) {
