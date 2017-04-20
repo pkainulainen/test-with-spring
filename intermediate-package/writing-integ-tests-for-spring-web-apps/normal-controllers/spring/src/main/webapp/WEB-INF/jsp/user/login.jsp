@@ -18,11 +18,11 @@
                     <spring:message code="page.login.login.failed.error.message"/>
                 </div>
             </c:if>
-            <form action="${pageContext.request.contextPath}/user/login" method="POST">
+            <form id="login-form" action="${pageContext.request.contextPath}/user/login" method="POST">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div class="form-group">
-                    <label for="emailAddress"><spring:message code="page.login.email.address.label"/></label>
-                    <input id="emailAddress"
+                    <label for="email-address"><spring:message code="page.login.email.address.label"/></label>
+                    <input id="email-address"
                            class="form-control"
                            name="username"
                            type="email"

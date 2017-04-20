@@ -29,8 +29,10 @@ public class RenderLoginPageTest {
     }
 
     @Test
-    public void shouldOpenLoginPageWithCorrectTitle() {
+    public void shouldOpenLoginPageWithEmptyLoginForm() {
         loginPage.open();
-        assertThat(browser.getTitle()).isEqualTo("Login");
+
+        assertThat(loginPage.getEmailAddress()).isEmpty();
+        assertThat(loginPage.getPassword()).isEmpty();
     }
 }
