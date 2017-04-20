@@ -25,8 +25,7 @@ public class SubmitLoginFormWithIncorrectUsernameAndPasswordTest {
 
     @Before
     public void openLoginPage() {
-        loginPage = new LoginPage(browser);
-        loginPage.open();
+        loginPage = new LoginPage(browser).open();
     }
 
     @Test
