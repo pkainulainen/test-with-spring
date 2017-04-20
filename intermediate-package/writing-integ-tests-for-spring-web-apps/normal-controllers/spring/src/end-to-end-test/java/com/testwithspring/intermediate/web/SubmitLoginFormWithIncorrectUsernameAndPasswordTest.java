@@ -10,12 +10,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static com.testwithspring.intermediate.EndToEndTestUsers.*;
+import static com.testwithspring.intermediate.EndToEndTestUsers.JohnDoe;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
-public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
+public class SubmitLoginFormWithIncorrectUsernameAndPasswordTest {
 
     @SeleniumWebDriver
     private WebDriver browser;
@@ -29,15 +30,16 @@ public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
     }
 
     @Test
-    public void shouldRenderTaskListPage() {
-        TaskListPage shownPage = loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
+    public void shouldRenderLoginPage() {
+        LoginPage shownPage = loginPage.loginAndExpectFailure(UnknownUser.EMAIL_ADDRESS, UnknownUser.PASSWORD);
 
-        String taskListPageUrl = shownPage.getPageUrl();
-        assertThat(browser.getCurrentUrl()).isEqualTo(taskListPageUrl);
+        String loginPageUrl = shownPage.getLoginFailedPageUrl();
+        assertThat(browser.getCurrentUrl()).isEqualTo(loginPageUrl);
     }
 
-    @After
-    public void logoutUser() {
-        loginPage.logout();
+    @Test
+    public void shouldShowLoginErrorAlert() {
+        LoginPage shownPage = loginPage.loginAndExpectFailure(UnknownUser.EMAIL_ADDRESS, UnknownUser.PASSWORD);
+        assertThat(shownPage.isLoginAlertVisible()).isTrue();
     }
 }

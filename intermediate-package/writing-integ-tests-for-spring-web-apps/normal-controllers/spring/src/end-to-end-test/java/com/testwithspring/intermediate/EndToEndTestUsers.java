@@ -9,4 +9,10 @@ public final class EndToEndTestUsers {
         public static final String EMAIL_ADDRESS = "john.doe@gmail.com";
         public static final String PASSWORD = "user";
     }
+
+    public static class UnknownUser {
+
+        public static final String EMAIL_ADDRESS = "not.found@gmail.com";
+        public static final String PASSWORD = "notfound";
+    }
 }

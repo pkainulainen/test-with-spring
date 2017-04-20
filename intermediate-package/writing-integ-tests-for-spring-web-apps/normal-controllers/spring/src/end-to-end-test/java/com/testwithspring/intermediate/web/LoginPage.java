@@ -11,22 +11,26 @@ import org.openqa.selenium.WebDriver;
 final class LoginPage {
 
     private static final String EMAIL_ADDRESS_INPUT_ID = "email-address";
+    private static final String LOGIN_ERROR_ALERT_ID = "login-error-alert";
     private static final String LOGIN_FORM_ID = "login-form";
     private static final String LOGOUT_FORM_ID = "logout-form";
     private static final String PASSWORD_INPUT_ID = "password";
 
     private final WebDriver browser;
+    private final String pageUrl;
 
     LoginPage(WebDriver browser) {
         this.browser = browser;
+        this.pageUrl = WebDriverUrlBuilder.buildFromRelativeUrl("user/login");
     }
 
     /**
      * Opens the login page.
+     * @return The page object that symbolizes the opened page.
      */
-    void open() {
-        String loginPageUrl = WebDriverUrlBuilder.buildFromRelativeUrl("user/login");
-        browser.get(loginPageUrl);
+    LoginPage open() {
+        browser.get(pageUrl);
+        return this;
     }
 
     /**
@@ -46,14 +50,57 @@ final class LoginPage {
     }
 
     /**
-     * Logs the user in by using the provided email address and password.
+     * Returns the url of the login page.
+     * @return
+     */
+    String getPageUrl() {
+        return pageUrl;
+    }
+
+    /**
+     * Returns the login page url that is used after a failed login.
+     * @return
+     */
+    String getLoginFailedPageUrl() {
+        return pageUrl + "?error=bad_credentials";
+    }
+
+    /**
+     * Returns true if the login error alert is visible on the page and false otherwise.
+     * @return
+     */
+    boolean isLoginAlertVisible() {
+        return !browser.findElements(By.id(LOGIN_ERROR_ALERT_ID)).isEmpty();
+    }
+
+    /**
+     * Logs the user in by using the provided email address and password. This
+     * method expects that the provided email address and password are correct.
      * @param emailAddress
      * @param password
+     * @return The page object that symbolizes the task list page.
      */
-    void login(String emailAddress, String password) {
+    TaskListPage login(String emailAddress, String password) {
         typeEmailAddress(emailAddress);
         typePassword(password);
         submitLoginForm();
+
+        return new TaskListPage(browser);
+    }
+
+    /**
+     * Logs user in by using the provided email address and password. This method
+     * expects that the provided email address and/or password are not correct.
+     * @param emailAddress
+     * @param password
+     * @return The page object that symbolizes the login page.
+     */
+    LoginPage loginAndExpectFailure(String emailAddress, String password) {
+        typeEmailAddress(emailAddress);
+        typePassword(password);
+        submitLoginForm();
+
+        return this;
     }
 
     private void typeEmailAddress(String emailAddress) {
@@ -71,6 +118,10 @@ final class LoginPage {
     /**
      * Logs the user out if the user has been logged in. If the user
      * is not logged in, this method doesn't do anything.
+     *
+     * Even though the login button is visible on every page, I added
+     * this method to this class because this way we can manage the
+     * logged in user by using a single page object.
      */
     void logout() {
         if (!browser.findElements(By.id(LOGOUT_FORM_ID)).isEmpty()) {

@@ -13,7 +13,7 @@
     <div class="panel-body">
         <sec:authorize access="isAnonymous()">
             <c:if test="${param.error eq 'bad_credentials'}">
-                <div class="alert alert-danger alert-dismissible">
+                <div id="login-error-alert" class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <spring:message code="page.login.login.failed.error.message"/>
                 </div>
