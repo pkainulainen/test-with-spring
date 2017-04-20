@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
-public class RenderLoginPageTest {
+public class RenderLoginPageAsAnonymousTest {
 
     @SeleniumWebDriver
     private WebDriver browser;
