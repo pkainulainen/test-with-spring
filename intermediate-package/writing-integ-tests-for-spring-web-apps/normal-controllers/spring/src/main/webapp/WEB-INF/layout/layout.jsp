@@ -72,7 +72,7 @@
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <form action="${pageContext.request.contextPath}/user/logout" method="POST">
+                        <form id="logout-form" action="${pageContext.request.contextPath}/user/logout" method="POST">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <button type="submit" class="btn btn-default navbar-btn">
                                 <spring:message code="navigation.logout.link.label"/>

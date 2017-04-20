@@ -4,7 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <title></title>
+    <title><spring:message code="page.task.list.title"/></title>
 </head>
 <body>
 <h1><spring:message code="page.task.list.title"/></h1>

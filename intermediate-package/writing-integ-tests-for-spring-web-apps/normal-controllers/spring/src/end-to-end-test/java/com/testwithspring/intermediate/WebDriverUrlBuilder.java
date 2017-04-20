@@ -25,6 +25,10 @@ public final class WebDriverUrlBuilder {
             baseUrl += "/";
         }
 
+        if (relativeUrl.startsWith("/")) {
+            relativeUrl = relativeUrl.replaceFirst("/", "");
+        }
+
         return baseUrl + relativeUrl;
     }
 }
