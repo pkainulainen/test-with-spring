@@ -1,4 +1,4 @@
-package com.testwithspring.intermediate.web;
+package com.testwithspring.intermediate.web.task;
 
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import org.openqa.selenium.WebDriver;
@@ -6,11 +6,11 @@ import org.openqa.selenium.WebDriver;
 /**
  * This page object is use dto interact with the task list page.
  */
-final class TaskListPage {
+public final class TaskListPage {
 
     private final WebDriver browser;
 
-    TaskListPage(WebDriver browser) {
+    public TaskListPage(WebDriver browser) {
         this.browser = browser;
     }
 
@@ -18,7 +18,7 @@ final class TaskListPage {
      * Returns the url address of the task list page.
      * @return
      */
-    String getPageUrl() {
+    public String getPageUrl() {
         return WebDriverUrlBuilder.buildFromRelativeUrl("/");
     }
 }

@@ -1,14 +1,15 @@
-package com.testwithspring.intermediate.web;
+package com.testwithspring.intermediate.web.login;
 
 
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
+import com.testwithspring.intermediate.web.task.TaskListPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
  * This page object is used to interact with the login page.
  */
-final class LoginPage {
+public final class LoginPage {
 
     private static final String AUTHENTICATED_USER_ERROR_ID = "authenticated-user-error";
     private static final String EMAIL_ADDRESS_INPUT_ID = "email-address";
@@ -19,7 +20,7 @@ final class LoginPage {
     private final WebDriver browser;
     private final String pageUrl;
 
-    LoginPage(WebDriver browser) {
+    public LoginPage(WebDriver browser) {
         this.browser = browser;
         this.pageUrl = WebDriverUrlBuilder.buildFromRelativeUrl("user/login");
     }
@@ -28,7 +29,7 @@ final class LoginPage {
      * Opens the login page.
      * @return The page object that symbolizes the opened page.
      */
-    LoginPage open() {
+    public LoginPage open() {
         browser.get(pageUrl);
         return new LoginPage(browser);
     }
@@ -96,7 +97,7 @@ final class LoginPage {
      * @param password
      * @return The page object that symbolizes the task list page.
      */
-    TaskListPage login(String emailAddress, String password) {
+    public TaskListPage login(String emailAddress, String password) {
         typeEmailAddress(emailAddress);
         typePassword(password);
         submitLoginForm();

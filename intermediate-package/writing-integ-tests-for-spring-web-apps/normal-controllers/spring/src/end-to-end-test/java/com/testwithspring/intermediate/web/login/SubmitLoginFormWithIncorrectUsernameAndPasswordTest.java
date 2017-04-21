@@ -1,7 +1,6 @@
-package com.testwithspring.intermediate.web;
+package com.testwithspring.intermediate.web.login;
 
 import com.testwithspring.intermediate.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -15,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SeleniumTestRunner.class)
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
-public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
+public class SubmitLoginFormWithIncorrectUsernameAndPasswordTest {
 
     @SeleniumWebDriver
     private WebDriver browser;
@@ -28,15 +27,16 @@ public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
     }
 
     @Test
-    public void shouldRenderTaskListPage() {
-        TaskListPage shownPage = loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
+    public void shouldRenderLoginPage() {
+        LoginPage shownPage = loginPage.loginAndExpectFailure(UnknownUser.EMAIL_ADDRESS, UnknownUser.PASSWORD);
 
-        String taskListPageUrl = shownPage.getPageUrl();
-        assertThat(browser.getCurrentUrl()).isEqualTo(taskListPageUrl);
+        String loginPageUrl = shownPage.getLoginFailedPageUrl();
+        assertThat(browser.getCurrentUrl()).isEqualTo(loginPageUrl);
     }
 
-    @After
-    public void logoutUser() {
-        new NavigationBar(browser).logout();
+    @Test
+    public void shouldShowLoginErrorAlert() {
+        LoginPage shownPage = loginPage.loginAndExpectFailure(UnknownUser.EMAIL_ADDRESS, UnknownUser.PASSWORD);
+        assertThat(shownPage.isLoginAlertVisible()).isTrue();
     }
 }

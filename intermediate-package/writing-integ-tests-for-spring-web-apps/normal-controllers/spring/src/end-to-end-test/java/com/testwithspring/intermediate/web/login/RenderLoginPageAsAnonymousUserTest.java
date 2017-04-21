@@ -1,4 +1,4 @@
-package com.testwithspring.intermediate.web;
+package com.testwithspring.intermediate.web.login;
 
 import com.testwithspring.intermediate.EndToEndTest;
 import com.testwithspring.intermediate.SeleniumTest;

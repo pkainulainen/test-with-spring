@@ -1,6 +1,7 @@
-package com.testwithspring.intermediate.web;
+package com.testwithspring.intermediate.web.login;
 
 import com.testwithspring.intermediate.*;
+import com.testwithspring.intermediate.web.NavigationBar;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
