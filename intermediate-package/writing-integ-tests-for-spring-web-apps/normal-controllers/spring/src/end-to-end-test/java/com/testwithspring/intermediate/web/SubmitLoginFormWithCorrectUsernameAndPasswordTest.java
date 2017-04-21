@@ -37,6 +37,6 @@ public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
 
     @After
     public void logoutUser() {
-        loginPage.logout();
+        new NavigationBar(browser).logout();
     }
 }

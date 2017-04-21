@@ -5,8 +5,6 @@ import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import java.util.Optional;
-
 /**
  * This page object is used to interact with the login page.
  */
@@ -16,7 +14,6 @@ final class LoginPage {
     private static final String EMAIL_ADDRESS_INPUT_ID = "email-address";
     private static final String LOGIN_ERROR_ALERT_ID = "login-error-alert";
     private static final String LOGIN_FORM_ID = "login-form";
-    private static final String LOGOUT_FORM_ID = "logout-form";
     private static final String PASSWORD_INPUT_ID = "password";
 
     private final WebDriver browser;
@@ -132,22 +129,5 @@ final class LoginPage {
 
     private void submitLoginForm() {
         browser.findElement(By.id(LOGIN_FORM_ID)).submit();
-    }
-
-    /**
-     * Logs the user out if the user has been logged in. If the user
-     * is not logged in, this method doesn't do anything.
-     *
-     * Even though the login button is visible on every page, I added
-     * this method to this class because this way we can manage the
-     * logged in user by using a single page object.
-     */
-     Optional<LoginPage> logout() {
-        if (!browser.findElements(By.id(LOGOUT_FORM_ID)).isEmpty()) {
-            browser.findElement(By.id(LOGOUT_FORM_ID)).submit();
-            return Optional.of(new LoginPage(browser));
-        }
-
-        return Optional.empty();
     }
 }
