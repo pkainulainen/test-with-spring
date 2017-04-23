@@ -31,9 +31,7 @@ public class RenderLoginPageAsAnonymousUserTest {
     @Test
     public void shouldOpenLoginPage() {
         LoginPage shownPage = loginPage.open();
-
-        String loginPageUrl = shownPage.getPageUrl();
-        assertThat(browser.getCurrentUrl()).isEqualTo(loginPageUrl);
+        assertThat(shownPage.isOpen()).isTrue();
     }
 
     @Test

@@ -51,22 +51,6 @@ public final class LoginPage {
     }
 
     /**
-     * Returns the url of the login page.
-     * @return
-     */
-    String getPageUrl() {
-        return pageUrl;
-    }
-
-    /**
-     * Returns the login page url that is used after a failed login.
-     * @return
-     */
-    String getLoginFailedPageUrl() {
-        return pageUrl + "?error=bad_credentials";
-    }
-
-    /**
      * Returns true if the authenticated user error is visible on the page and false otherwise.
      * @return
      */
@@ -88,6 +72,20 @@ public final class LoginPage {
      */
     boolean isLoginFormVisible() {
         return !browser.findElements(By.id(LOGIN_FORM_ID)).isEmpty();
+    }
+
+    /**
+     * @return true if the login page is open and false otherwise.
+     */
+    boolean isOpen() {
+        return browser.getCurrentUrl().equals(pageUrl);
+    }
+
+    /**
+     * @return true if the login page is open with login error url and false otherwise.
+     */
+    boolean isOpenWithLoginErrorUrl() {
+        return browser.getCurrentUrl().equals(pageUrl + "?error=bad_credentials");
     }
 
     /**

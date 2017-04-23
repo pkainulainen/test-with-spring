@@ -32,9 +32,7 @@ public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
     @Test
     public void shouldRenderTaskListPage() {
         TaskListPage shownPage = loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
-
-        String taskListPageUrl = shownPage.getPageUrl();
-        assertThat(browser.getCurrentUrl()).isEqualTo(taskListPageUrl);
+        assertThat(shownPage.isOpen()).isTrue();
     }
 
     @After

@@ -9,16 +9,17 @@ import org.openqa.selenium.WebDriver;
 public final class TaskListPage {
 
     private final WebDriver browser;
+    private final String pageUrl;
 
     public TaskListPage(WebDriver browser) {
         this.browser = browser;
+        this.pageUrl = WebDriverUrlBuilder.buildFromRelativeUrl("/");
     }
 
     /**
-     * Returns the url address of the task list page.
-     * @return
+     * @return true if the task list page is open and false otherwise.
      */
-    public String getPageUrl() {
-        return WebDriverUrlBuilder.buildFromRelativeUrl("/");
+    public boolean isOpen() {
+        return browser.getCurrentUrl().equals(pageUrl);
     }
 }
