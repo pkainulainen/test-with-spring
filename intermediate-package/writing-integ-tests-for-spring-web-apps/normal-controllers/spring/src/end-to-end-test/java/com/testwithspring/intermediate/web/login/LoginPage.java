@@ -22,7 +22,7 @@ public final class LoginPage {
 
     public LoginPage(WebDriver browser) {
         this.browser = browser;
-        this.pageUrl = WebDriverUrlBuilder.buildFromRelativeUrl("user/login");
+        this.pageUrl = WebDriverUrlBuilder.buildFromPath("user/login");
     }
 
     /**

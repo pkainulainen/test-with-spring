@@ -1,23 +1,23 @@
 package com.testwithspring.intermediate;
 
 /**
- * Provides factory methods that are used to build url
- * addresses.
+ * Provides a factory method that is used to create
+ * absolute URL addresses.
  */
 public final class WebDriverUrlBuilder {
 
     private WebDriverUrlBuilder() {}
 
     /**
-     * Builds a url address by appending the relative url to
+     * Builds an absolute URL address by appending the provided path to
      * the base url.
-     * @param relativeUrl
+     * @param path
      * @throws IllegalArgumentException If relative url is null or empty.
      * @return
      */
-    public static String buildFromRelativeUrl(String relativeUrl) {
-        if ((relativeUrl == null) || relativeUrl.isEmpty()) {
-            throw new IllegalArgumentException("Cannot build url because relative url is null or empty.");
+    public static String buildFromPath(String path) {
+        if ((path == null) || path.isEmpty()) {
+            throw new IllegalArgumentException("Cannot build an absolute URL because the path is null or empty.");
         }
 
         String baseUrl = WebDriverEnvironment.getBaseUrl();
@@ -25,10 +25,10 @@ public final class WebDriverUrlBuilder {
             baseUrl += "/";
         }
 
-        if (relativeUrl.startsWith("/")) {
-            relativeUrl = relativeUrl.replaceFirst("/", "");
+        if (path.startsWith("/")) {
+            path = path.replaceFirst("/", "");
         }
 
-        return baseUrl + relativeUrl;
+        return baseUrl + path;
     }
 }

@@ -13,7 +13,7 @@ public final class TaskListPage {
 
     public TaskListPage(WebDriver browser) {
         this.browser = browser;
-        this.pageUrl = WebDriverUrlBuilder.buildFromRelativeUrl("/");
+        this.pageUrl = WebDriverUrlBuilder.buildFromPath("/");
     }
 
     /**
