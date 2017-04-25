@@ -26,7 +26,7 @@ final class TaskPage {
      * @return
      */
     LifeCycleFields getTaskLifeCycleFields() {
-        return new LifeCycleFields(browser);
+        return new LifeCycleFields(browser.findElement(By.id("lifecycle-fields")));
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.testwithspring.intermediate.web.task;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * This page object provides methods that are used to find
@@ -10,10 +10,10 @@ import org.openqa.selenium.WebDriver;
  */
 final class LifeCycleFields {
 
-    private final WebDriver browser;
+    private final WebElement rootElement;
 
-    LifeCycleFields(WebDriver browser) {
-        this.browser = browser;
+    LifeCycleFields(WebElement rootElement) {
+        this.rootElement = rootElement;
     }
 
     /**
@@ -21,7 +21,7 @@ final class LifeCycleFields {
      * @return
      */
     String getAssigneeName() {
-        return browser.findElement(By.id("assignee-name")).getText();
+        return rootElement.findElement(By.id("assignee-name")).getText();
     }
 
     /**
@@ -29,7 +29,7 @@ final class LifeCycleFields {
      * @return
      */
     String getCloserName() {
-        return browser.findElement(By.id("closer-name")).getText();
+        return rootElement.findElement(By.id("closer-name")).getText();
     }
 
     /**
@@ -37,7 +37,7 @@ final class LifeCycleFields {
      * @return
      */
     String getCreatorName() {
-        return browser.findElement(By.id("creator-name")).getText();
+        return rootElement.findElement(By.id("creator-name")).getText();
     }
 
     /**
@@ -46,7 +46,7 @@ final class LifeCycleFields {
      * @return
      */
     String getModifierName() {
-        return browser.findElement(By.id("modifier-name")).getText();
+        return rootElement.findElement(By.id("modifier-name")).getText();
     }
 
     /**
@@ -54,7 +54,7 @@ final class LifeCycleFields {
      * @return
      */
     boolean isAssigneeNameVisible() {
-        return browser.findElements(By.id("assignee-name")).size() == 1;
+        return rootElement.findElements(By.id("assignee-name")).size() == 1;
     }
 
     /**
@@ -62,6 +62,6 @@ final class LifeCycleFields {
      * @return
      */
     boolean areClosedTaskFieldsVisible() {
-        return browser.findElements(By.id("closed-task-fields")).size() == 1;
+        return rootElement.findElements(By.id("closed-task-fields")).size() == 1;
     }
 }

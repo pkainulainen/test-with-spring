@@ -24,7 +24,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid">
+<div id="lifecycle-fields" class="container-fluid">
     <c:if test="${task.assignee != null}">
         <div class="row">
             <div class="col-md-3">
