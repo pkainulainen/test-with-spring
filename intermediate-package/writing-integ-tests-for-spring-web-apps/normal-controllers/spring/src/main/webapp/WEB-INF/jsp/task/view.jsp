@@ -25,6 +25,14 @@
     </div>
 </div>
 <div class="container-fluid">
+    <c:if test="${task.assignee != null}">
+        <div class="row">
+            <div class="col-md-3">
+                <spring:message code="page.view.task.assignee.description"/>:
+                <span id="assignee-name"><c:out value="${task.assignee.name}"/></span>
+            </div>
+        </div>
+    </c:if>
     <div class="row">
         <div class="col-md-3">
             <spring:message code="page.view.task.creator.description.prefix"/>

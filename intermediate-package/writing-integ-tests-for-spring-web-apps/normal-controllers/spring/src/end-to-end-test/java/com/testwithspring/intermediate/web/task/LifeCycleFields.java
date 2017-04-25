@@ -17,6 +17,14 @@ final class LifeCycleFields {
     }
 
     /**
+     * Returns the name of the user to whom the task is assigned.
+     * @return
+     */
+    String getAssigneeName() {
+        return browser.findElement(By.id("assignee-name")).getText();
+    }
+
+    /**
      * Returns the name of the user who closed the shown task.
      * @return
      */
@@ -39,6 +47,14 @@ final class LifeCycleFields {
      */
     String getModifierName() {
         return browser.findElement(By.id("modifier-name")).getText();
+    }
+
+    /**
+     * Returns true if the assignee name is visible and false otherwise.
+     * @return
+     */
+    boolean isAssigneeNameVisible() {
+        return browser.findElements(By.id("assignee-name")).size() == 1;
     }
 
     /**

@@ -59,6 +59,22 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     }
 
     @Test
+    public void shouldShowAssigneeInformationOfViewedTask() {
+        TaskPage shown = taskPage.open();
+        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+
+        assertThat(lifeCycleFields.isAssigneeNameVisible()).isTrue();
+    }
+
+    @Test
+    public void shouldShowAssigneeNameOfViewedTask() {
+        TaskPage shown = taskPage.open();
+        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+
+        assertThat(lifeCycleFields.getAssigneeName()).isEqualTo(EndToEndTestTasks.WriteExampleApp.Assignee.NAME);
+    }
+
+    @Test
     public void shouldShowCreatorNameOfViewedTask() {
         TaskPage shown = taskPage.open();
         LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
