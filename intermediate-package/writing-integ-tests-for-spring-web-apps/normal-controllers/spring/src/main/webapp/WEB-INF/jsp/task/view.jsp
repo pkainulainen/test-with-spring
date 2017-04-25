@@ -28,24 +28,30 @@
     <div class="row">
         <div class="col-md-3">
             <spring:message code="page.view.task.creator.description.prefix"/>
-            <c:out value="${task.creator.name}"/>
+            <span id="creator-name"><c:out value="${task.creator.name}"/></span>
             <spring:message code="page.view.task.timestamp.prefix"/>
-            <javatime:format value="${task.creationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
+            <span id="creation-time">
+                <javatime:format value="${task.creationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
+            </span>
         </div>
         <div class="col-md-3">
             <spring:message code="page.view.task.modifier.description.prefix"/>
-            <c:out value="${task.modifier.name}"/>
+            <span id="modifier-name"><c:out value="${task.modifier.name}"/></span>
             <spring:message code="page.view.task.timestamp.prefix"/>
-            <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
-        </div>
-        <div class="col-md-3">
-            <c:if test="${task.status == 'CLOSED'}">
-                <spring:message code="page.view.task.closer.description.prefix"/>
-                <c:out value="${task.closer.name}"/>
-                <spring:message code="page.view.task.timestamp.prefix"/>
+            <span id="modification-time">
                 <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
-            </c:if>
+            </span>
         </div>
+        <c:if test="${task.status == 'CLOSED'}">
+            <div id="closed-task-fields" class="col-md-3">
+                <spring:message code="page.view.task.closer.description.prefix"/>
+                <span id="closer-name"><c:out value="${task.closer.name}"/></span>
+                <spring:message code="page.view.task.timestamp.prefix"/>
+                <span id="closing-time">
+                    <javatime:format value="${task.modificationTime}" pattern="yyyy-MM-dd H:mm:ss"/>
+                </span>
+            </div>
+        </c:if>
     </div>
     <div class="row">
         <div class="col-md-1">
