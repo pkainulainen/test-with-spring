@@ -7,6 +7,11 @@ INSERT INTO tasks
 (id, assignee_id, closer_id, creation_time, creator_id, description, modification_time, modifier_id, resolution, status, title, version)
 VALUES
   (2, null, null, now(), 1, 'This lesson talks about end-to-end testing', now(), 1, null, 'OPEN', 'Write lesson', 0);
+INSERT INTO tasks
+(id, assignee_id, closer_id, creation_time, creator_id, description, modification_time, modifier_id, resolution, status, title, version)
+VALUES
+  (3, null, null, now(), 1, 'This lesson will be deleted', now(), 1, null, 'OPEN', 'Just Testing', 0);
+
 
 -- Tags
 INSERT INTO tags
