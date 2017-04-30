@@ -21,12 +21,24 @@ final class TaskPage {
     }
 
     /**
+     * Returns a page object that allows you to click the links found from the
+     * task list page.
+     * @return
+     */
+    TaskActions getTaskActions() {
+        return new TaskActions(browser,
+                browser.findElement(By.id("task-action-links")),
+                taskId
+        );
+    }
+
+    /**
      * Returns a page object that allows you to find the field values
      * of the task's life cycle fields.
      * @return
      */
-    LifeCycleFields getTaskLifeCycleFields() {
-        return new LifeCycleFields(browser.findElement(By.id("lifecycle-fields")));
+    TaskLifeCycleFields getTaskLifeCycleFields() {
+        return new TaskLifeCycleFields(browser.findElement(By.id("lifecycle-fields")));
     }
 
     /**

@@ -8,11 +8,11 @@ import org.openqa.selenium.WebElement;
  * the values of the task's life cycle fields such creator name
  * and creation time.
  */
-final class LifeCycleFields {
+final class TaskLifeCycleFields {
 
     private final WebElement rootElement;
 
-    LifeCycleFields(WebElement rootElement) {
+    TaskLifeCycleFields(WebElement rootElement) {
         this.rootElement = rootElement;
     }
 

@@ -61,14 +61,14 @@
             </div>
         </c:if>
     </div>
-    <div class="row">
+    <div id="task-action-links" class="row">
         <div class="col-md-1">
             <a id="delete-task-link" href="${pageContext.request.contextPath}/task/${task.id}/delete">
                 <spring:message code="page.view.task.delete.task.link.label"/>
             </a>
         </div>
         <div class="col-md-1">
-            <a id="edit-task-link" href="${pageContext.request.contextPath}/task/${task.id}/update">
+            <a id="update-task-link" href="${pageContext.request.contextPath}/task/${task.id}/update">
                 <spring:message code="page.view.task.edit.task.link.label"/>
             </a>
         </div>

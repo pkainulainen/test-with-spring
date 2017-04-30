@@ -32,6 +32,14 @@ public final class TaskListPage {
     }
 
     /**
+     * Returns the url of the task list page.
+     * @return
+     */
+    String getPageUrl() {
+        return pageUrl;
+    }
+
+    /**
      * @return true if the task list page is open and false otherwise.
      */
     public boolean isOpen() {

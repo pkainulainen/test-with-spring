@@ -61,7 +61,7 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     @Test
     public void shouldShowAssigneeInformationOfViewedTask() {
         TaskPage shown = taskPage.open();
-        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+        TaskLifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
 
         assertThat(lifeCycleFields.isAssigneeNameVisible()).isTrue();
     }
@@ -69,7 +69,7 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     @Test
     public void shouldShowAssigneeNameOfViewedTask() {
         TaskPage shown = taskPage.open();
-        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+        TaskLifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
 
         assertThat(lifeCycleFields.getAssigneeName()).isEqualTo(EndToEndTestTasks.WriteExampleApp.Assignee.NAME);
     }
@@ -77,7 +77,7 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     @Test
     public void shouldShowCreatorNameOfViewedTask() {
         TaskPage shown = taskPage.open();
-        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+        TaskLifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
 
         assertThat(lifeCycleFields.getCreatorName()).isEqualTo(EndToEndTestTasks.WriteExampleApp.Creator.NAME);
     }
@@ -85,7 +85,7 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     @Test
     public void shouldShowModifierNameOfViewedTask() {
         TaskPage shown = taskPage.open();
-        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+        TaskLifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
 
         assertThat(lifeCycleFields.getModifierName()).isEqualTo(EndToEndTestTasks.WriteExampleApp.Modifier.NAME);
     }
@@ -93,7 +93,7 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     @Test
     public void shouldShowClosedTaskLifeCycleFields() {
         TaskPage shown = taskPage.open();
-        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+        TaskLifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
 
         assertThat(lifeCycleFields.areClosedTaskFieldsVisible()).isTrue();
     }
@@ -101,9 +101,18 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
     @Test
     public void shouldShowCloserNameOfViewedTask() {
         TaskPage shown = taskPage.open();
-        LifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
+        TaskLifeCycleFields lifeCycleFields = shown.getTaskLifeCycleFields();
 
         assertThat(lifeCycleFields.getCloserName()).isEqualTo(EndToEndTestTasks.WriteExampleApp.Closer.NAME);
+    }
+
+    @Test
+    public void shouldAllowUsToNavigateToUpdateTaskPage() {
+        TaskPage shown = taskPage.open();
+        TaskActions actions = shown.getTaskActions();
+
+        UpdateTaskPage targetPage = actions.updateTask();
+        assertThat(targetPage.isOpen()).isTrue();
     }
 
     @After
