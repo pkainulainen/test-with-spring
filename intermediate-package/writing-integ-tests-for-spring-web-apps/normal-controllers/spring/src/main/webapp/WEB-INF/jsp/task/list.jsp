@@ -21,11 +21,12 @@
         </thead>
         <tbody>
         <c:forEach items="${tasks}" var="task">
-            <tr>
+            <tr id="task-list-item-${task.id}" class="task-list-item">
                 <td>
-                    <a href="${pageContext.request.contextPath}/task/${task.id}"><c:out value="${task.title}"/></a>
+                    <a class="task-list-item-title"
+                       href="${pageContext.request.contextPath}/task/${task.id}"><c:out value="${task.title}"/></a>
                 </td>
-                <td>
+                <td class="task-list-item-status task-status-${task.status}">
                     <spring:message code="${task.status.localizationKey}"/>
                 </td>
             </tr>

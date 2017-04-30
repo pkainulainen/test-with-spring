@@ -30,6 +30,14 @@ final class TaskPage {
     }
 
     /**
+     * Returns the URL of the view task page.
+     * @return
+     */
+    String getPageUrl() {
+        return pageUrl;
+    }
+
+    /**
      * Returns the description of the shown task.
      * @return
      */
