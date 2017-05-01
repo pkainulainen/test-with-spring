@@ -22,7 +22,7 @@ public final class NavigationBar {
      * @return the next that is rendered when user is logged out (login page).
      * @throws RuntimeException if logout button is not visible.
      */
-    public LoginPage logout() {
+    public LoginPage logUserOut() {
         if (browser.findElements(By.id(LOGOUT_FORM_ID)).isEmpty()) {
             throw new RuntimeException("Cannot log the user out because the logout button is not visible. Is user logged in?");
         }

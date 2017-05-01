@@ -31,11 +31,11 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
 
     @Before
     public void configureTestCases() {
-        loginUser();
+        logUserIn();
         taskPage = new TaskPage(browser, EndToEndTestTasks.WriteExampleApp.ID);
     }
 
-    private void loginUser() {
+    private void logUserIn() {
         LoginPage loginPage = new LoginPage(browser).open();
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
     }
@@ -117,6 +117,6 @@ public class RenderViewTaskPageWhenTaskIsClosedTest {
 
     @After
     public void logoutUser() {
-        new NavigationBar(browser).logout();
+        new NavigationBar(browser).logUserOut();
     }
 }

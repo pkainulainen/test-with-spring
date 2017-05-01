@@ -33,11 +33,11 @@ public class RenderTaskListPageTest {
 
     @Before
     public void configureTestCases() {
-        loginUser();
+        logUserIn();
         taskListPage = new TaskListPage(browser);
     }
 
-    private void loginUser() {
+    private void logUserIn() {
         LoginPage loginPage = new LoginPage(browser).open();
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
     }
@@ -102,6 +102,6 @@ public class RenderTaskListPageTest {
 
     @After
     public void logoutUser() {
-        new NavigationBar(browser).logout();
+        new NavigationBar(browser).logUserOut();
     }
 }
