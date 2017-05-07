@@ -66,7 +66,7 @@ public final class EndToEndTestTasks {
     public static class WriteLesson {
 
         public static final Long CREATOR_ID = 1L;
-        public static final String DESCRIPTION = "This lesson talks about integration testing";
+        public static final String DESCRIPTION = "This lesson talks about end-to-end testing";
         public static final Long ID = 2L;
         public static final TaskStatus STATUS = TaskStatus.OPEN;
         public static final String TITLE = "Write lesson";

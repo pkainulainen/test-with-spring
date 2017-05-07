@@ -19,6 +19,14 @@ final class UpdateTaskPage {
     }
 
     /**
+     * Returns the page object that represents the update task form.
+     * @return
+     */
+    TaskForm getForm() {
+        return new TaskForm(browser, "update-task-form");
+    }
+
+    /**
      * Returns the URL of the update task page.
      * @return
      */
@@ -32,5 +40,14 @@ final class UpdateTaskPage {
      */
     boolean isOpen() {
         return browser.getCurrentUrl().equals(pageUrl);
+    }
+
+    /**
+     * Opens the update task page.
+     * @return  The page object that represents the update task page.
+     */
+    UpdateTaskPage open() {
+        browser.get(pageUrl);
+        return new UpdateTaskPage(browser, taskId);
     }
 }
