@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class FindVatPercentageMockitoMockTest {
 
     private static final String COUNTRY_CODE = "FI";
-    private static final Integer VAT_PERCENTAGE = 24;
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,40 +40,8 @@ public class FindVatPercentageMockitoMockTest {
     private VatPercentageService service;
 
     @Before
-    public void configureTestCases() {
-        resetMock();
-        returnVatPercentage();
-    }
-
-    private void resetMock() {
+    public void resetMock() {
         Mockito.reset(service);
-    }
-
-    private void returnVatPercentage() {
-        VatPercentage found = new VatPercentage();
-        found.setCountryCode(COUNTRY_CODE);
-        found.setVatPercentage(VAT_PERCENTAGE);
-
-        given(service.findByCountryCode(COUNTRY_CODE)).willReturn(found);
-    }
-
-    @Test
-    public void shouldReturnHttpStatusCodeOk() throws Exception {
-        findByCountryCode(COUNTRY_CODE)
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void shouldReturnVatPercentageAsJson() throws Exception {
-        findByCountryCode(COUNTRY_CODE)
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-    }
-
-    @Test
-    public void shouldReturnCorrectVatPercentage() throws Exception {
-        findByCountryCode(COUNTRY_CODE)
-                .andExpect(jsonPath("$.countryCode", is(COUNTRY_CODE)))
-                .andExpect(jsonPath("$.vatPercentage", is(VAT_PERCENTAGE)));
     }
 
     @Test
