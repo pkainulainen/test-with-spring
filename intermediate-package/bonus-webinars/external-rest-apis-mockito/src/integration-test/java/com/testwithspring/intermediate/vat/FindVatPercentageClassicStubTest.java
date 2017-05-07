@@ -34,24 +34,24 @@ public class FindVatPercentageClassicStubTest {
 
     @Test
     public void shouldReturnHttpStatusCodeOk() throws Exception {
-        findVatPercentage(COUNTRY_CODE)
+        findByCountryCode(COUNTRY_CODE)
                 .andExpect(status().isOk());
     }
 
     @Test
     public void shouldReturnVatPercentageAsJson() throws Exception {
-        findVatPercentage(COUNTRY_CODE)
+        findByCountryCode(COUNTRY_CODE)
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
     public void shouldReturnCorrectVatPercentage() throws Exception {
-        findVatPercentage(COUNTRY_CODE)
+        findByCountryCode(COUNTRY_CODE)
                 .andExpect(jsonPath("$.countryCode", is(COUNTRY_CODE)))
                 .andExpect(jsonPath("$.vatPercentage", is(VAT_PERCENTAGE)));
     }
 
-    private ResultActions findVatPercentage(String countryCode) throws Exception {
+    private ResultActions findByCountryCode(String countryCode) throws Exception {
         return mockMvc.perform(get("/api/vat-percentage")
                 .param("countryCode", countryCode)
         );

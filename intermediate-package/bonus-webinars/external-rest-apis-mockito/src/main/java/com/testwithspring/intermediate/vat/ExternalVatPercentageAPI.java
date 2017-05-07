@@ -13,7 +13,7 @@ class ExternalVatPercentageAPI {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExternalVatPercentageAPI.class);
 
     @RequestMapping(value = "/api/external/vat-percentage", method = RequestMethod.GET)
-    VatPercentage findVatPercentage(@RequestParam("countryCode") String countryCode) {
+    VatPercentage findByCountryCode(@RequestParam("countryCode") String countryCode) {
         LOGGER.info("Finding vat percentage by country code: {}", countryCode);
 
         VatPercentage vatPercentage = new VatPercentage();

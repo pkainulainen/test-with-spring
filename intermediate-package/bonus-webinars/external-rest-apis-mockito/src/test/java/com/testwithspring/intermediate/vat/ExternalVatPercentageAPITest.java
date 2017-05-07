@@ -30,7 +30,7 @@ public class ExternalVatPercentageAPITest {
                 .build();
     }
 
-    public class FindVatPercentage {
+    public class FindByCountryCode {
 
         private final String COUNTRY_CODE = "FI";
         private final Integer EXPECTED_VAT_PERCENTAGE = 23;

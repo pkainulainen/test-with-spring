@@ -21,7 +21,7 @@ class VatPercentageController {
     }
 
     @RequestMapping(value = "/api/vat-percentage", method = RequestMethod.GET)
-    VatPercentage findVatPercentage(@RequestParam("countryCode") String countryCode) {
+    VatPercentage findByCountryCode(@RequestParam("countryCode") String countryCode) {
         LOGGER.info("Finding vat percentage by country code: {}", countryCode);
 
         VatPercentage vatPercentage = service.findByCountryCode(countryCode);

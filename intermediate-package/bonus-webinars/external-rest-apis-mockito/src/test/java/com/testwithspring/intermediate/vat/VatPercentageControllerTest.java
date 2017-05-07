@@ -33,7 +33,7 @@ public class VatPercentageControllerTest {
                 .build();
     }
 
-    public class FindVatPercentage {
+    public class FindByCountryCode {
 
         private final String COUNTRY_CODE = "FI";
         private final Integer VAT_PERCENTAGE = 24;
