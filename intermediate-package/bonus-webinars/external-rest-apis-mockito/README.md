@@ -1,4 +1,4 @@
-# Configuring Spring MVC Test
+# Bonus Webinar: Mocking and Stubbing External REST APIs, Part One
 
 ## Running the Web Application
 
