@@ -22,19 +22,24 @@ final class TaskForm {
     }
 
     /**
-     * Enters the description of the task to the description text area.
+     * Clears the current description and enters the new description of the task
+     * to the description text area.
      * @param description
      */
     void typeDescription(String description) {
-        form.findElement(By.id("task-description")).sendKeys(description);
+        WebElement descriptionTextArea = form.findElement(By.id("task-description"));
+        descriptionTextArea.clear();
+        descriptionTextArea.sendKeys(description);
     }
 
     /**
-     * Enters the title of the task to the title text field.
+     * Clears the current title and enters the title of the task to the title text field.
      * @param title
      */
     void typeTitle(String title) {
-        form.findElement(By.id("task-title")).sendKeys(title);
+        WebElement titleInputField = form.findElement(By.id("task-title"));
+        titleInputField.clear();
+        titleInputField.sendKeys(title);
     }
 
     /**
