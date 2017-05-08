@@ -67,7 +67,7 @@ final class TaskForm {
      * returns the id of the updated task.
      * @return
      */
-    Long getTaskId() {
+    private Long getTaskId() {
         List<WebElement> idElements = form.findElements(By.id("task-id"));
         if (idElements.size() == 1) {
             String taskId = idElements.get(0).getAttribute("value");
