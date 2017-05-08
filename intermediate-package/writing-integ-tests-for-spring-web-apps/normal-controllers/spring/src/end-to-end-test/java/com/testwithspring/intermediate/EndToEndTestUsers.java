@@ -7,6 +7,7 @@ public final class EndToEndTestUsers {
     public static class JohnDoe {
 
         public static final String EMAIL_ADDRESS = "john.doe@gmail.com";
+        public static final String NAME = "John Doe";
         public static final String PASSWORD = "user";
     }
 

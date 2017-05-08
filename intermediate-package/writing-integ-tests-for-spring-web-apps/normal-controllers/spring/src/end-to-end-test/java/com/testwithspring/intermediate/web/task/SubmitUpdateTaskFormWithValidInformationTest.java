@@ -76,7 +76,7 @@ public class SubmitUpdateTaskFormWithValidInformationTest {
         TaskPage viewTaskPage = updateTask();
         TaskLifeCycleFields lifeCycleFields = viewTaskPage.getTaskLifeCycleFields();
 
-        assertThat(lifeCycleFields.getModifierName()).isEqualTo(EndToEndTestTasks.WriteLesson.Modifier.NAME);
+        assertThat(lifeCycleFields.getModifierName()).isEqualTo(EndToEndTestUsers.JohnDoe.NAME);
     }
 
     @Test
