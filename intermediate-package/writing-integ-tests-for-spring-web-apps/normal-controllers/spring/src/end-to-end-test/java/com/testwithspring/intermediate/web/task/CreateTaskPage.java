@@ -4,38 +4,28 @@ import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import org.openqa.selenium.WebDriver;
 
 /**
- * This page object represents the update task page.
+ * This page object represents the create task page.
  */
-final class UpdateTaskPage {
+final class CreateTaskPage {
 
     private final WebDriver browser;
     private final String pageUrl;
-    private final Long taskId;
 
-    UpdateTaskPage(WebDriver browser, Long taskId) {
+    CreateTaskPage(WebDriver browser) {
         this.browser = browser;
-        this.pageUrl = WebDriverUrlBuilder.buildFromPath("/task/%d/update", taskId);
-        this.taskId = taskId;
+        this.pageUrl = WebDriverUrlBuilder.buildFromPath("/task/create");
     }
 
     /**
-     * Returns the page object that represents the update task form.
+     * Returns the page object that represents the create task form.
      * @return
      */
     TaskForm getForm() {
-        return new TaskForm(browser, "update-task-form");
+        return new TaskForm(browser, "create-task-form");
     }
 
     /**
-     * Returns the URL of the update task page.
-     * @return
-     */
-    String getPageUrl() {
-        return pageUrl;
-    }
-
-    /**
-     * Returns true if the update task page is open and false otherwise.
+     * Returns true if the create task page is open and false otherwise.
      * @return
      */
     boolean isOpen() {
@@ -43,11 +33,11 @@ final class UpdateTaskPage {
     }
 
     /**
-     * Opens the update task page.
-     * @return  The page object that represents the update task page.
+     * Opens the create task page.
+     * @return  The page object that represents the create task page.
      */
-    UpdateTaskPage open() {
+    CreateTaskPage open() {
         browser.get(pageUrl);
-        return new UpdateTaskPage(browser, taskId);
+        return new CreateTaskPage(browser);
     }
 }
