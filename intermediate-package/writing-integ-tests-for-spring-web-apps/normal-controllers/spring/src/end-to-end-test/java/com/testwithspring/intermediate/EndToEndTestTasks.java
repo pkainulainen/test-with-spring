@@ -85,4 +85,9 @@ public final class EndToEndTestTasks {
             }
         }
     }
+
+    public static class DeleteMe {
+
+        public static final Long ID = 3L;
+    }
 }
