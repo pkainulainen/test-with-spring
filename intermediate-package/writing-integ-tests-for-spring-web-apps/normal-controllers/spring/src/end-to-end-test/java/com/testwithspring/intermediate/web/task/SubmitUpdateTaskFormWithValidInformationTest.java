@@ -95,7 +95,7 @@ public class SubmitUpdateTaskFormWithValidInformationTest {
     }
 
     @After
-    public void logoutUser() {
+    public void logUserOut() {
         new NavigationBar(browser).logUserOut();
     }
 }

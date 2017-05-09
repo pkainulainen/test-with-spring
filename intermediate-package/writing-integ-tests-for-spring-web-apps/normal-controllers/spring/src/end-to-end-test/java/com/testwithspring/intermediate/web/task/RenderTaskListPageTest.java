@@ -101,7 +101,7 @@ public class RenderTaskListPageTest {
     }
 
     @After
-    public void logoutUser() {
+    public void logUserOut() {
         new NavigationBar(browser).logUserOut();
     }
 }

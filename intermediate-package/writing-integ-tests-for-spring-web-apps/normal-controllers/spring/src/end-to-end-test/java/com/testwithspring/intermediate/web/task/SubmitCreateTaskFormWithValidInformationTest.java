@@ -50,7 +50,7 @@ public class SubmitCreateTaskFormWithValidInformationTest {
     }
 
     @Test
-    public void shouldShowTitleOfCreated() {
+    public void shouldShowTitleOfCreatedTask() {
         TaskPage viewTaskPage = createTask();
         assertThat(viewTaskPage.getTaskTitle()).isEqualTo(TITLE);
     }
@@ -95,7 +95,7 @@ public class SubmitCreateTaskFormWithValidInformationTest {
     }
 
     @After
-    public void logoutUser() {
+    public void logUserOut() {
         new NavigationBar(browser).logUserOut();
     }
 }

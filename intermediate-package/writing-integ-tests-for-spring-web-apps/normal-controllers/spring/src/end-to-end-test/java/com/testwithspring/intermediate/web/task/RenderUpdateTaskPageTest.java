@@ -57,7 +57,7 @@ public class RenderUpdateTaskPageTest {
     }
 
     @After
-    public void logoutUser() {
+    public void logUserOut() {
         new NavigationBar(browser).logUserOut();
     }
 }
