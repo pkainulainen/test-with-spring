@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static com.testwithspring.intermediate.EndToEndTestUsers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SeleniumTestRunner.class)
@@ -31,7 +32,7 @@ public class RenderUpdateTaskPageTest {
 
     private void logUserIn() {
         LoginPage loginPage = new LoginPage(browser).open();
-        loginPage.login(EndToEndTestUsers.JohnDoe.EMAIL_ADDRESS, EndToEndTestUsers.JohnDoe.PASSWORD);
+        loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
     }
 
     @Test

@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static com.testwithspring.intermediate.EndToEndTestUsers.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SeleniumTestRunner.class)
@@ -34,7 +35,7 @@ public class SubmitCreateTaskFormWithValidInformationTest {
 
     private void logUserIn() {
         LoginPage loginPage = new LoginPage(browser).open();
-        loginPage.login(EndToEndTestUsers.JohnDoe.EMAIL_ADDRESS, EndToEndTestUsers.JohnDoe.PASSWORD);
+        loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
     }
 
     @Test
@@ -68,7 +69,7 @@ public class SubmitCreateTaskFormWithValidInformationTest {
         TaskPage viewTaskPage = createTask();
         TaskLifeCycleFields lifeCycleFields = viewTaskPage.getTaskLifeCycleFields();
 
-        assertThat(lifeCycleFields.getCreatorName()).isEqualTo(EndToEndTestUsers.JohnDoe.NAME);
+        assertThat(lifeCycleFields.getCreatorName()).isEqualTo(JohnDoe.NAME);
     }
 
     @Test
@@ -76,7 +77,7 @@ public class SubmitCreateTaskFormWithValidInformationTest {
         TaskPage viewTaskPage = createTask();
         TaskLifeCycleFields lifeCycleFields = viewTaskPage.getTaskLifeCycleFields();
 
-        assertThat(lifeCycleFields.getModifierName()).isEqualTo(EndToEndTestUsers.JohnDoe.NAME);
+        assertThat(lifeCycleFields.getModifierName()).isEqualTo(JohnDoe.NAME);
     }
 
     @Test
