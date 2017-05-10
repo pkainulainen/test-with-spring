@@ -41,7 +41,7 @@ public class SubmitUpdateTaskFormWithValidInformationTest {
     @Test
     public void shouldOpenViewTaskPage() {
         TaskPage viewTaskPage = updateTask();
-        assertThat(viewTaskPage.isOpen());
+        assertThat(viewTaskPage.isOpen()).isTrue();
     }
 
     @Test

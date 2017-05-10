@@ -45,7 +45,7 @@ public class RenderTaskListPageTest {
     @Test
     public void shouldOpenTaskListPage() {
         TaskListPage shown = taskListPage.open();
-        assertThat(shown.isOpen());
+        assertThat(shown.isOpen()).isTrue();
     }
 
     /**
@@ -77,7 +77,7 @@ public class RenderTaskListPageTest {
      * first task of our task list is rendered correctly.
      */
     @Test
-    public void shouldShowInformationOfFirstTask() {
+    public void shouldShowCorrectInformationOfFirstTask() {
         TaskListPage shown = taskListPage.open();
         TaskListItem first = shown.getListItems().get(0);
 
@@ -97,7 +97,7 @@ public class RenderTaskListPageTest {
         TaskListItem first = taskListPage.getListItems().get(0);
 
         TaskPage shown = first.viewTask();
-        assertThat(shown.isOpen());
+        assertThat(shown.isOpen()).isTrue();
     }
 
     @After
