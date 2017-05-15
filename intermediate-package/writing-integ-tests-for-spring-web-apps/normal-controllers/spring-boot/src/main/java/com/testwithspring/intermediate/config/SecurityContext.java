@@ -53,16 +53,17 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
+                    .loginPage("/user/login")
+                    .loginProcessingUrl("/user/login")
+                    .failureUrl("/user/login?error=bad_credentials")
                     .successForwardUrl("/")
                     .permitAll()
                     .and()
                 .logout()
                     .deleteCookies("JSESSIONID")
-                    .logoutUrl("/api/logout")
+                    .logoutUrl("/user/logout")
                     .logoutSuccessUrl("/")
-                .and()
+                    .and()
                 .authorizeRequests()
                 .anyRequest().hasRole("USER");
     }
