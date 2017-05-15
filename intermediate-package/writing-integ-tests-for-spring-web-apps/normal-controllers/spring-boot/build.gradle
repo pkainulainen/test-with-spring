@@ -53,7 +53,8 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-data-jpa',
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-security',
-            'org.springframework.boot:spring-boot-starter-thymeleaf'
+            'org.springframework.boot:spring-boot-starter-thymeleaf',
+            'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE'
     )
     testCompile(
             'org.springframework.boot:spring-boot-starter-test',
@@ -72,6 +73,10 @@ dependencies {
             //our integration tests.
     )
 }
+
+//Use Thymeleaf 3
+ext["thymeleaf.version"] = "3.0.6.RELEASE"
+ext["thymeleaf-layout-dialect.version"] = "2.2.1"
 
 test {
     useJUnit {
