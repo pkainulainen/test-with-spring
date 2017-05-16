@@ -54,7 +54,8 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-web',
             'org.springframework.boot:spring-boot-starter-security',
             'org.springframework.boot:spring-boot-starter-thymeleaf',
-            'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE'
+            'org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE',
+            'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.0.RELEASE'
     )
     testCompile(
             'org.springframework.boot:spring-boot-starter-test',

@@ -91,6 +91,11 @@
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
             <version>3.0.2.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+            <version>3.0.0.RELEASE</version>
+        </dependency>
         <!-- Testing Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
