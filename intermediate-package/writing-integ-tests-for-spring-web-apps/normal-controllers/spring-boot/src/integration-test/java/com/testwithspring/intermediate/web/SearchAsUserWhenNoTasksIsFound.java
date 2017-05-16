@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,6 +62,13 @@ public class SearchAsUserWhenNoTasksIsFound {
     public void shouldRenderSearchResultView() throws Exception {
         submitSearchForm()
                 .andExpect(view().name(WebTestConstants.View.SEARCH_RESULTS));
+    }
+
+    @Test
+    @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
+    public void shouldShowSearchTerm() throws Exception {
+        submitSearchForm()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.SEARCH_TERM, is(Tasks.SEARCH_TERM_NOT_FOUND)));
     }
 
     @Test

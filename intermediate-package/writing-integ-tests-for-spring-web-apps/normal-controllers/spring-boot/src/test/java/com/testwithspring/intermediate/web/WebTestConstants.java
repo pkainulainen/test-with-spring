@@ -64,6 +64,7 @@ public final class WebTestConstants {
         public static final String TASK = "task";
         public static final String TASK_ID = "taskId";
         public static final String TASK_LIST = "tasks";
+        public static final String SEARCH_TERM = "searchTerm";
     }
 
     /**

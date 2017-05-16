@@ -22,6 +22,7 @@ public class TaskSearchController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskSearchController.class);
 
+    private static final String MODEL_ATTRIBUTE_NAME_SEARCH_TERM = "searchTerm";
     private static final String MODEL_ATTRIBUTE_NAME_TASKS = "tasks";
     private static final String VIEW_NAME_SEARCH_RESULTS = "task/search-results";
 
@@ -47,6 +48,7 @@ public class TaskSearchController {
         List<TaskListDTO> searchResults = service.search(searchTerm);
         LOGGER.info("Found {} tasks by using a search term: {}", searchResults.size(), searchTerm);
 
+        model.addAttribute(MODEL_ATTRIBUTE_NAME_SEARCH_TERM, searchTerm);
         model.addAttribute(MODEL_ATTRIBUTE_NAME_TASKS, searchResults);
 
         return VIEW_NAME_SEARCH_RESULTS;

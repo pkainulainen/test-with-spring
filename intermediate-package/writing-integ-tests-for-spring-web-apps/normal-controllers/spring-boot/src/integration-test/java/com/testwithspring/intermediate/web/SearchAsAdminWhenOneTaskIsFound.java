@@ -65,6 +65,13 @@ public class SearchAsAdminWhenOneTaskIsFound {
 
     @Test
     @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
+    public void shouldShowSearchTerm() throws Exception {
+        submitSearchForm()
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.SEARCH_TERM, is(Tasks.SEARCH_TERM_ONE_MATCH)));
+    }
+
+    @Test
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     public void shouldShowOneTask() throws Exception {
         submitSearchForm()
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(1)));
