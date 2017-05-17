@@ -25,9 +25,12 @@ apply plugin: 'org.unbroken-dome.test-sets'
 
 testSets {
     integrationTest { dirName = 'integration-test' }
+    endToEndTest { dirName = 'end-to-end-test' }
 }
 
 check.dependsOn integrationTest
+check.dependsOn endToEndTest
+endToEndTest.mustRunAfter integrationTest
 integrationTest.mustRunAfter test
 
 tasks.withType(Test) {
@@ -91,6 +94,15 @@ test {
 integrationTest {
     useJUnit {
         includeCategories 'com.testwithspring.intermediate.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+endToEndTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.EndToEndTest'
     }
     testLogging {
         showStandardStreams = true
