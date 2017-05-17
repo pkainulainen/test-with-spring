@@ -39,3 +39,23 @@ You can run integration tests by using either Maven or Gradle.
 ### Running Integration Tests With Maven
 
     mvn clean verify -P integration-test
+
+### Running Integration Tests With Gradle
+
+You can run integration tests by using the following command:
+
+	gradle clean integrationTest
+	
+## Running End-to-End Tests
+
+You can run end-to-end tests by using either Maven or Gradle.
+
+### Running End-to-End Tests With Maven
+
+    mvn clean verify -P end-to-end-test
+
+### Running End-to-End Tests With Gradle
+
+You can run end-to-end tests by using the following command:
+
+	gradle clean endToEndTest	
