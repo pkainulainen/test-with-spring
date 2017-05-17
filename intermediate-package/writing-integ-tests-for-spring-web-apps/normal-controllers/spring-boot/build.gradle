@@ -62,7 +62,7 @@ dependencies {
     )
     testCompile(
             'org.springframework.boot:spring-boot-starter-test',
-            'org.assertj:assertj-core:3.5.2',
+            'org.assertj:assertj-core:3.7.0',
             'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
             'info.solidsoft.mockito:mockito-java8:0.3.1'
     )
