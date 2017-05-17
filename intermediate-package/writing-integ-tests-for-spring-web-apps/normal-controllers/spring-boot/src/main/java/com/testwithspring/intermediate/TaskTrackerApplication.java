@@ -28,7 +28,7 @@ public class TaskTrackerApplication {
 
     public static final Locale LOCALE = Locale.ENGLISH;
 
-    @Profile(Profiles.APPLICATION)
+    @Profile({Profiles.APPLICATION, Profiles.END_TO_END_TEST})
     @Bean
     DateTimeService currentTimeDateTimeService() {
         return new CurrentTimeDateTimeService();
@@ -45,7 +45,7 @@ public class TaskTrackerApplication {
         return new AuditingDateTimeProvider(dateTimeService);
     }
 
-    @Profile(Profiles.INTEGRATION_TEST)
+    @Profile({Profiles.INTEGRATION_TEST, Profiles.END_TO_END_TEST})
     @Bean
     LocaleResolver fixedLocaleResolver() {
         return new FixedLocaleResolver(LOCALE);
