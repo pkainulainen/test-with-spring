@@ -37,7 +37,7 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
 )
 @ActiveProfiles(Profiles.END_TO_END_TEST)
 @Category(EndToEndTest.class)
-public class SubmitCreatTaskFormWithValidInformationTest {
+public class SubmitCreateTaskFormWithValidInformationTest {
 
     private static final String DESCRIPTION = "This is a new lesson";
     private static final String TITLE = "Write an extra lesson";
