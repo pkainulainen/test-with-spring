@@ -38,7 +38,7 @@
                 <span id="modification-time" th:text="${#temporals.format(task.modificationTime, 'yyyy-MM-dd H:mm:ss')}">
             </span>
             </div>
-            <div id="closed-task-fields" class="col-md-3" th:if="${task.status == 'CLOSED'}">
+            <div id="closed-task-fields" class="col-md-3" th:if="${task.status.name() == 'CLOSED'}">
                 <span th:text="#{page.view.task.closer.description.prefix}"></span>
                 <span id="closer-name" th:text="${task.closer.name}"></span>
                 <span th:text="#{page.view.task.timestamp.prefix}"></span>
