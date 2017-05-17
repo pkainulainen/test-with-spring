@@ -1,7 +1,11 @@
 package com.testwithspring.intermediate.web.task;
 
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This page object is use dto interact with the task list page.
@@ -14,6 +18,24 @@ public final class TaskListPage {
     public TaskListPage(WebDriver browser) {
         this.browser = browser;
         this.pageUrl = WebDriverUrlBuilder.buildFromPath("/");
+    }
+
+    /**
+     * Finds the tasks that are shown on the task list page.
+     * @return
+     */
+    List<TaskListItem> getListItems() {
+        List<TaskListItem> listItems = new ArrayList<>();
+        browser.findElements(By.className("task-list-item")).forEach(e -> listItems.add(new TaskListItem(browser, e)));
+        return listItems;
+    }
+
+    /**
+     * Returns the url of the task list page.
+     * @return
+     */
+    String getPageUrl() {
+        return pageUrl;
     }
 
     /**
