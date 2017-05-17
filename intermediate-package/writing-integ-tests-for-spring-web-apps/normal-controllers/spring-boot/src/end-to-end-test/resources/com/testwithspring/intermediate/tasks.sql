@@ -8,6 +8,8 @@ INSERT INTO tasks
 VALUES
   (2, null, null, now(), 1, 'This lesson talks about end-to-end testing', now(), 1, null, 'OPEN', 'Write lesson', 0);
 
+ALTER TABLE tasks ALTER COLUMN id RESTART WITH 3;
+
 -- Tags
 INSERT INTO tags
 (id, creation_time, modification_time, name, version)
@@ -17,6 +19,8 @@ INSERT INTO tags
 (id, creation_time, modification_time, name, version)
 VALUES
   (2, now(), now(), 'lesson', 0);
+
+ALTER TABLE tags ALTER COLUMN id RESTART WITH 3;
 
 INSERT INTO tasks_tags (task_id, tag_id) VALUES (1, 1);
 INSERT INTO tasks_tags (task_id, tag_id) VALUES (2, 2);
