@@ -96,7 +96,7 @@ dependencies {
             'org.glassfish.web:el-impl:2.2',
             'junit:junit',
             'org.hamcrest:hamcrest-library',
-            'org.assertj:assertj-core:3.5.2',
+            'org.assertj:assertj-core:3.7.0',
             'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
             'org.mockito:mockito-core',
             'info.solidsoft.mockito:mockito-java8:0.3.1',
