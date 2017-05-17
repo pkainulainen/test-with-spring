@@ -48,7 +48,17 @@ You can run integration tests by using the following command:
 	
 ## Running End-to-End Tests
 
-You can run end-to-end tests by using either Maven or Gradle.
+### Prerequisites
+
+You have to configure your local development enviroment by following these steps:
+
+1. [Download ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+2. Unpackage the downloaded archive.
+3. Ensure that the archive is found from the path. 
+
+If you need more details about this setup, take a look at the following resources:
+
+* [ChromeDriver Documentation - Getting Started](https://sites.google.com/a/chromium.org/chromedriver/getting-started)
 
 ### Running End-to-End Tests With Maven
 
