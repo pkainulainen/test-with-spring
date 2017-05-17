@@ -1,6 +1,7 @@
 package com.testwithspring.intermediate.web.login;
 
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
+import com.testwithspring.intermediate.web.task.TaskListPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -57,6 +58,14 @@ public final class LoginPage {
     }
 
     /**
+     * Returns true if the login error alert is visible on the page and false otherwise.
+     * @return
+     */
+    boolean isLoginAlertVisible() {
+        return !browser.findElements(By.id(LOGIN_ERROR_ALERT_ID)).isEmpty();
+    }
+
+    /**
      * Returns true if login form is not visible and false otherwise.
      * @return
      */
@@ -69,5 +78,54 @@ public final class LoginPage {
      */
     boolean isOpen() {
         return browser.getCurrentUrl().equals(pageUrl);
+    }
+
+    /**
+     * @return true if the login page is open with login error url and false otherwise.
+     */
+    boolean isOpenWithLoginErrorUrl() {
+        return browser.getCurrentUrl().equals(pageUrl + "?error=bad_credentials");
+    }
+
+    /**
+     * Logs the user in by using the provided email address and password. This
+     * method expects that the provided email address and password are correct.
+     * @param emailAddress
+     * @param password
+     * @return The page object that symbolizes the task list page.
+     */
+    public TaskListPage login(String emailAddress, String password) {
+        typeEmailAddress(emailAddress);
+        typePassword(password);
+        submitLoginForm();
+
+        return new TaskListPage(browser);
+    }
+
+    /**
+     * Logs user in by using the provided email address and password. This method
+     * expects that the provided email address and/or password are not correct.
+     * @param emailAddress
+     * @param password
+     * @return The page object that symbolizes the login page.
+     */
+    LoginPage loginAndExpectFailure(String emailAddress, String password) {
+        typeEmailAddress(emailAddress);
+        typePassword(password);
+        submitLoginForm();
+
+        return new LoginPage(browser);
+    }
+
+    private void typeEmailAddress(String emailAddress) {
+        browser.findElement(By.id(EMAIL_ADDRESS_INPUT_ID)).sendKeys(emailAddress);
+    }
+
+    private void typePassword(String password) {
+        browser.findElement(By.id(PASSWORD_INPUT_ID)).sendKeys(password);
+    }
+
+    private void submitLoginForm() {
+        browser.findElement(By.id(LOGIN_FORM_ID)).submit();
     }
 }
