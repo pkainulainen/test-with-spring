@@ -44,4 +44,13 @@ public final class TaskListPage {
     public boolean isOpen() {
         return browser.getCurrentUrl().equals(pageUrl);
     }
+
+    /**
+     * Opens the task list page.
+     * @return The page object that symbolizes the opened page.
+     */
+    public TaskListPage open() {
+        browser.get(pageUrl);
+        return new TaskListPage(browser);
+    }
 }
