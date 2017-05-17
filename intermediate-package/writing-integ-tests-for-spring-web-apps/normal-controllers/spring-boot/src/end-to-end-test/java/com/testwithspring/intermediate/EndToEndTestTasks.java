@@ -11,6 +11,8 @@ public final class EndToEndTestTasks {
 
     private EndToEndTestTasks() {}
 
+    public static final Long NEW_TASK_ID = 3L;
+
     public static final Long TASK_ID_NOT_FOUND = 599L;
     public static final String SEARCH_TERM_ONE_MATCH = "Esso";
     public static final String SEARCH_TERM_TWO_MATCHES = "This";
