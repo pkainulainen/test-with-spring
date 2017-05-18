@@ -34,7 +34,8 @@ module.exports = {
             './bower_components/angular-ui-router/release/angular-ui-router.min.js',
             './bower_components/angular-bootstrap/ui-bootstrap.min.js',
             './bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            './bower_components/angular-http-auth/src/http-auth-interceptor.js'
+            './bower_components/angular-http-auth/src/http-auth-interceptor.js',
+            './app/vendor/spring-security-csrf-token-interceptor/spring-security-csrf-token-interceptor.js'
         ]
     },
 

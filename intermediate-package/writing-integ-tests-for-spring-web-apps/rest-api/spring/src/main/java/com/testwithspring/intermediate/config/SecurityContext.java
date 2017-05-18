@@ -1,6 +1,7 @@
 package com.testwithspring.intermediate.config;
 
 import com.testwithspring.intermediate.user.UserRole;
+import com.testwithspring.intermediate.web.security.CSRFHeaderFilter;
 import com.testwithspring.intermediate.web.security.RestAuthenticationFailureHandler;
 import com.testwithspring.intermediate.web.security.RestAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 import javax.sql.DataSource;
 
@@ -77,7 +79,9 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                         "/",
                         "/api/csrf"
                 ).permitAll()
-                .anyRequest().hasRole("USER");
+                .anyRequest().hasRole("USER")
+                .and()
+                .addFilterAfter(new CSRFHeaderFilter(), CsrfFilter.class);
     }
 
     @Override
