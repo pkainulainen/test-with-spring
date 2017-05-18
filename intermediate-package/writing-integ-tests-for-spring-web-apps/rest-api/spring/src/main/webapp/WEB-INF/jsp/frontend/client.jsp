@@ -10,8 +10,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=768">
     <meta name="description" content="">
-    <!-- The base URL for Angular SPA app in HTML5 mode -->
-    <base href="${contextPath}/" />
 
     <title translate="app.title.label"></title>
     <link rel="stylesheet" type="text/css" href="${contextPath}/css/app.css">

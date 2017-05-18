@@ -16,8 +16,7 @@ angular.module('app.common.config', [])
             $state.go("task.list");
         });
 
-        // Use HTML5 mode for routes. The base path is configured in the head-section of 'client.jsp'.
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     }])
 
     .config(['$translateProvider', function ($translateProvider) {
