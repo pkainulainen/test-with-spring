@@ -15,6 +15,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
@@ -46,6 +47,11 @@ public class WebMvcContext extends WebMvcConfigurerAdapter {
                 .build();
 
         converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
+    }
+
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("/WEB-INF/jsp/", ".jsp");
     }
 
     @Profile(Profiles.INTEGRATION_TEST)

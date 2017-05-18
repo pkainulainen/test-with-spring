@@ -11,6 +11,7 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -60,18 +61,35 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                     .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                     .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/login")
+                    .loginPage("/user/login")
+                    .loginProcessingUrl("/user/login")
                     .failureHandler(new RestAuthenticationFailureHandler())
                     .successHandler(new RestAuthenticationSuccessHandler())
                     .permitAll()
                     .and()
                 .logout()
                     .deleteCookies("JSESSIONID")
-                    .logoutUrl("/api/logout")
+                    .logoutUrl("/user/logout")
                     .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
+                .antMatchers(
+                        "/",
+                        "/api/csrf"
+                ).permitAll()
                 .anyRequest().hasRole("USER");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                //Spring Security ignores request to static resources such as CSS or JS files.
+                .ignoring()
+                .antMatchers(
+                        "/favicon.ico",
+                        "/css/**",
+                        "/i18n/**",
+                        "/js/**"
+                );
     }
 }
