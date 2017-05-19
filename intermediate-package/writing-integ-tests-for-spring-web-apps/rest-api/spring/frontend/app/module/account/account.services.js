@@ -42,6 +42,28 @@ angular.module('app.account.services', ['ngResource'])
                 isAuthenticated: function() {
                     logger.debug('Checking if user: %j is authenticated.', AuthenticatedUser);
                     return AuthenticatedUser.username;
-                }
+                },
+                logIn: function(username, password) {
+                    logger.info('Logging in user with username: %s', username);
+
+                    var transform = function(data){
+                        return $.param(data);
+                    };
+
+                    $http.post('/api/login', {username: username, password: password}, {
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                        ignoreAuthModule: true,
+                        transformRequest: transform
+                    })
+                        .success(function(user) {
+                            logger.info('Login successful for user: %j', user);
+                            AuthenticatedUser.create(user.username, user.role);
+                            $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                        })
+                        .error(function() {
+                            logger.info('Login failed');
+                            $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+                        });
+                },
             };
         }]);

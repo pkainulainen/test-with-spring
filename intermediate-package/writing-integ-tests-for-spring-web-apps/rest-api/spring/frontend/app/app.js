@@ -19,7 +19,7 @@ var App = angular.module('app', [
     'app.common.config',
 
     //Account
-    'app.account.config', 'app.account.services', 'app.account.controllers',
+    'app.account.config', 'app.account.directives', 'app.account.services', 'app.account.controllers',
 
     //Tasks
     'app.task.controllers'

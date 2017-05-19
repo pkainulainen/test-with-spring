@@ -1,4 +1,20 @@
 {
   "app.title.label": "Test With Spring - SPA Example",
-  "header.brand.label": "Test With Spring"
+  "header.brand.label": "Test With Spring",
+  "directive": {
+    "login.form": {
+      "authenticated.user.error.message": "You are already logged in.",
+      "email.address": {
+        "label": "Email Address",
+        "placeholder": "Email Address"
+      },
+      "submit.button.label": "Login",
+      "login.failed.error.message": "Login failed",
+      "password": {
+        "label": "Password",
+        "placeholder": "Password"
+      }
+    }
+  },
+  "page.login.title": "Login"
 }
