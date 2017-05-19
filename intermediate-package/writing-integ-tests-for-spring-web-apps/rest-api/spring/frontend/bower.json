@@ -19,6 +19,7 @@
     "angular-resource": "~1.4.7",
     "angular-cookies": "~1.4.7",
     "angular-dialog-service": "~5.2.11",
+    "angular-growl-v2": "0.7.9",
     "angular-mocks": "~1.4.7",
     "angular-loader": "~1.4.7",
     "angular-http-auth": "~1.2.2",

@@ -22,6 +22,7 @@ module.exports = {
             './bower_components/angular/angular.min.js',
             './bower_components/angular-i18n/angular-locale_fi-fi.js',
             './bower_components/angular-cookies/angular-cookies.min.js',
+            './bower_components/angular-growl-v2/build/angular-growl.min.js',
             './bower_components/angular-resource/angular-resource.min.js',
             './bower_components/angular-sanitize/angular-sanitize.min.js',
             './bower_components/angular-logger/dist/angular-logger.min.js',

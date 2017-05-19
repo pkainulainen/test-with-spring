@@ -16,7 +16,7 @@ var App = angular.module('app', [
     'templates',
 
     //Common
-    'app.common.config',
+    'app.common.config', 'app.common.services',
 
     //Account
     'app.account.config', 'app.account.directives', 'app.account.services', 'app.account.controllers',
