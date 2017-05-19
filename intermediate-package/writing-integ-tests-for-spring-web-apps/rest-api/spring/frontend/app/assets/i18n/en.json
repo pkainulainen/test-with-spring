@@ -18,7 +18,10 @@
     "logout.button.button.label": "Logout"
   },
   "page": {
-    "login.title": "Login",
+    "login": {
+      "authenticated.user.error.message": "You are already logged in.",
+      "title": "Login"
+    },
     "task.list": {
       "size.message": "Found {{taskCount}} tasks from the database.",
       "title": "Tasks"

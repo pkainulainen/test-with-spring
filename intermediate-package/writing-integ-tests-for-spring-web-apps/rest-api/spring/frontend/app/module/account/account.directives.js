@@ -39,6 +39,7 @@ angular.module('app.account.directives', [])
             },
             templateUrl: 'account/login-form-directive.html',
             scope: {
+                currentUser: '='
             }
         };
     }]);
