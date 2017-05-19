@@ -17,5 +17,20 @@
     },
     "logout.button.button.label": "Logout"
   },
-  "page.login.title": "Login"
+  "page": {
+    "login.title": "Login",
+    "task.list": {
+      "size.message": "Found {{taskCount}} tasks from the database.",
+      "title": "Tasks"
+    }
+  },
+  "task.property": {
+    "title.header": "Title",
+    "status.header": "Status"
+  },
+  "TaskStatus": {
+    "CLOSED": "Closed",
+    "IN_PROGRESS": "In progress",
+    "OPEN": "Open"
+  }
 }

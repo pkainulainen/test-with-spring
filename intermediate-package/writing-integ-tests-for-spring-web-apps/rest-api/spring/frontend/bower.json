@@ -22,16 +22,16 @@
     "angular-mocks": "~1.4.7",
     "angular-loader": "~1.4.7",
     "angular-http-auth": "~1.2.2",
-    "angular-translate": "~2.8.1",
-    "angular-translate-storage-cookie": "~2.8.1",
-    "angular-translate-loader-static-files": "~2.8.1",
-    "angular-translate-handler-log": "~2.8.1",
+    "angular-translate": "~2.15.1",
+    "angular-translate-storage-cookie": "~2.15.1",
+    "angular-translate-loader-static-files": "~2.15.1",
+    "angular-translate-handler-log": "~2.15.1",
     "angular-ui-router": "~0.2.15",
     "script.js": "~2.5.7"
   },
   "resolutions": {
     "angular": "~1.4.7",
     "angular-bootstrap": "~2.5.0",
-    "angular-translate": "~2.8.1"
+    "angular-translate": "~2.15.1"
   }
 }

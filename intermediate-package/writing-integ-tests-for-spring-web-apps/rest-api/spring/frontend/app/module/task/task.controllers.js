@@ -13,11 +13,17 @@ angular.module('app.task.controllers', [])
                     authenticate: true,
                     url: '',
                     controller: 'TaskListController',
-                    templateUrl: 'task/task-list-view.html'
+                    templateUrl: 'task/task-list-view.html',
+                    resolve: {
+                        tasks: ['TaskService', function(TaskService) {
+                            return TaskService.findAll();
+                        }]
+                    }
                 });
         }
     ])
-    .controller('TaskListController', ['$log', '$scope', function($log) {
+    .controller('TaskListController', ['$log', '$scope', 'tasks', function($log, $scope, tasks) {
         var logger = $log.getInstance('app.task.controllers.TaskListController');
-        logger.info('Rendering task list view');
+        logger.info('Rendering task list view with %s tasks', tasks.length);
+        $scope.tasks = tasks;
     }]);

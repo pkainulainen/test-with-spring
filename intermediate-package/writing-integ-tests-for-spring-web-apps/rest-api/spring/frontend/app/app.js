@@ -22,7 +22,7 @@ var App = angular.module('app', [
     'app.account.config', 'app.account.directives', 'app.account.services', 'app.account.controllers',
 
     //Tasks
-    'app.task.controllers'
+    'app.task.controllers', 'app.task.directives', 'app.task.services'
 
 ]);
 
