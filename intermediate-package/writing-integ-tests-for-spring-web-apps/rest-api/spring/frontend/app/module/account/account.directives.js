@@ -1,6 +1,23 @@
 'use strict';
 
 angular.module('app.account.directives', [])
+    .directive('logOutButton', ['$log', 'AuthenticationService', function ($log, AuthenticationService) {
+
+        var logger = $log.getInstance('app.account.directives.logOutButton');
+
+        return {
+            link: function (scope, element, attr) {
+                scope.logOut = function() {
+                    logger.info('Logging user out.');
+                    AuthenticationService.logOut();
+                };
+            },
+            templateUrl: 'account/logout-button-directive.html',
+            scope: {
+                currentUser: '='
+            }
+        };
+    }])
     .directive('loginForm', ['$log', 'AUTH_EVENTS', 'AuthenticationService', function ($log, AUTH_EVENTS, AuthenticationService) {
 
         var logger = $log.getInstance('app.account.directives.loginForm');

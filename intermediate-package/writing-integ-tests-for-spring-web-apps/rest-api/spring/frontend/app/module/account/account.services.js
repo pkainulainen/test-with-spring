@@ -65,5 +65,15 @@ angular.module('app.account.services', ['ngResource'])
                             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
                         });
                 },
+                logOut: function() {
+                    if (this.isAuthenticated()) {
+                        $http.post('/api/logout', {})
+                            .success(function() {
+                                logger.info('User is logged out.');
+                                AuthenticatedUser.destroy();
+                                $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
+                            });
+                    }
+                }
             };
         }]);

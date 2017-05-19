@@ -70,7 +70,7 @@ public class SecurityContext extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .deleteCookies("JSESSIONID")
-                    .logoutUrl("/user/logout")
+                    .logoutUrl("/api/logout")
                     .logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()

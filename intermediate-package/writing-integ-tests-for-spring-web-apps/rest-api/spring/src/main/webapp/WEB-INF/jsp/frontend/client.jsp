@@ -52,6 +52,7 @@
                 </button>
                 <a class="navbar-brand" href="https://www.testwithspring.com">TestWithSpring.com</a>
             </div>
+            <div class="pull-right" log-out-button current-user="currentUser"></div>
         </div>
     </nav>
 
