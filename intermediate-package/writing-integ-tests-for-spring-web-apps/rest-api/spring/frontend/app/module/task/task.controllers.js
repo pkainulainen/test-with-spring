@@ -9,6 +9,12 @@ angular.module('app.task.controllers', [])
                     abstract: true,
                     template: '<ui-view/>'
                 })
+                .state('task.create', {
+                    authenticate: true,
+                    url: 'task/create',
+                    controller: 'CreateTaskController',
+                    templateUrl: 'task/create-task-view.html'
+                })
                 .state('task.list', {
                     authenticate: true,
                     url: '',
@@ -19,11 +25,26 @@ angular.module('app.task.controllers', [])
                             return TaskService.findAll();
                         }]
                     }
+                })
+                .state('task.view', {
+                    authenticate: true,
+                    url: 'task/:id',
+                    controller: 'ViewTaskController',
+                    templateUrl: 'task/view-task-view.html'
                 });
         }
     ])
+    .controller('CreateTaskController', ['$log', '$scope', function($log, $scope) {
+        var logger = $log.getInstance('app.task.controllers.CreateTaskController');
+        logger.info('Rendering create task view');
+        $scope.task = {};
+    }])
     .controller('TaskListController', ['$log', '$scope', 'tasks', function($log, $scope, tasks) {
         var logger = $log.getInstance('app.task.controllers.TaskListController');
         logger.info('Rendering task list view with %s tasks', tasks.length);
         $scope.tasks = tasks;
+    }])
+    .controller('ViewTaskController', ['$log', function($log) {
+        var logger = $log.getInstance('app.todo.controllers.ViewTodoController');
+        logger.info('Rendering view task view');
     }]);

@@ -52,7 +52,17 @@
                 </button>
                 <a class="navbar-brand" href="https://www.testwithspring.com">TestWithSpring.com</a>
             </div>
-            <div class="pull-right" log-out-button current-user="currentUser"></div>
+            <div id="example-menu-collapse" class="collapse navbar-collapse" ng-if="currentUser.username">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a id="create-task-link"
+                           ui-sref="task.create"
+                           translate="navigation.create.task.link.label">
+                        </a>
+                    </li>
+                </ul>
+                <div class="pull-right" log-out-button current-user="currentUser"></div>
+            </div>
         </div>
     </nav>
 

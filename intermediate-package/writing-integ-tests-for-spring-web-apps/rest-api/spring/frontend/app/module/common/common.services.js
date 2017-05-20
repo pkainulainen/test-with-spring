@@ -28,8 +28,11 @@ angular.module('app.common.services', [])
 
         // Public API
         return {
-            info: function (message) {
-                flashMessageQueue.push({message: message, type: 'info'});
+            error: function(message) {
+                flashMessageQueue.push({message: message, type: 'errors'});
+            },
+            success: function (message) {
+                flashMessageQueue.push({message: message, type: 'success'});
             }
         };
     }]);

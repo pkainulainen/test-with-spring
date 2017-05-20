@@ -15,9 +15,16 @@
         "placeholder": "Password"
       }
     },
-    "logout.button.button.label": "Logout"
+    "logout.button.button.label": "Logout",
+    "task.form.submit.button.label": "Save"
+  },
+  "navigation": {
+    "create.task.link.label": "Create new task"
   },
   "page": {
+    "create.task": {
+      "title": "Create New Task"
+    },
     "login": {
       "authenticated.user.error.message": "You are already logged in.",
       "title": "Login"
@@ -27,9 +34,28 @@
       "title": "Tasks"
     }
   },
-  "task.property": {
-    "title.header": "Title",
-    "status.header": "Status"
+  "task": {
+    "messages": {
+      "description.maxLength": "The maximum length of the description is 500 characters",
+      "title": {
+        "maxLength": "The maximum length of the title is 100 characters",
+        "required": "The title of the task must be given"
+      },
+      "notification": {
+        "create": {
+          "error": "A new task could not be created because an error occurred",
+          "success": "A new task was created successfully"
+        }
+      }
+    },
+    "property": {
+      "description.label": "Description",
+      "title": {
+        "header": "Title",
+        "label": "Title"
+      },
+      "status.header": "Status"
+    }
   },
   "TaskStatus": {
     "CLOSED": "Closed",

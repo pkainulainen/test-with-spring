@@ -2,6 +2,7 @@
 
 var App = angular.module('app', [
     'angular-logger',
+    'angular-growl',
     'ngCookies',
     'ngResource',
     'ngSanitize',
