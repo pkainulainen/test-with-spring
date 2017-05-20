@@ -40,12 +40,12 @@
       "title": {
         "maxLength": "The maximum length of the title is 100 characters",
         "required": "The title of the task must be given"
-      },
-      "notification": {
-        "create": {
-          "error": "A new task could not be created because an error occurred",
-          "success": "A new task was created successfully"
-        }
+      }
+    },
+    "notifications": {
+      "create": {
+        "error": "A new task could not be created because an error occurred",
+        "success": "A new task was created successfully"
       }
     },
     "property": {
