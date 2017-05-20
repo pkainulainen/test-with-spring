@@ -1,7 +1,16 @@
 {
   "app.title.label": "Test With Spring - SPA Example",
   "header.brand.label": "Test With Spring",
+  "dialogs": {
+    "delete.task.dialog": {
+      "cancel.button.label": "Cancel",
+      "delete.button.label": "Delete",
+      "text": "Are you sure that you want to delete the task with title: {{title}}?",
+      "title": "Delete task?"
+    }
+  },
   "directive": {
+    "delete.task.link.label": "Delete",
     "login.form": {
       "authenticated.user.error.message": "You are already logged in.",
       "email.address": {
@@ -57,6 +66,10 @@
       "create": {
         "error": "A new task could not be created because an error occurred",
         "success": "A new task was created successfully"
+      },
+      "delete": {
+        "error": "The task could not be deleted because an error occurred",
+        "success": "The task was deleted successfully"
       },
       "update": {
         "error": "The information of the task could not be updated because an error occurred",

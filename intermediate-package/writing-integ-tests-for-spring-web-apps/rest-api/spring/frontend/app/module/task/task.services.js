@@ -24,6 +24,19 @@ angular.module('app.task.services', ['ngResource'])
                         errorCallback(error);
                     });
             },
+            delete: function(task, successCallback, errorCallback) {
+                logger.info('Deleting task entry: %j', task);
+                return api.delete(task,
+                    function(deleted) {
+                        logger.info('Deleted task entry: %j', deleted);
+                        successCallback(deleted);
+                    },
+                    function(error) {
+                        logger.error('Deleting the task failed because of an error: %j', error);
+                        errorCallback(error);
+                    }
+                );
+            },
             findAll: function() {
                 logger.info('Finding all tasks.');
                 return api.query();
