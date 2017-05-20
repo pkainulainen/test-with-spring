@@ -25,7 +25,11 @@
       }
     },
     "logout.button.button.label": "Logout",
-    "task.form.submit.button.label": "Save"
+    "task.form.submit.button.label": "Save",
+    "search": {
+      "term.field.placeholder": "Search",
+      "missing.characters.text": "{{missingCharCount}} characters missing"
+    }
   },
   "navigation": {
     "create.task.link.label": "Create new task",
@@ -42,6 +46,10 @@
     "task.list": {
       "size.message": "Found {{taskCount}} tasks from the database.",
       "title": "Tasks"
+    },
+    "search.results": {
+      "title": "Search Results",
+      "size.message": "Found {{taskCount}} tasks with search term: {{searchTerm}}"
     },
     "update.task.title": "Update Task",
     "view.task": {

@@ -68,6 +68,7 @@
                     </li>
                 </ul>
                 <div class="pull-right" log-out-button current-user="currentUser"></div>
+                <div class="pull-right" search-form current-user="currentUser"></div>
             </div>
         </div>
     </nav>
