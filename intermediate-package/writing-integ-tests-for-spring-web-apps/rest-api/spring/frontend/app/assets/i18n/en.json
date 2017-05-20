@@ -39,6 +39,10 @@
     "create.task": {
       "title": "Create New Task"
     },
+    "forbidden": {
+      "title": "Forbidden",
+      "text": "You don't have the permission to access the requested page."
+    },
     "login": {
       "authenticated.user.error.message": "You are already logged in.",
       "title": "Login"
