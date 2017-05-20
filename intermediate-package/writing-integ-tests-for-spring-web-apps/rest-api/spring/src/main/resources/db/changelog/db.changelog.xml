@@ -158,4 +158,8 @@
             <column name="version" value="0"/>
         </insert>
     </changeSet>
+    <changeSet id="10-insert-e2e-test-data" author="Petri Kainulainen" context="end-to-end-test">
+        <sqlFile path="test-data/users.sql" relativeToChangelogFile="true" encoding="UTF-8"/>
+        <sqlFile path="test-data/tasks.sql" relativeToChangelogFile="true" encoding="UTF-8"/>
+    </changeSet>
 </databaseChangeLog>

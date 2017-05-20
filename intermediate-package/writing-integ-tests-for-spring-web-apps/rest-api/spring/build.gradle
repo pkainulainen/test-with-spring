@@ -12,6 +12,7 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.unbroken-dome.test-sets'
 apply plugin: 'org.akhikhl.gretty'
@@ -26,9 +27,12 @@ apply plugin: 'org.akhikhl.gretty'
 
 testSets {
     integrationTest { dirName = 'integration-test' }
+    endToEndTest { dirName = 'end-to-end-test' }
 }
 
 check.dependsOn integrationTest
+check.dependsOn endToEndTest
+endToEndTest.mustRunAfter integrationTest
 integrationTest.mustRunAfter test
 
 tasks.withType(Test) {
@@ -44,7 +48,15 @@ gretty {
     contextPath = '/'
     extraResourceBase 'frontend/build'
     servletContainer = 'jetty9.3'
-    systemProperty 'spring.profiles.active', 'application'
+
+    if (gradle.startParameter.taskNames.contains('endToEndTest')) {
+        systemProperty 'spring.profiles.active', 'endToEndTest'
+    }
+    else {
+        systemProperty 'spring.profiles.active', 'application'
+    }
+
+    integrationTestTask = 'endToEndTest'
 }
 
 repositories {
@@ -108,6 +120,11 @@ dependencies {
             //Add dependencies that are required to run
             //our integration tests.
     )
+    endToEndTestCompile(
+            'com.google.guava:guava:21.0',
+            'org.seleniumhq.selenium:selenium-java:3.3.1',
+            'org.seleniumhq.selenium:selenium-support:3.3.1'
+    )
 }
 
 test {
@@ -126,4 +143,14 @@ integrationTest {
     testLogging {
         showStandardStreams = true
     }
+}
+
+endToEndTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.EndToEndTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+    systemProperty 'webdriver.base.url', 'http://localhost:8080/'
 }
