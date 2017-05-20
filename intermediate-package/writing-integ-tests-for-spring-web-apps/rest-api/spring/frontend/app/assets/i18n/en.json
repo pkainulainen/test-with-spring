@@ -19,7 +19,8 @@
     "task.form.submit.button.label": "Save"
   },
   "navigation": {
-    "create.task.link.label": "Create new task"
+    "create.task.link.label": "Create new task",
+    "task.list.link.label": "Task list"
   },
   "page": {
     "create.task": {

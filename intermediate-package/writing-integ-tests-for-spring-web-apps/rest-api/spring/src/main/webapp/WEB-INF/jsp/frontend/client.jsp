@@ -55,6 +55,12 @@
             <div id="example-menu-collapse" class="collapse navbar-collapse" ng-if="currentUser.username">
                 <ul class="nav navbar-nav">
                     <li>
+                        <a id="task-list-link"
+                           ui-sref="task.list"
+                           translate="navigation.task.list.link.label">
+                        </a>
+                    </li>
+                    <li>
                         <a id="create-task-link"
                            ui-sref="task.create"
                            translate="navigation.create.task.link.label">
