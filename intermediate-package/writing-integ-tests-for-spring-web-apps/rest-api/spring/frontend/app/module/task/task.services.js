@@ -43,7 +43,20 @@ angular.module('app.task.services', ['ngResource'])
             },
             findById: function(id) {
                 logger.info('Finding task by id: %s', id);
-                return api.get({id: id}).$promise;
+
+                //We need to strip zone id from the returned timestamp string
+                //because it is not supported by Moment.js
+                function stripZoneIdFromTimestamp(timestamp) {
+                    if (timestamp) {
+                        timestamp = timestamp.split("[")[0];
+                    }
+                    return timestamp;
+                }
+
+                return api.get({id: id}, function(found) {
+                    found.creationTime = stripZoneIdFromTimestamp(found.creationTime);
+                    found.modificationTime = stripZoneIdFromTimestamp(found.modificationTime);
+                });
             },
             update: function(task, successCallback, errorCallback) {
                 logger.info('Updating task: %j', task);

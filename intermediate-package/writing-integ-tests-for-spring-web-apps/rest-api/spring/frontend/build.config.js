@@ -20,7 +20,6 @@ module.exports = {
             './bower_components/console-polyfill/index.js',
             './bower_components/lodash/lodash.min.js',
             './bower_components/moment/min/moment-with-locales.min.js',
-            './bower_components/moment-timezone/builds/moment-timezone-with-data.min.js',
             './bower_components/angular/angular.min.js',
             './bower_components/angular-i18n/angular-locale_fi-fi.js',
             './bower_components/angular-cookies/angular-cookies.min.js',

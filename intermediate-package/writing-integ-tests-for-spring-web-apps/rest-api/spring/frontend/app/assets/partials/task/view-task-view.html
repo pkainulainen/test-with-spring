@@ -19,19 +19,19 @@
             <span translate="page.view.task.creator.description.prefix"></span>
             <span id="creator-name">{{task.creator.name}}</span>
             <span translate="page.view.task.timestamp.prefix"></span>
-            <span id="creation-time">{{task.creationTime}}</span>
+            <span id="creation-time">{{task.creationTime | amDateFormat:'YYYY-MM-DD H:mm:ss'}}</span>
         </div>
         <div class="col-md-3">
             <span translate="page.view.task.modifier.description.prefix"></span>
             <span id="modifier-name">{{task.modifier.name}}</span>
             <span translate="page.view.task.timestamp.prefix"></span>
-            <span id="modification-time">{{task.modificationTime}}</span>
+            <span id="modification-time">{{task.modificationTime | amDateFormat:'YYYY-MM-DD H:mm:ss'}}</span>
         </div>
         <div id="closed-task-fields" class="col-md-3" ng-if="task.status.name() == 'CLOSED'">
             <span translate="page.view.task.closer.description.prefix"></span>
             <span id="closer-name">{{task.closer.name}}</span>
             <span translate="page.view.task.timestamp.prefix"></span>
-            <span id="closing-time">{{task.modificationTime}}</span>
+            <span id="closing-time">{{task.modificationTime | amDateFormat:'YYYY-MM-DD H:mm:ss'}}</span>
         </div>
     </div>
 </div>
