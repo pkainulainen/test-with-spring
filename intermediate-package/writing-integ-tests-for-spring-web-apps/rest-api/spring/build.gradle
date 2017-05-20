@@ -35,9 +35,14 @@ tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
 
+ant.properties['project.basedir'] = project.rootDir
+ant.importBuild 'src/main/ant/build.xml'
+compileJava.finalizedBy(dist)
+
 gretty {
     httpPort = 8080
     contextPath = '/'
+    extraResourceBase 'frontend/build'
     servletContainer = 'jetty9.3'
     systemProperty 'spring.profiles.active', 'application'
 }
