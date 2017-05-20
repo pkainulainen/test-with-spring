@@ -32,6 +32,14 @@
     "task.list": {
       "size.message": "Found {{taskCount}} tasks from the database.",
       "title": "Tasks"
+    },
+    "view.task": {
+      "assignee.description": "Assigned to",
+      "closer.description.prefix": "Closed by",
+      "creator.description.prefix": "Created by",
+      "modifier.description.prefix": "Modified by",
+      "no.description.message": "This task has no description.",
+      "timestamp.prefix": "at"
     }
   },
   "task": {

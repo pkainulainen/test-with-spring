@@ -3,6 +3,7 @@
 angular.module('app.task.services', ['ngResource'])
     .factory('TaskService', ['$log', '$resource', function($log, $resource) {
         var api = $resource('/api/task/:id', {"id": "@id"}, {
+            get: {method: 'GET'},
             save: {method: 'POST'},
             query:  {method: 'GET', params: {}, isArray: true}
         });
@@ -25,6 +26,10 @@ angular.module('app.task.services', ['ngResource'])
             findAll: function() {
                 logger.info('Finding all tasks.');
                 return api.query();
+            },
+            findById: function(id) {
+                logger.info('Finding task by id: %s', id);
+                return api.get({id: id}).$promise;
             }
         };
     }]);

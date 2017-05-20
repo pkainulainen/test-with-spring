@@ -30,7 +30,12 @@ angular.module('app.task.controllers', [])
                     authenticate: true,
                     url: 'task/:id',
                     controller: 'ViewTaskController',
-                    templateUrl: 'task/view-task-view.html'
+                    templateUrl: 'task/view-task-view.html',
+                    resolve: {
+                        task: ['$stateParams', 'TaskService', function($stateParams, TaskService) {
+                            return TaskService.findById($stateParams.id);
+                        }]
+                    }
                 });
         }
     ])
@@ -44,7 +49,8 @@ angular.module('app.task.controllers', [])
         logger.info('Rendering task list view with %s tasks', tasks.length);
         $scope.tasks = tasks;
     }])
-    .controller('ViewTaskController', ['$log', function($log) {
-        var logger = $log.getInstance('app.todo.controllers.ViewTodoController');
+    .controller('ViewTaskController', ['$log', '$scope', 'task', function($log, $scope, task) {
+        var logger = $log.getInstance('app.todo.controllers.ViewTaskController');
         logger.info('Rendering view task view');
+        $scope.task = task;
     }]);
