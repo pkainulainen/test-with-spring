@@ -2,6 +2,10 @@
 
 angular.module('app.common.config', [])
 
+    .config(['growlProvider', function(growlProvider) {
+        growlProvider.globalTimeToLive(5000);
+    }])
+
     .config(['logEnhancerProvider', function (logEnhancerProvider) {
         logEnhancerProvider.datetimePattern = 'DD.MM.YYYY HH:mm:ss';
         logEnhancerProvider.prefixPattern = '%s::[%s]> ';
