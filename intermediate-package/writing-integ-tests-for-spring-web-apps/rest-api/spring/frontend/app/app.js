@@ -3,6 +3,7 @@
 var App = angular.module('app', [
     'angular-logger',
     'angular-growl',
+    'angularMoment',
     'ngCookies',
     'ngResource',
     'ngSanitize',

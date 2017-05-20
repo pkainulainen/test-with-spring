@@ -10,6 +10,8 @@
   "dependencies": {
     "console-polyfill": "~0.2.1",
     "lodash": "~3.10.1",
+    "moment": "2.18.1",
+    "moment-timezone": "0.5.13",
     "angular-bootstrap": "~2.5.0",
     "angular": "~1.4.7",
     "angular-i18n": "~1.4.7",
@@ -21,6 +23,7 @@
     "angular-dialog-service": "~5.2.11",
     "angular-growl-v2": "0.7.9",
     "angular-mocks": "~1.4.7",
+    "angular-moment": "1.0.1",
     "angular-loader": "~1.4.7",
     "angular-http-auth": "~1.2.2",
     "angular-translate": "~2.15.1",
