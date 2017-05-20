@@ -20,7 +20,7 @@ angular.module('app.common.config', [])
             $state.go("task.list");
         });
 
-        $locationProvider.html5Mode(false);
+        $locationProvider.html5Mode(true);
     }])
 
     .config(['$translateProvider', function ($translateProvider) {
