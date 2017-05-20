@@ -1,6 +1,9 @@
 'use strict'
 
 angular.module('app.common.config', [])
+    .constant('COMMON_EVENTS', {
+        notFound: 'event:not-found'
+    })
 
     .config(['growlProvider', function(growlProvider) {
         growlProvider.globalTimeToLive(5000);
@@ -20,7 +23,7 @@ angular.module('app.common.config', [])
             $state.go("task.list");
         });
 
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     }])
 
     .config(['$translateProvider', function ($translateProvider) {
@@ -35,4 +38,24 @@ angular.module('app.common.config', [])
         $translateProvider.useCookieStorage();
         $translateProvider.useMissingTranslationHandlerLog();
         $translateProvider.useSanitizeValueStrategy('escaped');
+    }])
+
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push([
+            '$injector',
+            function ($injector) {
+                return $injector.get('404Interceptor');
+            }
+        ]);
+    }])
+
+    .factory('404Interceptor', ['$rootScope', '$q', 'COMMON_EVENTS', function ($rootScope, $q, COMMON_EVENTS) {
+        return {
+            responseError: function(response) {
+                if (response.status === 404) {
+                    $rootScope.$broadcast(COMMON_EVENTS.notFound);
+                }
+                return $q.reject(response);
+            }
+        };
     }]);

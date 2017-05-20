@@ -43,6 +43,10 @@
       "authenticated.user.error.message": "You are already logged in.",
       "title": "Login"
     },
+    "not.found": {
+      "title": "Not Found",
+      "text": "The requested page was not found."
+    },
     "task.list": {
       "size.message": "Found {{taskCount}} tasks from the database.",
       "title": "Tasks"
