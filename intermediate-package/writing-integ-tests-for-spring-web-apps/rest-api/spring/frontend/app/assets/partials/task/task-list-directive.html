@@ -7,9 +7,8 @@
     </thead>
     <tbody>
     <tr id="task-list-{{task.id}}" class="task-list-item" ng-repeat="task in tasks">
-        <td>{{task.title}}</td>
+        <td><a ui-sref="task.view({id: task.id})">{{task.title}}</a></td>
         <td class="task-list-item-status task-status-{{task.status}}" translate="TaskStatus.{{task.status}}">
-
         </td>
     </tr>
     </tbody>
