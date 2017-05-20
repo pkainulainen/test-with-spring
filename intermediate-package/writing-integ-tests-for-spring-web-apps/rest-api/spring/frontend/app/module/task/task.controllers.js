@@ -26,6 +26,17 @@ angular.module('app.task.controllers', [])
                         }]
                     }
                 })
+                .state('task.update', {
+                    authenticate: true,
+                    url: 'task/:id/update',
+                    controller: 'UpdateTaskController',
+                    templateUrl: 'task/update-task-view.html',
+                    resolve: {
+                        task: ['$stateParams', 'TaskService', function($stateParams, TaskService) {
+                            return TaskService.findById($stateParams.id);
+                        }]
+                    }
+                })
                 .state('task.view', {
                     authenticate: true,
                     url: 'task/:id',
@@ -49,8 +60,13 @@ angular.module('app.task.controllers', [])
         logger.info('Rendering task list view with %s tasks', tasks.length);
         $scope.tasks = tasks;
     }])
+    .controller('UpdateTaskController', ['$log', '$scope', 'task', function($log, $scope, task) {
+        var logger = $log.getInstance('app.todo.controllers.UpdateTaskController');
+        logger.info('Rendering update task view for task: %j', task);
+        $scope.task = task;
+    }])
     .controller('ViewTaskController', ['$log', '$scope', 'task', function($log, $scope, task) {
         var logger = $log.getInstance('app.todo.controllers.ViewTaskController');
-        logger.info('Rendering view task view');
+        logger.info('Rendering view task view ');
         $scope.task = task;
     }]);

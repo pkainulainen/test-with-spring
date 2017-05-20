@@ -22,6 +22,9 @@ angular.module('app.task.directives', [])
                     if (scope.formType === 'create') {
                         TaskService.create(scope.task, onSuccess, onError);
                     }
+                    else if (scope.formType === 'update') {
+                        TaskService.update(scope.task, onSuccess, onError);
+                    }
                     else {
                         logger.error('Unknown form type: %s', scope.formType);
                     }

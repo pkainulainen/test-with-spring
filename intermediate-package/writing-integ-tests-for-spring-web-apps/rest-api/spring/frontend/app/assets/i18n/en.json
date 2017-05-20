@@ -34,13 +34,15 @@
       "size.message": "Found {{taskCount}} tasks from the database.",
       "title": "Tasks"
     },
+    "update.task.title": "Update Task",
     "view.task": {
       "assignee.description": "Assigned to",
       "closer.description.prefix": "Closed by",
       "creator.description.prefix": "Created by",
       "modifier.description.prefix": "Modified by",
       "no.description.message": "This task has no description.",
-      "timestamp.prefix": "at"
+      "timestamp.prefix": "at",
+      "update.task.link.label": "Update"
     }
   },
   "task": {
@@ -55,6 +57,10 @@
       "create": {
         "error": "A new task could not be created because an error occurred",
         "success": "A new task was created successfully"
+      },
+      "update": {
+        "error": "The information of the task could not be updated because an error occurred",
+        "success": "The information of the task was updated successfully"
       }
     },
     "property": {

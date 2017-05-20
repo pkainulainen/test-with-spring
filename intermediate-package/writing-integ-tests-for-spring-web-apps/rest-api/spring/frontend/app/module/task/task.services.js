@@ -5,6 +5,7 @@ angular.module('app.task.services', ['ngResource'])
         var api = $resource('/api/task/:id', {"id": "@id"}, {
             get: {method: 'GET'},
             save: {method: 'POST'},
+            update: {method: 'PUT'},
             query:  {method: 'GET', params: {}, isArray: true}
         });
 
@@ -30,6 +31,18 @@ angular.module('app.task.services', ['ngResource'])
             findById: function(id) {
                 logger.info('Finding task by id: %s', id);
                 return api.get({id: id}).$promise;
+            },
+            update: function(task, successCallback, errorCallback) {
+                logger.info('Updating task: %j', task);
+                return api.update(task,
+                    function(updated) {
+                        logger.info('Updated the information of the task: %j', updated);
+                        successCallback(updated);
+                    },
+                    function(error) {
+                        logger.error('Updating the information of the task failed because of an error: %j', error);
+                        errorCallback(error);
+                    });
             }
         };
     }]);
