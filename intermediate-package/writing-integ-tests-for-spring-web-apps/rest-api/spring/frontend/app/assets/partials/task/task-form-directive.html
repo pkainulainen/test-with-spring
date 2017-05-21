@@ -4,6 +4,10 @@
               name="taskForm"
               ng-show="task"
               role="form">
+            <input id="task-id"
+                   type="hidden"
+                   ng-if="task.id"
+                   value="{{task.id}}"/>
             <div class="form-group"
                  ng-class="{ 'has-error': taskForm.title.$dirty && taskForm.title.$invalid }">
                 <label for="task-title" translate="task.property.title.label"></label>
