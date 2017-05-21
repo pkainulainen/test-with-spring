@@ -133,7 +133,7 @@ public final class LoginPage {
     }
 
     public void waitUntilPageIsOpen() {
-        SeleniumWait.waitUntilElementIsClickable(browser, By.id("email-address"));
+        SeleniumWait.waitUntilElementIsClickable(browser, By.id(LOGIN_SUBMIT_BUTTON_ID));
     }
 
     private void typeEmailAddress(String emailAddress) {
