@@ -29,14 +29,6 @@ final class UpdateTaskPage {
     }
 
     /**
-     * Returns the URL of the update task page.
-     * @return
-     */
-    String getPageUrl() {
-        return pageUrl;
-    }
-
-    /**
      * Returns true if the update task page is open and false otherwise.
      * @return
      */
