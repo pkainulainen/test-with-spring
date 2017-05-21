@@ -474,6 +474,7 @@
                             <skipTests>${skip.failsafe.plugin}</skipTests>
                             <systemPropertyVariables>
                                 <webdriver.base.url>http://localhost:8080/</webdriver.base.url>
+                                <webdriver.html5.mode.enabled>false</webdriver.html5.mode.enabled>
                             </systemPropertyVariables>
                         </configuration>
                     </execution>

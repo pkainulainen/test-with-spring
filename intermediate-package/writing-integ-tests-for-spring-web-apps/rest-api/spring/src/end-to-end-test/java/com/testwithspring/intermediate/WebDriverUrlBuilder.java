@@ -32,6 +32,10 @@ public final class WebDriverUrlBuilder {
             baseUrl += "/";
         }
 
+        if (!WebDriverEnvironment.isHtml5ModeEnabled()) {
+            baseUrl += "#/";
+        }
+
         if (path.startsWith("/")) {
             path = path.replaceFirst("/", "");
         }

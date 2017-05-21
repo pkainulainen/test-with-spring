@@ -153,4 +153,5 @@ endToEndTest {
         showStandardStreams = true
     }
     systemProperty 'webdriver.base.url', 'http://localhost:8080/'
+    systemProperty 'webdriver.html5.mode.enabled', 'false'
 }
