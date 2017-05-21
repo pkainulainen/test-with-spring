@@ -1,6 +1,7 @@
 package com.testwithspring.intermediate.web.task;
 
 
+import com.testwithspring.intermediate.SeleniumWait;
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -77,6 +78,7 @@ final class TaskPage {
         }
 
         browser.get(pageUrl);
+        waitUntilPageIsOpen();
         return new TaskPage(browser, taskId);
     }
 
@@ -85,6 +87,10 @@ final class TaskPage {
      */
     boolean isOpen() {
         return browser.getCurrentUrl().equals(pageUrl);
+    }
+
+    void waitUntilPageIsOpen() {
+        SeleniumWait.waitUntilElementIsClickable(browser, By.id("update-task-link"));
     }
 
     /**
