@@ -25,7 +25,7 @@ final class UpdateTaskPage {
      * @return
      */
     TaskForm getForm() {
-        return new TaskForm(browser, "update-task-form");
+        return new TaskForm(browser);
     }
 
     /**

@@ -23,7 +23,7 @@ final class CreateTaskPage {
      * @return
      */
     TaskForm getForm() {
-        return new TaskForm(browser, "create-task-form");
+        return new TaskForm(browser);
     }
 
     /**

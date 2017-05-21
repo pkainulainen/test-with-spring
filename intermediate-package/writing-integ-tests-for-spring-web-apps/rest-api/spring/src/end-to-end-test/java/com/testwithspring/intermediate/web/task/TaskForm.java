@@ -16,9 +16,9 @@ final class TaskForm {
     private WebDriver browser;
     private WebElement form;
 
-    TaskForm(WebDriver browser, String formId) {
+    TaskForm(WebDriver browser) {
         this.browser = browser;
-        this.form = this.browser.findElement(By.id(formId));
+        this.form = this.browser.findElement(By.id("task-form"));
     }
 
     /**
