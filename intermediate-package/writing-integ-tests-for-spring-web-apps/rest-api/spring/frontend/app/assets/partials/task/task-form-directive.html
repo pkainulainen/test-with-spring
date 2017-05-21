@@ -39,7 +39,8 @@
                           ng-show="taskForm.description.$error.maxlength"></span>
                 </div>
             </div>
-            <button type="button"
+            <button id="submit-task-form"
+                    type="button"
                     class="btn btn-default"
                     translate="directive.task.form.submit.button.label"
                     ng-disabled="taskForm.$invalid || !taskForm.$dirty"

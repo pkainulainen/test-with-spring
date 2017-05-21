@@ -6,6 +6,7 @@ angular.module('app.common.config', [])
     })
 
     .config(['growlProvider', function(growlProvider) {
+        growlProvider.globalPosition('bottom-right');
         growlProvider.globalTimeToLive(5000);
     }])
 

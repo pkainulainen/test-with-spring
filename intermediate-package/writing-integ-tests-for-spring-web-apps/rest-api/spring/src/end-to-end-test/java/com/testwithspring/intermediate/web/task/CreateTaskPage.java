@@ -1,6 +1,8 @@
 package com.testwithspring.intermediate.web.task;
 
+import com.testwithspring.intermediate.SeleniumWait;
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -38,6 +40,11 @@ final class CreateTaskPage {
      */
     CreateTaskPage open() {
         browser.get(pageUrl);
+        waitUntilPageIsOpen();
         return new CreateTaskPage(browser);
+    }
+
+    private void waitUntilPageIsOpen() {
+        SeleniumWait.waitUntilElementIsClickable(browser, By.id("task-title"));
     }
 }

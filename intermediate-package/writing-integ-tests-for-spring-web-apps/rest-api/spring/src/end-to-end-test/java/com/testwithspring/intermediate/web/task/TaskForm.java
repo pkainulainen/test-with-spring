@@ -49,8 +49,11 @@ final class TaskForm {
      */
     TaskPage submitTaskForm() {
         Long taskId = getTaskId();
-        form.submit();
-        return new TaskPage(browser, taskId);
+        form.findElement(By.id("submit-task-form")).click();
+
+        TaskPage shown = new TaskPage(browser, taskId);
+        shown.waitUntilPageIsOpen();
+        return shown;
     }
 
     /**
