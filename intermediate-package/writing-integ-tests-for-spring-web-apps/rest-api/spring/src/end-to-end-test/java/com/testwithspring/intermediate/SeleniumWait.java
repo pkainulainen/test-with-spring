@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public final class SeleniumWait {
 
-    private static final long DEFAULT_TIMEOUT_IN_SECONDS = 500;
+    private static final long DEFAULT_TIMEOUT_IN_SECONDS = 5;
 
     private SeleniumWait() {}
 
