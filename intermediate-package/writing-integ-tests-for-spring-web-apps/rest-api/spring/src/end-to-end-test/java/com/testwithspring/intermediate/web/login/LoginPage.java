@@ -1,6 +1,7 @@
 package com.testwithspring.intermediate.web.login;
 
 
+import com.testwithspring.intermediate.SeleniumWait;
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import com.testwithspring.intermediate.web.task.TaskListPage;
 import org.openqa.selenium.By;
@@ -15,6 +16,7 @@ public final class LoginPage {
     private static final String EMAIL_ADDRESS_INPUT_ID = "email-address";
     private static final String LOGIN_ERROR_ALERT_ID = "login-error-alert";
     private static final String LOGIN_FORM_ID = "login-form";
+    private static final String LOGIN_SUBMIT_BUTTON_ID = "login-submit-button";
     private static final String PASSWORD_INPUT_ID = "password";
 
     private final WebDriver browser;
@@ -26,11 +28,25 @@ public final class LoginPage {
     }
 
     /**
-     * Opens the login page.
+     * Opens the login page as anonymous user.
      * @return The page object that symbolizes the opened page.
      */
     public LoginPage open() {
         browser.get(pageUrl);
+        waitUntilPageIsOpen();
+
+        return new LoginPage(browser);
+    }
+
+    /**
+     * Opens the login page as authenticated user.
+     * @return The page object that symbolizes the opened page.
+     */
+    public LoginPage openAsAuthenticatedUser() {
+        browser.get(pageUrl);
+
+        SeleniumWait.waitUntilElementIsVisible(browser, By.id(AUTHENTICATED_USER_ERROR_ID));
+
         return new LoginPage(browser);
     }
 
@@ -82,13 +98,6 @@ public final class LoginPage {
     }
 
     /**
-     * @return true if the login page is open with login error url and false otherwise.
-     */
-    boolean isOpenWithLoginErrorUrl() {
-        return browser.getCurrentUrl().equals(pageUrl + "?error=bad_credentials");
-    }
-
-    /**
      * Logs the user in by using the provided email address and password. This
      * method expects that the provided email address and password are correct.
      * @param emailAddress
@@ -100,7 +109,10 @@ public final class LoginPage {
         typePassword(password);
         submitLoginForm();
 
-        return new TaskListPage(browser);
+        TaskListPage shown = new TaskListPage(browser);
+        shown.waitUntilPageIsOpen();
+
+        return shown;
     }
 
     /**
@@ -115,7 +127,13 @@ public final class LoginPage {
         typePassword(password);
         submitLoginForm();
 
+        SeleniumWait.waitUntilElementIsVisible(browser, By.id(LOGIN_ERROR_ALERT_ID));
+
         return new LoginPage(browser);
+    }
+
+    public void waitUntilPageIsOpen() {
+        SeleniumWait.waitUntilElementIsClickable(browser, By.id("email-address"));
     }
 
     private void typeEmailAddress(String emailAddress) {
@@ -127,6 +145,6 @@ public final class LoginPage {
     }
 
     private void submitLoginForm() {
-        browser.findElement(By.id(LOGIN_FORM_ID)).submit();
+        browser.findElement(By.id(LOGIN_SUBMIT_BUTTON_ID)).click();
     }
 }

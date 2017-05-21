@@ -34,20 +34,20 @@ public class RenderLoginPageAsAuthenticatedUserTest {
 
     @Test
     public void shouldOpenLoginPage() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAuthenticatedUser();
         assertThat(shownPage.isOpen()).isTrue();
     }
 
     @Test
     public void shouldOpenLoginPageWithoutVisibleLoginForm() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAuthenticatedUser();
 
         assertThat(shownPage.isLoginFormVisible()).isFalse();
     }
 
     @Test
     public void shouldOpenLoginWithVisibleAuthenticatedUserError() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAuthenticatedUser();
 
         assertThat(shownPage.isAuthenticatedUserErrorVisible()).isTrue();
     }

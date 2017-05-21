@@ -40,7 +40,9 @@ App.run(['$log', '$rootScope', '$state', 'AUTH_EVENTS', 'AuthenticatedUser', 'au
         //the 401 response.
         function listenAuthenticationEvents() {
             var confirmLogin = function() {
+                logger.info('User is logged in. Rendering task list view');
                 authService.loginConfirmed();
+                $state.go("task.list");
             };
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, confirmLogin);

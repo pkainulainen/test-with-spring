@@ -1,5 +1,6 @@
 package com.testwithspring.intermediate.web.task;
 
+import com.testwithspring.intermediate.SeleniumWait;
 import com.testwithspring.intermediate.WebDriverUrlBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -51,6 +52,12 @@ public final class TaskListPage {
      */
     public TaskListPage open() {
         browser.get(pageUrl);
+        waitUntilPageIsOpen();
+
         return new TaskListPage(browser);
+    }
+
+    public void waitUntilPageIsOpen() {
+        SeleniumWait.waitUntilElementIsVisible(browser, By.id("task-list-size-message"));
     }
 }

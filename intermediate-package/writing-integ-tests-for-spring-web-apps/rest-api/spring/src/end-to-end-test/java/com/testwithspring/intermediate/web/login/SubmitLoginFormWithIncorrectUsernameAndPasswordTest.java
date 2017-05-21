@@ -30,12 +30,6 @@ public class SubmitLoginFormWithIncorrectUsernameAndPasswordTest {
     }
 
     @Test
-    public void shouldRenderLoginPageWithLoginErrorUrl() {
-        LoginPage shownPage = loginPage.loginAndExpectFailure(UnknownUser.EMAIL_ADDRESS, UnknownUser.PASSWORD);
-        assertThat(shownPage.isOpenWithLoginErrorUrl()).isTrue();
-    }
-
-    @Test
     public void shouldShowLoginErrorAlert() {
         LoginPage shownPage = loginPage.loginAndExpectFailure(UnknownUser.EMAIL_ADDRESS, UnknownUser.PASSWORD);
         assertThat(shownPage.isLoginAlertVisible()).isTrue();
