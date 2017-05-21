@@ -42,12 +42,7 @@ final class TaskActions {
         updateTask.click();
 
         UpdateTaskPage targetPage = new UpdateTaskPage(browser, taskId);
-
-        //Because the click() method doesn't wait for the next page to load,
-        //we have to make sure that the page is loaded before we can invoke
-        //our assertion.
-        WebDriverWait wait = new WebDriverWait(browser, 3);
-        wait.until(ExpectedConditions.urlToBe(targetPage.getPageUrl()));
+        targetPage.waitUntilPageIsOpen();
 
         return targetPage;
     }

@@ -54,7 +54,7 @@ final class UpdateTaskPage {
         return new UpdateTaskPage(browser, taskId);
     }
 
-    private void waitUntilPageIsOpen() {
+    void waitUntilPageIsOpen() {
         SeleniumWait.waitUntilElementIsClickable(browser, By.id("task-title"));
     }
 }
