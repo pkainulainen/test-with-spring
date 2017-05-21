@@ -31,7 +31,7 @@ public class RenderUpdateTaskPageTest {
     }
 
     private void logUserIn() {
-        LoginPage loginPage = new LoginPage(browser).open();
+        LoginPage loginPage = new LoginPage(browser).openAsAnonymousUser();
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
     }
 

@@ -31,7 +31,7 @@ public final class LoginPage {
      * Opens the login page as anonymous user.
      * @return The page object that symbolizes the opened page.
      */
-    public LoginPage open() {
+    public LoginPage openAsAnonymousUser() {
         browser.get(pageUrl);
         waitUntilPageIsOpen();
 

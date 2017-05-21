@@ -28,7 +28,7 @@ public class RenderLoginPageAsAuthenticatedUserTest {
 
     @Before
     public void logUserIn() {
-        loginPage = new LoginPage(browser).open();
+        loginPage = new LoginPage(browser).openAsAnonymousUser();
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD);
     }
 

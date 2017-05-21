@@ -30,20 +30,20 @@ public class RenderLoginPageAsAnonymousUserTest {
 
     @Test
     public void shouldOpenLoginPage() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAnonymousUser();
         assertThat(shownPage.isOpen()).isTrue();
     }
 
     @Test
     public void shouldOpenLoginPageWithVisibleLoginForm() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAnonymousUser();
 
         assertThat(shownPage.isLoginFormVisible()).isTrue();
     }
 
     @Test
     public void shouldOpenLoginPageWithEmptyLoginForm() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAnonymousUser();
 
         assertThat(shownPage.getEmailAddress()).isEmpty();
         assertThat(shownPage.getPassword()).isEmpty();
@@ -51,7 +51,7 @@ public class RenderLoginPageAsAnonymousUserTest {
 
     @Test
     public void shouldOpenLoginWithoutVisibleAuthenticatedUserError() {
-        LoginPage shownPage = loginPage.open();
+        LoginPage shownPage = loginPage.openAsAnonymousUser();
 
         assertThat(shownPage.isAuthenticatedUserErrorVisible()).isFalse();
     }

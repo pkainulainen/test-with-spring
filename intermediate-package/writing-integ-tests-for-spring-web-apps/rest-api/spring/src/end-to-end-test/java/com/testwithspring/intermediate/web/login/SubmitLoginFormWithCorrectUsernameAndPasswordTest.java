@@ -29,7 +29,7 @@ public class SubmitLoginFormWithCorrectUsernameAndPasswordTest {
 
     @Before
     public void openLoginPage() {
-        loginPage = new LoginPage(browser).open();
+        loginPage = new LoginPage(browser).openAsAnonymousUser();
     }
 
     @Test
