@@ -27,6 +27,17 @@ public final class SeleniumWait {
     }
 
     /**
+     * Waits as long as all elements found with the specified locator are visible.
+     * @param browser
+     * @param elementLocator
+     * @throws org.openqa.selenium.TimeoutException if all elements are not visible before the timeout is exceeded.
+     */
+    public static void waitUntilAllElementsAreVisible(WebDriver browser, By elementLocator) {
+        WebDriverWait wait = new WebDriverWait(browser, DEFAULT_TIMEOUT_IN_SECONDS);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(elementLocator));
+    }
+
+    /**
      * Waits as long as the specified element is visible.
      * @param browser
      * @param elementLocator

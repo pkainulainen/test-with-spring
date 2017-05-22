@@ -50,6 +50,6 @@ public final class TaskListPage {
     }
 
     public void waitUntilPageIsOpen() {
-        SeleniumWait.waitUntilElementIsVisible(browser, By.id("task-list-size-message"));
+        SeleniumWait.waitUntilAllElementsAreVisible(browser, By.className("task-list-item"));
     }
 }
