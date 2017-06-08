@@ -19,7 +19,7 @@ final class DeleteTaskConfirmationDialog {
         this.taskActions = taskActions;
     }
 
-    public DeleteTaskConfirmationDialog open() {
+    DeleteTaskConfirmationDialog open() {
         taskActions.findElement(By.id("delete-task-link")).click();
         SeleniumWait.waitUntilElementIsClickable(browser, By.id("delete-task-button"));
         return this;
