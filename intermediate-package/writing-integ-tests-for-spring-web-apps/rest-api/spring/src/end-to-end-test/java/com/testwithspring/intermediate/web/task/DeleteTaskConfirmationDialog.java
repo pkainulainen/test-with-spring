@@ -19,12 +19,23 @@ final class DeleteTaskConfirmationDialog {
         this.taskActions = taskActions;
     }
 
+    /**
+     * Opens the delete task confirmation dialog.
+     * @return  The page object that represents the opened dialog.
+     */
     DeleteTaskConfirmationDialog open() {
-        taskActions.findElement(By.id("delete-task-link")).click();
+        WebElement deleteLink = taskActions.findElement(By.id("delete-task-link"));
+        deleteLink.click();
+
         SeleniumWait.waitUntilElementIsClickable(browser, By.id("delete-task-button"));
+
         return this;
     }
 
+    /**
+     * Deletes the task from the database.
+     * @return  The page object that represents the task list page.
+     */
     TaskListPage deleteTask() {
         WebElement deleteButton = browser.findElement(By.id("delete-task-button"));
         deleteButton.click();
