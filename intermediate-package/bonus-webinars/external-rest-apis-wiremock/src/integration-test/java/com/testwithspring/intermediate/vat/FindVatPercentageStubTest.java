@@ -47,14 +47,59 @@ public class FindVatPercentageStubTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Before
+    //This is the most verbose stubbing syntax but I think that it is useful to know
+    //it even though I don't recommend that we should use it.
+    /*@Before
     public void returnVatPercentage() {
-        givenThat(WireMock.get(urlEqualTo("/api/external/vat-percentage?countryCode=FI"))
+        givenThat(WireMock.get(
+                urlEqualTo("/api/external/vat-percentage?countryCode=FI")
+        )
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withHeader("Content-Type", "application/json;charset=UTF-8")
-                        .withBody("{ \"countryCode\": \"FI\", \"vatPercentage\": 24 }")
+                        .withHeader("Content-Type",
+                                "application/json;charset=UTF-8"
+                        )
+                        .withBody("{" +
+                                "\"countryCode\": \"FI\"," +
+                                "\"vatPercentage\": 24" +
+                        "}")
                 )
+        );
+    }*/
+
+    //This is an improved version of the stubbing syntax. Here we use the combination of
+    //URL regexp and parameter assertion when we configure the returned JSON.
+    /*@Before
+    public void returnVatPercentage() {
+        givenThat(WireMock.get(
+                urlMatching("/api/external/vat-percentage.+")
+        )
+                        .withQueryParam("countryCode", equalTo("FI"))
+                        .willReturn(aResponse()
+                                .withStatus(200)
+                                .withHeader("Content-Type",
+                                        "application/json;charset=UTF-8"
+                                )
+                                .withBody("{" +
+                                        "\"countryCode\": \"FI\"," +
+                                        "\"vatPercentage\": 24" +
+                                "}")
+                        )
+        );
+    }*/
+
+    //This is the least verbose stubbing syntax and I recommend that we should use this
+    //syntax.
+    @Before
+    public void returnVatPercentage() {
+        givenThat(WireMock.get(
+                urlMatching("/api/external/vat-percentage.+")
+                )
+                        .withQueryParam("countryCode", equalTo("FI"))
+                        .willReturn(okJson("{" +
+                                "\"countryCode\": \"FI\"," +
+                                "\"vatPercentage\": 24" +
+                        "}"))
         );
     }
 
