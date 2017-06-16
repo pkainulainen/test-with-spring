@@ -29,7 +29,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class FindVatPercentageMockTest {
 
     private static final String COUNTRY_CODE = "FI";
-    private static final Integer VAT_PERCENTAGE = 24;
 
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(options()
