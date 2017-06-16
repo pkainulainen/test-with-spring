@@ -55,13 +55,8 @@ public class FindVatPercentageStubTest {
         )
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withHeader("Content-Type",
-                                "application/json;charset=UTF-8"
-                        )
-                        .withBody("{" +
-                                "\"countryCode\": \"FI\"," +
-                                "\"vatPercentage\": 24" +
-                        "}")
+                        .withHeader("Content-Type", "application/json;charset=UTF-8")
+                        .withBody("{\"countryCode\": \"FI\",\"vatPercentage\": 24}")
                 )
         );
     }*/
@@ -76,13 +71,8 @@ public class FindVatPercentageStubTest {
                         .withQueryParam("countryCode", equalTo("FI"))
                         .willReturn(aResponse()
                                 .withStatus(200)
-                                .withHeader("Content-Type",
-                                        "application/json;charset=UTF-8"
-                                )
-                                .withBody("{" +
-                                        "\"countryCode\": \"FI\"," +
-                                        "\"vatPercentage\": 24" +
-                                "}")
+                                .withHeader("Content-Type","application/json;charset=UTF-8")
+                                .withBody("{\"countryCode\": \"FI\",\"vatPercentage\": 24"}")
                         )
         );
     }*/
@@ -95,10 +85,7 @@ public class FindVatPercentageStubTest {
                 urlMatching("/api/external/vat-percentage.+")
                 )
                         .withQueryParam("countryCode", equalTo("FI"))
-                        .willReturn(okJson("{" +
-                                "\"countryCode\": \"FI\"," +
-                                "\"vatPercentage\": 24" +
-                        "}"))
+                        .willReturn(okJson("{\"countryCode\": \"FI\",\"vatPercentage\": 24}"))
         );
     }
 
