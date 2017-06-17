@@ -50,8 +50,7 @@ public class FindVatPercentageMockTest {
     public void shouldGetVatPercentageFromExternalApi() throws Exception {
         findByCountryCode(COUNTRY_CODE);
 
-        verify(1, getRequestedFor(urlEqualTo("/api/external/vat-percentage?countryCode=FI")
-        ));
+        verify(1, getRequestedFor(urlEqualTo("/api/external/vat-percentage?countryCode=FI")));
     }
 
     @Test
