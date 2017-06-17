@@ -45,12 +45,22 @@ public class FindVatPercentageMockTest {
                 .willReturn(ok())
         );
     }
-    
+
     @Test
     public void shouldGetVatPercentageFromExternalApi() throws Exception {
         findByCountryCode(COUNTRY_CODE);
 
-        verify(1, getRequestedFor(urlEqualTo("/api/external/vat-percentage?countryCode=FI")));
+        verify(1, getRequestedFor(urlEqualTo("/api/external/vat-percentage?countryCode=FI")
+        ));
+    }
+
+    @Test
+    public void shouldGetVatPercentageFromExternalApiTwo() throws Exception {
+        findByCountryCode(COUNTRY_CODE);
+
+        verify(1, getRequestedFor(urlMatching("/api/external/vat-percentage.+"))
+                .withQueryParam("countryCode", equalTo("FI"))
+        );
     }
 
     private ResultActions findByCountryCode(String countryCode) throws Exception {
