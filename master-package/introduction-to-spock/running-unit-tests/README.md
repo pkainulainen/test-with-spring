@@ -9,3 +9,9 @@ You can run unit tests by using Maven
 You can run unit tests by using the following command:
 
     mvn clean test
+    
+### Running Unit Tests With Gradle
+    
+You can run unit tests by using the following command:
+    
+    gradle clean test
