@@ -15,9 +15,9 @@ class FileSpec extends Specification {
         file.createNewFile()
 
         then: 'Should create a new file'
-        file.exists() == true
-        file.isFile() == true
-        file.isDirectory() == false
+        file.exists()
+        file.isFile()
+        !file.isDirectory()
 
         cleanup:
         file?.delete()
