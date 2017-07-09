@@ -12,8 +12,8 @@ class MathDataPipeSpec extends Specification {
         Math.max(a, b) == c
 
         where:
-        a << [1,2]
-        b << [0,3]
-        c << [1,3]
+        a << [1, 2]
+        b << [0, 3]
+        c << [1, 3]
     }
 }
