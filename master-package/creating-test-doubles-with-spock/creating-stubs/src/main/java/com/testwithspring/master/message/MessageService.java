@@ -47,6 +47,6 @@ public class MessageService {
         Message saved = repository.save(message);
         LOGGER.info("Saved message: {}", message);
 
-        return message;
+        return saved;
     }
 }
