@@ -18,11 +18,11 @@ class MessageServiceArgumentConstraintSpec extends Specification {
 
     def 'Get message with id that is equal to expected id'() {
 
-        given: 'A message is found with an id that is equal to 1L'
+        given: 'A message is found with an id that is equal to 1'
         def found = new Message()
         repository.findById(ID) >> Optional.of(found)
 
-        when: 'We find a message by using the id 1L'
+        when: 'We find a message by using the id 1'
         def returned = service.findById(ID)
 
         then: 'Should return the found message'
@@ -31,11 +31,11 @@ class MessageServiceArgumentConstraintSpec extends Specification {
 
     def 'Get message with id that is not equal to configured id'() {
 
-        given: 'A message is found with an id that is not equal to 2L'
+        given: 'A message is found with an id that is not equal to 2'
         def found = new Message()
         repository.findById(!2L) >> Optional.of(found)
 
-        when: 'We find a message by using the id 1L'
+        when: 'We find a message by using the id 1'
         def returned = service.findById(ID)
 
         then: 'Should return the found message'
@@ -61,7 +61,7 @@ class MessageServiceArgumentConstraintSpec extends Specification {
         def found = new Message()
         repository.findById(*_) >> Optional.of(found)
 
-        when: 'We find a message by using the id 1L'
+        when: 'We find a message by using the id 1'
         def returned = service.findById(ID)
 
         then: 'Should return the found message'
@@ -74,7 +74,7 @@ class MessageServiceArgumentConstraintSpec extends Specification {
         def found = new Message()
         repository.findById(!null) >> Optional.of(found)
 
-        when: 'We find a message by using the id 1L'
+        when: 'We find a message by using the id 1'
         def returned = service.findById(ID)
 
         then: 'Should return the found message'
@@ -87,7 +87,7 @@ class MessageServiceArgumentConstraintSpec extends Specification {
         def found = new Message()
         repository.findById(_ as Long) >> Optional.of(found)
 
-        when: 'We find a message by using the id 1L'
+        when: 'We find a message by using the id 1'
         def returned = service.findById(ID)
 
         then: 'Should return the found message'
@@ -100,7 +100,7 @@ class MessageServiceArgumentConstraintSpec extends Specification {
         def found = new Message()
         repository.findById({it == ID}) >> Optional.of(found)
 
-        when: 'We find a message by using the id 1L'
+        when: 'We find a message by using the id 1'
         def returned = service.findById(ID)
 
         then: 'Should return the found message'
