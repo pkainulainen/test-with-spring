@@ -4,20 +4,16 @@ import com.testwithspring.master.UnitTest
 import org.junit.experimental.categories.Category
 import spock.lang.Specification
 
-/**
- * This specification demonstrates how you can configure the
- * returned response of a stub.
- */
 @Category(UnitTest.class)
 class MessageServiceResponseGeneratorSpec extends Specification {
 
-    static ID = 1L
+    static ID = 1L;
     static MESSAGE = 'Hello World!'
-
+    
     def repository = Stub(MessageRepository)
     def service = new MessageService(repository)
 
-    def 'return the same message'() {
+    def 'Return the same message on every invocation'() {
 
         given: 'A message is found with the id 1'
         def found = new Message()
@@ -30,26 +26,27 @@ class MessageServiceResponseGeneratorSpec extends Specification {
         returned == found
     }
 
-    def 'return different message objects for different invocations'() {
+    def 'Return different message objects on successive invocations'() {
 
-        given: 'Different messages are found for different invocations'
+        given: 'Different messages are found on successive invocations'
         def first = new Message()
         def second = new Message()
         repository.findById(ID) >>> [Optional.of(first), Optional.of(second)]
 
-        when: 'When find two objects by using the id 1'
+        when: 'We find two objects by using the id 1'
         def firstReturned = service.findById(ID)
         def secondReturned = service.findById(ID)
 
-        then: 'Should return found messages'
+        then: 'Should return different objects on successive invocations'
         firstReturned == first
         secondReturned == second
     }
 
-    def 'determine the returned message by using the method parameter'() {
-        given: 'A populated message is found with the id 1'
+    def 'Determine the returned message by using the method parameter'() {
+
+        given: 'A message is found with the id 1'
         def found = new Message()
-        repository.findById(_) >> {args -> args[0] == 1L ? Optional.of(found) : Optional.empty()}
+        repository.findById(_) >> {args -> args[0] == ID ? Optional.of(found) : Optional.empty() }
 
         when: 'We find a message with the id 1'
         def returned = service.findById(ID)
@@ -58,10 +55,11 @@ class MessageServiceResponseGeneratorSpec extends Specification {
         returned == found
     }
 
-    def 'determine the returned message by using the method parameter (when closure declares the parameter)'() {
-        given: 'A populated message is found with the id 1'
+    def 'Determine the returned message by using the method parameter (when closure declares the parameter)'() {
+
+        given: 'A message is found with the id 1'
         def found = new Message()
-        repository.findById(_) >> {Long id -> id == 1L ? Optional.of(found) : Optional.empty()}
+        repository.findById(_) >> {Long id -> id == ID ? Optional.of(found) : Optional.empty() }
 
         when: 'We find a message with the id 1'
         def returned = service.findById(ID)
@@ -70,8 +68,9 @@ class MessageServiceResponseGeneratorSpec extends Specification {
         returned == found
     }
 
-    def 'Configure the returned message by using closure'() {
-        given: 'a message is found with the id'
+    def 'Configure the returned message by using a closure'() {
+
+        given: 'A message is found with the id'
         repository.findById(ID) >> { Optional.of(new Message(id: ID, message: MESSAGE)) }
 
         when: 'We find a message with the id 1'
@@ -85,7 +84,8 @@ class MessageServiceResponseGeneratorSpec extends Specification {
     }
 
     def 'Modify the method parameter and return it'() {
-        given: 'We want to save a new message'
+
+        given: 'We want to create a new message'
         def message = new Message()
         message.message = MESSAGE
 
@@ -95,8 +95,8 @@ class MessageServiceResponseGeneratorSpec extends Specification {
             return saved
         }
 
-        when: 'We save the new message'
-        def returned = service.save(message)
+        when: 'We create a new message'
+        def returned = service.create(message)
 
         then: 'Should return the saved message with correct id'
         returned.id == ID
@@ -105,10 +105,10 @@ class MessageServiceResponseGeneratorSpec extends Specification {
         returned.message == MESSAGE
     }
 
-    def 'throw an exception'() {
+    def 'Throw an exception'() {
 
         given: 'No message is found with the id 1'
-        repository.findById(ID) >> {throw new NotFoundException("not found")}
+        repository.findById(ID) >> { throw new NotFoundException("not found") }
 
         when: 'We find a message by using the id 1'
         service.findById(ID)

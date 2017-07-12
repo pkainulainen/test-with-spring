@@ -41,8 +41,8 @@ public class MessageService {
      * @param message   The saved message.
      * @return          The saved message.
      */
-    public Message save(Message message) {
-        LOGGER.info("Saving message: {}", message);
+    public Message create(Message message) {
+        LOGGER.info("Saving a new message: {}", message);
 
         Message saved = repository.save(message);
         LOGGER.info("Saved message: {}", message);
