@@ -6,7 +6,7 @@ package com.testwithspring.master.message;
 public class Message {
 
     private Long id;
-    private String message;
+    private String messageText;
 
     public Message() {}
 
@@ -14,15 +14,15 @@ public class Message {
         return id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageText() {
+        return messageText;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
     }
 }

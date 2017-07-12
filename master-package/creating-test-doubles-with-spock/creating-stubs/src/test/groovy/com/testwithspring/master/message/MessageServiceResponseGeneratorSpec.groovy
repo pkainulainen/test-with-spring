@@ -71,7 +71,7 @@ class MessageServiceResponseGeneratorSpec extends Specification {
     def 'Configure the returned message by using a closure'() {
 
         given: 'A message is found with the id'
-        repository.findById(ID) >> { Optional.of(new Message(id: ID, message: MESSAGE)) }
+        repository.findById(ID) >> { Optional.of(new Message(id: ID, messageText: MESSAGE)) }
 
         when: 'We find a message with the id 1'
         def returned = service.findById(ID)
@@ -80,14 +80,14 @@ class MessageServiceResponseGeneratorSpec extends Specification {
         returned.id == ID
 
         and: 'Should return the found message with correct message text'
-        returned.message == MESSAGE
+        returned.messageText == MESSAGE
     }
 
     def 'Modify the method parameter and return it'() {
 
         given: 'We want to create a new message'
         def message = new Message()
-        message.message = MESSAGE
+        message.messageText = MESSAGE
 
         and: 'An id is assigned to the saved message before it is returned'
         repository.save(message) >> { Message saved ->
@@ -102,7 +102,7 @@ class MessageServiceResponseGeneratorSpec extends Specification {
         returned.id == ID
 
         and: 'Should return the saved message with correct message text'
-        returned.message == MESSAGE
+        returned.messageText == MESSAGE
     }
 
     def 'Throw an exception'() {
