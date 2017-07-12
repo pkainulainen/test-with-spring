@@ -4,6 +4,10 @@ import com.testwithspring.master.UnitTest
 import org.junit.experimental.categories.Category
 import spock.lang.Specification
 
+/**
+ * This specification class demonstrates how you can configure the
+ * response of a stubbed method.
+ */
 @Category(UnitTest.class)
 class MessageServiceResponseGeneratorSpec extends Specification {
 
