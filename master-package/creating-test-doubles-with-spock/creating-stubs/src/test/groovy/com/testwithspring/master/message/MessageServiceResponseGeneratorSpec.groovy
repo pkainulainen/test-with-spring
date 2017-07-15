@@ -74,7 +74,7 @@ class MessageServiceResponseGeneratorSpec extends Specification {
 
     def 'Configure the returned message by using a closure'() {
 
-        given: 'A message is found with the id'
+        given: 'A message is found with the id 1'
         repository.findById(ID) >> { Optional.of(new Message(id: ID, messageText: MESSAGE)) }
 
         when: 'We find a message with the id 1'
@@ -112,7 +112,7 @@ class MessageServiceResponseGeneratorSpec extends Specification {
     def 'Throw an exception'() {
 
         given: 'No message is found with the id 1'
-        repository.findById(ID) >> { throw new NotFoundException("not found") }
+        repository.findById(ID) >> { throw new NotFoundException('not found') }
 
         when: 'We find a message by using the id 1'
         service.findById(ID)
