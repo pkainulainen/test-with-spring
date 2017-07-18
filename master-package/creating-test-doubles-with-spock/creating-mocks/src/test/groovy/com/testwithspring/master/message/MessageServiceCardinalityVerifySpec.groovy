@@ -25,7 +25,7 @@ class MessageServiceCardinalityVerifySpec extends Specification {
         when: 'We create a new message'
         service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should not find a message'
         0 * repository.findById(_)
     }
 
