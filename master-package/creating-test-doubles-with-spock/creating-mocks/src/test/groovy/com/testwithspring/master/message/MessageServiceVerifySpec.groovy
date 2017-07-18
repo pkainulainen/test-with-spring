@@ -97,6 +97,7 @@ class MessageServiceVerifySpec extends Specification {
     }
 
     def 'Verify that a message was saved with the correct message text'() {
+        
         given: 'We want to create a new message'
         def message = new Message()
         message.messageText = MESSAGE
