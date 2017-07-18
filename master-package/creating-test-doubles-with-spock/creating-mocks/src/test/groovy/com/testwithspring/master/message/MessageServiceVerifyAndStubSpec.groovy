@@ -115,7 +115,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save the message'
         1 * repository.save(message) >> { throw new RuntimeException() }

@@ -11,8 +11,7 @@ import spock.lang.Specification
  */
 @Category(UnitTest.class)
 class MessageServiceVerifySpec extends Specification {
-
-    static ID = 1L
+    
     static MESSAGE = 'Hello World!'
 
     def repository = Mock(MessageRepository)
@@ -25,7 +24,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save the message'
         1 * repository.save(message)
@@ -38,7 +37,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save the message'
         1 * repository.save(!new Message())
@@ -51,7 +50,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save any message'
         1 * repository.save(_)
@@ -64,7 +63,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save any message'
         1 * repository.save(*_)
@@ -77,7 +76,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save any message'
         1 * repository.save(!null)
@@ -90,7 +89,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save any message'
         1 * repository.save(_ as Message)
@@ -103,7 +102,7 @@ class MessageServiceVerifySpec extends Specification {
         message.messageText = MESSAGE
 
         when: 'We create a new message'
-        def returned = service.create(message)
+        service.create(message)
 
         then: 'Should save any message'
         1 * repository.save({ it.messageText == MESSAGE })
