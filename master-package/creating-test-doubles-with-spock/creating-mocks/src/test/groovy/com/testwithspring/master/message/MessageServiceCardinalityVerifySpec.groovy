@@ -55,7 +55,7 @@ class MessageServiceCardinalityVerifySpec extends Specification {
         (0..2) * repository.save(message)
     }
 
-    def 'Verify that the save() method was invoked at least once'() {
+    def 'Verify that the save() method was invoked at least one time'() {
 
         given: 'We want to create a new message'
         def message = new Message()
