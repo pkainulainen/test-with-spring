@@ -12,7 +12,7 @@ import spock.lang.Specification
 @Category(UnitTest.class)
 class MessageServiceResponseGeneratorSpec extends Specification {
 
-    static ID = 1L;
+    static ID = 1L
     static MESSAGE = 'Hello World!'
     
     def repository = Spy(MessageRepositoryImpl)

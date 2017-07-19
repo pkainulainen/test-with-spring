@@ -13,7 +13,7 @@ import spock.lang.Specification
 @Category(UnitTest.class)
 class MessageServiceVerifyAndStubSpec extends Specification {
 
-    static ID = 1L;
+    static ID = 1L
     static MESSAGE = 'Hello World!'
 
     def repository = Spy(MessageRepositoryImpl)
