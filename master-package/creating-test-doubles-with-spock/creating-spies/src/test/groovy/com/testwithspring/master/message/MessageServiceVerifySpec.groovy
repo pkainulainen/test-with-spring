@@ -100,7 +100,7 @@ class MessageServiceVerifySpec extends Specification {
         when: 'We create a new message'
         service.create(message)
 
-        then: 'Should save any message'
+        then: 'Should save a message that has the correct message text'
         1 * repository.save({ it.messageText == MESSAGE })
     }
 }
