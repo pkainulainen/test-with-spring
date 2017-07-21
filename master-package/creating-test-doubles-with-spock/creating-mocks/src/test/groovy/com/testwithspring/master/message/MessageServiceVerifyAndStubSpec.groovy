@@ -28,7 +28,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         when: 'We create a new message'
         def returned = service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should save the message and return the saved message'
         1 * repository.save(message) >> message
 
         and: 'Should return the saved message'
@@ -44,7 +44,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         when: 'We create a new message'
         def returned = service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should save the message and return the saved message or null'
         1 * repository.save(message) >> { args -> args[0].messageText == MESSAGE ? message : null }
 
         and: 'Should return the saved message'
@@ -60,7 +60,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         when: 'We create a new message'
         def returned = service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should save the message and return the saved message or null'
         1 * repository.save(message) >> { Message saved -> saved.messageText == MESSAGE ? saved : null }
 
         and: 'Should return the saved message'
@@ -76,7 +76,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         when: 'We create a new message'
         def returned = service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should save the message and return the saved message'
         1 * repository.save(message) >> { new Message(id: ID, messageText: MESSAGE) }
 
         and: 'Should return the found message with correct id'
@@ -95,7 +95,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         when: 'We create a new message'
         def returned = service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should save the message and return the saved message'
         1 * repository.save(message) >> { Message saved ->
             saved.id = ID
             return saved
@@ -117,7 +117,7 @@ class MessageServiceVerifyAndStubSpec extends Specification {
         when: 'We create a new message'
         service.create(message)
 
-        then: 'Should save the message'
+        then: 'Should save the message and throw an exception'
         1 * repository.save(message) >> { throw new RuntimeException() }
 
         and: 'Should throw exception'
