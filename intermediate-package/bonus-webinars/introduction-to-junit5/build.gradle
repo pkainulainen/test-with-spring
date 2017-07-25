@@ -29,9 +29,6 @@ dependencies {
 }
 
 test {
-    useJUnit {
-        includeCategories 'com.testwithspring.intermediate.UnitTest'
-    }
     testLogging {
         showStandardStreams = true
     }
