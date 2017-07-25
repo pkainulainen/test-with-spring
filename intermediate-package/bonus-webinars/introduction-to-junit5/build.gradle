@@ -1,0 +1,38 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M6'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile(
+            'org.junit.jupiter:junit-jupiter-engine:5.0.0-M6'
+    )
+    // We need to configure these three dependencies so that our tests can be run in IntelliJ Idea
+    // because IntelliJ Idea uses an old version of JUnit 5.
+    // See: https://youtrack.jetbrains.com/issue/IDEA-170817
+    testRuntime(
+            'org.junit.vintage:junit-vintage-engine:4.12.0-M6',
+            'org.junit.platform:junit-platform-launcher:1.0.0-M6',
+            'org.junit.platform:junit-platform-runner:1.0.0-M6'
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.intermediate.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
