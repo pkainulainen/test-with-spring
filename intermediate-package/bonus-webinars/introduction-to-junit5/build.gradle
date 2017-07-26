@@ -19,12 +19,10 @@ dependencies {
             'org.junit.jupiter:junit-jupiter-api:5.0.0-M6'
     )
     testRuntime(
-            'org.junit.jupiter:junit-jupiter-engine:5.0.0-M6'
-    )
-    // We need to configure these three dependencies so that our tests can be run in IntelliJ Idea
-    // because IntelliJ Idea uses an old version of JUnit 5.
-    // See: https://youtrack.jetbrains.com/issue/IDEA-170817
-    testRuntime(
+            'org.junit.jupiter:junit-jupiter-engine:5.0.0-M6',
+            // We need to configure these three dependencies so that our tests can be run in IntelliJ Idea
+            // because IntelliJ Idea uses an old version of JUnit 5.
+            // See: https://youtrack.jetbrains.com/issue/IDEA-170817
             'org.junit.vintage:junit-vintage-engine:4.12.0-M6',
             'org.junit.platform:junit-platform-launcher:1.0.0-M6',
             'org.junit.platform:junit-platform-runner:1.0.0-M6'
