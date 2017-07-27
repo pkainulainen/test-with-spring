@@ -64,6 +64,7 @@ dependencies {
             'javax.el:javax.el-api',
             'org.glassfish.web:el-impl:2.2',
             'junit:junit',
+            'org.hamcrest:hamcrest-library',
             'org.springframework:spring-test',
             'org.codehaus.groovy:groovy-all:2.4.11',
             'org.spockframework:spock-core:1.1-groovy-2.4'
