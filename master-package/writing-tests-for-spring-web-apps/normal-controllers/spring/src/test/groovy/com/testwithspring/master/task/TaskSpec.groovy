@@ -101,5 +101,8 @@ class TaskSpec extends Specification {
 
         and: 'Should not set the version of the created task'
         createdTask.version == null
+
+        and: 'Should create a task that has no tags'
+        createdTask.tags.isEmpty()
     }
 }
