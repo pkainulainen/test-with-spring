@@ -72,7 +72,8 @@ class TaskSpec extends Specification {
                 .withDescription(expectedDescription)
                 .withTitle(expectedTitle)
                 .build()
-        then: 'Should create a new task with correct information'
+        then: 'Should create an open task'
+        createdTask isOpen()
 
         and: 'Should not set the assignee of the created task'
         createdTask.assignee == null
@@ -94,9 +95,6 @@ class TaskSpec extends Specification {
 
         and: 'Should set the modifier of the created task'
         createdTask.modifier.userId == CREATOR_ID
-
-        and: 'Should create an open task'
-        createdTask isOpen()
 
         and: 'Should set the title of the created task'
         createdTask.title == expectedTitle
