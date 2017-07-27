@@ -63,7 +63,7 @@ class TaskSpec extends Specification {
         then: 'Should throw exception'
         thrown IllegalStateException
 
-        when: 'The information of created task is valid (with individual assertions)'
+        when: 'The information of created task is valid'
         def expectedDescription = TestStringBuilder.createStringWithLength(500)
         def expectedTitle = TestStringBuilder.createStringWithLength(100)
 
