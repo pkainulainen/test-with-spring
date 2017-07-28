@@ -4,7 +4,10 @@ import org.hamcrest.TypeSafeDiagnosingMatcher
 
 /**
  * Provides custom Hamcrest matchers that are used to write assertions
- * for {@link Task} objects.
+ * for {@link Task} and {@link TaskDTO) objects.
+ *
+ * Note: You can use these matchers for {@link Task} and {@link TaskDTO} objects as long as
+ * the field names of the matched fields are the same in both classes.
  */
 final class TaskMatchers {
 
@@ -21,7 +24,7 @@ final class TaskMatchers {
                             .appendValue(task.status)
                             .appendText(' and resolution: ')
                             .appendValue(task.resolution)
-                    (task.status == TaskStatus.OPEN) && (task.resolution == null)
+                    (task.closer == null) && (task.status == TaskStatus.OPEN) && (task.resolution == null)
                 },
                 describeTo: {description ->
                     description.appendText('An open task should have the status: ')
