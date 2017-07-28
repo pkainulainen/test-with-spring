@@ -10,9 +10,9 @@ import static com.testwithspring.master.task.TaskMatchers.isOpen
 @Category(UnitTest.class)
 class TaskSpec extends Specification {
 
-    private static CREATOR_ID = 3L
-    private static DESCRIPTION = 'This example demonstrates how we can use Spock Framework'
-    private static TITLE = 'Write example application'
+    private static final CREATOR_ID = 3L
+    private static final DESCRIPTION = 'This example demonstrates how we can use Spock Framework'
+    private static final TITLE = 'Write example application'
 
     def 'Build a new task'() {
 
