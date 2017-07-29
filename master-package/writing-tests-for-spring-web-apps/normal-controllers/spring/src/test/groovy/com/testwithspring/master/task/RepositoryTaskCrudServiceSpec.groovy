@@ -11,12 +11,17 @@ import spock.lang.Specification
 
 import java.time.ZonedDateTime
 
-import static com.testwithspring.master.task.TaskMatchers.isOpen
+import static com.testwithspring.master.task.TaskDTOMatchers.isOpen
+import static com.testwithspring.master.task.TaskDTOMatchers.wasClosedWithResolutionDone
 import static org.hamcrest.Matchers.hasSize
 
 @Category(UnitTest.class)
 class RepositoryTaskCrudServiceSpec extends Specification {
 
+    private static final ASSIGNEE_ID = 7L
+    private static final ASSIGNEE_NAME = "Anne Assignee"
+    private static final CLOSER_ID = 6L
+    private static final CLOSER_NAME = "Chris Closer"
     private static final CREATOR_ID = 1L
     private static final CREATOR_NAME = "John Doe"
     private static final DESCRIPTION = "test the method that finds tasks"
@@ -209,7 +214,16 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         task.status == STATUS
     }
 
+    /**
+     * If we want to return different objects by using the same task id, we have to specify
+     * the number of expected invocations. If we don't do this, Spock returns the response
+     * that is configured in the first interaction found from this feature method.
+     *
+     * @See http://spockframework.org/spock/docs/1.1/interaction_based_testing.html#_where_to_declare_interactions
+     */
     def 'Find one task'() {
+
+        def found
 
         when: 'No task is found with the given id'
         repository.findOne(TASK_ID_NOT_FOUND) >> Optional.empty()
@@ -219,6 +233,147 @@ class RepositoryTaskCrudServiceSpec extends Specification {
 
         then: 'Should throw exception'
         thrown NotFoundException
+
+        when: 'The requested task is found'
+        found = new TaskBuilder()
+                .withId(TASK_ID)
+                .withCreationTime(NOW)
+                .withCreator(CREATOR_ID)
+                .withDescription(DESCRIPTION)
+                .withModificationTime(NOW)
+                .withModifier(MODIFIER_ID)
+                .withTitle(TITLE)
+                .withStatusOpen()
+                .build()
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'The creator of the found task is found'
+        returnCreator()
+
+        and: 'The modifier of the found task is found'
+        returnModifier()
+
+        and: 'A user gets one task by using its id'
+        def returned = service.findById(TASK_ID)
+
+        then: 'Should return task with the correct id'
+        returned.id == TASK_ID
+
+        and: 'Should return task with the correct creation time'
+        returned.creationTime == NOW
+
+        and: 'Should return task with the correct creator'
+        returned.creator.name == CREATOR_NAME
+        returned.creator.userId == CREATOR_ID
+
+        and: 'Should return task with the correct description'
+        returned.description == DESCRIPTION
+
+        and: 'Should return task with the correct modification time'
+        returned.modificationTime == NOW
+
+        and: 'Should return task with the correct modifier'
+        returned.modifier.name == MODIFIER_NAME
+        returned.modifier.userId == MODIFIER_ID
+
+        and: 'Should return task with the correct title'
+        returned.title == TITLE
+
+        when: 'The found task is not assigned to anyone'
+        found = new TaskBuilder()
+                .withAssignee(null)
+                .build()
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'A user gets one task by using its id'
+        returned = service.findById(TASK_ID)
+
+        then: 'Should return task that has no assignee'
+        returned.assignee == null
+
+        when: 'The found task is assigned'
+        found = new TaskBuilder()
+                .withAssignee(ASSIGNEE_ID)
+                .build()
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'The assignee of the task is found'
+        returnAssignee()
+
+        and: 'A user gets one task by using its id'
+        returned = service.findById(TASK_ID)
+
+        then: 'Should task that is assigned to the correct person'
+        returned.assignee.userId == ASSIGNEE_ID
+        returned.assignee.name == ASSIGNEE_NAME
+
+        when: 'An open task is found'
+        found = new TaskBuilder()
+                .withStatusOpen()
+                .build()
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'A user gets one task by using its id'
+        returned = service.findById(TASK_ID)
+
+        then: 'Should return an open task'
+        returned isOpen()
+
+        when: 'A finished task is found'
+        found = new TaskBuilder()
+                .withResolutionDone(CLOSER_ID)
+                .build()
+
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'The closer of the task is found'
+        returnCloser()
+
+        and: 'A user gets one task by using its id'
+        returned = service.findById(TASK_ID)
+
+        then: 'Should return a closed task with the correct resolution'
+        returned wasClosedWithResolutionDone()
+
+        and: 'Should the return a task that has the correct closer'
+        returned.closer.userId == CLOSER_ID
+        returned.closer.name == CLOSER_NAME
+
+        when: 'The found task has no tags'
+        found = new TaskBuilder()
+                .withTags()
+                .build()
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'A user gets one task by using its id'
+        returned = service.findById(TASK_ID)
+
+        then: 'Should return task that has no tags'
+        returned.tags.isEmpty()
+
+        when: 'The found task has one tag'
+        def tag = new TagBuilder()
+                .withId(TAG_ID)
+                .withName(TAG_NAME)
+                .build()
+        found = new TaskBuilder()
+                .withTags(tag)
+                .build()
+
+        1 * repository.findOne(TASK_ID) >> Optional.of(found)
+
+        and: 'A user gets one task by using its id'
+        returned = service.findById(TASK_ID)
+
+        then: 'Should return task that has one tag'
+        def returnedTags = returned.tags
+        returnedTags hasSize(1)
+
+        and: 'Should the task that has the correct tag'
+        def returnedTag = returned.tags[0]
+
+        returnedTag.id == TAG_ID
+        returnedTag.name == TAG_NAME
     }
 
     def 'Update a task'() {
@@ -283,7 +438,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         found.modifier.userId == MODIFIER_ID
 
         and: 'Should not change the status of the updated task'
-        found isOpen()
+        found TaskMatchers.isOpen()
 
         and: 'Should not add new tags to the updated task'
         def foundTags = found.tags
@@ -332,6 +487,14 @@ class RepositoryTaskCrudServiceSpec extends Specification {
 
         returnedTag.id == TAG_ID
         returnedTag.name == TAG_NAME
+    }
+
+    private def returnAssignee() {
+        personFinder.findPersonInformationByUserId(ASSIGNEE_ID) >> new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME)
+    }
+
+    private def returnCloser() {
+        personFinder.findPersonInformationByUserId(CLOSER_ID) >> new PersonDTO(userId: CLOSER_ID, name: CLOSER_NAME)
     }
 
     private def returnCreator() {

@@ -4,10 +4,7 @@ import org.hamcrest.TypeSafeDiagnosingMatcher
 
 /**
  * Provides custom Hamcrest matchers that are used to write assertions
- * for {@link Task} and {@link TaskDTO) objects.
- *
- * Note: You can use these matchers for {@link Task} and {@link TaskDTO} objects as long as
- * the field names of the matched fields are the same in both classes.
+ * for {@link Task} objects.
  */
 final class TaskMatchers {
 
