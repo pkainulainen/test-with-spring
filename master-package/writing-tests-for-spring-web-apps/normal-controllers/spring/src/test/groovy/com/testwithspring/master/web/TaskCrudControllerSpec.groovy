@@ -5,6 +5,7 @@ import com.testwithspring.master.common.NotFoundException
 import com.testwithspring.master.task.TagDTO
 import com.testwithspring.master.task.TaskCrudService
 import com.testwithspring.master.task.TaskDTO
+import com.testwithspring.master.task.TaskFormDTO
 import com.testwithspring.master.task.TaskListDTO
 import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
@@ -98,7 +99,7 @@ class TaskCrudControllerSpec extends Specification {
 
         def response
 
-        when: 'A user opens the create task form'
+        when: 'A user opens the create task page'
         response = mockMvc.perform(get('/task/create'))
 
         then: 'Should return HTTP status code OK'
@@ -260,6 +261,42 @@ class TaskCrudControllerSpec extends Specification {
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(SECOND_TASK_TITLE)),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.OPEN))
                 )
+        )))
+    }
+
+    def 'Show update task form'() {
+
+        def response
+
+        when: 'The updated task is not found'
+        service.findById(TASK_ID_NOT_FOUND) >> { throw new NotFoundException('') }
+
+        and: 'A user tries to open the update task page'
+        response = mockMvc.perform(get('/task/{taskId}/update', TASK_ID_NOT_FOUND))
+
+        then: 'Should return HTTP status code not found'
+        response.andExpect(status().isNotFound())
+
+        and: 'Should render the not found view'
+        response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
+
+        when: 'The updated task is found'
+        service.findById(TASK_ID) >> new TaskDTO(id: TASK_ID, description: TASK_DESCRIPTION, title: TASK_TITLE)
+
+        and: 'A user opens the update task page'
+        response = mockMvc.perform(get('/task/{taskId}/update', TASK_ID))
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render update task view'
+        response.andExpect(view().name(WebTestConstants.View.UPDATE_TASK))
+
+        and: 'Should render the update task form that contains the information of the updated task'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(TASK_ID)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(TASK_TITLE))
         )))
     }
 }
