@@ -139,7 +139,7 @@ class TaskCrudControllerSpec extends Specification {
         def response
 
         when: 'A user submits an empty form'
-        response = mockMvc.perform(post("/task/create")
+        response = mockMvc.perform(post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, '')
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, '')
         )
@@ -174,7 +174,7 @@ class TaskCrudControllerSpec extends Specification {
         maxLengthTitle = TestStringBuilder.createStringWithLength(MAX_LENGTH_TITLE)
         def tooLongDescription = TestStringBuilder.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1)
 
-        response = mockMvc.perform(post("/task/create")
+        response = mockMvc.perform(post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, tooLongDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
         )
@@ -209,7 +209,7 @@ class TaskCrudControllerSpec extends Specification {
         def tooLongTitle = TestStringBuilder.createStringWithLength(MAX_LENGTH_TITLE + 1)
         maxLengthDescription = TestStringBuilder.createStringWithLength(MAX_LENGTH_DESCRIPTION)
 
-        response = mockMvc.perform(post("/task/create")
+        response = mockMvc.perform(post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
         )
@@ -241,7 +241,7 @@ class TaskCrudControllerSpec extends Specification {
         0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
 
         when: 'A user submits the create task form by using valid information'
-        response = mockMvc.perform(post("/task/create")
+        response = mockMvc.perform(post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
         )
@@ -503,7 +503,7 @@ class TaskCrudControllerSpec extends Specification {
         maxLengthTitle = TestStringBuilder.createStringWithLength(MAX_LENGTH_TITLE)
         def tooLongDescription = TestStringBuilder.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1)
 
-        response = mockMvc.perform(post("/task/{taskId}/update", TASK_ID)
+        response = mockMvc.perform(post('/task/{taskId}/update', TASK_ID)
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, tooLongDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.ID, TASK_ID.toString())
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
@@ -539,7 +539,7 @@ class TaskCrudControllerSpec extends Specification {
         def tooLongTitle = TestStringBuilder.createStringWithLength(MAX_LENGTH_TITLE + 1)
         maxLengthDescription = TestStringBuilder.createStringWithLength(MAX_LENGTH_DESCRIPTION)
 
-        response = mockMvc.perform(post("/task/{taskId}/update", TASK_ID)
+        response = mockMvc.perform(post('/task/{taskId}/update', TASK_ID)
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.ID, TASK_ID.toString())
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
@@ -572,7 +572,7 @@ class TaskCrudControllerSpec extends Specification {
         0 * service.update(_ as TaskFormDTO, _ as LoggedInUser)
 
         when: 'A user submits the update task form by using the id of an unknown task'
-        response = mockMvc.perform(post("/task/{taskId}/update", TASK_ID_NOT_FOUND)
+        response = mockMvc.perform(post('/task/{taskId}/update', TASK_ID_NOT_FOUND)
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.ID, TASK_ID_NOT_FOUND.toString())
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
@@ -592,7 +592,7 @@ class TaskCrudControllerSpec extends Specification {
         response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
 
         when: 'A user submits the update task form by using valid information'
-        response = mockMvc.perform(post("/task/{taskId}/update", TASK_ID)
+        response = mockMvc.perform(post('/task/{taskId}/update', TASK_ID)
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
                 .param(WebTestConstants.ModelAttributeProperty.Task.ID, TASK_ID.toString())
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
