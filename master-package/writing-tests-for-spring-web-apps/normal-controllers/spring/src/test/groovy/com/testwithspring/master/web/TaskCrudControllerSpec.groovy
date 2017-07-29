@@ -2,14 +2,19 @@ package com.testwithspring.master.web
 
 import com.testwithspring.master.UnitTest
 import com.testwithspring.master.common.NotFoundException
+import com.testwithspring.master.task.TagDTO
 import com.testwithspring.master.task.TaskCrudService
 import com.testwithspring.master.task.TaskDTO
 import com.testwithspring.master.task.TaskListDTO
+import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
+import com.testwithspring.master.user.PersonDTO
 import org.junit.experimental.categories.Category
 import org.springframework.context.support.StaticMessageSource
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import spock.lang.Specification
+
+import java.time.ZonedDateTime
 
 import static com.testwithspring.master.web.WebTestConfig.exceptionResolver
 import static com.testwithspring.master.web.WebTestConfig.fixedLocaleResolver
@@ -28,9 +33,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Category(UnitTest.class)
 class TaskCrudControllerSpec extends Specification {
 
+    //Task
+    private static final ASSIGNEE_ID = 44L
+    private static final ASSIGNEE_NAME = 'Anne Assignee'
+    private static final CREATION_TIME = ZonedDateTime.now().minusDays(4)
+    private static final CREATOR_ID = 99L
+    private static final CREATOR_NAME = 'John Doe'
+    private static final MODIFICATION_TIME = CREATION_TIME.plusDays(2)
+    private static final MODIFIER_ID = 33L
+    private static final MODIFIER_NAME = 'Jane Doe'
+    private static final TASK_DESCRIPTION = 'description'
     private static final TASK_ID = 1L
     private static final TASK_ID_NOT_FOUND = 99L
-    private static final TASK_TITLE = "title"
+    private static final TASK_TITLE = 'title'
 
     def messageSource = new StaticMessageSource()
     def service = Mock(TaskCrudService)
@@ -83,6 +98,97 @@ class TaskCrudControllerSpec extends Specification {
         ))
     }
 
+    def 'Show task'() {
+
+        def final CLOSER_ID = 931L
+        def final CLOSER_NAME = 'Chris Closer'
+        def final TAG_ID = 33L
+        def final TAG_NAME = 'testing'
+
+        def response
+
+        when: 'No task is found'
+        service.findById(TASK_ID_NOT_FOUND) >> { throw new NotFoundException('') }
+
+        and: 'A user tries to open the view task page'
+        response = mockMvc.perform(get('/task/{taskId}', TASK_ID_NOT_FOUND))
+
+        then: 'Should return HTTP status code not found'
+        response.andExpect(status().isNotFound())
+
+        and: 'Should render the not found view'
+        response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
+
+        when: 'A closed task is found and it has one tag'
+        service.findById(TASK_ID) >> {
+            new TaskDTO(
+                    id: TASK_ID,
+                    assignee: new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME),
+                    closer: new PersonDTO(userId: CLOSER_ID, name: CLOSER_NAME),
+                    creationTime: CREATION_TIME,
+                    creator: new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME),
+                    description: TASK_DESCRIPTION,
+                    modificationTime: MODIFICATION_TIME,
+                    modifier: new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME),
+                    resolution: TaskResolution.DONE,
+                    status: TaskStatus.CLOSED,
+                    tags: [new TagDTO(id: TAG_ID, name: TAG_NAME)],
+                    title: TASK_TITLE,
+            )
+        }
+
+        and: 'A user opens the view task page'
+        response = mockMvc.perform(get('/task/{taskId}', TASK_ID))
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render the view task view'
+        response.andExpect(view().name(WebTestConstants.View.VIEW_TASK))
+
+        and: 'Should render the information of the found task'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(ASSIGNEE_NAME)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(ASSIGNEE_ID))
+                )),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CLOSER, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CLOSER_NAME)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CLOSER_ID))
+                )),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATION_TIME, is(CREATION_TIME)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.CREATOR, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(CREATOR_NAME)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(CREATOR_ID))
+                )),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, is(TASK_ID)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFICATION_TIME, is(MODIFICATION_TIME)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(MODIFIER_NAME)),
+                        hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID, is(MODIFIER_ID))
+                )),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(TASK_TITLE)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.STATUS, is(TaskStatus.CLOSED)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, is(TaskResolution.DONE))
+        )))
+
+        and: 'Should render one tag of the found task'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, hasSize(1))
+        ))
+
+        and: 'Should render the tag of the found task'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, contains(
+                        allOf(
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Tag.ID, is(TAG_ID)),
+                                hasProperty(WebTestConstants.ModelAttributeProperty.Tag.NAME, is(TAG_NAME))
+                        )
+                ))
+        ))
+    }
+
     def 'Show task list'() {
 
         def final FIRST_TASK_ID = 1L
@@ -96,7 +202,7 @@ class TaskCrudControllerSpec extends Specification {
         1 * service.findAll() >> []
 
         and: 'A user opens the task list page'
-        response = mockMvc.perform(get("/"))
+        response = mockMvc.perform(get('/'))
 
         then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
@@ -108,7 +214,7 @@ class TaskCrudControllerSpec extends Specification {
         1 * service.findAll() >> []
 
         and: 'A user opens the task list page'
-        response = mockMvc.perform(get("/"))
+        response = mockMvc.perform(get('/'))
 
         then: 'Should show an empty task list'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)))
@@ -120,7 +226,7 @@ class TaskCrudControllerSpec extends Specification {
         ]
 
         and: 'A user opens the task list page'
-        response = mockMvc.perform(get("/"))
+        response = mockMvc.perform(get('/'))
 
         then: 'Should show task list that has two tasks'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(2)))

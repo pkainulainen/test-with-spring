@@ -16,7 +16,7 @@ final class WebTestConstants {
      */
     static class FlashMessageKey {
 
-        static final String FEEDBACK_MESSAGE = "feedbackMessage";
+        static final String FEEDBACK_MESSAGE = 'feedbackMessage'
     }
 
     /**
@@ -25,6 +25,7 @@ final class WebTestConstants {
     static class ModelAttributeName {
 
         static final SEARCH_TERM = 'searchTerm'
+        static final TASK = 'task'
         static final TASK_LIST = 'tasks'
     }
 
@@ -33,11 +34,32 @@ final class WebTestConstants {
      */
     static class ModelAttributeProperty {
 
-        static class Task {
+        static class Tag {
 
             static final ID = 'id'
+            static final NAME = 'name'
+        }
+
+        static class Task {
+
+            static final ASSIGNEE = 'assignee'
+            static final CLOSER = 'closer'
+            static final CREATION_TIME = 'creationTime'
+            static final CREATOR = 'creator'
+            static final DESCRIPTION = 'description'
+            static final ID = 'id'
+            static final MODIFICATION_TIME = 'modificationTime'
+            static final MODIFIER = 'modifier'
+            static final RESOLUTION = 'resolution'
             static final STATUS = 'status'
+            static final TAGS = 'tags'
             static final TITLE = 'title'
+
+            static class Person {
+
+                static final NAME = 'name'
+                static final USER_ID = 'userId'
+            }
         }
     }
 
@@ -54,17 +76,18 @@ final class WebTestConstants {
      */
     static class ErrorView {
 
-        static final NOT_FOUND = "error/404"
+        static final NOT_FOUND = 'error/404'
     }
 
     /**
-     * Contains the view names of the "normal" views.
+     * Contains the view names of the 'normal' views.
      */
     static class View {
 
         static final LOGIN = 'user/login'
         static final SEARCH_RESULTS = 'task/search-results'
         static final TASK_LIST = 'task/list'
+        static final VIEW_TASK = 'task/view'
     }
 
     /**
@@ -72,6 +95,6 @@ final class WebTestConstants {
      */
     static class RedirectView {
 
-        public static final String SHOW_TASK_LIST = 'redirect:/'
+        static final String SHOW_TASK_LIST = 'redirect:/'
     }
 }
