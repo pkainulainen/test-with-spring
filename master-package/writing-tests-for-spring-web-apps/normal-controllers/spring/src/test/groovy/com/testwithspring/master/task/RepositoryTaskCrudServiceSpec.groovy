@@ -19,24 +19,24 @@ import static org.hamcrest.Matchers.hasSize
 class RepositoryTaskCrudServiceSpec extends Specification {
 
     private static final ASSIGNEE_ID = 7L
-    private static final ASSIGNEE_NAME = "Anne Assignee"
+    private static final ASSIGNEE_NAME = 'Anne Assignee'
     private static final CLOSER_ID = 6L
-    private static final CLOSER_NAME = "Chris Closer"
+    private static final CLOSER_NAME = 'Chris Closer'
     private static final CREATOR_ID = 1L
-    private static final CREATOR_NAME = "John Doe"
-    private static final DESCRIPTION = "test the method that finds tasks"
+    private static final CREATOR_NAME = 'John Doe'
+    private static final DESCRIPTION = 'test the method that finds tasks'
     private static final MODIFIER_ID = 456L
-    private static final MODIFIER_NAME = "Jane Doe"
-    private static final NEW_DESCRIPTION = "Test the method that updates a task";
-    private static final NEW_TITLE = "Write new unit test";
+    private static final MODIFIER_NAME = 'Jane Doe'
+    private static final NEW_DESCRIPTION = 'Test the method that updates a task'
+    private static final NEW_TITLE = 'Write new unit test'
     private static final NOW = ZonedDateTime.now()
     private static final TASK_ID = 1L
     private static final TASK_ID_NOT_FOUND = 9L
-    private static final TITLE = "Write an example test"
+    private static final TITLE = 'Write an example test'
     private static final STATUS = TaskStatus.OPEN
 
     private static Long TAG_ID = 44L
-    private static String TAG_NAME = "testing"
+    private static String TAG_NAME = 'testing'
 
     def personFinder = Stub(PersonFinder)
     def repository = Mock(TaskRepository)

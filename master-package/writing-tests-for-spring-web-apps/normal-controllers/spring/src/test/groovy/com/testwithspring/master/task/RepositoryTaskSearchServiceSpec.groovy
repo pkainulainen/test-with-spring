@@ -10,9 +10,9 @@ import static org.hamcrest.Matchers.hasSize
 class RepositoryTaskSearchServiceSpec extends Specification {
 
     private static final TASK_ID = 1L
-    private static final TITLE = "Write an example test"
-    private static final SEARCH_TERM_NO_RESULTS = "notFound"
-    private static final SEARCH_TERM_ONE_RESULT = "examp"
+    private static final TITLE = 'Write an example test'
+    private static final SEARCH_TERM_NO_RESULTS = 'notFound'
+    private static final SEARCH_TERM_ONE_RESULT = 'examp'
     private static final STATUS = TaskStatus.OPEN
 
     def repository = Stub(TaskRepository)
