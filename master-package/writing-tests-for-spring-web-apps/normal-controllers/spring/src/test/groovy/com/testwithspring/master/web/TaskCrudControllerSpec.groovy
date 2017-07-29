@@ -19,11 +19,7 @@ import java.time.ZonedDateTime
 import static com.testwithspring.master.web.WebTestConfig.exceptionResolver
 import static com.testwithspring.master.web.WebTestConfig.fixedLocaleResolver
 import static com.testwithspring.master.web.WebTestConfig.jspViewResolver
-import static org.hamcrest.Matchers.allOf
-import static org.hamcrest.Matchers.contains
-import static org.hamcrest.Matchers.hasProperty
-import static org.hamcrest.Matchers.hasSize
-import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.*
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
@@ -96,6 +92,27 @@ class TaskCrudControllerSpec extends Specification {
         response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
                 FEEDBACK_MESSAGE_TASK_DELETED
         ))
+    }
+
+    def 'Show create task form'() {
+
+        def response
+
+        when: 'A user opens the create task form'
+        response = mockMvc.perform(get('/task/create'))
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render create task view'
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
+
+        and: 'Should render a create task form'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, nullValue()),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue()),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, nullValue())
+        )))
     }
 
     def 'Show task'() {

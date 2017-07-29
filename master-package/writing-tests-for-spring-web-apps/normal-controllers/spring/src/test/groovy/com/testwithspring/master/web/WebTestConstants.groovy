@@ -84,6 +84,7 @@ final class WebTestConstants {
      */
     static class View {
 
+        static final CREATE_TASK = 'task/create'
         static final LOGIN = 'user/login'
         static final SEARCH_RESULTS = 'task/search-results'
         static final TASK_LIST = 'task/list'
