@@ -2,7 +2,6 @@ package com.testwithspring.master.user
 
 import com.testwithspring.master.ReflectionFieldSetter
 import com.testwithspring.master.UnitTest
-import com.testwithspring.master.common.NotFoundException
 import org.junit.experimental.categories.Category
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import spock.lang.Specification
