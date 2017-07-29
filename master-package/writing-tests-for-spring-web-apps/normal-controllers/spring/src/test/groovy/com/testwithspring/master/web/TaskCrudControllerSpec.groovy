@@ -251,7 +251,7 @@ class TaskCrudControllerSpec extends Specification {
             saved.id == null
             saved.description == maxLengthDescription
             saved.title == maxLengthTitle
-        } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTO(id: TASK_ID, title: TASK_TITLE)
+        } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTO(id: TASK_ID, title: maxLengthTitle)
 
         and: 'Should return HTTP status code found'
         response.andExpect(status().isFound())
