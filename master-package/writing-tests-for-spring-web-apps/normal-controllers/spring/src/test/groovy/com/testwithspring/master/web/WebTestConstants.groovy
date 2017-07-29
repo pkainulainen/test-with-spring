@@ -10,6 +10,15 @@ package com.testwithspring.master.web
  */
 final class WebTestConstants {
 
+
+    /**
+     * Contains the keys of the flash messages.
+     */
+    static class FlashMessageKey {
+
+        static final String FEEDBACK_MESSAGE = "feedbackMessage";
+    }
+
     /**
      * Contains the names of the model attributes.
      */
@@ -41,6 +50,14 @@ final class WebTestConstants {
     }
 
     /**
+     * Contains the view names of the error views.
+     */
+    static class ErrorView {
+
+        static final NOT_FOUND = "error/404"
+    }
+
+    /**
      * Contains the view names of the "normal" views.
      */
     static class View {
@@ -48,5 +65,13 @@ final class WebTestConstants {
         static final LOGIN = 'user/login'
         static final SEARCH_RESULTS = 'task/search-results'
         static final TASK_LIST = 'task/list'
+    }
+
+    /**
+     * Contains the view names of the redirect views.
+     */
+    static class RedirectView {
+
+        public static final String SHOW_TASK_LIST = 'redirect:/'
     }
 }
