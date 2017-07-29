@@ -147,7 +147,7 @@ class TaskCrudControllerSpec extends Specification {
         then: 'Should return HTTP status code OK'
         response.andExpect(status().isOk())
 
-        and: 'Should render create task view'
+        and: 'Should render the create task view'
         response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should show a validation error about an empty title'
@@ -182,7 +182,7 @@ class TaskCrudControllerSpec extends Specification {
         then: 'Should return HTTP status code OK'
         response.andExpect(status().isOk())
 
-        and: 'Should render create task view'
+        and: 'Should render the create task view'
         response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should show validation errors about too long description'
@@ -217,7 +217,7 @@ class TaskCrudControllerSpec extends Specification {
         then: 'Should return HTTP status code OK'
         response.andExpect(status().isOk())
 
-        and: 'Should render create task view'
+        and: 'Should render the create task view'
         response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should show validation errors about too long title'
