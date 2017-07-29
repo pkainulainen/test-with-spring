@@ -1,5 +1,6 @@
 package com.testwithspring.master.web
 
+import com.testwithspring.master.TestStringBuilder
 import com.testwithspring.master.UnitTest
 import com.testwithspring.master.common.NotFoundException
 import com.testwithspring.master.task.TagDTO
@@ -9,6 +10,7 @@ import com.testwithspring.master.task.TaskFormDTO
 import com.testwithspring.master.task.TaskListDTO
 import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
+import com.testwithspring.master.user.LoggedInUser
 import com.testwithspring.master.user.PersonDTO
 import org.junit.experimental.categories.Category
 import org.springframework.context.support.StaticMessageSource
@@ -22,6 +24,7 @@ import static com.testwithspring.master.web.WebTestConfig.fixedLocaleResolver
 import static com.testwithspring.master.web.WebTestConfig.jspViewResolver
 import static org.hamcrest.Matchers.*
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -29,6 +32,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Category(UnitTest.class)
 class TaskCrudControllerSpec extends Specification {
+
+    //Validation
+    private static final MAX_LENGTH_DESCRIPTION = 500
+    private static final MAX_LENGTH_TITLE = 100
 
     //Task
     private static final ASSIGNEE_ID = 44L
@@ -114,6 +121,149 @@ class TaskCrudControllerSpec extends Specification {
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue()),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, nullValue())
         )))
+    }
+
+    def 'Create a new task'() {
+
+        given: 'The message source contains the feedback message'
+        def final FEEDBACK_MESSAGE_KEY_TASK_CREATED = 'feedback.message.task.created'
+        def final FEEDBACK_MESSAGE_TASK_CREATED = 'Task created'
+
+        messageSource.addMessage(FEEDBACK_MESSAGE_KEY_TASK_CREATED,
+                WebTestConfig.LOCALE,
+                FEEDBACK_MESSAGE_TASK_CREATED
+        )
+
+        def maxLengthDescription
+        def maxLengthTitle
+        def response
+
+        when: 'A user submits an empty form'
+        response = mockMvc.perform(post("/task/create")
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, '')
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, '')
+        )
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render create task view'
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
+
+        and: 'Should show a validation error about an empty title'
+        response.andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
+                WebTestConstants.ModelAttributeProperty.Task.TITLE,
+                is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
+        ))
+
+        and: 'Should show empty title and description'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is('')),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(''))
+        )))
+
+        and: 'Should not modify the id field'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue())
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'A user submits the create task form with too long description'
+        maxLengthTitle = TestStringBuilder.createStringWithLength(MAX_LENGTH_TITLE)
+        def tooLongDescription = TestStringBuilder.createStringWithLength(MAX_LENGTH_DESCRIPTION + 1)
+
+        response = mockMvc.perform(post("/task/create")
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, tooLongDescription)
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
+        )
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render create task view'
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
+
+        and: 'Should show validation errors about too long description'
+        response.andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
+                WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION,
+                is(WebTestConstants.ValidationErrorCode.SIZE)
+        ))
+
+        and: 'Should show entered title and description'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(tooLongDescription)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(maxLengthTitle))
+        )))
+
+        and: 'Should not modify the id field'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue())
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'A user submits the create task form with too long title'
+        def tooLongTitle = TestStringBuilder.createStringWithLength(MAX_LENGTH_TITLE + 1)
+        maxLengthDescription = TestStringBuilder.createStringWithLength(MAX_LENGTH_DESCRIPTION)
+
+        response = mockMvc.perform(post("/task/create")
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
+        )
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render create task view'
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
+
+        and: 'Should show validation errors about too long title'
+        response.andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
+                WebTestConstants.ModelAttributeProperty.Task.TITLE,
+                is(WebTestConstants.ValidationErrorCode.SIZE)
+        ))
+
+        and: 'Should show entered title and description'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(maxLengthDescription)),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(tooLongTitle))
+        )))
+
+        and: 'Should not modify the id field'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue())
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'A user submits the create task form by using valid information'
+        response = mockMvc.perform(post("/task/create")
+                .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, maxLengthDescription)
+                .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
+        )
+
+        then: 'Should create a new task by using correct information and return the created task'
+        1 * service.create({ TaskFormDTO saved ->
+            saved.id == null
+            saved.description == maxLengthDescription
+            saved.title == maxLengthTitle
+        } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTO(id: TASK_ID, title: TASK_TITLE)
+
+        and: 'Should return HTTP status code found'
+        response.andExpect(status().isFound())
+
+        and: 'Should redirect the user to the view task view'
+        response.andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is(TASK_ID.toString())))
+
+        and: 'Should add feedback message as a flash attribute'
+        response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
+                FEEDBACK_MESSAGE_TASK_CREATED
+        ))
     }
 
     def 'Show task'() {

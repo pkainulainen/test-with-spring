@@ -26,6 +26,7 @@ final class WebTestConstants {
 
         static final SEARCH_TERM = 'searchTerm'
         static final TASK = 'task'
+        static final TASK_ID = 'taskId'
         static final TASK_LIST = 'tasks'
     }
 
@@ -80,6 +81,15 @@ final class WebTestConstants {
     }
 
     /**
+     * Contains the validation error codes.
+     */
+    static class ValidationErrorCode {
+
+        static final EMPTY_FIELD = 'NotBlank'
+        static final SIZE = 'Size'
+    }
+
+    /**
      * Contains the view names of the 'normal' views.
      */
     static class View {
@@ -97,6 +107,7 @@ final class WebTestConstants {
      */
     static class RedirectView {
 
+        static final String SHOW_TASK = 'redirect:/task/{taskId}'
         static final String SHOW_TASK_LIST = 'redirect:/'
     }
 }
