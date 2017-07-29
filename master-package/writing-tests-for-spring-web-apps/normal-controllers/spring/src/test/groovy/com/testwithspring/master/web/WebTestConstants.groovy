@@ -47,5 +47,6 @@ final class WebTestConstants {
 
         static final LOGIN = 'user/login'
         static final SEARCH_RESULTS = 'task/search-results'
+        static final TASK_LIST = 'task/list'
     }
 }
