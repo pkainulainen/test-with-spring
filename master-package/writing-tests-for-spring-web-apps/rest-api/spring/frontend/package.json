@@ -1,0 +1,35 @@
+{
+  "author": "Petri Kainulainen",
+  "name": "test-with-spring-spa-example",
+  "description": "Test With Spring Course: SPA Example",
+  "version": "1.0.0",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "bower": "~1.8.0",
+    "gulp": "~3.9.0",
+    "gulp-angular-templatecache": "~1.8.0",
+    "gulp-changed": "~1.2.1",
+    "gulp-concat": "~2.6.0",
+    "gulp-if": "~2.0.0",
+    "gulp-insert": "^0.4.0",
+    "gulp-jshint": "~1.11.2",
+    "gulp-less": "~3.0.3",
+    "gulp-load-plugins": "~0.10.0",
+    "gulp-minify-css": "~1.2.1",
+    "gulp-minify-html": "~1.0.4",
+    "gulp-rename": "~1.2.2",
+    "gulp-size": "~2.0.0",
+    "gulp-sourcemaps": "~1.6.0",
+    "gulp-uglify": "~1.4.2",
+    "jshint-stylish": "~2.0.1"
+  },
+  "engines": {
+    "node": ">=0.12.0"
+  }
+}
+
+

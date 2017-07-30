@@ -1,0 +1,17 @@
+<form class="navbar-form navbar-right"
+      name="searchForm"
+      ng-if="currentUser.username"
+      role="search">
+    <div class="form-group">
+        <small id="search-help-text" ng-show="showMissingCharacterText()">
+            {{'directive.search.missing.characters.text' | translate:translationData }}
+        </small>
+        <input type="text"
+               class="form-control"
+               placeholder="{{'directive.search.term.field.placeholder' | translate}}"
+               ng-model="search.searchTerm"
+               ng-blur="searchFieldBlur()"
+               ng-change="search()"
+               ng-focus="searchFieldFocus()">
+    </div>
+</form>

@@ -1,0 +1,165 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="01-create-tasks-table" author="Petri Kainulainen">
+        <createTable tableName="tasks">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="tasks_pk"/>
+            </column>
+            <column name="assignee_id" type="BIGINT"/>
+            <column name="closer_id" type="BIGINT"/>
+            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(500)"/>
+            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="resolution" type="VARCHAR(10)"/>
+            <column name="status" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="02-create-tags-table" author="Petri Kainulainen">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="tags_pk"/>
+            </column>
+            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="03-create_tasks_tags-table" author="Petri Kainulainen">
+        <createTable tableName="tasks_tags">
+            <column name="task_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="tasks_tags"
+                                 baseColumnNames="task_id"
+                                 constraintName="tags_task_fk"
+                                 referencedTableName="tasks"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="tasks_tags"
+                                 baseColumnNames="tag_id"
+                                 constraintName="task_tags_fk"
+                                 referencedTableName="tags"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+    <changeSet id="04-create-user_accounts-table" author="Petri Kainulainen">
+        <createTable tableName="user_accounts">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="user_accounts_pk"/>
+            </column>
+            <column name="creation_time" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modification_time" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="name" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="05-add-is_enabled-column-to-user_accounts-table" author="Petri Kainulainen">
+        <addColumn tableName="user_accounts">
+            <column name="is_enabled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="06-add-modifier_id-to-tasks-table" author="Petri Kainulainen">
+        <addColumn tableName="tasks">
+            <column name="modifier_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="07-change-username-column-to-email_address" author="Petri Kainulainen">
+        <renameColumn tableName="user_accounts" oldColumnName="username" newColumnName="email_address"/>
+    </changeSet>
+    <changeSet id="08-add-foreign-key-constraints-to-tasks-table" author="Petri Kainulainen">
+        <addForeignKeyConstraint baseTableName="tasks"
+                                 baseColumnNames="assignee_id"
+                                 constraintName="task_assignee_fk"
+                                 referencedTableName="user_accounts"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="tasks"
+                                 baseColumnNames="closer_id"
+                                 constraintName="task_closer_fk"
+                                 referencedTableName="user_accounts"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="tasks"
+                                 baseColumnNames="creator_id"
+                                 constraintName="task_creator_fk"
+                                 referencedTableName="user_accounts"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="tasks"
+                                 baseColumnNames="modifier_id"
+                                 constraintName="task_modifier_fk"
+                                 referencedTableName="user_accounts"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet id="10-initialize-user-accounts" author="Petri Kainulainen" context="application-data">
+        <insert tableName="user_accounts">
+            <column name="id" value="1"/>
+            <column name="creation_time" valueComputed="NOW()"/>
+            <column name="email_address" value="john.doe@example.com"/>
+            <column name="is_enabled" value="true"/>
+            <column name="modification_time" valueComputed="NOW()"/>
+            <column name="name" value="John Doe"/>
+            <column name="password" value="password"/>
+            <column name="role" value="ROLE_USER"/>
+            <column name="version" value="0"/>
+        </insert>
+        <insert tableName="user_accounts">
+            <column name="id" value="2"/>
+            <column name="creation_time" valueComputed="NOW()"/>
+            <column name="email_address" value="anne.admin@example.com"/>
+            <column name="is_enabled" value="true"/>
+            <column name="modification_time" valueComputed="NOW()"/>
+            <column name="name" value="Anne Admin"/>
+            <column name="password" value="password"/>
+            <column name="role" value="ROLE_ADMIN"/>
+            <column name="version" value="0"/>
+        </insert>
+    </changeSet>
+    <changeSet id="10-insert-e2e-test-data" author="Petri Kainulainen" context="end-to-end-test">
+        <sqlFile path="test-data/users.sql" relativeToChangelogFile="true" encoding="UTF-8"/>
+        <sqlFile path="test-data/tasks.sql" relativeToChangelogFile="true" encoding="UTF-8"/>
+    </changeSet>
+</databaseChangeLog>

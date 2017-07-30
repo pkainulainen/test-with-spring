@@ -1,0 +1,38 @@
+<div id="login-error-alert"
+     class="alert alert-danger alert-dismissible"
+     ng-if="loginFailed">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <span translate="directive.login.form.login.failed.error.message"></span>
+</div>
+<div ng-if="!currentUser.username">
+    <form id="login-form" role="form">
+        <div class="form-group">
+            <label for="email-address" translate="directive.login.form.email.address.label"></label>
+            <input id="email-address"
+                   class="form-control"
+                   name="username"
+                   type="email"
+                   placeholder="{{'directive.login.form.email.address.placeholder' | translate}}"
+                   ng-model="login.username">
+        </div>
+        <div class="form-group">
+            <label for="password" translate="directive.login.form.password.label"></label>
+            <input id="password"
+                   class="form-control"
+                   name="password"
+                   type="password"
+                   placeholder="{{'directive.login.form.email.address.placeholder' | translate}}"
+                   ng-model="login.password">
+        </div>
+        <button id="login-submit-button"
+                type="button"
+                class="btn btn-default"
+                translate="directive.login.form.submit.button.label"
+                ng-click="submitLoginForm()">
+        </button>
+    </form>
+</div>
+<div id="authenticated-user-error"
+     ng-if="currentUser.username"
+     translate="page.login.authenticated.user.error.message">
+</div>

@@ -1,0 +1,15 @@
+<table id="task-list" class="table table-striped" ng-if="tasks.length > 0">
+    <thead>
+    <tr>
+        <th translate="task.property.title.header"></th>
+        <th transtate="task.property.status.header"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="task-list-item-{{task.id}}" class="task-list-item" ng-repeat="task in tasks">
+        <td><a class="task-list-item-title" ui-sref="task.view({id: task.id})">{{task.title}}</a></td>
+        <td class="task-list-item-status task-status-{{task.status}}" translate="TaskStatus.{{task.status}}">
+        </td>
+    </tr>
+    </tbody>
+</table>

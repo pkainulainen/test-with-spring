@@ -1,0 +1,20 @@
+<div id="delete-task-dialog">
+    <div class="modal-header">
+        <h4 class="modal-title" translate="dialogs.delete.task.dialog.title"></h4>
+    </div>
+    <div class="modal-body">
+        <p translate="dialogs.delete.task.dialog.text" translate-values="{title: task.title}"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button"
+                class="btn btn-default"
+                data-dismiss="modal"
+                translate="dialogs.delete.task.dialog.cancel.button.label"
+                ng-click="cancel()"></button>
+        <button id="delete-task-button"
+                type="button"
+                class="btn btn-danger"
+                translate="dialogs.delete.task.dialog.delete.button.label"
+                ng-click="delete()"></button>
+    </div>
+</div>

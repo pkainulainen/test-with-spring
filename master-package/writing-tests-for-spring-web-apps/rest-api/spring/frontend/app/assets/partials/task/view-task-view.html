@@ -1,0 +1,48 @@
+<h1 id="task-title">{{task.title}}</h1>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div id="task-description"
+             ng-if="!task.description"
+             translate="page.view.task.no.description.message"></div>
+        <div id="task-description" ng-if="task.description">{{task.description}}</div>
+    </div>
+</div>
+<div id="lifecycle-fields" class="container-fluid">
+    <div class="row" ng-if="task.assignee != null">
+        <div class="col-md-3">
+            <span translate="page.view.task.assignee.description"></span>:
+            <span id="assignee-name">{{task.assignee.name}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <span translate="page.view.task.creator.description.prefix"></span>
+            <span id="creator-name">{{task.creator.name}}</span>
+            <span translate="page.view.task.timestamp.prefix"></span>
+            <span id="creation-time">{{task.creationTime | amDateFormat:'YYYY-MM-DD H:mm:ss'}}</span>
+        </div>
+        <div class="col-md-3">
+            <span translate="page.view.task.modifier.description.prefix"></span>
+            <span id="modifier-name">{{task.modifier.name}}</span>
+            <span translate="page.view.task.timestamp.prefix"></span>
+            <span id="modification-time">{{task.modificationTime | amDateFormat:'YYYY-MM-DD H:mm:ss'}}</span>
+        </div>
+        <div id="closed-task-fields" class="col-md-3" ng-if="task.status == 'CLOSED'">
+            <span translate="page.view.task.closer.description.prefix"></span>
+            <span id="closer-name">{{task.closer.name}}</span>
+            <span translate="page.view.task.timestamp.prefix"></span>
+            <span id="closing-time">{{task.modificationTime | amDateFormat:'YYYY-MM-DD H:mm:ss'}}</span>
+        </div>
+    </div>
+</div>
+<div id="task-action-links" class="row">
+    <div class="col-md-1">
+        <span delete-task-link task="task"></span>
+    </div>
+    <div class="col-md-1">
+        <a id="update-task-link"
+           ui-sref="task.update({id: task.id})"
+           translate="page.view.task.update.task.link.label">
+        </a>
+    </div>
+</div>

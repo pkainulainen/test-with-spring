@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <form id="task-form"
+              name="taskForm"
+              ng-show="task"
+              role="form">
+            <input id="task-id"
+                   type="hidden"
+                   ng-if="task.id"
+                   value="{{task.id}}"/>
+            <div class="form-group"
+                 ng-class="{ 'has-error': taskForm.title.$dirty && taskForm.title.$invalid }">
+                <label for="task-title" translate="task.property.title.label"></label>
+                <input id="task-title"
+                       class="form-control"
+                       name="title"
+                       ng-model="task.title"
+                       required
+                       ng-maxlength="100"/>
+                <div ng-show="taskForm.title.$dirty && taskForm.title.$invalid">
+                    <span id="error-title"
+                          class="help-block"
+                          translate="task.messages.title.required"
+                          ng-show="taskForm.title.$error.required"></span>
+                    <span id="error-title"
+                          class="help-block"
+                          translate="task.messages.title.maxLength"
+                          ng-show="taskForm.title.$error.maxlength"></span>
+                </div>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error': taskForm.description.$dirty && taskForm.description.$invalid }">
+                <label for="task-description" translate="task.property.description.label"></label>
+                <textarea id="task-description"
+                          class="form-control"
+                          name="description"
+                          ng-model="task.description"
+                          ng-maxlength="500"></textarea>
+                <div ng-show="taskForm.description.$dirty && taskForm.description.$invalid">
+                    <span id="error-description"
+                          class="help-block"
+                          translate="task.messages.description.maxLength"
+                          ng-show="taskForm.description.$error.maxlength"></span>
+                </div>
+            </div>
+            <button id="submit-task-form"
+                    type="button"
+                    class="btn btn-default"
+                    translate="directive.task.form.submit.button.label"
+                    ng-disabled="taskForm.$invalid || !taskForm.$dirty"
+                    ng-click="saveTask()"></button>
+        </form>
+    </div>
+</div>

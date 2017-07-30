@@ -1,0 +1,109 @@
+{
+  "app.title.label": "Test With Spring - SPA Example",
+  "header.brand.label": "Test With Spring",
+  "dialogs": {
+    "delete.task.dialog": {
+      "cancel.button.label": "Cancel",
+      "delete.button.label": "Delete",
+      "text": "Are you sure that you want to delete the task with title: {{title}}?",
+      "title": "Delete task?"
+    }
+  },
+  "directive": {
+    "delete.task.link.label": "Delete",
+    "login.form": {
+      "authenticated.user.error.message": "You are already logged in.",
+      "email.address": {
+        "label": "Email Address",
+        "placeholder": "Email Address"
+      },
+      "submit.button.label": "Login",
+      "login.failed.error.message": "Login failed",
+      "password": {
+        "label": "Password",
+        "placeholder": "Password"
+      }
+    },
+    "logout.button.button.label": "Logout",
+    "task.form.submit.button.label": "Save",
+    "search": {
+      "term.field.placeholder": "Search",
+      "missing.characters.text": "{{missingCharCount}} characters missing"
+    }
+  },
+  "navigation": {
+    "create.task.link.label": "Create new task",
+    "task.list.link.label": "Task list"
+  },
+  "page": {
+    "create.task": {
+      "title": "Create New Task"
+    },
+    "forbidden": {
+      "title": "Forbidden",
+      "text": "You don't have the permission to access the requested page."
+    },
+    "login": {
+      "authenticated.user.error.message": "You are already logged in.",
+      "title": "Login"
+    },
+    "not.found": {
+      "title": "Not Found",
+      "text": "The requested page was not found."
+    },
+    "task.list": {
+      "size.message": "Found {{taskCount}} tasks from the database.",
+      "title": "Tasks"
+    },
+    "search.results": {
+      "title": "Search Results",
+      "size.message": "Found {{taskCount}} tasks with search term: {{searchTerm}}"
+    },
+    "update.task.title": "Update Task",
+    "view.task": {
+      "assignee.description": "Assigned to",
+      "closer.description.prefix": "Closed by",
+      "creator.description.prefix": "Created by",
+      "modifier.description.prefix": "Modified by",
+      "no.description.message": "This task has no description.",
+      "timestamp.prefix": "at",
+      "update.task.link.label": "Update"
+    }
+  },
+  "task": {
+    "messages": {
+      "description.maxLength": "The maximum length of the description is 500 characters",
+      "title": {
+        "maxLength": "The maximum length of the title is 100 characters",
+        "required": "The title of the task must be given"
+      }
+    },
+    "notifications": {
+      "create": {
+        "error": "A new task could not be created because an error occurred",
+        "success": "A new task was created successfully"
+      },
+      "delete": {
+        "error": "The task could not be deleted because an error occurred",
+        "success": "The task was deleted successfully"
+      },
+      "update": {
+        "error": "The information of the task could not be updated because an error occurred",
+        "success": "The information of the task was updated successfully"
+      }
+    },
+    "property": {
+      "description.label": "Description",
+      "title": {
+        "header": "Title",
+        "label": "Title"
+      },
+      "status.header": "Status"
+    }
+  },
+  "TaskStatus": {
+    "CLOSED": "Closed",
+    "IN_PROGRESS": "In progress",
+    "OPEN": "Open"
+  }
+}
