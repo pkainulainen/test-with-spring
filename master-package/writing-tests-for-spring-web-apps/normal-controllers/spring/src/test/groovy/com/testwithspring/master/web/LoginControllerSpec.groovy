@@ -17,10 +17,10 @@ class LoginControllerSpec extends Specification {
 
     def 'Render login page'() {
 
-        when: 'A user open the login page'
+        when: 'A user opens the login page'
         def response = mockMvc.perform(get('/user/login'))
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the login view'

@@ -39,10 +39,10 @@ class TaskSearchControllerSpec extends Specification {
                 .param(WebTestConstants.RequestParameter.SEARCH_TERM, SEARCH_TERM)
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
-        and: 'Should render search result view'
+        and: 'Should render the search result view'
         response.andExpect(view().name(WebTestConstants.View.SEARCH_RESULTS))
 
         and: 'Should show the used search term'
