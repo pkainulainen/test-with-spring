@@ -1,6 +1,6 @@
 package com.testwithspring.master
 
-class TestStringBuilder {
+final class TestStringBuilder {
 
     /**
      * Creates a new {@code String} object.
