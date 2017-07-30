@@ -29,7 +29,7 @@ class LoggedInUserServiceSpec extends Specification {
         then: 'Should throw exception'
         thrown UsernameNotFoundException
 
-        when: 'User is found'
+        when: 'The requested user is found'
         def user = new User()
         ReflectionFieldSetter.setFieldValue(user, 'id', USER_ID)
         user.@emailAddress = EMAIL_ADDRESS
@@ -43,22 +43,22 @@ class LoggedInUserServiceSpec extends Specification {
         and: 'The user is obtained by using username'
         def found = service.loadUserByUsername(EMAIL_ADDRESS)
 
-        then: 'Should return user with the correct user id'
+        then: 'Should return a user with the correct user id'
         found.id == USER_ID
 
         and: 'Should return an enabled user'
         found.enabled
 
-        and: 'Should return user with the correct name'
+        and: 'Should return a user with the correct name'
         found.name == NAME
 
-        and: 'Should return user with the correct password'
+        and: 'Should return a user with the correct password'
         found.password == PASSWORD
 
-        and: 'Should return user with the correct role'
+        and: 'Should return a user with the correct role'
         found.role == UserRole.ROLE_USER
 
-        and: 'Should return user with correct username'
+        and: 'Should return a user with correct username'
         found.username == EMAIL_ADDRESS
 
     }

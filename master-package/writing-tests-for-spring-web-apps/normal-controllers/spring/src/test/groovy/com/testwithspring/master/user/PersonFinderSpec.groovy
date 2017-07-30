@@ -26,7 +26,7 @@ class PersonFinderSpec extends Specification {
         then: 'Should throw exception'
         thrown NotFoundException
 
-        when: 'Person information is found'
+        when: 'The requested person information is found'
         repository.findPersonInformationById(USER_ID) >> Optional.of(new PersonDTO(name: NAME, userId: USER_ID))
 
         and: 'Person information is obtained by using user id'
