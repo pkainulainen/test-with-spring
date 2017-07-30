@@ -75,13 +75,13 @@ class TaskCrudControllerSpec extends Specification {
         when: 'The deleted task is not found'
         service.delete(TASK_ID_NOT_FOUND) >> { throw new NotFoundException('') }
 
-        and: 'A user deletes a task'
+        and: 'A user tries to delete a task'
         response = mockMvc.perform(get('/task/{taskId}/delete', TASK_ID_NOT_FOUND))
 
-        then: 'Should return HTTP status code not found'
+        then: 'Should return the HTTP status code not found'
         response.andExpect(status().isNotFound())
 
-        and: 'Should render the not found view'
+        and: 'Should render the 404 view'
         response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
 
         when: 'The found task is deleted and the deleted task is returned returned'
@@ -90,7 +90,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'A user deletes the task'
         response = mockMvc.perform(get('/task/{taskId}/delete', TASK_ID))
 
-        then: 'Should return HTTP status code found'
+        then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
         and: 'Should redirect the user to the view task list view'
@@ -109,7 +109,7 @@ class TaskCrudControllerSpec extends Specification {
         when: 'A user opens the create task page'
         response = mockMvc.perform(get('/task/create'))
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render create task view'
@@ -144,7 +144,7 @@ class TaskCrudControllerSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, '')
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return theHTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the create task view'
@@ -179,7 +179,7 @@ class TaskCrudControllerSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the create task view'
@@ -191,7 +191,7 @@ class TaskCrudControllerSpec extends Specification {
                 is(WebTestConstants.ValidationErrorCode.SIZE)
         ))
 
-        and: 'Should show entered title and description'
+        and: 'Should show the entered title and description'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(tooLongDescription)),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(maxLengthTitle))
@@ -214,7 +214,7 @@ class TaskCrudControllerSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the create task view'
@@ -226,7 +226,7 @@ class TaskCrudControllerSpec extends Specification {
                 is(WebTestConstants.ValidationErrorCode.SIZE)
         ))
 
-        and: 'Should show entered title and description'
+        and: 'Should show the entered title and description'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(maxLengthDescription)),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(tooLongTitle))
@@ -253,7 +253,7 @@ class TaskCrudControllerSpec extends Specification {
             saved.title == maxLengthTitle
         } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTO(id: TASK_ID, title: maxLengthTitle)
 
-        and: 'Should return HTTP status code found'
+        and: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
         and: 'Should redirect the user to the view task view'
@@ -281,10 +281,10 @@ class TaskCrudControllerSpec extends Specification {
         and: 'A user tries to open the view task page'
         response = mockMvc.perform(get('/task/{taskId}', TASK_ID_NOT_FOUND))
 
-        then: 'Should return HTTP status code not found'
+        then: 'Should return the HTTP status code not found'
         response.andExpect(status().isNotFound())
 
-        and: 'Should render the not found view'
+        and: 'Should render the 404 view'
         response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
 
         when: 'A closed task is found and it has one tag'
@@ -308,7 +308,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'A user opens the view task page'
         response = mockMvc.perform(get('/task/{taskId}', TASK_ID))
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the view task view'
@@ -387,7 +387,7 @@ class TaskCrudControllerSpec extends Specification {
         then: 'Should show an empty task list'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_LIST, hasSize(0)))
 
-        when: 'Two tasks is found'
+        when: 'Two tasks are found'
         1 * service.findAll() >> [
                 new TaskListDTO(id: FIRST_TASK_ID, title: FIRST_TASK_TITLE, status: TaskStatus.OPEN),
                 new TaskListDTO(id: SECOND_TASK_ID, title: SECOND_TASK_TITLE, status: TaskStatus.OPEN)
@@ -424,10 +424,10 @@ class TaskCrudControllerSpec extends Specification {
         and: 'A user tries to open the update task page'
         response = mockMvc.perform(get('/task/{taskId}/update', TASK_ID_NOT_FOUND))
 
-        then: 'Should return HTTP status code not found'
+        then: 'Should return the HTTP status code not found'
         response.andExpect(status().isNotFound())
 
-        and: 'Should render the not found view'
+        and: 'Should render the 404 view'
         response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
 
         when: 'The updated task is found'
@@ -436,7 +436,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'A user opens the update task page'
         response = mockMvc.perform(get('/task/{taskId}/update', TASK_ID))
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render update task view'
@@ -473,7 +473,7 @@ class TaskCrudControllerSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, '')
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the update task view'
@@ -509,7 +509,7 @@ class TaskCrudControllerSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, maxLengthTitle)
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the update task view'
@@ -521,7 +521,7 @@ class TaskCrudControllerSpec extends Specification {
                 is(WebTestConstants.ValidationErrorCode.SIZE)
         ))
 
-        and: 'Should show entered title and description'
+        and: 'Should show the entered title and description'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(tooLongDescription)),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(maxLengthTitle))
@@ -545,7 +545,7 @@ class TaskCrudControllerSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, tooLongTitle)
         )
 
-        then: 'Should return HTTP status code OK'
+        then: 'Should return the HTTP status code OK'
         response.andExpect(status().isOk())
 
         and: 'Should render the update task view'
@@ -557,7 +557,7 @@ class TaskCrudControllerSpec extends Specification {
                 is(WebTestConstants.ValidationErrorCode.SIZE)
         ))
 
-        and: 'Should show entered title and description'
+        and: 'Should show the entered title and description'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is(maxLengthDescription)),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(tooLongTitle))
@@ -585,10 +585,10 @@ class TaskCrudControllerSpec extends Specification {
             updated.title == maxLengthTitle
         } as TaskFormDTO, _ as LoggedInUser ) >> { throw new NotFoundException('') }
 
-        and: 'Should return HTTP status code not found'
+        and: 'Should return the HTTP status code not found'
         response.andExpect(status().isNotFound())
 
-        and: 'Should render the not found view'
+        and: 'Should render the 404 view'
         response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
 
         when: 'A user submits the update task form by using valid information'
@@ -605,7 +605,7 @@ class TaskCrudControllerSpec extends Specification {
             updated.title == maxLengthTitle
         } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTO(id: TASK_ID, title: maxLengthTitle)
 
-        and: 'Should return HTTP status code found'
+        and: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
         and: 'Should redirect the user to the view task view'
