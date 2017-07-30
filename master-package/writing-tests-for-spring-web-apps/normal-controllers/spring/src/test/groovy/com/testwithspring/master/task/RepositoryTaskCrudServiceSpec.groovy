@@ -76,42 +76,42 @@ class RepositoryTaskCrudServiceSpec extends Specification {
             return saved
         }
 
-        and: 'Should return task without assignee'
+        and: 'Should return a task without assignee'
         created.assignee == null
 
-        and: 'Should return task with the correct creation time'
+        and: 'Should return a task with the correct creation time'
         created.creationTime == NOW
 
-        and: 'Should return task with the correct creator'
+        and: 'Should return a task with the correct creator'
         created.creator.name == CREATOR_NAME
         created.creator.userId == CREATOR_ID
 
-        and: 'Should return task with the correct description'
+        and: 'Should return a task with the correct description'
         created.description == DESCRIPTION
 
-        and: 'Should return task with the correct modification time'
+        and: 'Should return a task with the correct modification time'
         created.modificationTime == NOW
 
-        and: 'Should return task with the correct modifier'
+        and: 'Should return a task with the correct modifier'
         created.modifier.name == CREATOR_NAME
         created.modifier.userId == CREATOR_ID
 
-        and: 'Should return task with the correct id'
+        and: 'Should return a task with the correct id'
         created.id == TASK_ID
 
-        and: 'Should return task with the correct title'
+        and: 'Should return a task with the correct title'
         created.title == TITLE
 
         and: 'Should return an open task'
         created isOpen()
 
-        and: 'Should return task that has no tags'
+        and: 'Should return a task that has no tags'
         created.tags.isEmpty()
     }
 
     def 'Delete a task'() {
 
-        given: 'A user wants to delete a task that has one tag'
+        given: 'The deleted tag has one tag'
         def tag = new TagBuilder()
                 .withId(TAG_ID)
                 .withName(TAG_NAME)
@@ -138,7 +138,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         when: 'No task is found with the given id'
         repository.findOne(TASK_ID_NOT_FOUND) >> Optional.empty()
 
-        and: 'A User deletes the task'
+        and: 'The task is deleted'
         service.delete(TASK_ID_NOT_FOUND)
 
         then: 'Should throw exception'
@@ -147,42 +147,42 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         when: 'When an open task is found with the given id'
         repository.findOne(TASK_ID) >> Optional.of(found)
 
-        and: 'A user deletes the task'
+        and: 'The task is deleted'
         def deleted = service.delete(TASK_ID)
 
         then: 'Should delete the task'
         1 * repository.delete(found)
 
-        and: 'Should return task without assignee'
+        and: 'Should return a task without assignee'
         deleted.assignee == null
 
-        and: 'Should return task with the correct creation time'
+        and: 'Should return a task with the correct creation time'
         deleted.creationTime == NOW
 
-        and: 'Should return task with the correct creator'
+        and: 'Should return a task with the correct creator'
         deleted.creator.name == CREATOR_NAME
         deleted.creator.userId == CREATOR_ID
 
-        and: 'Should return task with the correct description'
+        and: 'Should return a task with the correct description'
         deleted.description == DESCRIPTION
 
-        and: 'Should return task with the correct modification time'
+        and: 'Should return a task with the correct modification time'
         deleted.modificationTime == NOW
 
-        and: 'Should return task with the correct modifier'
+        and: 'Should return a task with the correct modifier'
         deleted.modifier.name == MODIFIER_NAME
         deleted.modifier.userId == MODIFIER_ID
 
-        and: 'Should return task with the correct id'
+        and: 'Should return a task with the correct id'
         deleted.id == TASK_ID
 
-        and: 'Should return task with the correct title'
+        and: 'Should return a task with the correct title'
         deleted.title == TITLE
 
         and: 'Should return an open task'
         deleted isOpen()
 
-        and: 'Should return task that has one tag'
+        and: 'Should return a task that has one tag'
         def returnedTags = deleted.tags
         returnedTags hasSize(1)
 
@@ -228,7 +228,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         when: 'No task is found with the given id'
         repository.findOne(TASK_ID_NOT_FOUND) >> Optional.empty()
 
-        and: 'A user gets one task by using its id'
+        and: 'A task is obtained by using its id'
         service.findById(TASK_ID_NOT_FOUND)
 
         then: 'Should throw exception'
@@ -253,30 +253,30 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         and: 'The modifier of the found task is found'
         returnModifier()
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         def returned = service.findById(TASK_ID)
 
-        then: 'Should return task with the correct id'
+        then: 'Should return a task with the correct id'
         returned.id == TASK_ID
 
-        and: 'Should return task with the correct creation time'
+        and: 'Should return a task with the correct creation time'
         returned.creationTime == NOW
 
-        and: 'Should return task with the correct creator'
+        and: 'Should return a task with the correct creator'
         returned.creator.name == CREATOR_NAME
         returned.creator.userId == CREATOR_ID
 
-        and: 'Should return task with the correct description'
+        and: 'Should return a task with the correct description'
         returned.description == DESCRIPTION
 
-        and: 'Should return task with the correct modification time'
+        and: 'Should return a task with the correct modification time'
         returned.modificationTime == NOW
 
-        and: 'Should return task with the correct modifier'
+        and: 'Should return a task with the correct modifier'
         returned.modifier.name == MODIFIER_NAME
         returned.modifier.userId == MODIFIER_ID
 
-        and: 'Should return task with the correct title'
+        and: 'Should return a task with the correct title'
         returned.title == TITLE
 
         when: 'The found task is not assigned to anyone'
@@ -285,7 +285,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
                 .build()
         1 * repository.findOne(TASK_ID) >> Optional.of(found)
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         returned = service.findById(TASK_ID)
 
         then: 'Should return task that has no assignee'
@@ -300,10 +300,10 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         and: 'The assignee of the task is found'
         returnAssignee()
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         returned = service.findById(TASK_ID)
 
-        then: 'Should task that is assigned to the correct person'
+        then: 'Should return a task that is assigned to the correct person'
         returned.assignee.userId == ASSIGNEE_ID
         returned.assignee.name == ASSIGNEE_NAME
 
@@ -313,7 +313,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
                 .build()
         1 * repository.findOne(TASK_ID) >> Optional.of(found)
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         returned = service.findById(TASK_ID)
 
         then: 'Should return an open task'
@@ -329,7 +329,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         and: 'The closer of the task is found'
         returnCloser()
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         returned = service.findById(TASK_ID)
 
         then: 'Should return a closed task with the correct resolution'
@@ -345,10 +345,10 @@ class RepositoryTaskCrudServiceSpec extends Specification {
                 .build()
         1 * repository.findOne(TASK_ID) >> Optional.of(found)
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         returned = service.findById(TASK_ID)
 
-        then: 'Should return task that has no tags'
+        then: 'Should return a task that has no tags'
         returned.tags.isEmpty()
 
         when: 'The found task has one tag'
@@ -362,14 +362,14 @@ class RepositoryTaskCrudServiceSpec extends Specification {
 
         1 * repository.findOne(TASK_ID) >> Optional.of(found)
 
-        and: 'A user gets one task by using its id'
+        and: 'The found task is obtained by using its id'
         returned = service.findById(TASK_ID)
 
-        then: 'Should return task that has one tag'
+        then: 'Should return a task that has one tag'
         def returnedTags = returned.tags
         returnedTags hasSize(1)
 
-        and: 'Should the task that has the correct tag'
+        and: 'Should return a task that has the correct tag'
         def returnedTag = returned.tags[0]
 
         returnedTag.id == TAG_ID
@@ -391,7 +391,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         when: 'The updated task is not found'
         repository.findOne(TASK_ID_NOT_FOUND) >> Optional.empty()
 
-        and: 'The user updates the task'
+        and: 'The user tries to update the task'
         input.id = TASK_ID_NOT_FOUND
         service.update(input, loggedInUser)
 
@@ -449,36 +449,36 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         foundTag.id == TAG_ID
         foundTag.name == TAG_NAME
 
-        and: 'Should return task without assignee'
+        and: 'Should return a task without assignee'
         returned.assignee == null
 
-        and: 'Should return task with the correct creation time'
+        and: 'Should return a task with the correct creation time'
         returned.creationTime == NOW
 
-        and: 'Should return task with the correct creator'
+        and: 'Should return a task with the correct creator'
         returned.creator.name == CREATOR_NAME
         returned.creator.userId == CREATOR_ID
 
-        and: 'Should return task with the correct description'
+        and: 'Should return a task with the correct description'
         returned.description == NEW_DESCRIPTION
 
-        and: 'Should return task with the correct modification time'
+        and: 'Should return a task with the correct modification time'
         returned.modificationTime == NOW
 
-        and: 'Should return task with the correct modifier'
+        and: 'Should return a task with the correct modifier'
         returned.modifier.name == MODIFIER_NAME
         returned.modifier.userId == MODIFIER_ID
 
-        and: 'Should return task with the correct id'
+        and: 'Should return a task with the correct id'
         returned.id == TASK_ID
 
-        and: 'Should return task with the correct title'
+        and: 'Should return a task with the correct title'
         returned.title == NEW_TITLE
 
         and: 'Should return an open task'
         returned isOpen()
 
-        and: 'Should return task that has one tag'
+        and: 'Should return a task that has one tag'
         def returnedTags = returned.tags
         returnedTags hasSize(1)
 

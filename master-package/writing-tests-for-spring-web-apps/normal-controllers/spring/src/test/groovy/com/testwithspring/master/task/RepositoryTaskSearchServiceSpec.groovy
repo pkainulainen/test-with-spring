@@ -23,7 +23,7 @@ class RepositoryTaskSearchServiceSpec extends Specification {
         when: 'No tasks is found with the given search term'
         repository.search(SEARCH_TERM_NO_RESULTS) >> []
 
-        and: 'We perform the search'
+        and: 'The search is performed'
         def results = service.search(SEARCH_TERM_NO_RESULTS)
 
         then: 'Should return an empty list'
@@ -32,7 +32,7 @@ class RepositoryTaskSearchServiceSpec extends Specification {
         when: 'One task is found with the given search term'
         repository.search(SEARCH_TERM_ONE_RESULT) >> [new TaskListDTO(id: TASK_ID, status: STATUS, title: TITLE)]
 
-        and: 'We perform the search'
+        and: 'The search is performed'
         results = service.search(SEARCH_TERM_ONE_RESULT)
 
         then: 'Should return one task'
