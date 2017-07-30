@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title th:text="${task.title}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 id="task-title" th:text="${task.title}"></h1>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div th:switch="${task.description == null || task.description.empty}">
+                <div id="task-description" th:case="true" th:text="#{page.view.task.no.description.message}"></div>
+                <div id="task-description" th:case="false" th:text="${task.description}"></div>
+            </div>
+        </div>
+    </div>
+    <div id="lifecycle-fields" class="container-fluid">
+        <div class="row" th:if="${task.assignee != null}">
+            <div class="col-md-3">
+                <span th:text="#{page.view.task.assignee.description}"></span>:
+                <span id="assignee-name" th:text="${task.assignee.name}"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span th:text="#{page.view.task.creator.description.prefix}"></span>
+                <span id="creator-name" th:text="${task.creator.name}"></span>
+                <span th:text="#{page.view.task.timestamp.prefix}"></span>
+                <span id="creation-time" th:text="${#temporals.format(task.creationTime, 'yyyy-MM-dd H:mm:ss')}">
+            </span>
+            </div>
+            <div class="col-md-3">
+                <span th:text="#{page.view.task.modifier.description.prefix}"></span>
+                <span id="modifier-name" th:text="${task.modifier.name}"></span>
+                <span th:text="#{page.view.task.timestamp.prefix}"></span>
+                <span id="modification-time" th:text="${#temporals.format(task.modificationTime, 'yyyy-MM-dd H:mm:ss')}">
+            </span>
+            </div>
+            <div id="closed-task-fields" class="col-md-3" th:if="${task.status.name() == 'CLOSED'}">
+                <span th:text="#{page.view.task.closer.description.prefix}"></span>
+                <span id="closer-name" th:text="${task.closer.name}"></span>
+                <span th:text="#{page.view.task.timestamp.prefix}"></span>
+                <span id="closing-time" th:text="${#temporals.format(task.modificationTime, 'yyyy-MM-dd H:mm:ss')}">
+            </span>
+            </div>
+        </div>
+        <div id="task-action-links" class="row">
+            <div class="col-md-1">
+                <a id="delete-task-link"
+                   th:href="@{/task/{id}/delete(id=${task.id})}"
+                   th:text="#{page.view.task.delete.task.link.label}">
+                </a>
+            </div>
+            <div class="col-md-1">
+                <a id="update-task-link"
+                   th:href="@{/task/{id}/update(id=${task.id})}"
+                   th:text="#{page.view.task.edit.task.link.label}">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

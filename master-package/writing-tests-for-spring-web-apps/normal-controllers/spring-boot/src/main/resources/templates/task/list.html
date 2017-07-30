@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <title th:text="#{page.task.list.title}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="#{page.task.list.title}"></h1>
+    <div th:text="#{page.task.list.size.message(${tasks.size()})}"></div>
+    <table id="task-list" class="table table-striped" th:if="${!tasks.empty}">
+        <thead>
+        <tr>
+            <th th:text="#{task.property.title.header}"></th>
+            <th th:text="#{task.property.status.header}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:id="'task-list-item-' + ${task.id}" class="task-list-item" th:each="task : ${tasks}">
+            <td>
+                <a class="task-list-item-title" th:href="@{/task/{id}(id=${task.id})}" th:text="${task.title}"></a>
+            </td>
+            <td th:class="'task-list-item-status task-status-' + ${task.status}" th:text="#{'TaskStatus.' + ${task.status}}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
