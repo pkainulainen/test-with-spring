@@ -10,7 +10,6 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'war'
 apply plugin: 'io.spring.dependency-management'
