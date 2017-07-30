@@ -8,13 +8,13 @@ tests for a normal Spring web application by using Spock Framework.
 ## Running the Web Application
 
 You can run the web application by using either Maven or Gradle. After you have 
-started the web application, you can open the login page by usign the URL:
+started the web application, you can open the login page by using the URL:
 
 http://localhost:8080
 
 You can log in by using the following information:
 
-* john.doe@example / password - A normal user
+* john.doe@example.com / password - A normal user
 * anne.admin@example.com / password - An administrator
 
 ### Running the Web Application with Maven
