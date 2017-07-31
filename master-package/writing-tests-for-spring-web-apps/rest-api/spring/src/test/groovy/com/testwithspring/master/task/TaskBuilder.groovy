@@ -6,7 +6,9 @@ import java.time.ZonedDateTime
 
 /**
  * This test data builder is used for creating new {@link Task} objects
- * that are used in our unit tests. The reason why we shouldn't use
+ * that are used in our unit tests. We don't want to use builder provided
+ * by the {@link Task} object directly in our unit tests because it allows
+ * us to create only open tasks.
  */
 class TaskBuilder {
 
