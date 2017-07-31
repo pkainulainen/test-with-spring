@@ -216,7 +216,7 @@ class TaskCrudControllerSpec extends Specification {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.CLOSED.toString())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, is(TaskResolution.DONE.toString())))
 
-        and: 'Should a task that has one tag'
+        and: 'Should return a task that has one tag'
         response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)))
 
         and: 'Should return the tag of the found task'
