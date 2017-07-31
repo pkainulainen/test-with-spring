@@ -9,8 +9,6 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import spock.lang.Specification
 
-import java.time.ZonedDateTime
-
 import static com.testwithspring.master.web.WebTestConfig.fixedLocaleResolver
 import static com.testwithspring.master.web.WebTestConfig.objectMapperHttpMessageConverter
 import static org.hamcrest.Matchers.hasSize
@@ -22,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Category(UnitTest.class)
 class TaskCrudControllerSpec extends Specification {
-    
+
     def service = Mock(TaskCrudService)
     def mockMvc = MockMvcBuilders.standaloneSetup(new TaskCrudController(service))
             .setControllerAdvice(new TaskErrorHandler())
