@@ -13,9 +13,11 @@ class TaskDTOBuilder {
 
     private assignee
     private closer
+    private creationTime
     private creator
     private description
     private id
+    private modificationTime
     private modifier
     private resolution
     private status
@@ -32,6 +34,11 @@ class TaskDTOBuilder {
         return this
     }
 
+    def withCreationTime(creationTime) {
+        this.creationTime = creationTime
+        return this
+    }
+
     def withCreator(creator) {
         this.creator = creator
         return this
@@ -39,6 +46,11 @@ class TaskDTOBuilder {
 
     def withDescription(description) {
         this.description = description
+        return this
+    }
+
+    def withModificationTime(modificationTime) {
+        this.modificationTime = modificationTime
         return this
     }
 
@@ -91,9 +103,11 @@ class TaskDTOBuilder {
     def build() {
         return new TaskDTO(assignee: this.assignee,
                 closer: this.closer,
+                creationTime: this.creationTime,
                 creator: this.creator,
                 description: this.description,
                 id: this.id,
+                modificationTime: this.modificationTime,
                 modifier: this.modifier,
                 resolution: this.resolution,
                 status: this.status,

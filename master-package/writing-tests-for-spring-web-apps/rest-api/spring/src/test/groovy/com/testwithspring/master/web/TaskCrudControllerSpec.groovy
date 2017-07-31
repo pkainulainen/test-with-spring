@@ -1,11 +1,11 @@
 package com.testwithspring.master.web
 
+import com.testwithspring.master.TestDateTimeBuilder
 import com.testwithspring.master.TestStringBuilder
 import com.testwithspring.master.UnitTest
 import com.testwithspring.master.common.NotFoundException
 import com.testwithspring.master.task.TagDTO
 import com.testwithspring.master.task.TaskCrudService
-import com.testwithspring.master.task.TaskDTO
 import com.testwithspring.master.task.TaskDTOBuilder
 import com.testwithspring.master.task.TaskFormDTO
 import com.testwithspring.master.task.TaskListDTO
@@ -13,6 +13,7 @@ import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
 import com.testwithspring.master.user.LoggedInUser
 import com.testwithspring.master.user.PersonDTO
+import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -46,8 +47,12 @@ class TaskCrudControllerSpec extends Specification {
     //Task
     private static final ASSIGNEE_ID = 44L
     private static final ASSIGNEE_NAME = 'Anne Assignee'
+    private static final CREATION_TIME = TestDateTimeBuilder.parseDateTime('2017-07-30T11:41:28');
+    private static final CREATION_TIME_STRING = TestDateTimeBuilder.appendOffsetAndZoneIdToDateTime('2017-07-30T11:41:28')
     private static final CREATOR_ID = 99L
     private static final CREATOR_NAME = 'John Doe'
+    private static final MODIFICATION_TIME = TestDateTimeBuilder.parseDateTime('2017-07-31T11:41:28');
+    private static final MODIFICATION_TIME_STRING = TestDateTimeBuilder.appendOffsetAndZoneIdToDateTime('2017-07-31T11:41:28')
     private static final MODIFIER_ID = 33L
     private static final MODIFIER_NAME = 'Jane Doe'
     private static final TASK_DESCRIPTION = 'description'
@@ -193,8 +198,10 @@ class TaskCrudControllerSpec extends Specification {
             saved.title == MAX_LENGTH_TITLE
         } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTOBuilder()
                 .withId(TASK_ID)
+                .withCreationTime(CREATION_TIME)
                 .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
                 .withDescription(MAX_LENGTH_DESCRIPTION)
+                .withModificationTime(CREATION_TIME)
                 .withModifier(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
                 .withTitle(MAX_LENGTH_TITLE)
                 .withStatusOpen()
@@ -209,9 +216,11 @@ class TaskCrudControllerSpec extends Specification {
         and: 'Should return the information of the created task'
         response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATION_TIME, is(CREATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(CREATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(MAX_LENGTH_TITLE)))
@@ -240,8 +249,10 @@ class TaskCrudControllerSpec extends Specification {
         def deleted = new TaskDTOBuilder()
                 .withId(TASK_ID)
                 .withAssignee(new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME))
+                .withCreationTime(CREATION_TIME)
                 .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
                 .withDescription(TASK_DESCRIPTION)
+                .withModificationTime(MODIFICATION_TIME)
                 .withModifier(new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME))
                 .withStatusOpen()
                 .withTags(new TagDTO(id: TAG_ID, name: TAG_NAME))
@@ -264,9 +275,11 @@ class TaskCrudControllerSpec extends Specification {
         response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.ID, is(ASSIGNEE_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.NAME, is(ASSIGNEE_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATION_TIME, is(CREATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(MODIFICATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(MODIFIER_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(MODIFIER_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
@@ -354,8 +367,10 @@ class TaskCrudControllerSpec extends Specification {
         service.findById(TASK_ID) >> new TaskDTOBuilder()
                 .withId(TASK_ID)
                 .withAssignee(new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME))
+                .withCreationTime(CREATION_TIME)
                 .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
                 .withDescription(TASK_DESCRIPTION)
+                .withModificationTime(MODIFICATION_TIME)
                 .withModifier(new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME))
                 .withResolutionDone(new PersonDTO(userId: CLOSER_ID, name: CLOSER_NAME))
                 .withTags(new TagDTO(id: TAG_ID, name: TAG_NAME))
@@ -376,9 +391,11 @@ class TaskCrudControllerSpec extends Specification {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.NAME, is(ASSIGNEE_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Closer.ID, is(CLOSER_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Closer.NAME, is(CLOSER_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATION_TIME, is(CREATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(MODIFICATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(MODIFIER_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(MODIFIER_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
@@ -538,8 +555,10 @@ class TaskCrudControllerSpec extends Specification {
             updated.title == MAX_LENGTH_TITLE
         } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTOBuilder()
                 .withId(TASK_ID)
+                .withCreationTime(CREATION_TIME)
                 .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
                 .withDescription(MAX_LENGTH_DESCRIPTION)
+                .withModificationTime(MODIFICATION_TIME)
                 .withModifier(new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME))
                 .withTitle(MAX_LENGTH_TITLE)
                 .withStatusOpen()
@@ -554,9 +573,11 @@ class TaskCrudControllerSpec extends Specification {
         and: 'Should return the information of the updated task'
         response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CREATION_TIME, is(CREATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.MODIFICATION_TIME, is(MODIFICATION_TIME_STRING)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(MODIFIER_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(MODIFIER_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(MAX_LENGTH_TITLE)))

@@ -3,6 +3,8 @@ package com.testwithspring.master.web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter
 import org.springframework.web.servlet.i18n.FixedLocaleResolver
 
@@ -38,8 +40,13 @@ final class WebTestConfig {
      * @return
      */
     def static objectMapper() {
-        return new ObjectMapper()
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .registerModule(new Jdk8Module())
+        new Jackson2ObjectMapperBuilder()
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .featuresToEnable(SerializationFeature.WRITE_DATES_WITH_ZONE_ID)
+                .modulesToInstall(
+                        new Jdk8Module(),
+                        new JavaTimeModule()
+                )
+                .build();
     }
 }
