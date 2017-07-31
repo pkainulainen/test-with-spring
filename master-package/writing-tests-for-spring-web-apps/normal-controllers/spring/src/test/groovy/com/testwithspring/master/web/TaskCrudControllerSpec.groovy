@@ -84,7 +84,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'Should render the 404 view'
         response.andExpect(view().name(WebTestConstants.ErrorView.NOT_FOUND))
 
-        when: 'The found task is deleted and the deleted task is returned returned'
+        when: 'The found task is deleted and the deleted task is returned'
         1 * service.delete(TASK_ID) >> new TaskDTO(id: TASK_ID, title: TASK_TITLE)
 
         and: 'A user deletes the task'
