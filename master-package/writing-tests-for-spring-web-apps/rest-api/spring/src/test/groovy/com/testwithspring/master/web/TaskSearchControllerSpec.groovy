@@ -30,7 +30,7 @@ class TaskSearchControllerSpec extends Specification {
     def service = Stub(TaskSearchService)
     def mockMvc =  MockMvcBuilders.standaloneSetup(new TaskSearchController(service))
             .setMessageConverters(objectMapperHttpMessageConverter())
-            .build();
+            .build()
 
     def 'Search'() {
 
@@ -78,6 +78,6 @@ class TaskSearchControllerSpec extends Specification {
                 .andExpect(jsonPath('$[0].status', is(TaskStatus.OPEN.toString())))
                 .andExpect(jsonPath('$[1].id', is(SECOND_TASK_ID.intValue())))
                 .andExpect(jsonPath('$[1].title', is(SECOND_TASK_TITLE)))
-                .andExpect(jsonPath('$[1].status', is(TaskStatus.OPEN.toString())));
+                .andExpect(jsonPath('$[1].status', is(TaskStatus.OPEN.toString())))
     }
 }
