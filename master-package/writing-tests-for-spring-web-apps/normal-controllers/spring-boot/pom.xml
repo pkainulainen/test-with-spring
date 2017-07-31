@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.testwithspring.intermediate</groupId>
+    <groupId>com.testwithspring.master</groupId>
     <artifactId>normal-controllers-spring-boot</artifactId>
     <version>0.1</version>
-    <name>Writing Integration Tests for Normal Controllers: Spring Boot Example</name>
+    <name>Writing Tests for Normal Controllers: Spring Boot Example</name>
     <description>
-        This example demonstrates how you can write integration tests for a normal
-        controllers when you use Spring Boot.
+        This example demonstrates how you can write unit, integration, and end-to-end tests
+        for normal Spring Boot controllers by using Spock Framework.
     </description>
 
     <properties>
