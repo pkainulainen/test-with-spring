@@ -21,6 +21,8 @@ import static com.testwithspring.master.web.WebTestConfig.objectMapperHttpMessag
 import static org.hamcrest.Matchers.comparesEqualTo
 import static org.hamcrest.Matchers.hasSize
 import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.isEmptyOrNullString
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -41,12 +43,74 @@ class TaskCrudControllerSpec extends Specification {
     private static final TASK_ID_NOT_FOUND = 99L
     private static final TASK_TITLE = 'title'
 
+    private static final TAG_ID = 33L
+    private static final TAG_NAME = 'testing'
+
     def service = Mock(TaskCrudService)
     def mockMvc = MockMvcBuilders.standaloneSetup(new TaskCrudController(service))
             .setControllerAdvice(new TaskErrorHandler())
             .setLocaleResolver(fixedLocaleResolver())
             .setMessageConverters(objectMapperHttpMessageConverter())
             .build()
+
+    def 'Delete task'() {
+
+        def response
+
+        when: 'The deleted task is not found'
+        service.delete(TASK_ID_NOT_FOUND) >> {throw new NotFoundException('') }
+
+        and: 'a user tries to delete a task'
+        response = mockMvc.perform(delete('/api/task/{taskId}', TASK_ID_NOT_FOUND))
+
+        then: 'Should return the HTTP status code not found'
+        response.andExpect(status().isNotFound())
+
+        when: 'The deleted task is found and it has one tag'
+        def deleted = new TaskDTOBuilder()
+                .withId(TASK_ID)
+                .withAssignee(new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME))
+                .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
+                .withDescription(TASK_DESCRIPTION)
+                .withModifier(new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME))
+                .withStatusOpen()
+                .withTags(new TagDTO(id: TAG_ID, name: TAG_NAME))
+                .withTitle(TASK_TITLE)
+                .build()
+
+        and: 'The found task is deleted and the deleted task is returned'
+        1 * service.delete(TASK_ID) >> deleted
+
+        and: 'A user deletes the task'
+        response = mockMvc.perform(delete('/api/task/{taskId}', TASK_ID))
+
+        then: 'Should return HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should the deleted task as JSON'
+        response.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+
+        and: 'Should return the information of the deleted task'
+        response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.ID, is(ASSIGNEE_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.NAME, is(ASSIGNEE_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(MODIFIER_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(MODIFIER_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(TASK_TITLE)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, isEmptyOrNullString()))
+
+        and: 'Should return a task that has one tag'
+        response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)))
+
+        and: 'Should return the tag of the deleted task'
+        response.andExpect(jsonPath('$.tags[0].id', is(TAG_ID.intValue())))
+                .andExpect(jsonPath('$.tags[0].name', is(TAG_NAME)))
+    }
 
     def 'Find all tasks'() {
 
@@ -103,8 +167,6 @@ class TaskCrudControllerSpec extends Specification {
 
         def final CLOSER_ID = 931L
         def final CLOSER_NAME = 'Chris Closer'
-        def final TAG_ID = 33L
-        def final TAG_NAME = 'testing'
 
         def response
 
