@@ -46,7 +46,7 @@ class TaskCrudControllerSpec extends Specification {
             .setControllerAdvice(new TaskErrorHandler())
             .setLocaleResolver(fixedLocaleResolver())
             .setMessageConverters(objectMapperHttpMessageConverter())
-            .build();
+            .build()
 
     def 'Find all tasks'() {
 
@@ -96,7 +96,7 @@ class TaskCrudControllerSpec extends Specification {
                 .andExpect(jsonPath('$[0].status', is(TaskStatus.OPEN.toString())))
                 .andExpect(jsonPath('$[1].id', is(SECOND_TASK_ID.intValue())))
                 .andExpect(jsonPath('$[1].title', is(SECOND_TASK_TITLE)))
-                .andExpect(jsonPath('$[1].status', is(TaskStatus.OPEN.toString())));
+                .andExpect(jsonPath('$[1].status', is(TaskStatus.OPEN.toString())))
     }
 
     def 'Find one task'() {
@@ -159,6 +159,6 @@ class TaskCrudControllerSpec extends Specification {
 
         and: 'Should return the tag of the found task'
         response.andExpect(jsonPath('$.tags[0].id', is(TAG_ID.intValue())))
-                .andExpect(jsonPath('$.tags[0].name', is(TAG_NAME)));
+                .andExpect(jsonPath('$.tags[0].name', is(TAG_NAME)))
     }
 }
