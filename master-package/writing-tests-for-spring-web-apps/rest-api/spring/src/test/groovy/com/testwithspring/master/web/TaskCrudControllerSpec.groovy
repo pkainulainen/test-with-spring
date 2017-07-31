@@ -5,7 +5,6 @@ import com.testwithspring.master.UnitTest
 import com.testwithspring.master.common.NotFoundException
 import com.testwithspring.master.task.TagDTO
 import com.testwithspring.master.task.TaskCrudService
-import com.testwithspring.master.task.TaskDTO
 import com.testwithspring.master.task.TaskDTOBuilder
 import com.testwithspring.master.task.TaskFormDTO
 import com.testwithspring.master.task.TaskListDTO
@@ -23,8 +22,6 @@ import static com.testwithspring.master.web.WebTestConfig.objectMapperHttpMessag
 import static org.hamcrest.Matchers.contains
 import static org.hamcrest.Matchers.hasSize
 import static org.hamcrest.Matchers.is
-import static org.hamcrest.Matchers.isEmptyOrNullString
-import static org.hamcrest.Matchers.isEmptyString
 import static org.hamcrest.Matchers.nullValue
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -264,6 +261,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'Should return the information of the deleted task'
         response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.ID, is(ASSIGNEE_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Assignee.NAME, is(ASSIGNEE_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
@@ -273,7 +271,7 @@ class TaskCrudControllerSpec extends Specification {
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(TASK_TITLE)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(TASK_DESCRIPTION)))
                 .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
-                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, isEmptyOrNullString()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()))
 
         and: 'Should return a task that has one tag'
         response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(1)))
