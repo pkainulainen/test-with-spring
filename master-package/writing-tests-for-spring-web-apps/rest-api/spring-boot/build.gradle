@@ -1,0 +1,54 @@
+buildscript {
+    repositories{
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath(
+                'org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE',
+        )
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+bootRun {
+    systemProperty('spring.profiles.active', 'application')
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.apache.commons:commons-lang3:3.5',
+            'org.springframework.boot:spring-boot-starter-jdbc',
+            'com.h2database:h2',
+            'com.zaxxer:HikariCP',
+            'org.liquibase:liquibase-core',
+            'org.hibernate:hibernate-java8',
+            'org.springframework.boot:spring-boot-starter-data-jpa',
+            'org.springframework.boot:spring-boot-starter-web',
+            'org.springframework.boot:spring-boot-starter-security',
+            'com.fasterxml.jackson.datatype:jackson-datatype-jdk8',
+            'com.fasterxml.jackson.datatype:jackson-datatype-jsr310',
+            'org.springframework.boot:spring-boot-starter-thymeleaf'
+    )
+    testCompile(
+            'org.springframework.boot:spring-boot-starter-test',
+            'org.assertj:assertj-core:3.5.2',
+            'de.bechte.junit:junit-hierarchicalcontextrunner:4.12.1',
+            'info.solidsoft.mockito:mockito-java8:0.3.1'
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.master.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
