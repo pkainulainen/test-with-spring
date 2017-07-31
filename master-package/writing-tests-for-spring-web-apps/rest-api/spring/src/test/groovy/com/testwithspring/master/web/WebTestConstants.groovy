@@ -52,4 +52,13 @@ final class WebTestConstants {
 
         static final SEARCH_TERM = 'searchTerm'
     }
+
+    /**
+     * Contains the validation error codes.
+     */
+    static class ValidationErrorCode {
+
+        static final EMPTY_FIELD = 'NotBlank'
+        static final SIZE = 'Size'
+    }
 }

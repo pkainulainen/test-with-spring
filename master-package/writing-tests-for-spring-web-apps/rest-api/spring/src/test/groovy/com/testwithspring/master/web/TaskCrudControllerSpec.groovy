@@ -1,13 +1,17 @@
 package com.testwithspring.master.web
 
+import com.testwithspring.master.TestStringBuilder
 import com.testwithspring.master.UnitTest
 import com.testwithspring.master.common.NotFoundException
 import com.testwithspring.master.task.TagDTO
 import com.testwithspring.master.task.TaskCrudService
+import com.testwithspring.master.task.TaskDTO
 import com.testwithspring.master.task.TaskDTOBuilder
+import com.testwithspring.master.task.TaskFormDTO
 import com.testwithspring.master.task.TaskListDTO
 import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
+import com.testwithspring.master.user.LoggedInUser
 import com.testwithspring.master.user.PersonDTO
 import org.junit.experimental.categories.Category
 import org.springframework.http.MediaType
@@ -16,17 +20,29 @@ import spock.lang.Specification
 
 import static com.testwithspring.master.web.WebTestConfig.fixedLocaleResolver
 import static com.testwithspring.master.web.WebTestConfig.objectMapperHttpMessageConverter
+import static org.hamcrest.Matchers.contains
 import static org.hamcrest.Matchers.hasSize
 import static org.hamcrest.Matchers.is
 import static org.hamcrest.Matchers.isEmptyOrNullString
+import static org.hamcrest.Matchers.isEmptyString
+import static org.hamcrest.Matchers.nullValue
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @Category(UnitTest.class)
 class TaskCrudControllerSpec extends Specification {
+
+    //JSON Fields
+    private static final JSON_FIELD_DESCRIPTION = 'description';
+    private static final JSON_FIELD_TITLE = 'title';
+
+    //Validation
+    private static final MAX_LENGTH_OF_DESCRIPTION = 500
+    private static final MAX_LENGTH_OF_TITLE = 100
 
     //Task
     private static final ASSIGNEE_ID = 44L
@@ -49,6 +65,164 @@ class TaskCrudControllerSpec extends Specification {
             .setLocaleResolver(fixedLocaleResolver())
             .setMessageConverters(objectMapperHttpMessageConverter())
             .build()
+
+    def 'Create a new task'() {
+
+        def final MAX_LENGTH_DESCRIPTION = TestStringBuilder.createStringWithLength(MAX_LENGTH_OF_DESCRIPTION)
+        def final MAX_LENGTH_TITLE = TestStringBuilder.createStringWithLength(MAX_LENGTH_OF_TITLE)
+
+        def TOO_LONG_DESCRIPTION = TestStringBuilder.createStringWithLength(MAX_LENGTH_OF_DESCRIPTION + 1)
+        def TOO_LONG_TITLE = TestStringBuilder.createStringWithLength(MAX_LENGTH_OF_TITLE + 1)
+
+        def input
+        def response
+
+        when: 'A user tries to create a new task by using empty title and description'
+        input = new TaskFormDTO(title: '', description: '')
+        response =  mockMvc.perform(post('/api/task')
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(ObjectIntoJsonConverter.convertObjectIntoJsonBytes(input))
+        )
+
+        then: 'Should return the HTTP status code bad request'
+        response.andExpect(status().isBadRequest())
+
+        and: 'Should return validation errors as JSON'
+        response.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+
+        and: 'Should return one validation error'
+        response.andExpect(jsonPath('$.fieldErrors', hasSize(1)))
+        
+        and: 'Should return validation error about the empty title'
+        response.andExpect(jsonPath('$.fieldErrors[0].field', is(JSON_FIELD_TITLE)))
+                .andExpect(jsonPath('$.fieldErrors[0].errorCode',
+                        is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'A user tries to create a new task by using too long title'
+        input = new TaskFormDTO(title: TOO_LONG_TITLE, description: MAX_LENGTH_DESCRIPTION)
+
+        response =  mockMvc.perform(post('/api/task')
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(ObjectIntoJsonConverter.convertObjectIntoJsonBytes(input))
+        )
+
+        then: 'Should return the HTTP status code bad request'
+        response.andExpect(status().isBadRequest())
+
+        and: 'Should return validation errors as JSON'
+        response.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+
+        and: 'Should return one validation error'
+        response.andExpect(jsonPath('$.fieldErrors', hasSize(1)))
+
+        and: 'Should return validation error about too long title'
+        response.andExpect(jsonPath('$.fieldErrors[0].field', is(JSON_FIELD_TITLE)))
+                .andExpect(jsonPath('$.fieldErrors[0].errorCode',
+                is(WebTestConstants.ValidationErrorCode.SIZE)
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'A user tries to create a new task by using too long description'
+        input = new TaskFormDTO(title: MAX_LENGTH_TITLE, description: TOO_LONG_DESCRIPTION)
+        response =  mockMvc.perform(post('/api/task')
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(ObjectIntoJsonConverter.convertObjectIntoJsonBytes(input))
+        )
+
+        then: 'Should return the HTTP status code bad request'
+        response.andExpect(status().isBadRequest())
+
+        and: 'Should return validation errors as JSON'
+        response.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+
+        and: 'Should return one validation error'
+        response.andExpect(jsonPath('$.fieldErrors', hasSize(1)))
+
+        and: 'Should return validation error about too long description'
+        response.andExpect(jsonPath('$.fieldErrors[0].field', is(JSON_FIELD_DESCRIPTION)))
+                .andExpect(jsonPath('$.fieldErrors[0].errorCode',
+                is(WebTestConstants.ValidationErrorCode.SIZE)
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'A user tries to create a new task by using too title and description'
+        input = new TaskFormDTO(title: TOO_LONG_TITLE, description: TOO_LONG_DESCRIPTION)
+        response =  mockMvc.perform(post('/api/task')
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(ObjectIntoJsonConverter.convertObjectIntoJsonBytes(input))
+        )
+
+        then: 'Should return the HTTP status code bad request'
+        response.andExpect(status().isBadRequest())
+
+        and: 'Should return validation errors as JSON'
+        response.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+
+        and: 'Should return two validation errors'
+        response.andExpect(jsonPath('$.fieldErrors', hasSize(2)))
+
+        and: 'Should return validation errors about too long title and description'
+        response.andExpect(jsonPath('$.fieldErrors[?(@.field == \'title\')].errorCode',
+                contains(WebTestConstants.ValidationErrorCode.SIZE)
+        ))
+                .andExpect(jsonPath('$.fieldErrors[?(@.field == \'description\')].errorCode',
+                contains(WebTestConstants.ValidationErrorCode.SIZE)
+        ))
+
+        and: 'Should not create a new task'
+        0 * service.create(_ as TaskFormDTO, _ as LoggedInUser)
+
+        when: 'User creates a new task by using valid information'
+        input = new TaskFormDTO(title: MAX_LENGTH_TITLE, description: MAX_LENGTH_DESCRIPTION)
+        response =  mockMvc.perform(post('/api/task')
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(ObjectIntoJsonConverter.convertObjectIntoJsonBytes(input))
+        )
+
+        then: 'Should create a new task by using correct information and return the created task'
+        1 * service.create({ TaskFormDTO saved ->
+            saved.id == null
+            saved.description == MAX_LENGTH_DESCRIPTION
+            saved.title == MAX_LENGTH_TITLE
+        } as TaskFormDTO, _ as LoggedInUser ) >> new TaskDTOBuilder()
+                .withId(TASK_ID)
+                .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
+                .withDescription(MAX_LENGTH_DESCRIPTION)
+                .withModifier(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
+                .withTitle(MAX_LENGTH_TITLE)
+                .withStatusOpen()
+                .build()
+
+        and: 'Should return the HTTP status code created'
+        response.andExpect(status().isCreated())
+
+        and: 'Should return the created task as json'
+        response.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+
+        and: 'Should return the information of the created task'
+        response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ASSIGNEE, nullValue()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.CLOSER, nullValue()))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.ID, is(CREATOR_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Creator.NAME, is(CREATOR_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.ID, is(TASK_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.ID, is(CREATOR_ID.intValue())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.Modifier.NAME, is(CREATOR_NAME)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TITLE, is(MAX_LENGTH_TITLE)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.DESCRIPTION, is(MAX_LENGTH_DESCRIPTION)))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.STATUS, is(TaskStatus.OPEN.toString())))
+                .andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.RESOLUTION, nullValue()))
+
+        and: 'Should return a task that has no tags'
+        response.andExpect(jsonPath(WebTestConstants.JsonPathProperty.Task.TAGS, hasSize(0)))
+    }
 
     def 'Delete task'() {
 

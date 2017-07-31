@@ -10,7 +10,7 @@ import static com.testwithspring.master.web.WebTestConfig.objectMapper
  * framework. Note that the result of this conversion must
  * always be send in the request body.
  */
-final class ObjectToJsonConverter {
+final class ObjectIntoJsonConverter {
 
     /**
      * Converts an object into JSON bytes and returns the
