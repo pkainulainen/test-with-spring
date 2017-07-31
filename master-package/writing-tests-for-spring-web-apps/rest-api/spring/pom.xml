@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.testwithspring.intermediate</groupId>
+    <groupId>com.testwithspring.master</groupId>
     <artifactId>rest-api-spring</artifactId>
     <version>0.1</version>
-    <name>Writing Integration Tests for a REST API: Spring Example</name>
+    <name>Writing Tests for a REST API: Spring Example</name>
     <description>
-        This example demonstrates how you can write integration tests for a REST API
-        when you use Spring Framework.
+        This example demonstrates how you can write unit, integration, and end-to-end
+        tests for a Spring REST API by using Spock Framework.
     </description>
 
     <properties>
