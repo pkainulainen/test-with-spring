@@ -22,9 +22,11 @@ class RepositoryTaskCrudServiceSpec extends Specification {
     private static final ASSIGNEE_NAME = 'Anne Assignee'
     private static final CLOSER_ID = 6L
     private static final CLOSER_NAME = 'Chris Closer'
+    private static final CREATION_TIME = ZonedDateTime.now().minusDays(3)
     private static final CREATOR_ID = 1L
     private static final CREATOR_NAME = 'John Doe'
     private static final DESCRIPTION = 'test the method that finds tasks'
+    private static final MODIFICATION_TIME = CREATION_TIME.plusDays(2)
     private static final MODIFIER_ID = 456L
     private static final MODIFIER_NAME = 'Jane Doe'
     private static final NEW_DESCRIPTION = 'Test the method that updates a task'
@@ -119,10 +121,10 @@ class RepositoryTaskCrudServiceSpec extends Specification {
 
         def found = new TaskBuilder()
                 .withId(TASK_ID)
-                .withCreationTime(NOW)
+                .withCreationTime(CREATION_TIME)
                 .withCreator(CREATOR_ID)
                 .withDescription(DESCRIPTION)
-                .withModificationTime(NOW)
+                .withModificationTime(MODIFICATION_TIME)
                 .withModifier(MODIFIER_ID)
                 .withTags(tag)
                 .withTitle(TITLE)
@@ -157,7 +159,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         deleted.assignee == null
 
         and: 'Should return a task with the correct creation time'
-        deleted.creationTime == NOW
+        deleted.creationTime == CREATION_TIME
 
         and: 'Should return a task with the correct creator'
         deleted.creator.name == CREATOR_NAME
@@ -167,7 +169,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         deleted.description == DESCRIPTION
 
         and: 'Should return a task with the correct modification time'
-        deleted.modificationTime == NOW
+        deleted.modificationTime == MODIFICATION_TIME
 
         and: 'Should return a task with the correct modifier'
         deleted.modifier.name == MODIFIER_NAME
@@ -237,10 +239,10 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         when: 'The requested task is found'
         found = new TaskBuilder()
                 .withId(TASK_ID)
-                .withCreationTime(NOW)
+                .withCreationTime(CREATION_TIME)
                 .withCreator(CREATOR_ID)
                 .withDescription(DESCRIPTION)
-                .withModificationTime(NOW)
+                .withModificationTime(MODIFICATION_TIME)
                 .withModifier(MODIFIER_ID)
                 .withTitle(TITLE)
                 .withStatusOpen()
@@ -260,7 +262,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         returned.id == TASK_ID
 
         and: 'Should return a task with the correct creation time'
-        returned.creationTime == NOW
+        returned.creationTime == CREATION_TIME
 
         and: 'Should return a task with the correct creator'
         returned.creator.name == CREATOR_NAME
@@ -270,7 +272,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         returned.description == DESCRIPTION
 
         and: 'Should return a task with the correct modification time'
-        returned.modificationTime == NOW
+        returned.modificationTime == MODIFICATION_TIME
 
         and: 'Should return a task with the correct modifier'
         returned.modifier.name == MODIFIER_NAME
@@ -406,10 +408,10 @@ class RepositoryTaskCrudServiceSpec extends Specification {
 
         def found = new TaskBuilder()
                 .withId(TASK_ID)
-                .withCreationTime(NOW)
+                .withCreationTime(CREATION_TIME)
                 .withCreator(CREATOR_ID)
                 .withDescription(DESCRIPTION)
-                .withModificationTime(NOW)
+                .withModificationTime(MODIFICATION_TIME)
                 .withModifier(CREATOR_ID)
                 .withTags(tag)
                 .withTitle(TITLE)
@@ -431,8 +433,14 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         and: 'Should not set the closer of the updated task'
         found.closer == null
 
+        and: 'Should not update the creation time of the updated task'
+        found.creationTime == CREATION_TIME
+
         and: 'Should not update the creator of the updated task'
         found.creator.userId == CREATOR_ID
+
+        and: 'Should not update the modification time of the updated task'
+        found.modificationTime == MODIFICATION_TIME
 
         and: 'Should update the modifier of the updated task'
         found.modifier.userId == MODIFIER_ID
@@ -453,7 +461,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         returned.assignee == null
 
         and: 'Should return a task with the correct creation time'
-        returned.creationTime == NOW
+        returned.creationTime == CREATION_TIME
 
         and: 'Should return a task with the correct creator'
         returned.creator.name == CREATOR_NAME
@@ -463,7 +471,7 @@ class RepositoryTaskCrudServiceSpec extends Specification {
         returned.description == NEW_DESCRIPTION
 
         and: 'Should return a task with the correct modification time'
-        returned.modificationTime == NOW
+        returned.modificationTime == MODIFICATION_TIME
 
         and: 'Should return a task with the correct modifier'
         returned.modifier.name == MODIFIER_NAME
