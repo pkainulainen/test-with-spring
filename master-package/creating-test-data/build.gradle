@@ -1,0 +1,27 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.apache.commons:commons-lang3:3.5',
+            'org.hibernate:hibernate-entitymanager:5.0.11.Final',
+            'org.hibernate:hibernate-validator:5.2.4.Final'
+    )
+    testCompile(
+            'junit:junit:4.12',
+            'org.codehaus.groovy:groovy-all:2.4.11',
+            'org.spockframework:spock-core:1.1-groovy-2.4'
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.master.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
