@@ -122,7 +122,8 @@ class TaskBuilder {
         }
 
         //We cannot access the private fields of the super class by using direct field access because
-        //these fields are not inherited. That's why we have resort to this ugly hack.
+        //these fields are not inherited. Also, we cannot use properties because these fields don't
+        //have setters. That's why we have resort to this ugly hack.
         ReflectionFieldSetter.setFieldValue(task, 'creationTime', creationTime)
         ReflectionFieldSetter.setFieldValue(task, 'id', id)
         ReflectionFieldSetter.setFieldValue(task, 'modificationTime', modificationTime)
