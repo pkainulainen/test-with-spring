@@ -40,7 +40,7 @@ final class ReflectionFieldSetter {
      * @param fieldName The name of the requested field.
      * @return
      */
-    private static def findFieldFromClassHierarchy(clazz, fieldName) throws NoSuchFieldException {
+    private static def findFieldFromClassHierarchy(clazz, fieldName) {
         Class<?> current = clazz
 
         //Iterate the class hierarchy from the actual class
