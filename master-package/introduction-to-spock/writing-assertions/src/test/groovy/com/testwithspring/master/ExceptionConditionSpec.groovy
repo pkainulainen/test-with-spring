@@ -25,7 +25,7 @@ class ExceptionConditionSpec extends Specification {
         when: 'We remove an element from the stack'
         stack.pop()
 
-        then: 'Should not an exception'
+        then: 'Should not throw an exception'
         notThrown EmptyStackException
     }
 
