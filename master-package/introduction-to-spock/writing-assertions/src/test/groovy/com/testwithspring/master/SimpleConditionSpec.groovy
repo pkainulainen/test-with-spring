@@ -18,7 +18,7 @@ class SimpleConditionSpec extends Specification {
 
     def 'Write an assertion in the expect block'() {
 
-        expect: 'Should return bigger of two numbers'
+        expect: 'Should return the bigger of two numbers'
         Math.max(1, 2) == 2
     }
 }
