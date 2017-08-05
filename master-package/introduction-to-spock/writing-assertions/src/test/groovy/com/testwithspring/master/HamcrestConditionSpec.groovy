@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.hasSize
 @Category(UnitTest.class)
 class HamcrestConditionSpec extends Specification {
 
-    def 'Add item to list'() {
+    def 'Write assertions with Hamcrest matchers'() {
 
         given: 'We create a new list'
         def list = []
@@ -20,7 +20,7 @@ class HamcrestConditionSpec extends Specification {
         then: 'The list should have one item'
         list hasSize(1)
 
-        and: 'The list should have the correct item'
+        and: 'The list should contain the correct item'
         list contains('Hello World!')
     }
 }
