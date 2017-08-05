@@ -23,6 +23,5 @@ class PropertySpec extends Specification {
         object.id == 1L
         object.title == 'title'
         object.description == 'description'
-
     }
 }
