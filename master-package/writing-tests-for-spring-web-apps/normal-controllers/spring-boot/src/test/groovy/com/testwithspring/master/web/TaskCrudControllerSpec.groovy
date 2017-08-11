@@ -6,6 +6,7 @@ import com.testwithspring.master.common.NotFoundException
 import com.testwithspring.master.task.TagDTO
 import com.testwithspring.master.task.TaskCrudService
 import com.testwithspring.master.task.TaskDTO
+import com.testwithspring.master.task.TaskDTOBuilder
 import com.testwithspring.master.task.TaskFormDTO
 import com.testwithspring.master.task.TaskListDTO
 import com.testwithspring.master.task.TaskResolution
@@ -287,20 +288,18 @@ class TaskCrudControllerSpec extends Specification {
 
         when: 'A closed task is found and it has one tag'
         service.findById(TASK_ID) >> {
-            new TaskDTO(
-                    id: TASK_ID,
-                    assignee: new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME),
-                    closer: new PersonDTO(userId: CLOSER_ID, name: CLOSER_NAME),
-                    creationTime: CREATION_TIME,
-                    creator: new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME),
-                    description: TASK_DESCRIPTION,
-                    modificationTime: MODIFICATION_TIME,
-                    modifier: new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME),
-                    resolution: TaskResolution.DONE,
-                    status: TaskStatus.CLOSED,
-                    tags: [new TagDTO(id: TAG_ID, name: TAG_NAME)],
-                    title: TASK_TITLE,
-            )
+            new TaskDTOBuilder()
+                    .withId(TASK_ID)
+                    .withAssignee(new PersonDTO(userId: ASSIGNEE_ID, name: ASSIGNEE_NAME))
+                    .withCreationTime(CREATION_TIME)
+                    .withCreator(new PersonDTO(userId: CREATOR_ID, name: CREATOR_NAME))
+                    .withDescription(TASK_DESCRIPTION)
+                    .withModificationTime(MODIFICATION_TIME)
+                    .withModifier(new PersonDTO(userId: MODIFIER_ID, name: MODIFIER_NAME))
+                    .withResolutionDone(new PersonDTO(userId: CLOSER_ID, name: CLOSER_NAME))
+                    .withTags(new TagDTO(id: TAG_ID, name: TAG_NAME))
+                    .withTitle(TASK_TITLE)
+                    .build()
         }
 
         and: 'A user opens the view task page'
