@@ -106,21 +106,18 @@ class TaskDTOBuilder {
     }
 
     def build() {
-        TaskDTO dto = new TaskDTO()
-
-        dto.assignee = this.assignee
-        dto.closer = this.closer
-        dto.creationTime = this.creationTime
-        dto.creator = this.creator
-        dto.description = this.description
-        dto.id = this.id
-        dto.modificationTime = this.modificationTime
-        dto.modifier = this.modifier
-        dto.resolution = this.resolution
-        dto.status = this.status
-        dto.tags = this.tags
-        dto.title = this.title
-
-        return dto
+        return new TaskDTO(assignee: this.assignee,
+                closer: this.closer,
+                creationTime: this.creationTime,
+                creator: this.creator,
+                description: this.description,
+                id: this.id,
+                modificationTime: this.modificationTime,
+                modifier: this.modifier,
+                resolution: this.resolution,
+                status: this.status,
+                tags: this.tags,
+                title: this.title
+        )
     }
 }
