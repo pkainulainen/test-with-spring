@@ -22,7 +22,7 @@ class TaskDTOBuilder {
     private modifier
     private resolution
     private status
-    private tags = new ArrayList<>()
+    private tags = []
     private title
 
     def withId(id) {
