@@ -4,10 +4,11 @@ import com.testwithspring.master.user.PersonDTO
 
 
 /**
- * You should consider using a builder because the information
- * of a {@code TaskDTO} object depends from the status of the
- * task. In other words, {@code TaskDTO} objects are not just dummy
- * data containers.
+ * This test data builder is used for creating new {@link TaskDTO} objects
+ * that are used in our unit tests. The reason why we should use a builder is
+ * that the {@link TaskDTO} class is not just a data container because we
+ * have to understand the different states of a task before we can create
+ * new {@link TaskDTO} objects.
  */
 class TaskDTOBuilder {
 
