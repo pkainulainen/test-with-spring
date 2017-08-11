@@ -7,9 +7,9 @@ import java.time.ZonedDateTime
 /**
  * This test data builder is used for creating new {@link TaskDTO} objects
  * that are used in our unit tests. The reason why we should use a builder is
- * that the {@code TaskDTO} class is not just a data container because we
+ * that the {@link TaskDTO} class is not just a data container because we
  * have to understand the different states of a task before we can create
- * new {@code TaskDTO} objects.
+ * new {@link TaskDTO} objects.
  */
 class TaskDTOBuilder {
 
