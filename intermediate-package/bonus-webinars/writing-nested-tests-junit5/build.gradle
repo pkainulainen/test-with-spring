@@ -1,0 +1,36 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-RC3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile(
+            'org.junit.jupiter:junit-jupiter-api:5.0.0-RC3'
+    )
+    testRuntime(
+            'org.junit.jupiter:junit-jupiter-engine:5.0.0-RC3',
+            // If your IDE throws an exception when you try to run the example
+            // test, it's not bundled with the correct JUnit 5 version. You can
+            // solve this problem by uncommenting the following dependencies.
+            //'org.junit.vintage:junit-vintage-engine:4.12.0-RC3',
+            //'org.junit.platform:junit-platform-launcher:1.0.0-RC3',
+            //'org.junit.platform:junit-platform-runner:1.0.0-RC3'
+    )
+}
+
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+}
