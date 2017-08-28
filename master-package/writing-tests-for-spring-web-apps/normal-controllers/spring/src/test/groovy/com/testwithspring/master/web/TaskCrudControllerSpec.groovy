@@ -97,7 +97,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'Should redirect the user to the view task list view'
         response.andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK_LIST))
 
-        and: 'Should add feedback message as a flash attribute'
+        and: 'Should show feedback message to the user'
         response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
                 FEEDBACK_MESSAGE_TASK_DELETED
         ))
@@ -259,7 +259,7 @@ class TaskCrudControllerSpec extends Specification {
         response.andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is(TASK_ID.toString())))
 
-        and: 'Should add feedback message as a flash attribute'
+        and: 'Should show feedback message to the user'
         response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
                 FEEDBACK_MESSAGE_TASK_CREATED
         ))
@@ -311,7 +311,7 @@ class TaskCrudControllerSpec extends Specification {
         and: 'Should render the view task view'
         response.andExpect(view().name(WebTestConstants.View.VIEW_TASK))
 
-        and: 'Should render the information of the found task'
+        and: 'Should display the information of the found task'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.ASSIGNEE, allOf(
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME, is(ASSIGNEE_NAME)),
@@ -338,12 +338,12 @@ class TaskCrudControllerSpec extends Specification {
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.RESOLUTION, is(TaskResolution.DONE))
         )))
 
-        and: 'Should render one tag of the found task'
+        and: 'Should display one tag of the found task'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, hasSize(1))
         ))
 
-        and: 'Should render the tag of the found task'
+        and: 'Should display the tag of the found task'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK,
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TAGS, contains(
                         allOf(
@@ -607,7 +607,7 @@ class TaskCrudControllerSpec extends Specification {
         response.andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
                 .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is(TASK_ID.toString())))
 
-        and: 'Should add feedback message as a flash attribute'
+        and: 'Should show feedback message to the user'
         response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
                 FEEDBACK_MESSAGE_TASK_UPDATED
         ))
