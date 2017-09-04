@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath(
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2'
+        )
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'org.unbroken-dome.test-sets'
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.slf4j:slf4j-api:1.7.25',
+            'org.slf4j:slf4j-log4j12:1.7.25',
+            'log4j:log4j:1.2.17'
+    )
+    testCompile(
+            'junit:junit:4.12',
+            'org.codehaus.groovy:groovy-all:2.4.11',
+            'org.spockframework:spock-core:1.1-groovy-2.4'
+    )
+}
+
+test {
+    useJUnit {
+        includeCategories 'com.testwithspring.master.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+integrationTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.master.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}

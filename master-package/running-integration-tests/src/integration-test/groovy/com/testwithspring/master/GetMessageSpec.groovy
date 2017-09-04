@@ -10,6 +10,7 @@ class GetMessageSpec extends Specification {
 
     def 'Get message'() {
         expect: 'Should return the correct message'
+        println 'Integration test: should return the correct message'
         messageService.getMessage() == 'Hello World!'
     }
 }
