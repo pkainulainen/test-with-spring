@@ -107,13 +107,13 @@
                 <configuration>
                     <testSources>
                         <testSource>
-                            <directory>${project.basedir}/src/test/groovy</directory>
+                            <directory>src/test/groovy</directory>
                             <includes>
                                 <include>**/*.groovy</include>
                             </includes>
                         </testSource>
                         <testSource>
-                            <directory>${project.basedir}/src/integration-test/groovy</directory>
+                            <directory>src/integration-test/groovy</directory>
                             <includes>
                                 <include>**/*.groovy</include>
                             </includes>
