@@ -1,0 +1,27 @@
+<dataset>
+    <tasks id="1"
+           assignee_id="1"
+           closer_id="1"
+           creation_time="2016-12-3 11:41:28"
+           creator_id="1"
+           description="This example contains integration tests"
+           modification_time="2016-12-3 11:41:28"
+           modifier_id="1"
+           resolution="DONE"
+           status="CLOSED"
+           title="Write example application"
+           version="0"/>
+
+    <tags id="1"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="example"
+          version="0"/>
+    <tags id="2"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="lesson"
+          version="0"/>
+
+    <tasks_tags task_id="1" tag_id="1"/>
+</dataset>

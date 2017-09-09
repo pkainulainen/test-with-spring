@@ -10,6 +10,7 @@ package com.testwithspring.master.web
  */
 final class WebTestConstants {
 
+    static String LOGIN_PAGE_URL = "http://localhost/user/login";
 
     /**
      * Contains the keys of the flash messages.
