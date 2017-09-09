@@ -18,7 +18,6 @@ import org.springframework.test.context.TestExecutionListeners
 import org.springframework.test.context.web.WebAppConfiguration
 import spock.lang.Specification
 
-import static org.hamcrest.Matchers.contains
 import static org.hamcrest.Matchers.hasSize
 
 @ContextConfiguration(classes = [IntegrationTestContext.class])
