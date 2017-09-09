@@ -39,13 +39,13 @@ class SearchTasksSpec extends Specification {
 
         def searchResults
 
-        when: 'No tasks is found'
+        when: 'No tasks is found from the database'
         searchResults = repository.search(Tasks.SEARCH_TERM_NOT_FOUND)
 
         then: 'Should return an empty list'
         searchResults.isEmpty()
 
-        when: 'One task is found'
+        when: 'One task is found from the database'
         searchResults = repository.search(Tasks.SEARCH_TERM_ONE_MATCH)
 
         then: 'Should return one task'
@@ -58,7 +58,7 @@ class SearchTasksSpec extends Specification {
         task.status == Tasks.WriteLesson.STATUS
         task.title == Tasks.WriteLesson.TITLE
 
-        when: 'Two tasks are found'
+        when: 'Two tasks are found from the database'
         searchResults = repository.search(Tasks.SEARCH_TERM_TWO_MATCHES)
 
         then: 'Should return two tasks'
