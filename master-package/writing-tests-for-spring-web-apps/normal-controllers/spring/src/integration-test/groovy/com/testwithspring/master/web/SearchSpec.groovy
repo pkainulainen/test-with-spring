@@ -60,7 +60,7 @@ class SearchSpec extends Specification {
                 .build()
     }
 
-    def 'Search tasks as anonymous user'() {
+    def 'Search tasks as an anonymous user'() {
 
         def response
 
