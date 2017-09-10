@@ -48,7 +48,6 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
     @Autowired
     MockMvc mockMvc
 
-
     @ExpectedDatabase(value = '/com/testwithspring/master/no-tasks-and-tags.xml', assertionMode = DatabaseAssertionMode.NON_STRICT)
     def 'Submit an invalid create task form as an anonymous user'() {
 
