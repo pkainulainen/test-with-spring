@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 class DeleteFoundTaskSpec extends Specification {
 
-    private static final String FEEDBACK_MESSAGE_TASK_DELETED = "Task was deleted successfully.";
+    private static final String FEEDBACK_MESSAGE_TASK_DELETED = 'Task was deleted successfully.'
 
     @Autowired
     WebApplicationContext webAppContext
