@@ -4,6 +4,7 @@ buildscript {
     }
     dependencies {
         classpath(
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2',
                 'io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE',
                 'org.akhikhl.gretty:gretty:+'
         )
@@ -11,9 +12,24 @@ buildscript {
 }
 
 apply plugin: 'groovy'
+apply plugin: 'org.unbroken-dome.test-sets'
 apply plugin: 'war'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.akhikhl.gretty'
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+    endToEndTest { dirName = 'end-to-end-test' }
+}
+
+check.dependsOn integrationTest
+check.dependsOn endToEndTest
+endToEndTest.mustRunAfter integrationTest
+integrationTest.mustRunAfter test
+
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
 
 ant.properties['project.basedir'] = project.rootDir
 ant.importBuild 'src/main/ant/build.xml'
@@ -24,7 +40,15 @@ gretty {
     contextPath = '/'
     extraResourceBase 'frontend/build'
     servletContainer = 'jetty9.3'
-    systemProperty 'spring.profiles.active', 'application'
+    
+    if (gradle.startParameter.taskNames.contains('endToEndTest')) {
+        systemProperty 'spring.profiles.active', 'endToEndTest'
+    }
+    else {
+        systemProperty 'spring.profiles.active', 'application'
+    }
+
+    integrationTestTask = 'endToEndTest'
 }
 
 repositories {
@@ -80,11 +104,27 @@ dependencies {
     testCompile('com.athaydes:spock-reports:1.3.1') {
         transitive = false // this avoids affecting your version of Groovy/Spock
     }
+    integrationTestCompile sourceSets.test.output
+    integrationTestCompile(
+            'org.spockframework:spock-spring:1.1-groovy-2.4',
+            'org.springframework.security:spring-security-test',
+            'org.dbunit:dbunit:2.5.4',
+            'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+    )
 }
 
 test {
     useJUnit {
         includeCategories 'com.testwithspring.master.UnitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+integrationTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.master.IntegrationTest'
     }
     testLogging {
         showStandardStreams = true
