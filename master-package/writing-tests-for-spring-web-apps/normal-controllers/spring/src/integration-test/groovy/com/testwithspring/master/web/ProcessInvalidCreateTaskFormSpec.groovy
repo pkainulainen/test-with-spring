@@ -65,7 +65,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
         then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
-        and: 'Should redirect user to the login page'
+        and: 'Should redirect the user to the login page'
         response.andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL))
     }
 
@@ -85,7 +85,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
         response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should forward the user to the create task page'
-        response.andExpect(forwardedUrl("/WEB-INF/jsp/task/create.jsp"))
+        response.andExpect(forwardedUrl('/WEB-INF/jsp/task/create.jsp'))
 
         and: 'Should show a validation error about an empty title'
         response.andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
@@ -93,7 +93,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
                 is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
         ))
 
-        and: 'Should show field values of the empty create task form'
+        and: 'Should show the field values of the empty create task form'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is('')),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(''))
@@ -129,7 +129,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
                 is(WebTestConstants.ValidationErrorCode.EMPTY_FIELD)
         ))
 
-        and: 'Should show field values of the empty create task form'
+        and: 'Should show the field values of the empty create task form'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, is('')),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, is(''))

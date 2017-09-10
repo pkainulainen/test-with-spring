@@ -37,7 +37,7 @@ class FindPersonInformationByIdSpec extends Specification {
 
         def result
 
-        when: 'The request person information is not found from the database'
+        when: 'The requested person information is not found from the database'
         result = repository.findPersonInformationById(Users.ID_NOT_FOUND)
 
         then: 'Should return an empty optional'
@@ -49,7 +49,7 @@ class FindPersonInformationByIdSpec extends Specification {
         then: 'Should return a nonempty optional'
         result.isPresent()
 
-        and: 'Should return found person information'
+        and: 'Should return the found person information'
         def person = result.get()
 
         person.userId == Users.AnneAdmin.ID

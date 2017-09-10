@@ -59,7 +59,7 @@ class ProcessValidUpdateTaskFormSpec extends Specification {
     }
 
     @ExpectedDatabase(value = '/com/testwithspring/master/tasks.xml', assertionMode = DatabaseAssertionMode.NON_STRICT)
-    def 'Submit a valid update task form as anonymous user'() {
+    def 'Submit a valid update task form as an anonymous user'() {
 
         def response
 
@@ -69,7 +69,7 @@ class ProcessValidUpdateTaskFormSpec extends Specification {
         then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
-        and: 'Should redirect user to the login page'
+        and: 'Should redirect the user to the login page'
         response.andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL))
     }
 

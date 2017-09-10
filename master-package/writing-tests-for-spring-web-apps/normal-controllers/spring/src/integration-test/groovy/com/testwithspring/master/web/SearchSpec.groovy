@@ -70,7 +70,7 @@ class SearchSpec extends Specification {
         then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
-        and: 'Should redirect user to the login page'
+        and: 'Should redirect the user to the login page'
         response.andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL))
     }
 

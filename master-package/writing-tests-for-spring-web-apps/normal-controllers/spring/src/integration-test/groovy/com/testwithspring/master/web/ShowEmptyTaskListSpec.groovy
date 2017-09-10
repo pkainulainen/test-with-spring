@@ -64,7 +64,7 @@ class ShowEmptyTaskListSpec extends Specification {
         then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
-        and: 'Should redirect user to the login page'
+        and: 'Should redirect the user to the login page'
         response.andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL))
     }
 
@@ -94,7 +94,7 @@ class ShowEmptyTaskListSpec extends Specification {
 
         def response
 
-        when: 'An administrator user opens the task list page'
+        when: 'An administrator opens the task list page'
         response = openTaskListPage()
 
         then: 'Should return the HTTP status code OK'

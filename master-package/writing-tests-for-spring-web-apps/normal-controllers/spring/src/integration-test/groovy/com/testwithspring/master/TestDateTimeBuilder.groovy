@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter
  */
 final class TestDateTimeBuilder {
 
-    private static final DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+    private static final DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME
 
     /**
      * Creates a new {@link ZonedDateTime} object by using the date and time
@@ -21,8 +21,8 @@ final class TestDateTimeBuilder {
      *          is created by using the system's default offset and zone ID.
      */
     def static parseDateTime(String dateTime) {
-        String dateTimeWithZone  = appendOffsetAndZoneIdToDateTime(dateTime);
-        return ZonedDateTime.from(DATE_TIME_FORMAT.parse(dateTimeWithZone));
+        String dateTimeWithZone  = appendOffsetAndZoneIdToDateTime(dateTime)
+        return ZonedDateTime.from(DATE_TIME_FORMAT.parse(dateTimeWithZone))
     }
 
     /**
@@ -32,16 +32,16 @@ final class TestDateTimeBuilder {
      * @return  The date and time string that contains both offset and zone ID.
      */
     def static appendOffsetAndZoneIdToDateTime(dateTime) {
-        dateTime += getSystemZoneOffset();
-        dateTime += getSystemZoneId();
-        return dateTime;
+        dateTime += getSystemZoneOffset()
+        dateTime += getSystemZoneId()
+        return dateTime
     }
 
     private static String getSystemZoneOffset() {
-        return ZonedDateTime.now().getOffset().toString();
+        return ZonedDateTime.now().getOffset().toString()
     }
 
     private static String getSystemZoneId() {
-        return "[" + ZoneId.systemDefault().toString() + "]";
+        return '[' + ZoneId.systemDefault().toString() + ']'
     }
 }

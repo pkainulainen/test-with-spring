@@ -48,7 +48,7 @@ class ShowCreateTaskFormSpec extends Specification {
                 .build()
     }
 
-    def 'Open create task page as anonymous user'() {
+    def 'Open create task page as an anonymous user'() {
 
         def response
 
@@ -58,7 +58,7 @@ class ShowCreateTaskFormSpec extends Specification {
         then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
-        and: 'Should redirect user to the login page'
+        and: 'Should redirect the user to the login page'
         response.andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL))
     }
 
@@ -77,7 +77,32 @@ class ShowCreateTaskFormSpec extends Specification {
         response.andExpect(view().name(WebTestConstants.View.CREATE_TASK));
 
         and: 'Should forward the user to the create task page'
-        response.andExpect(forwardedUrl("/WEB-INF/jsp/task/create.jsp"));
+        response.andExpect(forwardedUrl('/WEB-INF/jsp/task/create.jsp'))
+
+        and: 'Should display an empty create task form'
+        response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, nullValue()),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.ID, nullValue()),
+                hasProperty(WebTestConstants.ModelAttributeProperty.Task.TITLE, nullValue())
+        )))
+    }
+
+    @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
+    def 'Open create task page as an administrator'() {
+
+        def response
+
+        when: 'An administrator opens the create task page'
+        response = openCreateTaskPage()
+
+        then: 'Should return the HTTP status code OK'
+        response.andExpect(status().isOk())
+
+        and: 'Should render the create task view'
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK));
+
+        and: 'Should forward the user to the create task page'
+        response.andExpect(forwardedUrl('/WEB-INF/jsp/task/create.jsp'))
 
         and: 'Should display an empty create task form'
         response.andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -88,6 +113,6 @@ class ShowCreateTaskFormSpec extends Specification {
     }
 
     private ResultActions openCreateTaskPage() throws Exception {
-        return mockMvc.perform(get("/task/create"));
+        return mockMvc.perform(get('/task/create'))
     }
 }

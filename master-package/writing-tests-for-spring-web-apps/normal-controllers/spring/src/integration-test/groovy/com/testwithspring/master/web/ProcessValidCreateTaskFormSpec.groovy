@@ -77,7 +77,7 @@ class ProcessValidCreateTaskFormSpec extends Specification {
         then: 'Should return the HTTP status code found'
         response.andExpect(status().isFound())
 
-        and: 'Should redirect user to the login page'
+        and: 'Should redirect the user to the login page'
         response.andExpect(redirectedUrl(WebTestConstants.LOGIN_PAGE_URL))
     }
 
@@ -112,7 +112,7 @@ class ProcessValidCreateTaskFormSpec extends Specification {
 
         def response
 
-        when: 'A registered user submits the create task form'
+        when: 'An administrator submits the create task form'
         response = submitCreateTaskForm()
 
         then: 'Should return the HTTP status code found'
@@ -132,7 +132,7 @@ class ProcessValidCreateTaskFormSpec extends Specification {
     }
 
     private ResultActions submitCreateTaskForm() throws Exception {
-        return  mockMvc.perform(post("/task/create")
+        return  mockMvc.perform(post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, Tasks.WriteExampleApp.DESCRIPTION)
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, Tasks.WriteExampleApp.TITLE)
                 .with(csrf())
