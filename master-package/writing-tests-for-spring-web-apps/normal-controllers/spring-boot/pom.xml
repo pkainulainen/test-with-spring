@@ -21,6 +21,8 @@
         <!-- Use Thymeleaf 3 -->
         <thymeleaf.version>3.0.6.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>2.2.1</thymeleaf-layout-dialect.version>
+
+        <spock.version>1.1-groovy-2.4</spock.version>
     </properties>
 
     <profiles>
@@ -127,13 +129,13 @@
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-core</artifactId>
-            <version>1.1-groovy-2.4</version>
+            <version>${spock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.spockframework</groupId>
             <artifactId>spock-spring</artifactId>
-            <version>1.1-groovy-2.4</version>
+            <version>${spock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
