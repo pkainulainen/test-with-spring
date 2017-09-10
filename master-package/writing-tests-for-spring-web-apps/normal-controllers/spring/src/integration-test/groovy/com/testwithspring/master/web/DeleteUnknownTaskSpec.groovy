@@ -106,7 +106,7 @@ class DeleteUnknownTaskSpec extends Specification {
         response.andExpect(forwardedUrl('/WEB-INF/jsp/error/404.jsp'))
     }
 
-    private ResultActions deleteTask(Long id) {
+    private ResultActions deleteTask(id) {
         return mockMvc.perform(get('/task/{taskId}/delete', id)
                 .with(csrf())
         )

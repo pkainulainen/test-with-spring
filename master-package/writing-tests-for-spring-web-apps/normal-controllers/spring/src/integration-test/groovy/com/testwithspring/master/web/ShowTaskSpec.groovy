@@ -257,7 +257,7 @@ class ShowTaskSpec extends Specification {
         ))
     }
 
-    private ResultActions openViewTaskPage(Long taskId) throws Exception {
+    private ResultActions openViewTaskPage(taskId) throws Exception {
         return  mockMvc.perform(get('/task/{taskId}', taskId))
     }
 }

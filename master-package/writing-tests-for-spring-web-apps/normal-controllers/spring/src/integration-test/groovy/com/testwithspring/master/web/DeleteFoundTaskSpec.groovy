@@ -118,7 +118,7 @@ class DeleteFoundTaskSpec extends Specification {
         ))
     }
 
-    private ResultActions deleteTask(Long id) {
+    private ResultActions deleteTask(id) {
         return mockMvc.perform(get('/task/{taskId}/delete', id)
                 .with(csrf())
         )
