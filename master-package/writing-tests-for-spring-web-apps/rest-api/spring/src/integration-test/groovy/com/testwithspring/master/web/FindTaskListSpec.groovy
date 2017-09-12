@@ -119,7 +119,7 @@ class FindTaskListSpec extends Specification {
                 .andExpect(jsonPath('$[1].title', is(Tasks.WriteLesson.TITLE)))
     }
 
-    private ResultActions findAllTasks() throws Exception {
+    private ResultActions findAllTasks() {
         return mockMvc.perform(get('/api/task'))
     }
 }

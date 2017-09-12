@@ -13,19 +13,16 @@ import com.testwithspring.master.Users
 import com.testwithspring.master.config.Profiles
 import org.junit.experimental.categories.Category
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithUserDetails
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestExecutionListeners
 import org.springframework.test.context.web.WebAppConfiguration
 import org.springframework.test.web.servlet.ResultActions
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
 
-import static org.hamcrest.Matchers.*
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
@@ -98,7 +95,7 @@ class DeleteUnknownTaskSpec extends Specification {
         response.andExpect(status().isNotFound())
     }
 
-    private ResultActions deleteTask(id) throws Exception {
+    private ResultActions deleteTask(id) {
         return  mockMvc.perform(delete('/api/task/{taskId}', id)
                 .with(csrf())
         )

@@ -139,7 +139,7 @@ class SearchSpec extends Specification {
                 .andExpect(jsonPath('$[0].title', is(Tasks.WriteLesson.TITLE)))
     }
 
-    private ResultActions search(searchTerm) throws Exception {
+    private ResultActions search(searchTerm) {
         return mockMvc.perform(get('/api/task/search')
                 .param(WebTestConstants.RequestParameter.SEARCH_TERM, searchTerm)
         )

@@ -153,7 +153,7 @@ class DeleteFoundTaskSpec extends Specification {
                 .andExpect(jsonPath('$.tags[0].name', is(Tasks.WriteLesson.Tags.Lesson.NAME)))
     }
 
-    private ResultActions deleteTask(id) throws Exception {
+    private ResultActions deleteTask(id) {
         return  mockMvc.perform(delete('/api/task/{taskId}', id)
                 .with(csrf())
         )

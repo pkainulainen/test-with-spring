@@ -26,7 +26,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @ContextConfiguration(classes = [IntegrationTestContext.class])
 @WebAppConfiguration
@@ -103,7 +103,7 @@ class FindEmptyTaskListSpec extends Specification {
         response.andExpect(jsonPath('$', hasSize(0)))
     }
 
-    private ResultActions findAllTasks() throws Exception {
+    private ResultActions findAllTasks() {
         return mockMvc.perform(get('/api/task'))
     }
 }
