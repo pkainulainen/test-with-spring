@@ -13,7 +13,6 @@ import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
 import com.testwithspring.master.user.LoggedInUser
 import com.testwithspring.master.user.PersonDTO
-import org.junit.Test
 import org.junit.experimental.categories.Category
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
@@ -47,12 +46,12 @@ class TaskCrudControllerSpec extends Specification {
     //Task
     private static final ASSIGNEE_ID = 44L
     private static final ASSIGNEE_NAME = 'Anne Assignee'
-    private static final CREATION_TIME = TestDateTimeBuilder.parseDateTime('2017-07-30T11:41:28');
-    private static final CREATION_TIME_STRING = TestDateTimeBuilder.appendOffsetAndZoneIdToDateTime('2017-07-30T11:41:28')
+    private static final CREATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2017-07-30T11:41:28');
+    private static final CREATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2017-07-30T11:41:28')
     private static final CREATOR_ID = 99L
     private static final CREATOR_NAME = 'John Doe'
-    private static final MODIFICATION_TIME = TestDateTimeBuilder.parseDateTime('2017-07-31T11:41:28');
-    private static final MODIFICATION_TIME_STRING = TestDateTimeBuilder.appendOffsetAndZoneIdToDateTime('2017-07-31T11:41:28')
+    private static final MODIFICATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2017-07-31T11:41:28');
+    private static final MODIFICATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2017-07-31T11:41:28')
     private static final MODIFIER_ID = 33L
     private static final MODIFIER_NAME = 'Jane Doe'
     private static final TASK_DESCRIPTION = 'description'

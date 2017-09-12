@@ -5,8 +5,8 @@ import com.testwithspring.master.task.TaskStatus
 
 import java.time.ZonedDateTime
 
-import static com.testwithspring.master.TestDateTimeBuilder.appendOffsetAndZoneIdToDateTime
-import static com.testwithspring.master.TestDateTimeBuilder.parseDateTime
+import static com.testwithspring.master.TestDateTimeBuilder.transformUTCDateToLocalDateTime
+import static com.testwithspring.master.TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime
 
 final class Tasks {
 
@@ -29,8 +29,8 @@ final class Tasks {
             static final String NAME = 'John Doe'
         }
 
-        static final ZonedDateTime CREATION_TIME = parseDateTime('2016-12-03T11:41:28')
-        static final String CREATION_TIME_STRING = appendOffsetAndZoneIdToDateTime('2016-12-03T11:41:28')
+        static final ZonedDateTime CREATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
+        static final String CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
 
         static class Creator {
 
@@ -40,8 +40,8 @@ final class Tasks {
 
         static final String DESCRIPTION = 'This example contains integration tests'
         static final Long ID = 1L
-        static final ZonedDateTime MODIFICATION_TIME = parseDateTime('2016-12-03T11:41:28')
-        static final String MODIFICATION_TIME_STRING = appendOffsetAndZoneIdToDateTime('2016-12-03T11:41:28')
+        static final ZonedDateTime MODIFICATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
+        static final String MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
 
         static class Modifier {
 
@@ -65,8 +65,8 @@ final class Tasks {
 
     static class WriteLesson {
 
-        static final ZonedDateTime CREATION_TIME =  parseDateTime('2016-12-04T11:41:28')
-        static final String CREATION_TIME_STRING = appendOffsetAndZoneIdToDateTime('2016-12-04T11:41:28')
+        static final ZonedDateTime CREATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
+        static final String CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
 
         static class Creator {
 
@@ -76,8 +76,8 @@ final class Tasks {
 
         static final String DESCRIPTION = 'This lesson talks about integration testing'
         static final Long ID = 2L
-        static final ZonedDateTime MODIFICATION_TIME =  parseDateTime('2016-12-04T11:41:28')
-        static final String MODIFICATION_TIME_STRING = appendOffsetAndZoneIdToDateTime('2016-12-04T11:41:28')
+        static final ZonedDateTime MODIFICATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
+        static final String MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
 
         static class Modifier {
 
