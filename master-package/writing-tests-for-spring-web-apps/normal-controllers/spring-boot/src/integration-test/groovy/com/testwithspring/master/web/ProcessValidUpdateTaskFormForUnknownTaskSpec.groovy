@@ -46,7 +46,7 @@ class ProcessValidUpdateTaskFormForUnknownTaskSpec extends Specification {
     MockMvc mockMvc
 
     @ExpectedDatabase(value = '/com/testwithspring/master/tasks.xml', assertionMode = DatabaseAssertionMode.NON_STRICT)
-    def 'Submit a valid update task form as anonymous user when the updated task is not found'() {
+    def 'Submit a valid update task form as an anonymous user when the updated task is not found'() {
 
         def response
 
