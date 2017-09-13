@@ -37,8 +37,8 @@ class RepositoryTaskCrudServiceSpec extends Specification {
     private static final TITLE = 'Write an example test'
     private static final STATUS = TaskStatus.OPEN
 
-    private static Long TAG_ID = 44L
-    private static String TAG_NAME = 'testing'
+    private static final TAG_ID = 44L
+    private static final TAG_NAME = 'testing'
 
     def personFinder = Stub(PersonFinder)
     def repository = Mock(TaskRepository)

@@ -21,7 +21,7 @@ final class WebTestConfig {
     private static final VIEW_NAME_ERROR_VIEW = 'error/error'
     private static final VIEW_NAME_NOT_FOUND_VIEW = 'error/404'
 
-    public static final  LOCALE = Locale.ENGLISH
+    public static final LOCALE = Locale.ENGLISH
 
     /**
      * This method returns an exception resolver that maps exceptions to the error view names and
@@ -30,9 +30,9 @@ final class WebTestConfig {
      * @return
      */
     def static exceptionResolver() {
-        def exceptionResolver = new SimpleMappingExceptionResolver();
+        def exceptionResolver = new SimpleMappingExceptionResolver()
 
-        def exceptionMappings = new Properties();
+        def exceptionMappings = new Properties()
 
         exceptionMappings.put('com.testwithspring.master.common.NotFoundException', VIEW_NAME_NOT_FOUND_VIEW)
         exceptionMappings.put('java.lang.Exception', VIEW_NAME_ERROR_VIEW)

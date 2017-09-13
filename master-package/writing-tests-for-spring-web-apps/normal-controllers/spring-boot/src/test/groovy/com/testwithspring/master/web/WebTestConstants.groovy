@@ -10,14 +10,14 @@ package com.testwithspring.master.web
  */
 final class WebTestConstants {
 
-    static String LOGIN_PAGE_URL = "http://localhost/user/login";
+    static LOGIN_PAGE_URL = 'http://localhost/user/login'
 
     /**
      * Contains the keys of the flash messages.
      */
     static class FlashMessageKey {
 
-        static final String FEEDBACK_MESSAGE = 'feedbackMessage'
+        static final FEEDBACK_MESSAGE = 'feedbackMessage'
     }
 
     /**
@@ -108,7 +108,7 @@ final class WebTestConstants {
      */
     static class RedirectView {
 
-        static final String SHOW_TASK = 'redirect:/task/{taskId}'
-        static final String SHOW_TASK_LIST = 'redirect:/'
+        static final SHOW_TASK = 'redirect:/task/{taskId}'
+        static final SHOW_TASK_LIST = 'redirect:/'
     }
 }

@@ -11,9 +11,9 @@ class LoggedInUserServiceSpec extends Specification {
 
     private static final EMAIL_ADDRESS = 'john.doe@gmail.com'
     private static final EMAIL_ADDRESS_NOT_FOUND = 'not.found@gmail.com'
-    private static final Long USER_ID = 1L
-    private static final String NAME = 'John Doe'
-    private static final String PASSWORD = 'password'
+    private static final USER_ID = 1L
+    private static final NAME = 'John Doe'
+    private static final PASSWORD = 'password'
 
     def repository = Stub(UserRepository)
     def service = new LoggedInUserService(repository)

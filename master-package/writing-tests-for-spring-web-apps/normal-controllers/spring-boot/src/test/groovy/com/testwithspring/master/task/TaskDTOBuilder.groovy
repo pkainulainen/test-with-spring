@@ -1,9 +1,5 @@
 package com.testwithspring.master.task
 
-import com.testwithspring.master.user.PersonDTO
-
-import java.time.ZonedDateTime
-
 /**
  * This test data builder is used for creating new {@link TaskDTO} objects
  * that are used in our unit tests. The reason why we should use a builder is
@@ -15,11 +11,11 @@ class TaskDTOBuilder {
 
     private assignee
     private closer
-    private creationTime;
+    private creationTime
     private creator
     private description
     private id
-    private modificationTime;
+    private modificationTime
     private modifier
     private resolution
     private status
@@ -40,8 +36,8 @@ class TaskDTOBuilder {
     }
 
     def withCreationTime(creationTime) {
-        this.creationTime = creationTime;
-        return this;
+        this.creationTime = creationTime
+        return this
     }
 
     def withCreator(creator) {
@@ -55,8 +51,8 @@ class TaskDTOBuilder {
     }
 
     def withModificationTime(modificationTime) {
-        this.modificationTime = modificationTime;
-        return this;
+        this.modificationTime = modificationTime
+        return this
     }
 
     def withModifier(modifier) {
