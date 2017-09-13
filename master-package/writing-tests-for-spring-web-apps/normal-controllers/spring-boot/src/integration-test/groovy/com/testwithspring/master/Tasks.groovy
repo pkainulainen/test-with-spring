@@ -31,7 +31,7 @@ class Tasks {
             static final NAME = 'John Doe'
         }
 
-        static final CREATION_TIME = TestDateTimeBuilder.parseDateTime('2016-12-03T11:41:28')
+        static final CREATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
 
         static class Creator {
 
@@ -41,7 +41,7 @@ class Tasks {
 
         static final DESCRIPTION = 'This example contains integration tests'
         static final ID = 1L
-        static final MODIFICATION_TIME = TestDateTimeBuilder.parseDateTime('2016-12-03T11:41:28')
+        static final MODIFICATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
 
         static class Modifier {
 
@@ -65,11 +65,11 @@ class Tasks {
 
     static class WriteLesson {
 
-        static final CREATION_TIME =  TestDateTimeBuilder.parseDateTime('2016-12-04T11:41:28')
+        static final CREATION_TIME =  TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
         static final CREATOR_ID = 1L
         static final DESCRIPTION = 'This lesson talks about integration testing'
         static final ID = 2L
-        static final MODIFICATION_TIME =  TestDateTimeBuilder.parseDateTime('2016-12-04T11:41:28')
+        static final MODIFICATION_TIME =  TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
         static final STATUS = TaskStatus.OPEN
         static final TITLE = 'Write lesson'
 
