@@ -5,7 +5,7 @@ import com.testwithspring.master.task.TaskStatus
 
 import java.time.ZonedDateTime
 
-import static com.testwithspring.master.TestDateTimeBuilder.parseDateTime
+import static com.testwithspring.master.TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime
 
 /**
  * This constant class contains the test data that is either
@@ -35,7 +35,7 @@ class Tasks {
             static final NAME = 'John Doe'
         }
 
-        static final ZonedDateTime CREATION_TIME = parseDateTime('2016-12-03T11:41:28')
+        static final ZonedDateTime CREATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
 
         static class Creator {
 
@@ -45,7 +45,7 @@ class Tasks {
 
         static final DESCRIPTION = 'This example contains integration tests'
         static final ID = 1L
-        static final ZonedDateTime MODIFICATION_TIME = parseDateTime('2016-12-03T11:41:28')
+        static final ZonedDateTime MODIFICATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
 
         static class Modifier {
 
@@ -69,11 +69,11 @@ class Tasks {
 
     static class WriteLesson {
 
-        static final ZonedDateTime CREATION_TIME =  parseDateTime('2016-12-04T11:41:28')
+        static final ZonedDateTime CREATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
         static final CREATOR_ID = 1L
         static final DESCRIPTION = 'This lesson talks about integration testing'
         static final ID = 2L
-        static final ZonedDateTime MODIFICATION_TIME =  parseDateTime('2016-12-04T11:41:28')
+        static final ZonedDateTime MODIFICATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
         static final TaskStatus STATUS = TaskStatus.OPEN
         static final TITLE = 'Write lesson'
 

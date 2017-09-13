@@ -78,8 +78,8 @@ dependencies {
             'org.springframework.security:spring-security-taglibs',
             'com.h2database:h2',
             'com.zaxxer:HikariCP',
-            'org.hibernate:hibernate-entitymanager',
-            'org.hibernate:hibernate-java8',
+            'org.hibernate:hibernate-core:5.2.10.Final',
+            'org.hibernate:hibernate-entitymanager:5.2.10.Final',
             'org.springframework.data:spring-data-jpa',
             'org.liquibase:liquibase-core'
     )
