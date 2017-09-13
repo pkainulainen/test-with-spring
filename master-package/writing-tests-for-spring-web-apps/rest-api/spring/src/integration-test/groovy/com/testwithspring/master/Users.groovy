@@ -11,22 +11,22 @@ import com.testwithspring.master.user.UserRole
  */
 final class Users {
 
-    static final Long ID_NOT_FOUND = 343L
-    static final String USERNAME_NOT_FOUND = 'notfound'
+    static final ID_NOT_FOUND = 343L
+    static final USERNAME_NOT_FOUND = 'notfound'
 
     static class JohnDoe {
 
-        static final Long ID = 1L
-        static final String EMAIL_ADDRESS = 'john.doe@gmail.com'
-        static final String NAME = 'John Doe'
-        static final String PASSWORD = 'user'
-        static final UserRole ROLE = UserRole.ROLE_USER
+        static final ID = 1L
+        static final EMAIL_ADDRESS = 'john.doe@gmail.com'
+        static final NAME = 'John Doe'
+        static final PASSWORD = 'user'
+        static final ROLE = UserRole.ROLE_USER
     }
 
     static class AnneAdmin {
 
-        static final Long ID = 2L
-        static final String EMAIL_ADDRESS = 'anne.admin@gmail.com'
-        static final String NAME = 'Anne Admin'
+        static final ID = 2L
+        static final EMAIL_ADDRESS = 'anne.admin@gmail.com'
+        static final NAME = 'Anne Admin'
     }
 }

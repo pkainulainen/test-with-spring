@@ -39,7 +39,7 @@ final class TestDateTimeBuilder {
 
     private static ZonedDateTime transformUTCStringToZonedDateTime(dateTime) {
         def utcDateTime = LocalDateTime.from(ZONE_ID_FORMAT.parse(dateTime))
-        def utcZonedDateTime = utcDateTime.atZone(ZoneId.of("UTC"))
+        def utcZonedDateTime = utcDateTime.atZone(ZoneId.of('UTC'))
         return utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
     }
 }

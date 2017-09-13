@@ -1,14 +1,12 @@
 package com.testwithspring.master
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
-
 class IdColumnReset {
 
-    private static final String QUERY_RESET_ID_COLUMN_TEMPLATE = 'ALTER TABLE %s ALTER COLUMN id RESTART WITH 1'
+    private static final QUERY_RESET_ID_COLUMN_TEMPLATE = 'ALTER TABLE %s ALTER COLUMN id RESTART WITH 1'
 
-    private final NamedParameterJdbcTemplate jdbcTemplate
+    private final jdbcTemplate
 
-    IdColumnReset(NamedParameterJdbcTemplate jdbcTemplate) {
+    IdColumnReset(jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate
     }
 

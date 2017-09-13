@@ -36,8 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TaskCrudControllerSpec extends Specification {
 
     //JSON Fields
-    private static final JSON_FIELD_DESCRIPTION = 'description';
-    private static final JSON_FIELD_TITLE = 'title';
+    private static final JSON_FIELD_DESCRIPTION = 'description'
+    private static final JSON_FIELD_TITLE = 'title'
 
     //Validation
     private static final MAX_LENGTH_OF_DESCRIPTION = 500
@@ -46,11 +46,11 @@ class TaskCrudControllerSpec extends Specification {
     //Task
     private static final ASSIGNEE_ID = 44L
     private static final ASSIGNEE_NAME = 'Anne Assignee'
-    private static final CREATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2017-07-30T11:41:28');
+    private static final CREATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2017-07-30T11:41:28')
     private static final CREATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2017-07-30T11:41:28')
     private static final CREATOR_ID = 99L
     private static final CREATOR_NAME = 'John Doe'
-    private static final MODIFICATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2017-07-31T11:41:28');
+    private static final MODIFICATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2017-07-31T11:41:28')
     private static final MODIFICATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2017-07-31T11:41:28')
     private static final MODIFIER_ID = 33L
     private static final MODIFIER_NAME = 'Jane Doe'

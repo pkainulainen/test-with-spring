@@ -47,6 +47,6 @@ final class WebTestConfig {
                         new Jdk8Module(),
                         new JavaTimeModule()
                 )
-                .build();
+                .build()
     }
 }

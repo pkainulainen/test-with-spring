@@ -58,7 +58,7 @@ class CreateValidTaskSpec extends Specification {
     WebApplicationContext webAppContext
 
     @Autowired
-    IdColumnReset idColumnReset;
+    IdColumnReset idColumnReset
 
     def mockMvc
 

@@ -10,90 +10,90 @@ import static com.testwithspring.master.TestDateTimeBuilder.parseLocalDateTimeFr
 
 final class Tasks {
 
-    static final Long TASK_ID_NOT_FOUND = 599L
-    static final String SEARCH_TERM_ONE_MATCH = 'Esso'
-    static final String SEARCH_TERM_TWO_MATCHES = 'This'
-    static final String SEARCH_TERM_NOT_FOUND = 'NO_PE'
+    static final TASK_ID_NOT_FOUND = 599L
+    static final SEARCH_TERM_ONE_MATCH = 'Esso'
+    static final SEARCH_TERM_TWO_MATCHES = 'This'
+    static final SEARCH_TERM_NOT_FOUND = 'NO_PE'
 
     static class WriteExampleApp {
 
         static class Assignee {
 
-            static final Long ID = 1L
-            static final String NAME = 'John Doe'
+            static final ID = 1L
+            static final NAME = 'John Doe'
         }
 
         static class Closer {
 
-            static final Long ID = 1L
-            static final String NAME = 'John Doe'
+            static final ID = 1L
+            static final NAME = 'John Doe'
         }
 
-        static final ZonedDateTime CREATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
-        static final String CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
+        static final CREATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
+        static final CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
 
         static class Creator {
 
-            static final Long ID = 1L
-            static final String NAME = 'John Doe'
+            static final ID = 1L
+            static final NAME = 'John Doe'
         }
 
-        static final String DESCRIPTION = 'This example contains integration tests'
-        static final Long ID = 1L
-        static final ZonedDateTime MODIFICATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
-        static final String MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
+        static final DESCRIPTION = 'This example contains integration tests'
+        static final ID = 1L
+        static final MODIFICATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
+        static final MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
 
         static class Modifier {
 
-            static final Long ID = 1L
-            static final String NAME = 'John Doe'
+            static final ID = 1L
+            static final NAME = 'John Doe'
         }
 
-        static final TaskResolution RESOLUTION = TaskResolution.DONE
-        static final TaskStatus STATUS = TaskStatus.CLOSED
-        static final String TITLE = 'Write example application'
+        static final RESOLUTION = TaskResolution.DONE
+        static final STATUS = TaskStatus.CLOSED
+        static final TITLE = 'Write example application'
 
         static class Tags {
 
             static class Example {
 
-                static final Long ID = 1L
-                static final String NAME = 'example'
+                static final ID = 1L
+                static final NAME = 'example'
             }
         }
     }
 
     static class WriteLesson {
 
-        static final ZonedDateTime CREATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
-        static final String CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
+        static final CREATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
+        static final CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
 
         static class Creator {
 
-            static final Long ID = 1L
-            static final String NAME = 'John Doe'
+            static final ID = 1L
+            static final NAME = 'John Doe'
         }
 
-        static final String DESCRIPTION = 'This lesson talks about integration testing'
-        static final Long ID = 2L
-        static final ZonedDateTime MODIFICATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
-        static final String MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
+        static final DESCRIPTION = 'This lesson talks about integration testing'
+        static final ID = 2L
+        static final MODIFICATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
+        static final MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
 
         static class Modifier {
 
-            static final Long ID = 1L
-            static final String NAME = 'John Doe'
+            static final ID = 1L
+            static final NAME = 'John Doe'
         }
 
-        static final TaskStatus STATUS = TaskStatus.OPEN
-        static final String TITLE = 'Write lesson'
+        static final STATUS = TaskStatus.OPEN
+        static final TITLE = 'Write lesson'
 
         static class Tags {
 
             static class Lesson {
 
-                static final Long ID = 2L
-                static final String NAME = 'lesson'
+                static final ID = 2L
+                static final NAME = 'lesson'
             }
         }
     }

@@ -21,7 +21,7 @@ final class ObjectIntoJsonConverter {
      * @throws IOException  If an error occurs during the conversion.
      */
     def static convertObjectIntoJsonBytes(Object object) throws IOException {
-        ObjectMapper mapper = objectMapper();
-        return mapper.writeValueAsBytes(object);
+        ObjectMapper mapper = objectMapper()
+        return mapper.writeValueAsBytes(object)
     }
 }
