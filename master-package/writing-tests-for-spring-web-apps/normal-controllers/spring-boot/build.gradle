@@ -6,7 +6,7 @@ buildscript {
     dependencies {
         classpath(
                 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2',
-                'org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE'
+                'org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE'
         )
     }
 }
