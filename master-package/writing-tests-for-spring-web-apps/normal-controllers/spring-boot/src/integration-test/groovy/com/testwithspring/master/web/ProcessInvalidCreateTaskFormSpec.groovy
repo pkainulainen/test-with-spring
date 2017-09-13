@@ -130,7 +130,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
     }
 
     private ResultActions submitEmptyCreateTaskForm() throws Exception {
-        return  mockMvc.perform(MockMvcRequestBuilders.post("/task/create")
+        return  mockMvc.perform(MockMvcRequestBuilders.post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, '')
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, '')
                 .with(SecurityMockMvcRequestPostProcessors.csrf())

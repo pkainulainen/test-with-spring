@@ -58,7 +58,7 @@ class ShowCreateTaskFormSpec extends Specification {
         response.andExpect(MockMvcResultMatchers.status().isOk())
 
         and: 'Should render the create task view'
-        response.andExpect(MockMvcResultMatchers.view().name(WebTestConstants.View.CREATE_TASK));
+        response.andExpect(MockMvcResultMatchers.view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should display an empty create task form'
         response.andExpect(MockMvcResultMatchers.model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(
@@ -80,7 +80,7 @@ class ShowCreateTaskFormSpec extends Specification {
         response.andExpect(MockMvcResultMatchers.status().isOk())
 
         and: 'Should render the create task view'
-        response.andExpect(MockMvcResultMatchers.view().name(WebTestConstants.View.CREATE_TASK));
+        response.andExpect(MockMvcResultMatchers.view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should display an empty create task form'
         response.andExpect(MockMvcResultMatchers.model().attribute(WebTestConstants.ModelAttributeName.TASK, allOf(

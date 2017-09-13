@@ -39,7 +39,7 @@ import spock.lang.Specification
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 class DeleteFoundTaskSpec extends Specification {
 
-    private static final String FEEDBACK_MESSAGE_TASK_DELETED = 'Task was deleted successfully.'
+    private static final FEEDBACK_MESSAGE_TASK_DELETED = 'Task was deleted successfully.'
 
     @Autowired
     MockMvc mockMvc

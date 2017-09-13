@@ -39,8 +39,8 @@ import spock.lang.Specification
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 class ProcessValidUpdateTaskFormForUnknownTaskSpec extends Specification {
 
-    private static final String NEW_DESCRIPTION = 'The old lesson was not good'
-    private static final String NEW_TITLE = 'Rewrite an existing lesson'
+    private static final NEW_DESCRIPTION = 'The old lesson was not good'
+    private static final NEW_TITLE = 'Rewrite an existing lesson'
 
     @Autowired
     MockMvc mockMvc
