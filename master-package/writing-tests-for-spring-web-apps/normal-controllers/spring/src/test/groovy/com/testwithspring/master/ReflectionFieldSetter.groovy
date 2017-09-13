@@ -28,7 +28,7 @@ final class ReflectionFieldSetter {
         }
         catch (Exception ex) {
             throw new RuntimeException(
-                    String.format("Cannot set the value of the field: %s because of an error", fieldName),
+                    String.format('Cannot set the value of the field: %s because of an error', fieldName),
                     ex
             )
         }
@@ -48,7 +48,7 @@ final class ReflectionFieldSetter {
         def continueSearch = true
         while (continueSearch) {
             try {
-                return current.getDeclaredField(fieldName);
+                return current.getDeclaredField(fieldName)
             }
             catch(Exception e) {
                 //An exception simply means that field is not found.
@@ -60,7 +60,7 @@ final class ReflectionFieldSetter {
 
         //This signals that the requested field is not found.
         throw new NoSuchFieldException(String.format(
-                "No field found with the field name %s",
+                'No field found with the field name %s',
                 fieldName
         ))
     }

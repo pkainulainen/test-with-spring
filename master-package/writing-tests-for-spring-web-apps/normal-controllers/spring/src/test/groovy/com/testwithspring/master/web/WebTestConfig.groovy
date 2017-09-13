@@ -30,9 +30,9 @@ final class WebTestConfig {
      * @return
      */
     def static exceptionResolver() {
-        def exceptionResolver = new SimpleMappingExceptionResolver();
+        def exceptionResolver = new SimpleMappingExceptionResolver()
 
-        def exceptionMappings = new Properties();
+        def exceptionMappings = new Properties()
 
         exceptionMappings.put('com.testwithspring.master.common.NotFoundException', VIEW_NAME_NOT_FOUND_VIEW)
         exceptionMappings.put('java.lang.Exception', VIEW_NAME_ERROR_VIEW)

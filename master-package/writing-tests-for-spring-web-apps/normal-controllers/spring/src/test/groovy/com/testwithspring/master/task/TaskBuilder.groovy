@@ -100,7 +100,7 @@ class TaskBuilder {
     }
 
     def withTags(Tag... tags) {
-        this.tags = new HashSet<>(Arrays.asList(tags));
+        this.tags = new HashSet<>(Arrays.asList(tags))
         return this
     }
 
