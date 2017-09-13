@@ -46,7 +46,7 @@ class ProcessValidUpdateTaskFormForUnknownTaskSpec extends Specification {
     MockMvc mockMvc
 
     @ExpectedDatabase(value = '/com/testwithspring/master/tasks.xml', assertionMode = DatabaseAssertionMode.NON_STRICT)
-    def 'Submit a valid update task form when the updated task is not found as anonymous user'() {
+    def 'Submit a valid update task form as anonymous user when the updated task is not found'() {
 
         def response
 
@@ -62,7 +62,7 @@ class ProcessValidUpdateTaskFormForUnknownTaskSpec extends Specification {
 
     @WithUserDetails(Users.JohnDoe.EMAIL_ADDRESS)
     @ExpectedDatabase(value = '/com/testwithspring/master/tasks.xml', assertionMode = DatabaseAssertionMode.NON_STRICT)
-    def 'Submit a valid update task form when the updated task is not found as a registered user'() {
+    def 'Submit a valid update task form as a registered user when the updated task is not found'() {
 
         def response
 
@@ -78,7 +78,7 @@ class ProcessValidUpdateTaskFormForUnknownTaskSpec extends Specification {
 
     @WithUserDetails(Users.AnneAdmin.EMAIL_ADDRESS)
     @ExpectedDatabase(value = '/com/testwithspring/master/tasks.xml', assertionMode = DatabaseAssertionMode.NON_STRICT)
-    def 'Submit a valid update task form when the updated task is not found as an administrator'() {
+    def 'Submit a valid update task form as an administrator when the updated task is not found'() {
 
         def response
 
