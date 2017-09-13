@@ -17,22 +17,22 @@ import java.time.format.DateTimeFormatter;
  */
 public class ConstantDateTimeService implements DateTimeService {
 
-    private static final DateTimeFormatter ZONED_DATE_TIME = DateTimeFormatter.ISO_ZONED_DATE_TIME;
-    private static final DateTimeFormatter LOCAL_DATE_TIME = DateTimeFormatter.ISO_DATE_TIME;
+    private static final DateTimeFormatter ZONED_DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+    private static final DateTimeFormatter LOCAL_DATE_TIME_FORMAT = DateTimeFormatter.ISO_DATE_TIME;
 
     public static final String CURRENT_DATE_AND_TIME = getConstantDateAndTime();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConstantDateTimeService.class);
 
     private static String getConstantDateAndTime() {
-        LocalDateTime utcDateTime = LocalDateTime.from(LOCAL_DATE_TIME.parse("2016-12-03T21:14:28"));
+        LocalDateTime utcDateTime = LocalDateTime.from(LOCAL_DATE_TIME_FORMAT.parse("2016-12-03T21:14:28"));
         ZonedDateTime utcZonedDateTime = utcDateTime.atZone(ZoneId.of("UTC"));
-        return ZONED_DATE_TIME.format(utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault()));
+        return ZONED_DATE_TIME_FORMAT.format(utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault()));
     }
 
     @Override
     public ZonedDateTime getCurrentDateAndTime() {
-        ZonedDateTime constantDateAndTime = ZonedDateTime.from(ZONED_DATE_TIME.parse(CURRENT_DATE_AND_TIME));
+        ZonedDateTime constantDateAndTime = ZonedDateTime.from(ZONED_DATE_TIME_FORMAT.parse(CURRENT_DATE_AND_TIME));
 
         LOGGER.info("Returning constant date and time: {}", constantDateAndTime);
 

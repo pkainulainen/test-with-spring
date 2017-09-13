@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter
  */
 final class TestDateTimeBuilder {
 
-    private static final DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME
-    private static final ZONE_ID_FORMAT = DateTimeFormatter.ISO_DATE_TIME
+    private static final ZONED_DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME
+    private static final LOCAL_DATE_TIME_FORMAT = DateTimeFormatter.ISO_DATE_TIME
 
     /**
      * Transforms the given UTC datetime to a local datetime and creates a new {@link ZonedDateTime} object by
@@ -34,11 +34,11 @@ final class TestDateTimeBuilder {
      */
     def static transformUTCDateToLocalDateTime(dateTime) {
         def zonedDateTime = transformUTCStringToZonedDateTime(dateTime)
-        return DATE_TIME_FORMAT.format(zonedDateTime)
+        return ZONED_DATE_TIME_FORMAT.format(zonedDateTime)
     }
 
     private static ZonedDateTime transformUTCStringToZonedDateTime(dateTime) {
-        def utcDateTime = LocalDateTime.from(ZONE_ID_FORMAT.parse(dateTime))
+        def utcDateTime = LocalDateTime.from(LOCAL_DATE_TIME_FORMAT.parse(dateTime))
         def utcZonedDateTime = utcDateTime.atZone(ZoneId.of('UTC'))
         return utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault())
     }
