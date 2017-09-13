@@ -48,10 +48,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 class ProcessValidCreateTaskFormSpec extends Specification {
 
-    private static final String FEEDBACK_MESSAGE_TASK_CREATED = 'A new task was created successfully.'
+    private static final FEEDBACK_MESSAGE_TASK_CREATED = 'A new task was created successfully.'
 
     @Autowired
-    IdColumnReset idColumnReset;
+    IdColumnReset idColumnReset
 
     @Autowired
     WebApplicationContext webAppContext
@@ -95,10 +95,10 @@ class ProcessValidCreateTaskFormSpec extends Specification {
 
         and: 'Should redirect the user to the view task view'
         response.andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
-                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is("1")))
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is('1')))
 
         and: 'Should redirect the user to view task page'
-        response.andExpect(redirectedUrl("/task/1"))
+        response.andExpect(redirectedUrl('/task/1'))
 
         and: 'Should display the feedback message to the user'
         response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,
@@ -120,10 +120,10 @@ class ProcessValidCreateTaskFormSpec extends Specification {
 
         and: 'Should redirect the user to the view task view'
         response.andExpect(view().name(WebTestConstants.RedirectView.SHOW_TASK))
-                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is("1")))
+                .andExpect(model().attribute(WebTestConstants.ModelAttributeName.TASK_ID, is('1')))
 
         and: 'Should redirect the user to view task page'
-        response.andExpect(redirectedUrl("/task/1"))
+        response.andExpect(redirectedUrl('/task/1'))
 
         and: 'Should display the feedback message to the user'
         response.andExpect(flash().attribute(WebTestConstants.FlashMessageKey.FEEDBACK_MESSAGE,

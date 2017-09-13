@@ -74,7 +74,7 @@ class ShowCreateTaskFormSpec extends Specification {
         response.andExpect(status().isOk())
 
         and: 'Should render the create task view'
-        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK));
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should forward the user to the create task page'
         response.andExpect(forwardedUrl('/WEB-INF/jsp/task/create.jsp'))
@@ -99,7 +99,7 @@ class ShowCreateTaskFormSpec extends Specification {
         response.andExpect(status().isOk())
 
         and: 'Should render the create task view'
-        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK));
+        response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should forward the user to the create task page'
         response.andExpect(forwardedUrl('/WEB-INF/jsp/task/create.jsp'))

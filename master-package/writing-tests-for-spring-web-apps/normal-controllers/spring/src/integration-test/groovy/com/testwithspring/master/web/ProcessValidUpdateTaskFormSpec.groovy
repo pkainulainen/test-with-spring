@@ -43,9 +43,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 class ProcessValidUpdateTaskFormSpec extends Specification {
 
-    private static final String FEEDBACK_MESSAGE_TASK_UPDATED = 'The information of the task was updated successfully.'
-    private static final String NEW_DESCRIPTION = 'The old lesson was not good'
-    private static final String NEW_TITLE = 'Rewrite an existing lesson'
+    private static final FEEDBACK_MESSAGE_TASK_UPDATED = 'The information of the task was updated successfully.'
+    private static final NEW_DESCRIPTION = 'The old lesson was not good'
+    private static final NEW_TITLE = 'Rewrite an existing lesson'
 
     @Autowired
     WebApplicationContext webAppContext
@@ -129,6 +129,6 @@ class ProcessValidUpdateTaskFormSpec extends Specification {
                 .param(WebTestConstants.ModelAttributeProperty.Task.ID, Tasks.WriteLesson.ID.toString())
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, NEW_TITLE)
                 .with(csrf())
-        );
+        )
     }
 }

@@ -121,7 +121,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
         response.andExpect(view().name(WebTestConstants.View.CREATE_TASK))
 
         and: 'Should forward the user to the create task page'
-        response.andExpect(forwardedUrl("/WEB-INF/jsp/task/create.jsp"))
+        response.andExpect(forwardedUrl('/WEB-INF/jsp/task/create.jsp'))
 
         and: 'Should show a validation error about an empty title'
         response.andExpect(model().attributeHasFieldErrorCode(WebTestConstants.ModelAttributeName.TASK,
@@ -142,7 +142,7 @@ class ProcessInvalidCreateTaskFormSpec extends Specification {
     }
 
     private ResultActions submitEmptyCreateTaskForm() throws Exception {
-        return  mockMvc.perform(post("/task/create")
+        return  mockMvc.perform(post('/task/create')
                 .param(WebTestConstants.ModelAttributeProperty.Task.DESCRIPTION, '')
                 .param(WebTestConstants.ModelAttributeProperty.Task.TITLE, '')
                 .with(csrf())
