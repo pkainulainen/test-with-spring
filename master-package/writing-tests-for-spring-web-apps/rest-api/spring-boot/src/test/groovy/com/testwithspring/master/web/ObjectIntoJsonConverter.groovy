@@ -1,7 +1,5 @@
 package com.testwithspring.master.web
 
-import com.fasterxml.jackson.databind.ObjectMapper
-
 import static com.testwithspring.master.web.WebTestConfig.objectMapper
 
 /**
@@ -21,7 +19,7 @@ final class ObjectIntoJsonConverter {
      * @throws IOException  If an error occurs during the conversion.
      */
     def static convertObjectIntoJsonBytes(Object object) throws IOException {
-        ObjectMapper mapper = objectMapper();
-        return mapper.writeValueAsBytes(object);
+        def mapper = objectMapper()
+        return mapper.writeValueAsBytes(object)
     }
 }
