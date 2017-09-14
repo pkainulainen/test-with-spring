@@ -1,0 +1,41 @@
+<dataset>
+    <tasks id="1"
+           assignee_id="1"
+           closer_id="1"
+           creation_time="2016-12-3 11:41:28"
+           creator_id="1"
+           description="This example contains integration tests"
+           modification_time="2016-12-3 11:41:28"
+           modifier_id="1"
+           resolution="DONE"
+           status="CLOSED"
+           title="Write example application"
+           version="0"/>
+    <!-- Should update only the title, description, version, modifier id, and modification time. -->
+    <tasks id="2"
+           assignee_id="[null]"
+           closer_id="[null]"
+           creation_time="2016-12-4 11:41:28"
+           creator_id="1"
+           description="The old lesson was not good"
+           modification_time="2016-12-03 21:14:28.0"
+           modifier_id="1"
+           resolution="[null]"
+           status="OPEN"
+           title="Rewrite an existing lesson"
+           version="1"/>
+
+    <tags id="1"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="example"
+          version="0"/>
+    <tags id="2"
+          creation_time="2016-12-3 11:41:28"
+          modification_time="2016-12-3 11:41:28"
+          name="lesson"
+          version="0"/>
+
+    <tasks_tags task_id="1" tag_id="1"/>
+    <tasks_tags task_id="2" tag_id="2"/>
+</dataset>

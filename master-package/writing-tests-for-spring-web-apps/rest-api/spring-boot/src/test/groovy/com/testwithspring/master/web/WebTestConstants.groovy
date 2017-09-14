@@ -1,9 +1,20 @@
 package com.testwithspring.master.web
 
 final class WebTestConstants {
-    
+
     /**
-     * Contains the property names of the JSON documents.
+     * Contains the field names of JSON documents
+     */
+    static class FieldNames {
+
+        static class Task {
+
+            static final TITLE = 'title'
+        }
+    }
+
+    /**
+     * Contains the JSON path property expressions of JSON documents.
      */
     static class JsonPathProperty {
 
