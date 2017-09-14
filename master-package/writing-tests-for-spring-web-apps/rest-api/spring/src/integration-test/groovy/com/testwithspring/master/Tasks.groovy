@@ -3,11 +3,6 @@ package com.testwithspring.master
 import com.testwithspring.master.task.TaskResolution
 import com.testwithspring.master.task.TaskStatus
 
-import java.time.ZonedDateTime
-
-import static com.testwithspring.master.TestDateTimeBuilder.transformUTCDateToLocalDateTime
-import static com.testwithspring.master.TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime
-
 final class Tasks {
 
     static final TASK_ID_NOT_FOUND = 599L
@@ -29,8 +24,8 @@ final class Tasks {
             static final NAME = 'John Doe'
         }
 
-        static final CREATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
-        static final CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
+        static final CREATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
+        static final CREATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
 
         static class Creator {
 
@@ -40,8 +35,8 @@ final class Tasks {
 
         static final DESCRIPTION = 'This example contains integration tests'
         static final ID = 1L
-        static final MODIFICATION_TIME = parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
-        static final MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
+        static final MODIFICATION_TIME = TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-03T11:41:28')
+        static final MODIFICATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2016-12-03T11:41:28')
 
         static class Modifier {
 
@@ -65,8 +60,8 @@ final class Tasks {
 
     static class WriteLesson {
 
-        static final CREATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
-        static final CREATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
+        static final CREATION_TIME =  TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
+        static final CREATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
 
         static class Creator {
 
@@ -76,8 +71,8 @@ final class Tasks {
 
         static final DESCRIPTION = 'This lesson talks about integration testing'
         static final ID = 2L
-        static final MODIFICATION_TIME =  parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
-        static final MODIFICATION_TIME_STRING = transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
+        static final MODIFICATION_TIME =  TestDateTimeBuilder.parseLocalDateTimeFromUTCDateTime('2016-12-04T11:41:28')
+        static final MODIFICATION_TIME_STRING = TestDateTimeBuilder.transformUTCDateToLocalDateTime('2016-12-04T11:41:28')
 
         static class Modifier {
 
