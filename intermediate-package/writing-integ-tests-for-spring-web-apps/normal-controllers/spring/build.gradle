@@ -5,7 +5,7 @@ buildscript {
     dependencies {
         classpath(
                 'io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE',
-                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.3.2',
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2',
                 'org.akhikhl.gretty:gretty:+'
         )
     }
@@ -60,7 +60,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.spring.platform:platform-bom:Athens-SR3'
+        mavenBom 'io.spring.platform:platform-bom:Brussels-SR4'
     }
 }
 
@@ -86,8 +86,8 @@ dependencies {
             'org.springframework.security:spring-security-taglibs',
             'com.h2database:h2',
             'com.zaxxer:HikariCP',
-            'org.hibernate:hibernate-entitymanager',
-            'org.hibernate:hibernate-java8',
+            'org.hibernate:hibernate-core:5.2.10.Final',
+            'org.hibernate:hibernate-entitymanager:5.2.10.Final',
             'org.springframework.data:spring-data-jpa',
             'org.liquibase:liquibase-core'
     )

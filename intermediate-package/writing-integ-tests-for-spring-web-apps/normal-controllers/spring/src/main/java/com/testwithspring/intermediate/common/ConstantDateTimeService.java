@@ -3,6 +3,7 @@ package com.testwithspring.intermediate.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,29 +17,22 @@ import java.time.format.DateTimeFormatter;
  */
 public class ConstantDateTimeService implements DateTimeService {
 
-    public static final String CURRENT_DATE_AND_TIME = getConstantDateAndTime();
+    private static final DateTimeFormatter ZONED_DATE_TIME_FORMAT = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+    private static final DateTimeFormatter LOCAL_DATE_TIME_FORMAT = DateTimeFormatter.ISO_DATE_TIME;
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ISO_ZONED_DATE_TIME;
+    public static final String CURRENT_DATE_AND_TIME = getConstantDateAndTime();
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ConstantDateTimeService.class);
 
     private static String getConstantDateAndTime() {
-        return "2016-12-03T21:14:28" +
-                getSystemZoneOffset() +
-                getSystemZoneId();
-    }
-
-    private static String getSystemZoneOffset() {
-        return ZonedDateTime.now().getOffset().toString();
-    }
-
-    private static String getSystemZoneId() {
-        return "[" + ZoneId.systemDefault().toString() + "]";
+        LocalDateTime utcDateTime = LocalDateTime.from(LOCAL_DATE_TIME_FORMAT.parse("2016-12-03T21:14:28"));
+        ZonedDateTime utcZonedDateTime = utcDateTime.atZone(ZoneId.of("UTC"));
+        return ZONED_DATE_TIME_FORMAT.format(utcZonedDateTime.withZoneSameInstant(ZoneId.systemDefault()));
     }
 
     @Override
     public ZonedDateTime getCurrentDateAndTime() {
-        ZonedDateTime constantDateAndTime = ZonedDateTime.from(FORMATTER.parse(CURRENT_DATE_AND_TIME));
+        ZonedDateTime constantDateAndTime = ZonedDateTime.from(ZONED_DATE_TIME_FORMAT.parse(CURRENT_DATE_AND_TIME));
 
         LOGGER.info("Returning constant date and time: {}", constantDateAndTime);
 
