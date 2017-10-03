@@ -5,8 +5,8 @@ buildscript {
     }
     dependencies {
         classpath(
-                'org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE',
-                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.2.0'
+                'org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE',
+                'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2'
         )
     }
 }
@@ -68,10 +68,6 @@ dependencies {
             'org.dbunit:dbunit:2.5.3',
             'com.github.springtestdbunit:spring-test-dbunit:1.3.0',
             'org.springframework.security:spring-security-test'
-    )
-    integrationTestRuntime(
-            //Add dependencies that are required to run
-            //our integration tests.
     )
 }
 
