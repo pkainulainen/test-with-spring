@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @DisplayName("@ValueSource example")
 class ValueSourceExampleTest {
 
-    @DisplayName("Should pass the method parameters provided by theValueSource annotation")
+    @DisplayName("Should pass the method parameters provided by the @ValueSource annotation")
     @ParameterizedTest(name = "{index} => message=''{0}''")
     @ValueSource(strings = {"Hello", "World"})
     void shouldPassNotNullMessageAsMethodParameter(String message) {
