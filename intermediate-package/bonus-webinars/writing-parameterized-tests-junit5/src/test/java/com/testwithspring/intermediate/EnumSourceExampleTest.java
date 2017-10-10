@@ -16,7 +16,7 @@ class EnumSourceExampleTest {
         assertNotNull(pet);
     }
 
-    @DisplayName("Should pass only the specified enum value as method parameter")
+    @DisplayName("Should pass only the specified enum value as a method parameter")
     @ParameterizedTest(name = "{index} => pet=''{0}''")
     @EnumSource(value = Pet.class, names = {"CAT"})
     void shouldPassNotNullEnumValueAsMethodParameter(Pet pet) {

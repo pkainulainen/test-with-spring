@@ -1,6 +1,6 @@
 package com.testwithspring.intermediate;
 
-public enum Pet {
+enum Pet {
     CAT,
-    DOG;
+    DOG
 }
