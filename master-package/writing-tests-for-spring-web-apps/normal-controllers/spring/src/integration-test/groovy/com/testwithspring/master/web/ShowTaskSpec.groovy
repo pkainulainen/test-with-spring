@@ -55,7 +55,7 @@ class ShowTaskSpec extends Specification {
                 .build()
     }
 
-    def 'Open view task task page as anonymous user'() {
+    def 'Open view task task page as an anonymous user'() {
 
         def response
 
