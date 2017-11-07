@@ -6,7 +6,7 @@ buildscript {
         classpath(
                 'io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE',
                 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2',
-                'org.akhikhl.gretty:gretty:+'
+                'org.akhikhl.gretty:gretty:2.0.0'
         )
     }
 }
@@ -42,7 +42,7 @@ tasks.withType(Test) {
 gretty {
     httpPort = 8080
     contextPath = '/'
-    servletContainer = 'jetty9.3'
+    servletContainer = 'jetty9.4'
 
     if (gradle.startParameter.taskNames.contains('endToEndTest')) {
         systemProperty 'spring.profiles.active', 'endToEndTest'
@@ -112,6 +112,11 @@ dependencies {
             'com.google.guava:guava:21.0',
             'org.seleniumhq.selenium:selenium-java:3.3.1',
             'org.seleniumhq.selenium:selenium-support:3.3.1'
+    )
+    // We need to declare this dependency or otherwise we get the following error when we start Jetty:
+    // Provider ch.qos.logback.classic.servlet.LogbackServletContainerInitializer not found
+    runtime(
+            'ch.qos.logback:logback-classic:1.2.3'
     )
 }
 
