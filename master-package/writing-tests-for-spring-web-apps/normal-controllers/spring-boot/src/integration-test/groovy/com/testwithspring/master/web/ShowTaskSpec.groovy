@@ -109,7 +109,7 @@ class ShowTaskSpec extends Specification {
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                is(Tasks.WriteExampleApp.Modifier.MODIFIER)
+                                is(Tasks.WriteExampleApp.Modifier.NAME)
                         ),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
                                 is(Tasks.WriteExampleApp.Modifier.ID)
@@ -197,7 +197,7 @@ class ShowTaskSpec extends Specification {
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFICATION_TIME, is(Tasks.WriteExampleApp.MODIFICATION_TIME)),
                 hasProperty(WebTestConstants.ModelAttributeProperty.Task.MODIFIER, allOf(
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.NAME,
-                                is(Tasks.WriteExampleApp.Modifier.MODIFIER)
+                                is(Tasks.WriteExampleApp.Modifier.NAME)
                         ),
                         hasProperty(WebTestConstants.ModelAttributeProperty.Task.Person.USER_ID,
                                 is(Tasks.WriteExampleApp.Modifier.ID)

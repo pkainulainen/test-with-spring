@@ -46,7 +46,7 @@ class Tasks {
         static class Modifier {
 
             static final ID = 1L
-            static final MODIFIER = 'John Doe'
+            static final NAME = 'John Doe'
         }
 
         static final RESOLUTION = TaskResolution.DONE
