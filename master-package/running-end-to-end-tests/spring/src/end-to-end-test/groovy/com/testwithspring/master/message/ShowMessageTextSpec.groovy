@@ -1,4 +1,4 @@
-package com.testwithspring.master.master
+package com.testwithspring.master.message
 
 import com.testwithspring.master.EndToEndTest
 import org.junit.experimental.categories.Category

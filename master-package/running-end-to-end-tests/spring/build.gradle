@@ -85,7 +85,7 @@ dependencies {
     endToEndTestCompile(
             'org.seleniumhq.selenium:selenium-java:3.7.1'
     )
-    integrationTestCompile(
+    integrationTestRuntime(
             'org.spockframework:spock-spring:1.1-groovy-2.4'
     )
     runtime(
