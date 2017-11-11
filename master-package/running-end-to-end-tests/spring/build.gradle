@@ -26,8 +26,8 @@ apply plugin: 'org.akhikhl.gretty'
 
 
 testSets {
-    integrationTest { dirName = 'integration-test' }
     endToEndTest { dirName = 'end-to-end-test' }
+    integrationTest { dirName = 'integration-test' }
 }
 
 check.dependsOn integrationTest
@@ -70,6 +70,12 @@ dependencies {
     providedCompile(
             'javax.servlet:javax.servlet-api'
     )
+    runtime(
+            'javax.servlet:jstl',
+            // We need to declare this dependency or otherwise we get the following error when we start Jetty:
+            // Provider ch.qos.logback.classic.servlet.LogbackServletContainerInitializer not found
+            'ch.qos.logback:logback-classic:1.2.3'
+    )
     testCompile(
             'javax.el:javax.el-api',
             'org.glassfish.web:el-impl:2.2',
@@ -79,20 +85,14 @@ dependencies {
             'org.codehaus.groovy:groovy-all:2.4.11',
             'org.spockframework:spock-core:1.1-groovy-2.4'
     )
-    testCompile('com.athaydes:spock-reports:1.3.1') {
+    testRuntime('com.athaydes:spock-reports:1.3.1') {
         transitive = false // this avoids affecting your version of Groovy/Spock
     }
-    endToEndTestCompile(
-            'org.seleniumhq.selenium:selenium-java:3.7.1'
-    )
     integrationTestRuntime(
             'org.spockframework:spock-spring:1.1-groovy-2.4'
     )
-    runtime(
-            'javax.servlet:jstl',
-            // We need to declare this dependency or otherwise we get the following error when we start Jetty:
-            // Provider ch.qos.logback.classic.servlet.LogbackServletContainerInitializer not found
-            'ch.qos.logback:logback-classic:1.2.3'
+    endToEndTestCompile(
+            'org.seleniumhq.selenium:selenium-java:3.7.1'
     )
 }
 
