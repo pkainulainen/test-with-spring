@@ -1,7 +1,6 @@
 package com.testwithspring.master.web.login
 
 import com.testwithspring.master.EndToEndTest
-import com.testwithspring.master.EndToEndTestUsers
 import com.testwithspring.master.NavigationBar
 import com.testwithspring.master.SeleniumTest
 import com.testwithspring.master.TaskTrackerApplication
@@ -11,7 +10,7 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.jdbc.SqlGroup
