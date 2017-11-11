@@ -1,15 +1,12 @@
 package com.testwithspring.master.web.task
 
 import com.testwithspring.master.EndToEndTest
-
-import com.testwithspring.master.EndToEndTest
 import com.testwithspring.master.EndToEndTestTasks
 import com.testwithspring.master.NavigationBar
 import com.testwithspring.master.SeleniumTest
 import com.testwithspring.master.TaskTrackerApplication
 import com.testwithspring.master.config.Profiles
 import com.testwithspring.master.web.login.LoginPage
-import com.testwithspring.master.web.task.TaskListPage
 import org.junit.experimental.categories.Category
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
