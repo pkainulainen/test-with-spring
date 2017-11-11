@@ -17,8 +17,7 @@ final class TaskPage {
         this.pageUrl = WebDriverUrlBuilder.buildFromPath('/task/%d', taskId)
         this.taskId = taskId
     }
-
-
+    
     /**
      * Returns the URL of the view task page.
      * @return
