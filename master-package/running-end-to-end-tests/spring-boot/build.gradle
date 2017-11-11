@@ -42,16 +42,16 @@ dependencies {
             'org.codehaus.groovy:groovy-all',
             'org.spockframework:spock-core'
     )
-    /*testCompile( 'com.athaydes:spock-reports:1.3.2' ) {
+    testRuntime( 'com.athaydes:spock-reports:1.3.2' ) {
         transitive = false
-    }*/
+    }
+    integrationTestRuntime(
+            'org.spockframework:spock-spring'
+    )
     endToEndTestCompile(
             'org.seleniumhq.selenium:selenium-java'
     )
     endToEndTestRuntime configurations.integrationTestRuntime
-    integrationTestRuntime(
-            'org.spockframework:spock-spring'
-    )
 }
 
 test {
@@ -63,18 +63,18 @@ test {
     }
 }
 
-endToEndTest {
+integrationTest {
     useJUnit {
-        includeCategories 'com.testwithspring.master.EndToEndTest'
+        includeCategories 'com.testwithspring.master.IntegrationTest'
     }
     testLogging {
         showStandardStreams = true
     }
 }
 
-integrationTest {
+endToEndTest {
     useJUnit {
-        includeCategories 'com.testwithspring.master.IntegrationTest'
+        includeCategories 'com.testwithspring.master.EndToEndTest'
     }
     testLogging {
         showStandardStreams = true
