@@ -1,7 +1,6 @@
 package com.testwithspring.master.web.task
 
 import com.testwithspring.master.EndToEndTest
-import com.testwithspring.master.EndToEndTestTasks
 import com.testwithspring.master.NavigationBar
 import com.testwithspring.master.SeleniumTest
 import com.testwithspring.master.TaskTrackerApplication
@@ -60,10 +59,10 @@ class RenderCreateTaskPageSpec extends Specification {
         then: 'Should open the create task page'
         shownPage.isOpen()
 
-        and: 'Should display a create task form with empty title'
+        and: 'Should display the create task form with empty title'
         shownPage.getForm().getTaskTitle().isEmpty()
 
-        and: 'Should display a create task form with empty description'
+        and: 'Should display the create task form with empty description'
         shownPage.getForm().getTaskDescription().isEmpty()
     }
 
