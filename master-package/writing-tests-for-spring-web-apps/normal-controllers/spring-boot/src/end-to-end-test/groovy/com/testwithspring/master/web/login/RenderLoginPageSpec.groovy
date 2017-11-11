@@ -17,6 +17,7 @@ import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.context.jdbc.SqlGroup
 import spock.lang.Specification
 
+import static com.testwithspring.master.EndToEndTestUsers.*
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD
 
 @SpringBootTest(classes = TaskTrackerApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
@@ -70,7 +71,7 @@ class RenderLoginPageSpec extends Specification {
         LoginPage shownPage
 
         given: 'The user is authenticated successfully'
-        loginPage.login(EndToEndTestUsers.JohnDoe.EMAIL_ADDRESS, EndToEndTestUsers.JohnDoe.PASSWORD)
+        loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD)
 
         when: 'The user opens the login page'
         shownPage = loginPage.open()
