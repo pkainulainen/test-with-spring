@@ -16,8 +16,8 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'org.unbroken-dome.test-sets'
 
 testSets {
-    integrationTest { dirName = 'integration-test' }
     endToEndTest { dirName = 'end-to-end-test' }
+    integrationTest { dirName = 'integration-test' }
 }
 
 check.dependsOn integrationTest
@@ -28,7 +28,6 @@ integrationTest.mustRunAfter test
 tasks.withType(Test) {
     reports.html.destination = file("${reporting.baseDir}/${name}")
 }
-
 
 bootRun {
     systemProperty('spring.profiles.active', 'application')
@@ -73,11 +72,11 @@ dependencies {
     integrationTestRuntime(
             'org.spockframework:spock-spring'
     )
+    endToEndTestCompile(
+            'org.seleniumhq.selenium:selenium-java'
+    )
+    endToEndTestRuntime configurations.integrationTestRuntime
 }
-
-//Use Thymeleaf 3
-ext["thymeleaf.version"] = "3.0.6.RELEASE"
-ext["thymeleaf-layout-dialect.version"] = "2.2.1"
 
 test {
     useJUnit {
@@ -91,6 +90,15 @@ test {
 integrationTest {
     useJUnit {
         includeCategories 'com.testwithspring.master.IntegrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+endToEndTest {
+    useJUnit {
+        includeCategories 'com.testwithspring.master.EndToEndTest'
     }
     testLogging {
         showStandardStreams = true

@@ -15,14 +15,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <failsafe.junit.category>com.testwithspring.master.IntegrationTest</failsafe.junit.category>
         <skip.unit.tests>false</skip.unit.tests>
-        <skip.integration.tests>true</skip.integration.tests>
+        <skip.failsafe.plugin>true</skip.failsafe.plugin>
 
         <!-- Use Thymeleaf 3 -->
         <thymeleaf.version>3.0.6.RELEASE</thymeleaf.version>
         <thymeleaf-layout-dialect.version>2.2.1</thymeleaf-layout-dialect.version>
 
         <hibernate.version>5.2.10.Final</hibernate.version>
+        <selenium.version>3.7.1</selenium.version>
         <spock.version>1.1-groovy-2.4</spock.version>
     </properties>
 
@@ -34,12 +36,23 @@
             </activation>
         </profile>
         <profile>
+            <id>end-to-end-test</id>
+            <properties>
+                <!--
+                   Only end-to-end tests are run when the end-to-end-test profile is active
+                -->
+                <failsafe.junit.category>com.testwithspring.master.EndToEndTest</failsafe.junit.category>
+                <skip.failsafe.plugin>false</skip.failsafe.plugin>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
             <id>integration-test</id>
             <properties>
                 <!--
                     Only integration tests are run when the integration-test profile is active
                 -->
-                <skip.integration.tests>false</skip.integration.tests>
+                <skip.failsafe.plugin>false</skip.failsafe.plugin>
                 <skip.unit.tests>true</skip.unit.tests>
             </properties>
         </profile>
@@ -151,6 +164,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>normal-controllers-spring-boot</finalName>
@@ -175,6 +193,22 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.12</version>
                 <executions>
+                    <execution>
+                        <id>add-end-to-end-test-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Configures the resource directory of our end-to-end tests -->
+                            <resources>
+                                <resource>
+                                    <filtering>true</filtering>
+                                    <directory>src/end-to-end-test/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>add-integration-test-resources</id>
                         <phase>generate-test-resources</phase>
@@ -201,6 +235,12 @@
                     <testSources>
                         <testSource>
                             <directory>src/test/groovy</directory>
+                            <includes>
+                                <include>**/*.groovy</include>
+                            </includes>
+                        </testSource>
+                        <testSource>
+                            <directory>src/end-to-end-test/groovy</directory>
                             <includes>
                                 <include>**/*.groovy</include>
                             </includes>
@@ -235,7 +275,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.20.1</version>
                 <configuration>
                     <groups>com.testwithspring.master.UnitTest</groups>
                     <includes>
@@ -251,7 +291,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.20.1</version>
                 <executions>
                     <execution>
                         <id>integration-tests</id>
@@ -260,15 +300,11 @@
                             <goal>verify</goal>
                         </goals>
                         <configuration>
-                            <groups>com.testwithspring.master.IntegrationTest</groups>
+                            <groups>${failsafe.junit.category}</groups>
                             <includes>
                                 <include>**/*Spec.java</include>
                             </includes>
-                            <!--
-                                Skips integration tests if the value of skip.integration.tests
-                                property is true
-                            -->
-                            <skipTests>${skip.integration.tests}</skipTests>
+                            <skipTests>${skip.failsafe.plugin}</skipTests>
                         </configuration>
                     </execution>
                 </executions>
