@@ -6,7 +6,7 @@ buildscript {
     dependencies {
         classpath(
                 'org.unbroken-dome.gradle-plugins:gradle-testsets-plugin:1.4.2',
-                'org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE'
+                'org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE'
         )
     }
 }
@@ -56,18 +56,22 @@ dependencies {
     testCompile(
             'org.springframework.boot:spring-boot-starter-test',
             'org.codehaus.groovy:groovy-all',
-            'org.spockframework:spock-core',
+            'org.spockframework:spock-core'
+    )
+    testRuntime(
             'net.bytebuddy:byte-buddy:1.7.1'
     )
-    testCompile('com.athaydes:spock-reports:1.3.1') {
+    testRuntime('com.athaydes:spock-reports:1.3.1') {
         transitive = false // this avoids affecting your version of Groovy/Spock
     }
     integrationTestCompile sourceSets.test.output
     integrationTestCompile(
-            'org.spockframework:spock-spring',
             'org.springframework.security:spring-security-test',
             'org.dbunit:dbunit:2.5.4',
             'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+    )
+    integrationTestRuntime(
+            'org.spockframework:spock-spring'
     )
 }
 
