@@ -40,13 +40,13 @@ class RenderViewTaskPageSpec extends Specification {
     @Autowired
     WebDriver browser
 
-    TaskPage taskPage
+    TaskPage viewTaskPage
 
     def setup() {
-        taskPage = new TaskPage(browser, EndToEndTestTasks.WriteExampleApp.ID)
+        viewTaskPage = new TaskPage(browser, EndToEndTestTasks.WriteExampleApp.ID)
     }
 
-    def 'Open view task page as an authenticated user'() {
+    def 'Open view task page as a registered user'() {
 
         TaskPage shownPage
 
@@ -55,7 +55,7 @@ class RenderViewTaskPageSpec extends Specification {
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD)
 
         when: 'A user opens the view task page of a closed task'
-        shownPage = taskPage.open()
+        shownPage = viewTaskPage.open()
 
         then: 'Should open the view task page'
         shownPage.isOpen()

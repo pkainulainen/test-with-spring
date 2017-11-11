@@ -46,7 +46,7 @@ class RenderTaskListPageSpec extends Specification {
         taskListPage = new TaskListPage(browser)
     }
 
-    def 'Open task list page as an authenticated user'() {
+    def 'Open task list page as a registered user'() {
 
         TaskListPage shownPage
 
