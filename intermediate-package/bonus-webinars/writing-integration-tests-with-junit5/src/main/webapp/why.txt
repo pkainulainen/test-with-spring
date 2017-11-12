@@ -1,0 +1,4 @@
+We have to create the src/main/webapp directory if we want to avoid
+running into this error:
+
+https://github.com/spring-projects/spring-boot/issues/2878
