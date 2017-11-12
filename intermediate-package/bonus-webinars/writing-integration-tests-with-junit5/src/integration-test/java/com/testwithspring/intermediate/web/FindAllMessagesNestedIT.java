@@ -45,6 +45,20 @@ class FindAllMessagesNestedIT {
                 .build();
     }
 
+    @Test
+    @DisplayName("Should return the HTTP status code OK")
+    void shouldReturnHttpStatusCodeOk() throws Exception {
+        findAllMessages()
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Should return the found messages as JSON")
+    void shouldReturnFoundMessagesAsJson() throws Exception {
+        findAllMessages()
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+    }
+
     @Nested
     @DisplayName("When no messages is found from the database")
     @ContextConfiguration(classes = {ExampleApplicationContext.class})
@@ -54,20 +68,6 @@ class FindAllMessagesNestedIT {
     )
     @DatabaseSetup("/com/testwithspring/intermediate/no-messages.xml")
     class WhenNoMessagesIsFound {
-
-        @Test
-        @DisplayName("Should return the HTTP status code OK")
-        void shouldReturnHttpStatusCodeOk() throws Exception {
-            findAllMessages()
-                    .andExpect(status().isOk());
-        }
-
-        @Test
-        @DisplayName("Should return the found messages as JSON")
-        void shouldReturnFoundMessagesAsJson() throws Exception {
-            findAllMessages()
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-        }
 
         @Test
         @DisplayName("Should return an empty list")
@@ -86,20 +86,6 @@ class FindAllMessagesNestedIT {
     )
     @DatabaseSetup("/com/testwithspring/intermediate/messages.xml")
     class WhenOneMessageIsFound {
-
-        @Test
-        @DisplayName("Should return the HTTP status code OK")
-        void shouldReturnHttpStatusCodeOk() throws Exception {
-            findAllMessages()
-                    .andExpect(status().isOk());
-        }
-
-        @Test
-        @DisplayName("Should return the found messages as JSON")
-        void shouldReturnFoundMessagesAsJson() throws Exception {
-            findAllMessages()
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-        }
 
         @Test
         @DisplayName("Should return a list that has one message")

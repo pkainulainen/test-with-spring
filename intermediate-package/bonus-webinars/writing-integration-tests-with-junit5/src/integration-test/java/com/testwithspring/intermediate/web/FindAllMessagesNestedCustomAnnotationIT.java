@@ -40,6 +40,20 @@ class FindAllMessagesNestedCustomAnnotationIT {
                 .build();
     }
 
+    @Test
+    @DisplayName("Should return the HTTP status code OK")
+    void shouldReturnHttpStatusCodeOk() throws Exception {
+        findAllMessages()
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Should return the found messages as JSON")
+    void shouldReturnFoundMessagesAsJson() throws Exception {
+        findAllMessages()
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+    }
+
     @DisplayName("When no messages is found from the database")
     @NestedSpringWebConfig(classes = {ExampleApplicationContext.class})
     @TestExecutionListeners(value = { DbUnitTestExecutionListener.class },
@@ -47,20 +61,6 @@ class FindAllMessagesNestedCustomAnnotationIT {
     )
     @DatabaseSetup("/com/testwithspring/intermediate/no-messages.xml")
     class WhenNoMessagesIsFound {
-
-        @Test
-        @DisplayName("Should return the HTTP status code OK")
-        void shouldReturnHttpStatusCodeOk() throws Exception {
-            findAllMessages()
-                    .andExpect(status().isOk());
-        }
-
-        @Test
-        @DisplayName("Should return the found messages as JSON")
-        void shouldReturnFoundMessagesAsJson() throws Exception {
-            findAllMessages()
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-        }
 
         @Test
         @DisplayName("Should return an empty list")
@@ -77,20 +77,6 @@ class FindAllMessagesNestedCustomAnnotationIT {
     )
     @DatabaseSetup("/com/testwithspring/intermediate/messages.xml")
     class WhenOneMessageIsFound {
-
-        @Test
-        @DisplayName("Should return the HTTP status code OK")
-        void shouldReturnHttpStatusCodeOk() throws Exception {
-            findAllMessages()
-                    .andExpect(status().isOk());
-        }
-
-        @Test
-        @DisplayName("Should return the found messages as JSON")
-        void shouldReturnFoundMessagesAsJson() throws Exception {
-            findAllMessages()
-                    .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-        }
 
         @Test
         @DisplayName("Should return a list that has one message")
