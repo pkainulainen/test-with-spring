@@ -40,7 +40,7 @@ class FindAllMessagesNestedIT {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void configureSystemUnderSpecification() {
+    void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .build();
     }

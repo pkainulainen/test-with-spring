@@ -35,7 +35,7 @@ class FindAllMessagesCustomAnnotationIT {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void configureSystemUnderSpecification() {
+    void configureSystemUnderTest() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .build();
     }
