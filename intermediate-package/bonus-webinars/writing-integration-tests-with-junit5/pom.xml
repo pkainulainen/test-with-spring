@@ -6,7 +6,7 @@
     <version>0.1</version>
     <name>A Bonus Webinar: Writing Integration Tests With JUnit 5.</name>
     <description>
-        This example demonstrates how you can write parameterized tests with JUnit 5.
+        This example demonstrates how you can write integration tests for Spring web apps with JUnit 5.
     </description>
 
     <repositories>
