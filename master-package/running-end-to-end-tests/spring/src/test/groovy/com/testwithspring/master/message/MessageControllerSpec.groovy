@@ -27,6 +27,7 @@ class MessageControllerSpec extends Specification {
         response.andExpect(status().isOk())
 
         and: 'Should render the show message view'
+        println 'Unit Test: Should render the show message view'
         response.andExpect(view().name("index"))
     }
 }

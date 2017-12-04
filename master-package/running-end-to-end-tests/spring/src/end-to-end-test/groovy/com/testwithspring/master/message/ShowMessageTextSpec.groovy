@@ -16,6 +16,7 @@ class ShowMessageTextSpec extends Specification {
         browser.get('http://localhost:8080')
 
         then: 'Should show the correct title'
+        println 'End-to-End Test: Should show the correct title'
         browser.title == 'Hello World!'
     }
 

@@ -43,6 +43,7 @@ class ShowMessageSpec extends Specification {
         response.andExpect(view().name("index"))
 
         and: 'Should forward the user to the show message page'
+        println 'Integration Test: Should forward the user to the show message page'
         response.andExpect(forwardedUrl('/WEB-INF/jsp/index.jsp'))
     }
 }
