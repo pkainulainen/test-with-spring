@@ -10,7 +10,7 @@ class LoggerTest {
     private Logger logger;
 
     @Test
-    void shouldInjectLineToLog() {
+    void shouldWriteLineToLog() {
         logger.info("Hello logger");
     }
 }

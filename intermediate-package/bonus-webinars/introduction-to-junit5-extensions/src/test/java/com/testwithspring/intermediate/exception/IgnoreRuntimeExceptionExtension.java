@@ -10,7 +10,6 @@ public class IgnoreRuntimeExceptionExtension implements TestExecutionExceptionHa
 
     @Override
     public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
-
         if (RuntimeException.class.isAssignableFrom(throwable.getClass())) {
             System.out.println(String.format("Ignoring runtime exception: %s",
                     throwable.getClass()
