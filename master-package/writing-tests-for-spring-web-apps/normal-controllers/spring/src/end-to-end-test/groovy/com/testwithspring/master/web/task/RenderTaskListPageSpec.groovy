@@ -1,6 +1,7 @@
 package com.testwithspring.master.web.task
 
 import com.testwithspring.master.EndToEndTest
+import com.testwithspring.master.EndToEndTestTasks
 import com.testwithspring.master.SeleniumTest
 import com.testwithspring.master.SeleniumWebDriver
 import com.testwithspring.master.web.NavigationBar
@@ -11,7 +12,6 @@ import org.openqa.selenium.chrome.ChromeDriver
 import spock.lang.Shared
 import spock.lang.Specification
 
-import static com.testwithspring.master.EndToEndTestTasks.WriteExampleApp
 import static com.testwithspring.master.EndToEndTestUsers.JohnDoe
 
 @SeleniumTest(driver = ChromeDriver.class)
@@ -69,9 +69,9 @@ class RenderTaskListPageSpec extends Specification {
         and: 'Should show the correct information of the first task'
         def firstTask = tasks.get(0)
 
-        firstTask.id == WriteExampleApp.ID
-        firstTask.title == WriteExampleApp.TITLE
-        firstTask.status == WriteExampleApp.STATUS
+        firstTask.id == EndToEndTestTasks.WriteExampleApp.ID
+        firstTask.title == EndToEndTestTasks.WriteExampleApp.TITLE
+        firstTask.status == EndToEndTestTasks.WriteExampleApp.STATUS
 
         /**
          * It's a good idea to verify that the links found from the tested
