@@ -145,7 +145,7 @@
             <column name="is_enabled" value="true"/>
             <column name="modification_time" valueComputed="NOW()"/>
             <column name="name" value="John Doe"/>
-            <column name="password" value="password"/>
+            <column name="password" value="user"/>
             <column name="role" value="ROLE_USER"/>
             <column name="version" value="0"/>
         </insert>
