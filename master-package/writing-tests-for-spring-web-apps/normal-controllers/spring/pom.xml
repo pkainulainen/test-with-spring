@@ -15,8 +15,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+        <failsafe.junit.category>com.testwithspring.master.IntegrationTest</failsafe.junit.category>
         <skip.unit.tests>false</skip.unit.tests>
-        <skip.integration.tests>true</skip.integration.tests>
+        <skip.failsafe.plugin>true</skip.failsafe.plugin>
+
+        <selenium.version>3.8.1</selenium.version>
+        <jetty.version>9.4.6.v20170531</jetty.version>
     </properties>
 
     <profiles>
@@ -25,6 +29,81 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>${jetty.version}</version>
+                        <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <stopKey>stop</stopKey>
+                            <stopPort>9999</stopPort>
+                            <systemProperties>
+                                <systemProperty>
+                                    <name>spring.profiles.active</name>
+                                    <value>application</value>
+                                </systemProperty>
+                            </systemProperties>
+                            <webAppConfig>
+                                <war>${project.basedir}/target/running-end-to-end-tests.war</war>
+                                <contextPath>/</contextPath>
+                            </webAppConfig>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>end-to-end-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.eclipse.jetty</groupId>
+                        <artifactId>jetty-maven-plugin</artifactId>
+                        <version>${jetty.version}</version>
+                        <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <stopKey>stop</stopKey>
+                            <stopPort>9999</stopPort>
+                            <systemProperties>
+                                <systemProperty>
+                                    <name>spring.profiles.active</name>
+                                    <value>endToEndTest</value>
+                                </systemProperty>
+                            </systemProperties>
+                            <webAppConfig>
+                                <war>${project.basedir}/target/running-end-to-end-tests.war</war>
+                                <contextPath>/</contextPath>
+                            </webAppConfig>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-jetty</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-jetty</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <properties>
+                <!--
+                   Only end-to-end tests are run when the end-to-end-test profile is active
+                -->
+                <failsafe.junit.category>com.testwithspring.master.EndToEndTest</failsafe.junit.category>
+                <skip.failsafe.plugin>false</skip.failsafe.plugin>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
         </profile>
         <profile>
             <id>integration-test</id>
@@ -32,7 +111,7 @@
                 <!--
                     Only integration tests are run when the integration-test profile is active
                 -->
-                <skip.integration.tests>false</skip.integration.tests>
+                <skip.failsafe.plugin>false</skip.failsafe.plugin>
                 <skip.unit.tests>true</skip.unit.tests>
             </properties>
         </profile>
@@ -43,7 +122,7 @@
             <dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
-                <version>Brussels-SR4</version>
+                <version>Brussels-SR5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -239,7 +318,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>normal-controllers-spring</finalName>
@@ -249,6 +339,22 @@
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>1.12</version>
                 <executions>
+                    <execution>
+                        <id>add-end-to-test-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Configures the resource directory of our end-to-end tests -->
+                            <resources>
+                                <resource>
+                                    <filtering>true</filtering>
+                                    <directory>src/end-to-end-test/resources</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>add-integration-test-resources</id>
                         <phase>generate-test-resources</phase>
@@ -275,6 +381,12 @@
                     <testSources>
                         <testSource>
                             <directory>src/test/groovy</directory>
+                            <includes>
+                                <include>**/*.groovy</include>
+                            </includes>
+                        </testSource>
+                        <testSource>
+                            <directory>src/end-to-end-test/groovy</directory>
                             <includes>
                                 <include>**/*.groovy</include>
                             </includes>
@@ -307,29 +419,9 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.2.10.v20150310</version>
-                <configuration>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <stopKey>stop</stopKey>
-                    <stopPort>9999</stopPort>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>spring.profiles.active</name>
-                            <value>application</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <webAppConfig>
-                        <war>${project.basedir}/target/normal-controllers-spring.war</war>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.20.1</version>
                 <configuration>
                     <groups>com.testwithspring.master.UnitTest</groups>
                     <includes>
@@ -341,7 +433,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.20</version>
+                <version>2.20.1</version>
                 <executions>
                     <execution>
                         <id>integration-tests</id>
@@ -350,15 +442,11 @@
                             <goal>verify</goal>
                         </goals>
                         <configuration>
-                            <groups>com.testwithspring.master.IntegrationTest</groups>
+                            <groups>${failsafe.junit.category}</groups>
                             <includes>
                                 <include>**/*Spec.java</include>
                             </includes>
-                            <!--
-                                Skips integration tests if the value of skip.integration.tests
-                                property is true
-                            -->
-                            <skipTests>${skip.integration.tests}</skipTests>
+                            <skipTests>${skip.failsafe.plugin}</skipTests>
                         </configuration>
                     </execution>
                 </executions>
