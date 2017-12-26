@@ -21,7 +21,6 @@ class RenderViewTaskPageSpec extends Specification {
     @SeleniumWebDriver
     @Shared WebDriver browser
 
-
     TaskPage viewTaskPage
 
     def setup() {

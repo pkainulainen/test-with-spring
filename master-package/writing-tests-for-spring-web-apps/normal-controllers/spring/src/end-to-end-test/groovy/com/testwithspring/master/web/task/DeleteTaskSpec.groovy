@@ -13,21 +13,23 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 import static com.testwithspring.master.EndToEndTestUsers.JohnDoe
+import static org.hamcrest.Matchers.contains
+import static org.hamcrest.Matchers.not
 
 @SeleniumTest(driver = ChromeDriver.class)
 @Category(EndToEndTest.class)
-class RenderTaskListPageSpec extends Specification {
+class DeleteTaskSpec extends Specification {
 
     @SeleniumWebDriver
     @Shared WebDriver browser
 
-    TaskListPage taskListPage
+    TaskPage viewTaskPage
 
     def setup() {
-        taskListPage = new TaskListPage(browser)
+        viewTaskPage = new TaskPage(browser, EndToEndTestTasks.DeleteMe.ID)
     }
 
-    def 'Open task list page as a registered user'() {
+    def 'Delete task as a registered user'() {
 
         TaskListPage shownPage
 
@@ -35,8 +37,8 @@ class RenderTaskListPageSpec extends Specification {
         LoginPage loginPage = new LoginPage(browser).open()
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD)
 
-        when: 'A user opens the task list page'
-        shownPage = taskListPage.open()
+        when: 'A user open the view task page and deletes the task'
+        shownPage = viewTaskPage.open().getTaskActions().deleteTask()
 
         then: 'Should open the task list page'
         shownPage.isOpen()
@@ -52,35 +54,15 @@ class RenderTaskListPageSpec extends Specification {
          * task list page always shows at least two tasks.
          */
         and: 'Should display task list that has at least two tasks'
-        def tasks = shownPage.getListItems()
-        tasks.size() >= 2
+        def taskList = shownPage.getListItems()
+        taskList.size() >= 2
 
-        /**
-         * Because we initialize our database into a known state when
-         * our web application is started, and we cannot know the order in
-         * which our end-to-end are run, we can write assertions only
-         * for the task that is not updated by our other end-to-end tests.
-         *
-         * The first task that is shown on the task list page is not updated
-         * by our other end-to-end tests. If we want verify that the task list
-         * page shows the correct information of a task, we can verify that
-         * first task of our task list is rendered correctly.
-         */
-        and: 'Should show the correct information of the first task'
-        def firstTask = tasks.get(0)
-
-        firstTask.id == EndToEndTestTasks.WriteExampleApp.ID
-        firstTask.title == EndToEndTestTasks.WriteExampleApp.TITLE
-        firstTask.status == EndToEndTestTasks.WriteExampleApp.STATUS
-
-        /**
-         * It's a good idea to verify that the links found from the tested
-         * HTML page are working as expected. This test ensures that we
-         * can navigate fromt he task list page to the view task page.
-         */
-        and: 'A user must be able to navigate to the view task page'
-        def taskPage = firstTask.viewTask()
-        taskPage.isOpen()
+        and: 'Should not display the deleted task'
+        List<Long> shownTaskIds = []
+        taskList.each {t ->
+            shownTaskIds.add(t.id)
+        }
+        shownTaskIds not(contains(EndToEndTestTasks.DeleteMe.ID))
     }
 
     def cleanup() {
