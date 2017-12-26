@@ -1,6 +1,7 @@
 package com.testwithspring.master.web.task
 
 import com.testwithspring.master.WebDriverUrlBuilder
+import org.apache.commons.lang3.StringUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 
@@ -83,5 +84,17 @@ final class TaskPage {
      */
     boolean isOpen() {
         return browser.getCurrentUrl() == pageUrl
+    }
+
+    /**
+     * @return true if the task page is open and false otherwise. Note that this
+     * method doesn't compare the full URL of the task page, and this method should
+     * be used only to verify that the view task page was opened after a new task
+     * was created.
+     */
+    boolean isOpenWithUnknownTaskId() {
+        def pageUrlWithoutId = WebDriverUrlBuilder.buildFromPath('/task/')
+        def taskId = browser.getCurrentUrl().replace(pageUrlWithoutId, '')
+        return StringUtils.isNumeric(taskId)
     }
 }
