@@ -13,10 +13,7 @@ class SeleniumWebDriverCleanUp extends AbstractMethodInterceptor {
     @Override
     void interceptCleanupSpecMethod(IMethodInvocation invocation) throws Throwable {
         def webDriver = getWebDriver(invocation)
-
-        if (webDriver != null) {
-            webDriver.quit()
-        }
+        webDriver?.quit()
     }
 
     private static WebDriver getWebDriver(IMethodInvocation invocation) {
