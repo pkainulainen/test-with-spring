@@ -45,24 +45,36 @@ class SeleniumWebDriverInitializer extends AbstractMethodInterceptor {
         def webDriverFields = fields.findAll({it.isAnnotationPresent(SeleniumWebDriver.class)})
 
         if (webDriverFields.isEmpty()) {
-            throw new InvalidSpecException('Cannot initialize specification class because it has no field ' +
-                    'that is annotated with the @SeleniumWebDriver annotation')
+            throw new InvalidSpecException(
+                    'Cannot initialize specification class because ' +
+                    'it has no field that is annotated with the ' +
+                    '@SeleniumWebDriver annotation'
+            )
         }
 
         if (webDriverFields.size() > 1) {
-            throw new InvalidSpecException('Cannot initialize specification class because it has multiple fields ' +
-                    'that are annotated with the @SeleniumWebDriver annotation')
+            throw new InvalidSpecException(
+                    'Cannot initialize specification class because ' +
+                    'it has multiple fields that are annotated with ' +
+                    'the @SeleniumWebDriver annotation'
+            )
         }
 
         if (webDriverFields.size() == 1) {
             def webDriverField = webDriverFields[0]
             if (!webDriverField.isAnnotationPresent(Shared.class)) {
-                throw new InvalidSpecException('Cannot initialize specification class because the WebDriver field is not shared')
+                throw new InvalidSpecException(
+                        'Cannot initialize specification class because ' +
+                        'the WebDriver field is not shared'
+                )
             }
 
             if (!webDriverField.getType().equals(WebDriver.class)) {
-                throw new InvalidSpecException('Cannot initialize specification class because the type of the field ' +
-                        'that is annotated with the @SeleniumWebDriver annotation is not WebDriver')
+                throw new InvalidSpecException(
+                        'Cannot initialize specification class because ' +
+                        'the type of the field that is annotated with the ' +
+                        '@SeleniumWebDriver annotation is not WebDriver'
+                )
             }
          }
 
@@ -74,12 +86,14 @@ class SeleniumWebDriverInitializer extends AbstractMethodInterceptor {
             return webDriverClass.newInstance()
         } catch (InstantiationException e) {
             throw new RuntimeException(String.format(
-                    'Cannot instantiate WebDriver. Is %s a non abstract class that has no argument constructor?',
+                    'Cannot instantiate WebDriver. Is %s a non abstract ' +
+                    'class that has no argument constructor?',
                     webDriverClass.getCanonicalName()
             ))
         } catch (IllegalAccessException e) {
             throw new RuntimeException(String.format(
-                    'Cannot instantiate WebDriver. Does %s have a public constructor?',
+                    'Cannot instantiate WebDriver. Does %s have a ' +
+                    'public constructor?',
                     webDriverClass.getCanonicalName()
             ))
         }
