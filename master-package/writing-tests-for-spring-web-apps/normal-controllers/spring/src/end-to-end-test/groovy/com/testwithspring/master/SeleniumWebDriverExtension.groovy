@@ -22,7 +22,7 @@ class SeleniumWebDriverExtension extends AbstractAnnotationDrivenExtension<Selen
 
     @Override
     void visitSpecAnnotation(SeleniumTest annotation, SpecInfo spec) {
-        spec.addSetupSpecInterceptor(new SeleniumWebDriverInitializer(annotation.driver()))
+        spec.addSharedInitializerInterceptor(new SeleniumWebDriverInitializer(annotation.driver()))
         spec.addCleanupSpecInterceptor(new SeleniumWebDriverCleanUp())
     }
 }
