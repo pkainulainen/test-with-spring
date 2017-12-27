@@ -34,8 +34,8 @@ class SeleniumWebDriverInitializer extends AbstractMethodInterceptor {
 
     @Override
     void interceptSharedInitializerMethod(IMethodInvocation invocation) throws Throwable {
-        FieldInfo webDriverField = getWebDriverField(invocation.getSpec())
-        WebDriver webDriver = createWebDriver()
+        def webDriverField = getWebDriverField(invocation.getSpec())
+        def webDriver = createWebDriver()
         webDriverField.writeValue(invocation.getInstance(), webDriver)
         invocation.proceed()
     }
