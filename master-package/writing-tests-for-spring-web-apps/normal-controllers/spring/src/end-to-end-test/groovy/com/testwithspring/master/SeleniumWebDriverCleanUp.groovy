@@ -14,6 +14,7 @@ class SeleniumWebDriverCleanUp implements IMethodInterceptor {
     void intercept(IMethodInvocation invocation) throws Throwable {
         def webDriver = getWebDriver(invocation)
         webDriver?.quit()
+        invocation.proceed()
     }
 
     private static WebDriver getWebDriver(IMethodInvocation invocation) {
