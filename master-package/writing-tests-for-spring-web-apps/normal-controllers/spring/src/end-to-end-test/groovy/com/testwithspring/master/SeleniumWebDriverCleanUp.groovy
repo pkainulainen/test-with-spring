@@ -1,17 +1,17 @@
 package com.testwithspring.master
 
 import org.openqa.selenium.WebDriver
-import org.spockframework.runtime.extension.AbstractMethodInterceptor
+import org.spockframework.runtime.extension.IMethodInterceptor
 import org.spockframework.runtime.extension.IMethodInvocation
 
 /**
  * This interceptor quits the {@code WebDriver} instance used by the
  * invoked specification and frees the reserved resources.
  */
-class SeleniumWebDriverCleanUp extends AbstractMethodInterceptor {
+class SeleniumWebDriverCleanUp implements IMethodInterceptor {
 
     @Override
-    void interceptCleanupSpecMethod(IMethodInvocation invocation) throws Throwable {
+    void intercept(IMethodInvocation invocation) throws Throwable {
         def webDriver = getWebDriver(invocation)
         webDriver?.quit()
     }

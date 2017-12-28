@@ -2,7 +2,7 @@ package com.testwithspring.master
 
 import org.openqa.selenium.WebDriver
 import org.spockframework.runtime.InvalidSpecException
-import org.spockframework.runtime.extension.AbstractMethodInterceptor
+import org.spockframework.runtime.extension.IMethodInterceptor
 import org.spockframework.runtime.extension.IMethodInvocation
 import org.spockframework.runtime.model.FieldInfo
 import org.spockframework.runtime.model.SpecInfo
@@ -24,7 +24,7 @@ import spock.lang.Shared
  *     </li>
  * </ul>
  */
-class SeleniumWebDriverInitializer extends AbstractMethodInterceptor {
+class SeleniumWebDriverInitializer implements IMethodInterceptor {
 
     private final Class<? extends WebDriver> webDriverClass
 
@@ -33,7 +33,7 @@ class SeleniumWebDriverInitializer extends AbstractMethodInterceptor {
     }
 
     @Override
-    void interceptSharedInitializerMethod(IMethodInvocation invocation) throws Throwable {
+    void intercept(IMethodInvocation invocation) throws Throwable {
         def webDriverField = getWebDriverField(invocation.getSpec())
         def webDriver = createWebDriver()
         webDriverField.writeValue(invocation.getInstance(), webDriver)
