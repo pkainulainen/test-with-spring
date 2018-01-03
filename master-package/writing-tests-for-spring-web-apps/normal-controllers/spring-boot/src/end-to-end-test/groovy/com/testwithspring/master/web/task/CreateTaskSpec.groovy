@@ -45,7 +45,7 @@ class CreateTaskSpec extends Specification {
     CreateTaskPage createTaskPage
 
     def setup() {
-        createTaskPage = new CreateTaskPage(browser).open()
+        createTaskPage = new CreateTaskPage(browser)
     }
 
     def 'Create a new task by using valid information as a registered user'() {
@@ -56,8 +56,8 @@ class CreateTaskSpec extends Specification {
         LoginPage loginPage = new LoginPage(browser).open()
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD)
 
-        when: 'A user submits the create task form by using valid information'
-        def createTaskForm = createTaskPage.getForm()
+        when: 'A user opens the create task page and submits the create task form by using valid information'
+        def createTaskForm = createTaskPage.open().getForm()
         createTaskForm.typeTitle(TITLE)
         createTaskForm.typeDescription(DESCRIPTION)
         shownPage = createTaskForm.submitTaskForm()
