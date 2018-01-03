@@ -27,7 +27,7 @@ class UpdateTaskSpec extends Specification {
     UpdateTaskPage updateTaskPage
 
     def setup() {
-        updateTaskPage = new UpdateTaskPage(browser, EndToEndTestTasks.WriteLesson.ID).open()
+        updateTaskPage = new UpdateTaskPage(browser, EndToEndTestTasks.WriteLesson.ID);
     }
 
     def 'Update the information of an existing task by using valid information as a registered user'() {
@@ -38,8 +38,8 @@ class UpdateTaskSpec extends Specification {
         LoginPage loginPage = new LoginPage(browser).open()
         loginPage.login(JohnDoe.EMAIL_ADDRESS, JohnDoe.PASSWORD)
 
-        when: 'A user submits the update task form by using valid information'
-        def updateTaskForm = updateTaskPage.getForm()
+        when: 'A user opens the update task page and submits the update task form by using valid information'
+        def updateTaskForm = updateTaskPage.open().getForm()
         updateTaskForm.typeTitle(NEW_TITLE)
         updateTaskForm.typeDescription(NEW_DESCRIPTION)
         shownPage = updateTaskForm.submitTaskForm()
