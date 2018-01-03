@@ -27,7 +27,7 @@ class UpdateTaskSpec extends Specification {
     UpdateTaskPage updateTaskPage
 
     def setup() {
-        updateTaskPage = new UpdateTaskPage(browser, EndToEndTestTasks.WriteLesson.ID);
+        updateTaskPage = new UpdateTaskPage(browser, EndToEndTestTasks.WriteLesson.ID)
     }
 
     def 'Update the information of an existing task by using valid information as a registered user'() {
