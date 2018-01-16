@@ -18,7 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<failsafe.test.tag>UnusedDefaultValue</failsafe.test.tag>
+		<junit5.test.tag>UnitTest</junit5.test.tag>
 		<skip.failsafe.plugin>true</skip.failsafe.plugin>
 		<skip.unit.tests>false</skip.unit.tests>
 		<java.version>1.8</java.version>
@@ -38,7 +38,7 @@
 		<profile>
 			<id>end-to-end-test</id>
 			<properties>
-				<failsafe.test.tag>EndToEndTest</failsafe.test.tag>
+				<junit5.test.tag>EndToEndTest</junit5.test.tag>
 				<skip.failsafe.plugin>false</skip.failsafe.plugin>
 				<skip.unit.tests>true</skip.unit.tests>
 			</properties>
@@ -46,7 +46,7 @@
 		<profile>
 			<id>integration-test</id>
 			<properties>
-				<failsafe.test.tag>IntegrationTest</failsafe.test.tag>
+				<junit5.test.tag>IntegrationTest</junit5.test.tag>
 				<skip.failsafe.plugin>false</skip.failsafe.plugin>
 				<skip.unit.tests>true</skip.unit.tests>
 			</properties>
@@ -135,7 +135,7 @@
 					</includes>
 					<skip>${skip.unit.tests}</skip>
 					<properties>
-						<includeTags>UnitTest</includeTags>
+						<includeTags>${junit5.test.tag}</includeTags>
 					</properties>
 				</configuration>
 				<dependencies>
@@ -169,7 +169,7 @@
 					</includes>
 					<skip>${skip.failsafe.plugin}</skip>
 					<properties>
-						<includeTags>${failsafe.test.tag}</includeTags>
+						<includeTags>${junit5.test.tag}</includeTags>
 					</properties>
 				</configuration>
 				<dependencies>
