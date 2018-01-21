@@ -24,8 +24,8 @@
 		<java.version>1.8</java.version>
 
 		<!-- Dependency versions -->
-		<junit.jupiter.version>5.0.2</junit.jupiter.version>
-		<junit.platform.version>1.0.2</junit.platform.version>
+		<junit.jupiter.version>5.0.3</junit.jupiter.version>
+		<junit.platform.version>1.0.3</junit.platform.version>
 	</properties>
 
 	<profiles>
@@ -130,9 +130,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.19.1</version>
 				<configuration>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
 					<skip>${skip.unit.tests}</skip>
 					<properties>
 						<includeTags>${junit5.test.tag}</includeTags>
