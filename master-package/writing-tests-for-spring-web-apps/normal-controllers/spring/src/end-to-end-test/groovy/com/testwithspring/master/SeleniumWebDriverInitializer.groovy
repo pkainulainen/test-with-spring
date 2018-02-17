@@ -42,43 +42,41 @@ class SeleniumWebDriverInitializer implements IMethodInterceptor {
 
     private static FieldInfo getWebDriverField(SpecInfo spec) {
         def fields = spec.getAllFields()
-        def webDriverFields = fields.findAll({it.isAnnotationPresent(SeleniumWebDriver.class)})
+        def webDriverFields = fields.findAll({ it.isAnnotationPresent(SeleniumWebDriver.class) })
 
         if (webDriverFields.isEmpty()) {
             throw new InvalidSpecException(
                     'Cannot initialize specification class because ' +
-                    'it has no field that is annotated with the ' +
-                    '@SeleniumWebDriver annotation'
+                            'it has no field that is annotated with the ' +
+                            '@SeleniumWebDriver annotation'
             )
         }
 
         if (webDriverFields.size() > 1) {
             throw new InvalidSpecException(
                     'Cannot initialize specification class because ' +
-                    'it has multiple fields that are annotated with ' +
-                    'the @SeleniumWebDriver annotation'
+                            'it has multiple fields that are annotated with ' +
+                            'the @SeleniumWebDriver annotation'
             )
         }
 
-        if (webDriverFields.size() == 1) {
-            def webDriverField = webDriverFields[0]
-            if (!webDriverField.isAnnotationPresent(Shared.class)) {
-                throw new InvalidSpecException(
-                        'Cannot initialize specification class because ' +
-                        'the WebDriver field is not shared'
-                )
-            }
+        def webDriverField = webDriverFields[0]
+        if (!webDriverField.isAnnotationPresent(Shared.class)) {
+            throw new InvalidSpecException(
+                    'Cannot initialize specification class because ' +
+                            'the WebDriver field is not shared'
+            )
+        }
 
-            if (!webDriverField.getType().equals(WebDriver.class)) {
-                throw new InvalidSpecException(
-                        'Cannot initialize specification class because ' +
-                        'the type of the field that is annotated with the ' +
-                        '@SeleniumWebDriver annotation is not WebDriver'
-                )
-            }
-         }
+        if (!webDriverField.getType().equals(WebDriver.class)) {
+            throw new InvalidSpecException(
+                    'Cannot initialize specification class because ' +
+                            'the type of the field that is annotated with the ' +
+                            '@SeleniumWebDriver annotation is not WebDriver'
+            )
+        }
 
-        return webDriverFields[0]
+        return webDriverField
     }
 
     private WebDriver createWebDriver() {
@@ -87,13 +85,13 @@ class SeleniumWebDriverInitializer implements IMethodInterceptor {
         } catch (InstantiationException e) {
             throw new RuntimeException(String.format(
                     'Cannot instantiate WebDriver. Is %s a non abstract ' +
-                    'class that has no argument constructor?',
+                            'class that has no argument constructor?',
                     webDriverClass.getCanonicalName()
             ))
         } catch (IllegalAccessException e) {
             throw new RuntimeException(String.format(
                     'Cannot instantiate WebDriver. Does %s have a ' +
-                    'public constructor?',
+                            'public constructor?',
                     webDriverClass.getCanonicalName()
             ))
         }
