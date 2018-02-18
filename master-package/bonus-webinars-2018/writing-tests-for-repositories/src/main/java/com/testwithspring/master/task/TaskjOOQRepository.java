@@ -36,6 +36,7 @@ class TaskjOOQRepository {
                 DSL.field("title")
         )
                 .from("tasks")
+                .orderBy(DSL.field("id").asc())
                 .fetchInto(TaskListDTO.class);
 
         LOGGER.info("Found {} tasks", tasks.size());

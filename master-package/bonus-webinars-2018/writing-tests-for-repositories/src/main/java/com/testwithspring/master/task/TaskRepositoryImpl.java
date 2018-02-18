@@ -19,7 +19,7 @@ public class TaskRepositoryImpl implements CustomTaskRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskRepositoryImpl.class);
 
-    private static final String QUERY_FIND_ALL = "SELECT id, status, title FROM tasks";
+    private static final String QUERY_FIND_ALL = "SELECT id, status, title FROM tasks ORDER BY id ASC";
     private static final String QUERY_SEARCH = "SELECT id, status, title " +
             "FROM tasks t " +
             "WHERE " +

@@ -17,7 +17,7 @@ class TaskJdbcRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TaskJdbcRepository.class);
 
-    private static final String QUERY_FIND_ALL = "SELECT id, status, title FROM tasks";
+    private static final String QUERY_FIND_ALL = "SELECT id, status, title FROM tasks ORDER BY id ASC";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
