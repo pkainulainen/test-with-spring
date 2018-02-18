@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 })
 @ActiveProfiles(Profiles.INTEGRATION_TEST)
 @Tag(TestTags.INTEGRATION_TEST)
-@DisplayName("Find all tasks from the database when two tasks are found")
+@DisplayName("Find all tasks from the database when no tasks is found")
 class FindAllTasksWhenNoTasksIsFoundJpaTest {
 
     @Autowired
