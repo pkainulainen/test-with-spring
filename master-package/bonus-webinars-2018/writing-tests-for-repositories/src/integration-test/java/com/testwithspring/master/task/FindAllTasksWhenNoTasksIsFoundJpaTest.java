@@ -1,28 +1,17 @@
 package com.testwithspring.master.task;
 
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.DbUnitConfiguration;
-import com.github.springtestdbunit.dataset.ReplacementDataSetLoader;
+import com.testwithspring.master.DbUnitDataJpaTest;
 import com.testwithspring.master.IntegrationTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestExecutionListeners;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-@TestExecutionListeners(value =  DbUnitTestExecutionListener.class,
-        mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
-)
-@DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
+@DbUnitDataJpaTest
 @DatabaseSetup({
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/no-tasks-and-tags.xml"
