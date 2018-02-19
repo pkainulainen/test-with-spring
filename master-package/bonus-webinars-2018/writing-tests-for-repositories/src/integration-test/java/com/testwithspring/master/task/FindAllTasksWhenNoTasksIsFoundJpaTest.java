@@ -4,15 +4,12 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.dataset.ReplacementDataSetLoader;
-import com.testwithspring.master.TestTags;
-import com.testwithspring.master.config.Profiles;
+import com.testwithspring.master.IntegrationTest;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -30,8 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/no-tasks-and-tags.xml"
 })
-@ActiveProfiles(Profiles.INTEGRATION_TEST)
-@Tag(TestTags.INTEGRATION_TEST)
+@IntegrationTest
 @DisplayName("Find all tasks from the database when no tasks is found")
 class FindAllTasksWhenNoTasksIsFoundJpaTest {
 
