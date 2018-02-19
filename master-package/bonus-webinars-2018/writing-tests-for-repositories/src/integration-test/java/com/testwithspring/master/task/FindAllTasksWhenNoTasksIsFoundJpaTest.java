@@ -2,7 +2,6 @@ package com.testwithspring.master.task;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.testwithspring.master.DbUnitDataJpaTest;
-import com.testwithspring.master.IntegrationTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/no-tasks-and-tags.xml"
 })
-@IntegrationTest
 @DisplayName("Find all tasks from the database when no tasks is found")
 class FindAllTasksWhenNoTasksIsFoundJpaTest {
 

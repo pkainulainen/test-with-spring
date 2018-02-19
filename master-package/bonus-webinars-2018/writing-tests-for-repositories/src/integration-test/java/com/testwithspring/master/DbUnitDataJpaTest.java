@@ -16,5 +16,6 @@ import java.lang.annotation.*;
 @TestExecutionListeners(value =  DbUnitTestExecutionListener.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
 )
+@IntegrationTest
 public @interface DbUnitDataJpaTest {
 }

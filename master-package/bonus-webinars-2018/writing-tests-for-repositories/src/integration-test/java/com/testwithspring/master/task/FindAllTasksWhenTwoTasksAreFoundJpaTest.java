@@ -4,7 +4,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.dataset.ReplacementDataSetLoader;
 import com.testwithspring.master.DbUnitDataJpaTest;
-import com.testwithspring.master.IntegrationTest;
 import com.testwithspring.master.Tasks;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/tasks.xml"
 })
-@IntegrationTest
 @DisplayName("Find all tasks from the database when two tasks are found")
 class FindAllTasksWhenTwoTasksAreFoundJpaTest {
 
