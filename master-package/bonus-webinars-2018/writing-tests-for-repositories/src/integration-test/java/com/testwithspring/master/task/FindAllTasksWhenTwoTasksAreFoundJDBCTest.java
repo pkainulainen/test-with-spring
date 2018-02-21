@@ -4,7 +4,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.dataset.ReplacementDataSetLoader;
 import com.testwithspring.master.DbUnitJdbcTest;
-import com.testwithspring.master.IntegrationTest;
 import com.testwithspring.master.Tasks;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
