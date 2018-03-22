@@ -70,6 +70,13 @@ class MessageServiceTest {
         }
 
         @Test
+        @DisplayName("Should create a new message by invoking the remote API once")
+        void shouldCreateNewMessageByInvokingRemoteApiOnce() {
+            service.create(MESSAGE_TEXT);
+            server.verify();
+        }
+
+        @Test
         @DisplayName("Should return a message that has the correct id")
         void shouldReturnMessageWithCorrectId() {
             Message created = service.create(MESSAGE_TEXT);
