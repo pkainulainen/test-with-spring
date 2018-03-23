@@ -5,7 +5,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,8 +23,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @ExtendWith(SpringExtension.class)
-@Import(MessageApiUrlBuilder.class)
-@RestClientTest(MessageService.class)
+@RestClientTest({MessageApiUrlBuilder.class, MessageService.class})
 @ActiveProfiles(Profiles.UNIT_TEST)
 @Tag(TestTags.UNIT_TEST)
 class MessageServiceTest {
