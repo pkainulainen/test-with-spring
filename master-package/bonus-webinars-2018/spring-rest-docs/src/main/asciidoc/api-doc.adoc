@@ -1,0 +1,34 @@
+= Hello World Example
+Petri Kainulainen;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+
+[[overview]]
+= Overview
+
+This example demonstrates how you can get started with Spring REST Docs. You will learn to:
+
+* Generate your API documentation from an Asciidoc document.
+* Document the behavior of your REST API by using Spring REST Docs and Spring MVC Test.
+* Include the API documentation created by Spring REST docs in your Asciidoc document.
+
+
+[[resources]]
+= Resources
+
+[[resources-say-hello]]
+== Say Hello
+
+We can obtain a message from our REST API by sending a `GET` request to
+the path: `/api/hello`. The following example demonstrates how we can send thisHTTP request by using curl:
+
+include::{snippets}/say-hello/curl-request.adoc[]
+
+When we send this `GET` request, our REST API returns the HTTP status 200 and the message: 'Hello World!' back to us. The
+following snippet descibes the content of the returned HTTP response:
+
+include::{snippets}/say-hello/http-response.adoc[]
