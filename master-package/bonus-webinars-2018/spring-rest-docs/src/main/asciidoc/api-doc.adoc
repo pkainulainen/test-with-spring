@@ -24,11 +24,46 @@ This example demonstrates how you can get started with Spring REST Docs. You wil
 == Say Hello
 
 We can obtain a message from our REST API by sending a `GET` request to
-the path: `/api/hello`. The following example demonstrates how we can send thisHTTP request by using curl:
+the path: `/api/hello`. The following example demonstrates how we can send this HTTP request by using curl:
 
 include::{snippets}/say-hello/curl-request.adoc[]
 
 When we send this `GET` request, our REST API returns the HTTP status 200 and the message: 'Hello World!' back to us. The
-following snippet descibes the content of the returned HTTP response:
+following snippet describes the content of the returned HTTP response:
 
 include::{snippets}/say-hello/http-response.adoc[]
+
+[[resources-create-message]]
+== Create Message
+
+We can create a new message by sending a `POST` request to the path: `/api/message`. When we create
+a new message, we have to add the information of the created message to the request body.
+
+The JSON document that specifies the information of the created message looks as follows:
+
+include::{snippets}/create-message-success/request-body.adoc[]
+
+After our API has created a new message, it returns the HTTP status code 201. The information of the
+created message is returned in the response body. The following snippet describes the content of the
+returned HTTP response:
+
+include::{snippets}/create-message-success/http-response.adoc[]
+
+=== Validation Errors
+
+When validation fails, our REST API returns the HTTP status code 400. The validation errors
+are returned in the response body.
+
+This section describes all validation errors that can occur when we create a new message
+by using invalid information.
+
+==== Empty Message Text
+
+We cannot create a message that has an empty message text. In other words, when we send the following
+JSON document to our REST API:
+
+include::{snippets}/create-message-empty-text/request-body.adoc[]
+
+Our REST API returns the following HTTP response back to the client:
+
+include::{snippets}/create-message-empty-text/http-response.adoc[]
