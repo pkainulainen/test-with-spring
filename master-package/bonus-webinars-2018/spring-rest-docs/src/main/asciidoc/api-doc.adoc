@@ -28,8 +28,8 @@ the path: `/api/hello`. The following example demonstrates how we can send this 
 
 include::{snippets}/say-hello/curl-request.adoc[]
 
-When we send this `GET` request, our REST API returns the HTTP status 200 and the message: 'Hello World!' back to us. The
-following snippet describes the content of the returned HTTP response:
+When we send this `GET` request, our REST API returns the HTTP status 200 and the message: 'Hello World!' back to us.
+The returned HTTP response looks as follows:
 
 include::{snippets}/say-hello/http-response.adoc[]
 
@@ -43,19 +43,26 @@ The JSON document that specifies the information of the created message looks as
 
 include::{snippets}/create-message-success/request-body.adoc[]
 
-After our API has created a new message, it returns the HTTP status code 201. The information of the
-created message is returned in the response body. The following snippet describes the content of the
-returned HTTP response:
+After our REST API has processed the incoming HTTP request, it identifies the outcome by returning
+an appropriate HTTP status code. The HTTP status codes used by this API method are described in the
+following table:
+
+[options="header"]
+|===============================================================
+| HTTP Status Code | Description
+| 201 | A new message was created successfully.
+| 400 | A new message was not created because validation failed.
+|===============================================================
+
+After our REST API has created a new message, it returns the information of the
+created message as JSON. The returned HTTP response looks as follows:
 
 include::{snippets}/create-message-success/http-response.adoc[]
 
 === Validation Errors
 
-When validation fails, our REST API returns the HTTP status code 400. The validation errors
-are returned in the response body.
-
-This section describes all validation errors that can occur when we create a new message
-by using invalid information.
+When validation fails, our REST API returns the validation errors as JSON. This section describes all
+validation errors that can occur when we create a new message by using invalid information.
 
 ==== Empty Message Text
 
