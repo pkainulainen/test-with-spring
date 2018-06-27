@@ -1,7 +1,7 @@
 package com.testwithspring.starter.testdata.javabean;
 
 /**
- * Identifies the user who created a specific task.
+ * Identifies the user who created the task.
  *
  * @author Petri Kainulainen
  */

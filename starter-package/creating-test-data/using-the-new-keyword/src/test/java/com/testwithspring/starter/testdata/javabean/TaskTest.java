@@ -16,6 +16,7 @@ public class TaskTest {
     private static final Long ASSIGNEE_ID = 99L;
     private static final Long CLOSER_ID = 55L;
     private static final Long CREATOR_ID = 44L;
+    private static final Long MODIFIER_ID = 66L;
     private static final String TITLE = "Write an example project";
     private static final String DESCRIPTION = "description";
 
@@ -24,7 +25,7 @@ public class TaskTest {
      * <ul>
      *     <li>An open task is a task that has the status: <code>TaskStatus.OPEN</code>.</li>
      *     <li>An open task has no resolution.</li>
-     *     <li>The creator of the task must be specified.</li>
+     *     <li>The creator and modifier of the task must be specified.</li>
      *     <li>The assignee and closer must be null.</li>
      * </ul>
      */
@@ -35,6 +36,7 @@ public class TaskTest {
         task.setAssignee(null);
         task.setCloser(null);
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
@@ -46,7 +48,7 @@ public class TaskTest {
      * <ul>
      *     <li>An open task is a task that has the status: <code>TaskStatus.OPEN</code>.</li>
      *     <li>An open task has no resolution.</li>
-     *     <li>The creator and assignee of the task must be specified.</li>
+     *     <li>The assignee, creator, and modifier of the task must be specified.</li>
      *     <li>The closer of the task must be null.</li>
      * </ul>
      */
@@ -57,6 +59,7 @@ public class TaskTest {
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(null);
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
@@ -68,7 +71,7 @@ public class TaskTest {
      * <ul>
      *     <li>A closed task is a task that has the status: <code>TaskStatus.CLOSED</code>.</li>
      *     <li>Because the task was closed as a duplicate, its resolution must be: <code>TaskResolution.DUPLICATE</code>.</li>
-     *     <li>The creator, closer, and assignee of the task must be specified.</li>
+     *     <li>The assignee, creator, modifier, and closer of the task must be specified.</li>
      * </ul>
      */
     @Test
@@ -78,6 +81,7 @@ public class TaskTest {
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(new Closer(CLOSER_ID));
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.CLOSED);

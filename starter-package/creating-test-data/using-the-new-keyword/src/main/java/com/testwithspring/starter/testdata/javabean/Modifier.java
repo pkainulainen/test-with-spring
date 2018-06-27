@@ -1,15 +1,15 @@
 package com.testwithspring.starter.testdata.javabean;
 
 /**
- * Identifies the assignee of the task.
+ * Identifies the user who modified the task.
  *
  * @author Petri Kainulainen
  */
-public class Assignee {
+public class Modifier {
 
     private final Long userId;
 
-    public Assignee(Long userId) {
+    public Modifier(Long userId) {
         this.userId = userId;
     }
 }
