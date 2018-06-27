@@ -16,8 +16,8 @@ public class MailingAddress {
     private final String country;
 
     /**
-     * Creates a new <code>MailingAddress</code> object. This constructor is used when we send mail (letters or packages)
-     * to a Finnish address or post office box.
+     * Creates a new <code>MailingAddress</code> object. This constructor is used when we
+     * send shipments (letters or packages) to a Finnish address.
      *
      *<strong>Note:</strong> We need to specify either street address or post office box.
      *
@@ -36,8 +36,9 @@ public class MailingAddress {
     }
 
     /**
-     * Creates a new <code>MailingAddress</code> object. This constructor is used when we send mail (letters or packages)
-     * to another country.
+     * Creates a new <code>MailingAddress</code> object. This constructor is used when we
+     * send shipments (letters or packages) to another country that doesn't require the
+     * state information (such as Sweden).
      *
      * <strong>Note:</strong> We need to specify either street address or post office box.
      *
@@ -58,8 +59,9 @@ public class MailingAddress {
     }
 
     /**
-     * Creates a new <code>MailingAddress</code> object. This constructor is used when we send mail (letters or packages)
-     * to a country that requires the state information (such as United States).
+     * Creates a new <code>MailingAddress</code> object. This constructor is used when we send
+     * shipments (letters or packages) to a country that requires the state information
+     * (such as United States).
      *
      * <strong>Note:</strong> We need to specify either street address or post office box.
      *
