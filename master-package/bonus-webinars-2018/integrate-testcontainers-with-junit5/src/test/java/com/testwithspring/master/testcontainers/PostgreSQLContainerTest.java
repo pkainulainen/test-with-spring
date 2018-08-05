@@ -13,6 +13,10 @@ import java.sql.SQLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This example demonstrates how we can run a PostgreSQL container
+ * with JUnit 5 by using the "manual approach".
+ */
 @DisplayName("Run a PostgreSQL container")
 public class PostgreSQLContainerTest {
 

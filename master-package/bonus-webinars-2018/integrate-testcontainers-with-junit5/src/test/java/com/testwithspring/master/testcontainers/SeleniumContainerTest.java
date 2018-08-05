@@ -10,6 +10,10 @@ import org.testcontainers.containers.BrowserWebDriverContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This example demonstrates how we can run a Selenium WebDriver
+ * container with JUnit 5 by using the "manual approach".
+ */
 @DisplayName("Run a Selenium WebDriver container")
 public class SeleniumContainerTest {
 

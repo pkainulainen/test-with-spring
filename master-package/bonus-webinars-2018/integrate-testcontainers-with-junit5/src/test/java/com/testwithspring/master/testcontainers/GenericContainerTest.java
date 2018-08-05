@@ -15,6 +15,10 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * This example demonstrates how we can run a generic container
+ * with JUnit 5 by using the "manual approach".
+ */
 @DisplayName("Run a generic container")
 public class GenericContainerTest {
 
