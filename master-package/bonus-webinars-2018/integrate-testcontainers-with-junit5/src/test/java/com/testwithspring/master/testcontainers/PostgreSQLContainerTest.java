@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * with JUnit 5 by using the "manual approach".
  */
 @DisplayName("Run a PostgreSQL container")
-public class PostgreSQLContainerTest {
+class PostgreSQLContainerTest {
 
     private static PostgreSQLContainer postgreSQL = new PostgreSQLContainer();
 
@@ -29,7 +29,7 @@ public class PostgreSQLContainerTest {
 
     @Test
     @DisplayName("Should run a PostgreSQL container")
-    public void shouldRunPostgreSQLContainer() throws SQLException {
+    void shouldRunPostgreSQLContainer() throws SQLException {
         Connection conn = DriverManager.getConnection(
                 postgreSQL.getJdbcUrl(),
                 postgreSQL.getUsername(),

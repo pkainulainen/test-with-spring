@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(TestContainersExtension.class)
 @DisplayName("Run a generic container")
-public class GenericContainerExtensionTest {
+class GenericContainerExtensionTest {
 
     private static GenericContainer webServer = new GenericContainer(
             "alpine:3.5"
@@ -33,7 +33,7 @@ public class GenericContainerExtensionTest {
 
     @Test
     @DisplayName("Should return the correct message")
-    public void shouldReturnCorrectMessage() throws IOException {
+    void shouldReturnCorrectMessage() throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("http://" +
                 webServer.getContainerIpAddress() +

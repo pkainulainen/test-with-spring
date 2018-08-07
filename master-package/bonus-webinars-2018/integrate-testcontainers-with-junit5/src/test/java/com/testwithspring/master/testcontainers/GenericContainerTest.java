@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * with JUnit 5 by using the "manual approach".
  */
 @DisplayName("Run a generic container")
-public class GenericContainerTest {
+class GenericContainerTest {
 
     private static GenericContainer webServer = new GenericContainer(
             "alpine:3.5"
@@ -39,7 +39,7 @@ public class GenericContainerTest {
 
     @Test
     @DisplayName("Should return the correct message")
-    public void shouldReturnCorrectMessage() throws IOException {
+    void shouldReturnCorrectMessage() throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("http://" +
                 webServer.getContainerIpAddress() +

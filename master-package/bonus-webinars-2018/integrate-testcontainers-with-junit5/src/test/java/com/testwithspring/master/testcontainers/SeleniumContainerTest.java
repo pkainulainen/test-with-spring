@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * container with JUnit 5 by using the "manual approach".
  */
 @DisplayName("Run a Selenium WebDriver container")
-public class SeleniumContainerTest {
+class SeleniumContainerTest {
 
     private static BrowserWebDriverContainer chrome = new BrowserWebDriverContainer()
                     .withDesiredCapabilities(DesiredCapabilities.chrome());
@@ -27,7 +27,7 @@ public class SeleniumContainerTest {
 
     @Test
     @DisplayName("Should return the correct title of the course's website")
-    public void shouldReturnCorrectTitleOfCoursesWebsite() {
+    void shouldReturnCorrectTitleOfCoursesWebsite() {
         RemoteWebDriver driver = chrome.getWebDriver();
         driver.get("https://www.testwithspring.com");
 

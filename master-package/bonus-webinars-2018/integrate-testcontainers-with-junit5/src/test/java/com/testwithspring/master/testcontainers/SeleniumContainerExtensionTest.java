@@ -17,14 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(TestContainersExtension.class)
 @DisplayName("Run a Selenium WebDriver container")
-public class SeleniumContainerExtensionTest {
+class SeleniumContainerExtensionTest {
 
     private static BrowserWebDriverContainer chrome = new BrowserWebDriverContainer()
                     .withDesiredCapabilities(DesiredCapabilities.chrome());
 
     @Test
     @DisplayName("Should return the correct title of the course's website")
-    public void shouldReturnCorrectTitleOfCoursesWebsite() {
+    void shouldReturnCorrectTitleOfCoursesWebsite() {
         RemoteWebDriver driver = chrome.getWebDriver();
         driver.get("https://www.testwithspring.com");
 

@@ -20,13 +20,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @ExtendWith(TestContainersExtension.class)
 @DisplayName("Run a PostgreSQL container")
-public class PostgreSQLContainerExtensionTest {
+class PostgreSQLContainerExtensionTest {
 
     private static PostgreSQLContainer postgreSQL = new PostgreSQLContainer();
 
     @Test
     @DisplayName("Should run a PostgreSQL container")
-    public void shouldRunPostgreSQLContainer() throws SQLException {
+    void shouldRunPostgreSQLContainer() throws SQLException {
         Connection conn = DriverManager.getConnection(
                 postgreSQL.getJdbcUrl(),
                 postgreSQL.getUsername(),
