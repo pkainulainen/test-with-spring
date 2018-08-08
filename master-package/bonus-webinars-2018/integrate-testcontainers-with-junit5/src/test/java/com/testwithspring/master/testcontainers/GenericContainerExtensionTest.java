@@ -1,6 +1,7 @@
 package com.testwithspring.master.testcontainers;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.shaded.org.apache.http.HttpResponse;
