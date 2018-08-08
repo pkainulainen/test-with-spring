@@ -43,7 +43,7 @@ public class TestContainersExtension implements BeforeAllCallback, AfterAllCallb
      */
     private GenericContainer getGenericContainerInstance(Class<?> testClass) throws IllegalAccessException {
         Field testContainerField = Arrays.stream(testClass.getDeclaredFields())
-                .filter(f -> Modifier.isStatic(f.getModifiers()) && GenericContainer.class.isAssignableFrom(f.getType()))
+                .filter(this::isContainerField)
                 .findFirst()
                 .orElseThrow(() -> new PreconditionViolationException("The test class doesn't have a GenericContainer field"));
 
@@ -51,5 +51,9 @@ public class TestContainersExtension implements BeforeAllCallback, AfterAllCallb
 
         //We can pass null to this method because the field must be static
         return (GenericContainer) testContainerField.get(null);
+    }
+
+    private boolean isContainerField(Field f) {
+        return Modifier.isStatic(f.getModifiers()) && GenericContainer.class.isAssignableFrom(f.getType());
     }
 }
