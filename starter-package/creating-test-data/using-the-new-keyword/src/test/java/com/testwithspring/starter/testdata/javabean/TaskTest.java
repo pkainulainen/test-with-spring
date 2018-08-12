@@ -75,7 +75,7 @@ public class TaskTest {
      * </ul>
      */
     @Test
-    public void createTaskThatClosedAsDuplicate() {
+    public void createTaskThatWasClosedAsDuplicate() {
         Task task = new Task();
         task.setId(ID);
         task.setAssignee(new Assignee(ASSIGNEE_ID));
