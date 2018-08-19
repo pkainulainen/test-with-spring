@@ -93,7 +93,7 @@ public final class MailingAddressFactory {
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our test class when it creates a Finnish address
+     * constants defined in our object mother class when it creates a Finnish address
      * that has a street address.
      *
      * The pros of this factory method are:
@@ -103,7 +103,7 @@ public final class MailingAddressFactory {
      *         is a Finnish address that has a street address. This works well if
      *         we care only about the fact that the created object contains a
      *         Finnish address that has a street address and we aren't interested in
-     *         the field values of the created object.
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -130,7 +130,7 @@ public final class MailingAddressFactory {
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our test class when it creates a Finnish address
+     * constants defined in our object mother class when it creates a Finnish address
      * that has a post office box.
      *
      * The pros of this factory method are:
@@ -140,7 +140,7 @@ public final class MailingAddressFactory {
      *         is a Finnish address that has a post office box. This works well if
      *         we care only about the fact that the created object contains a
      *         Finnish address that has a post office box and we aren't interested in
-     *         the field values of the created object.
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -238,7 +238,7 @@ public final class MailingAddressFactory {
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our test class when it creates a Swedish address
+     * constants defined in our object mother class when it creates a Swedish address
      * that has a street address.
      *
      * The pros of this factory method are:
@@ -248,7 +248,7 @@ public final class MailingAddressFactory {
      *         is a Swedish address that has a street address. This works well if
      *         we care only about the fact that the created object contains a
      *         Swedish address that has a street address and we aren't interested in
-     *         the field values of the created object.
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -276,7 +276,7 @@ public final class MailingAddressFactory {
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our test class when it creates a Swedish address
+     * constants defined in our object mother class when it creates a Swedish address
      * that has a post office box.
      *
      * The pros of this factory method are:
@@ -286,7 +286,7 @@ public final class MailingAddressFactory {
      *         is a Swedish address that has a post office box. This works well if
      *         we care only about the fact that the created object contains a
      *         Swedish address that has a post office box and we aren't interested in
-     *         the field values of the created object.
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -388,7 +388,7 @@ public final class MailingAddressFactory {
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our test class when it creates a US address
+     * constants defined in our object mother class when it creates a US address
      * that has a street address.
      *
      * The pros of this factory method are:
@@ -398,7 +398,7 @@ public final class MailingAddressFactory {
      *         is a US address that has a street address. This works well if
      *         we care only about the fact that the created object contains a
      *         US address that has a street address and we aren't interested in
-     *         the field values of the created object.
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -426,7 +426,7 @@ public final class MailingAddressFactory {
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our test class when it creates a US address
+     * constants defined in our object mother class when it creates a US address
      * that has a post office box.
      *
      * The pros of this factory method are:
@@ -436,7 +436,7 @@ public final class MailingAddressFactory {
      *         is a US address that has a post office box. This works well if
      *         we care only about the fact that the created object contains a
      *         US address that has a post office box and we aren't interested in
-     *         the field values of the created object.
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
