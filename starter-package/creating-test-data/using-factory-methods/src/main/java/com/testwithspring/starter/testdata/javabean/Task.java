@@ -12,6 +12,7 @@ public class Task {
     private Closer closer;
     private Creator creator;
     private String description;
+    private Modifier modifier;
     private String title;
     private TaskStatus status;
     private TaskResolution resolution;
@@ -38,6 +39,10 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    public Modifier getModifier() {
+        return modifier;
     }
 
     public String getTitle() {
@@ -70,6 +75,10 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setModifier(Modifier modifier) {
+        this.modifier = modifier;
     }
 
     public void setTitle(String title) {
