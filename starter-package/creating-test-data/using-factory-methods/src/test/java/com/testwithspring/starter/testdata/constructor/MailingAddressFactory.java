@@ -1,8 +1,8 @@
 package com.testwithspring.starter.testdata.constructor;
 
 /**
- * This class demonstrates how we can create a so called object mother class that is used for creating
- * objects that are required by our tests.
+ * This class demonstrates how we can create the required test data
+ * by adding our factory methods to an object mother class.
  *
  * @author Petri Kainulainen
  */
@@ -24,13 +24,26 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of five constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Finnish address
+     * that has a street address.
      *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of five constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Finnish address format.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createNormalFinnishAddress(String receiver,
                                                             String streetAddress,
@@ -45,13 +58,26 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of five constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects)
-     * .
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Finnish address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of five constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Finnish address format.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createFinnishPostOfficeBoxAddress(String receiver,
                                                                    String postOfficeBox,
@@ -66,14 +92,32 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * Using a factory method like this is a horrible idea because it breaks
-     * the connection of the test method and the test data. The worst part is
-     * that this forces us to move the test data into the object mother class
-     * that shouldn't be aware of it.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Finnish address
+     * that has a street address.
      *
-     * That being said, this method works well if we only create about the fact
-     * that the created address is a normal Finnish address and we don't care about
-     * the property values of other properties.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Finnish address that has a street address. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Finnish address that has a street address and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         object mother class. This breaks the connection between our test class
+     *         and test data. Also, this factory method forces us to move our
+     *         test data to the object mother class that shouldn't be aware of
+     *         it. That's why we shouldn't use this factory method if we care
+     *         about the field values of the created object.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createNormalFinnishAddress() {
         return new MailingAddress(RECEIVER,
@@ -85,14 +129,32 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * Using a factory method like this is a horrible idea because it breaks
-     * the connection of the test method and the test data. The worst part is
-     * that this forces us to move the test data into the object mother class
-     * that shouldn't be aware of it.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Finnish address
+     * that has a post office box.
      *
-     * That being said, this method works well if we only create about the fact
-     * that the created address is a Finnish PO box address and we don't care about
-     * the property values of other properties.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Finnish address that has a post office box. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Finnish address that has a post office box and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         object mother class. This breaks the connection between our test class
+     *         and test data. Also, this factory method forces us to move our
+     *         test data to the object mother class that shouldn't be aware of
+     *         it. That's why we shouldn't use this factory method if we care
+     *         about the field values of the created object.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createFinnishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
@@ -104,13 +166,26 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of six constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Swedish address
+     * that has a street address.
      *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of six constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Swedish address format.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createNormalSwedishAddress(String receiver,
                                                             String streetAddress,
@@ -126,13 +201,26 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of six constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Swedish address
+     * that has a post office box.
      *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of six constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Swedish address format.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createSwedishPostOfficeBoxAddress(String receiver,
                                                                    String postOfficeBox,
@@ -149,14 +237,32 @@ public final class MailingAddressFactory {
 
 
     /**
-     * Using a factory method like this is a horrible idea because it breaks
-     * the connection of the test method and the test data. The worst part is
-     * that this forces us to move the test data into the object mother class
-     * that shouldn't be aware of it.
-     * <p>
-     * That being said, this method works well if we only create about the fact
-     * that the created address is a normal Swedish address and we don't care about
-     * the property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Swedish address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Swedish address that has a street address. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Swedish address that has a street address and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         object mother class. This breaks the connection between our test class
+     *         and test data. Also, this factory method forces us to move our
+     *         test data to the object mother class that shouldn't be aware of
+     *         it. That's why we shouldn't use this factory method if we care
+     *         about the field values of the created object.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createNormalSwedishAddress() {
         return new MailingAddress(RECEIVER,
@@ -169,14 +275,32 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * Using a factory method like this is a horrible idea because it breaks
-     * the connection of the test method and the test data. The worst part is
-     * that this forces us to move the test data into the object mother class
-     * that shouldn't be aware of it.
-     * <p>
-     * That being said, this method works well if we only create about the fact
-     * that the created address is a Swedish PO box address and we don't care about
-     * the property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Swedish address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Swedish address that has a post office box. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Swedish address that has a post office box and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         object mother class. This breaks the connection between our test class
+     *         and test data. Also, this factory method forces us to move our
+     *         test data to the object mother class that shouldn't be aware of
+     *         it. That's why we shouldn't use this factory method if we care
+     *         about the field values of the created object.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createSwedishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
@@ -189,10 +313,26 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes five method parameters instead of seven constructor arguments.
-     * Although this is a somewhat impressive, I think that five method
-     * parameters is too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a US address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes five method parameters instead of seven constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has five method parameters of same type ({@code String} objects).
+     *         This is too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the way Finnish people construct addresses.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createNormalUSAddress(String receiver,
                                                  String streetAddress,
@@ -210,10 +350,26 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes five method parameters instead of seven constructor arguments.
-     * Although this is a somewhat impressive, I think that five method
-     * parameters is too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a US address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes five method parameters instead of seven constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has five method parameters of same type ({@code String} objects).
+     *         This is too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the way Finnish people construct addresses.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createUSPostOfficeBoxAddress(String receiver,
                                                               String postOfficeBox,
@@ -231,14 +387,32 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * Using a factory method like this is a horrible idea because it breaks
-     * the connection of the test method and the test data. The worst part is
-     * that this forces us to move the test data into the object mother class
-     * that shouldn't be aware of it.
-     * <p>
-     * That being said, this method works well if we only care about the fact that
-     * the returned object is a normal US address and we don't care about the
-     * property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a US address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a US address that has a street address. This works well if
+     *         we care only about the fact that the created object contains a
+     *         US address that has a street address and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         object mother class. This breaks the connection between our test class
+     *         and test data. Also, this factory method forces us to move our
+     *         test data to the object mother class that shouldn't be aware of
+     *         it. That's why we shouldn't use this factory method if we care
+     *         about the field values of the created object.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createNormalUSAddress() {
         return new MailingAddress(RECEIVER,
@@ -251,14 +425,32 @@ public final class MailingAddressFactory {
     }
 
     /**
-     * Using a factory method like this is a horrible idea because it breaks
-     * the connection of the test method and the test data. The worst part is
-     * that this forces us to move the test data into the object mother class
-     * that shouldn't be aware of it.
-     * <p>
-     * That being said, this method works well if we only care about the fact that
-     * the returned object is a US PO box address and we don't care about the
-     * property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a US address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a US address that has a post office box. This works well if
+     *         we care only about the fact that the created object contains a
+     *         US address that has a post office box and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         object mother class. This breaks the connection between our test class
+     *         and test data. Also, this factory method forces us to move our
+     *         test data to the object mother class that shouldn't be aware of
+     *         it. That's why we shouldn't use this factory method if we care
+     *         about the field values of the created object.
+     *     </li>
+     * </ul>
      */
     public static MailingAddress createUSPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,

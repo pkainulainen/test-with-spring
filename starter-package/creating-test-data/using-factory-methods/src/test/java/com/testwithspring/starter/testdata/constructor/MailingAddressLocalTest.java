@@ -3,9 +3,10 @@ package com.testwithspring.starter.testdata.constructor;
 import org.junit.Test;
 
 /**
- * This test class demonstrates how we can create new {@code MailingAddress} objects by using factory methods.
- * <p>
- * <strong>Note:</strong> The test method names found from this class suck. Do not use similar names in your tests.
+ * This test class demonstrates how we can create new {@code MailingAddress} objects
+ * by using local factory methods. The goal of these examples is to demonstrate the
+ * differences and similarities of factory methods and constructors which use the
+ * telescoping constructor antipattern.
  *
  * @author Petri Kainulainen
  */
@@ -29,23 +30,27 @@ public class MailingAddressLocalTest {
         );
     }
 
-    @Test
-    public void createFinnishPoBoxAddressWithLocalMethodWithParameters() {
-        MailingAddress finnishPoBoxAddress = createFinnishPostOfficeBoxAddress(RECEIVER,
-                POST_OFFICE_BOX,
-                POST_CODE,
-                CITY
-        );
-    }
-
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of five constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Finnish address
+     * that has a street address.
      *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of five constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Finnish address format.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createNormalFinnishAddress(String receiver,
                                                 String streetAddress,
@@ -59,15 +64,38 @@ public class MailingAddressLocalTest {
         );
     }
 
+    @Test
+    public void createFinnishPoBoxAddressWithLocalMethodWithParameters() {
+        MailingAddress finnishPoBoxAddress = createFinnishPostOfficeBoxAddress(RECEIVER,
+                POST_OFFICE_BOX,
+                POST_CODE,
+                CITY
+        );
+    }
+
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of five constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Finnish address
+     * that has a post office box.
      *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of five constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Finnish address format.
+     *     </li>
+     * </ul>
      */
+
     private MailingAddress createFinnishPostOfficeBoxAddress(String receiver,
                                                              String postOfficeBox,
                                                              String postCode,
@@ -85,11 +113,30 @@ public class MailingAddressLocalTest {
         MailingAddress finnishAddress = createNormalFinnishAddress();
     }
 
-    /*
-     * This method takes no method parameters, but it has a price: using this factory
-     * method breaks the connection between our test method and test data. That being said,
-     * this method works well if we care only about the fact that the address is a
-     * "normal" Finnish address and we are not interested in the property values of other properties.
+    /**
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Finnish address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Finnish address that has a street address. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Finnish address that has a street address and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         test class. This breaks the connection between our test method
+     *         and test data.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createNormalFinnishAddress() {
         return new MailingAddress(RECEIVER,
@@ -105,11 +152,30 @@ public class MailingAddressLocalTest {
         MailingAddress finnishPoBoxAddress = createFinnishPostOfficeBoxAddress();
     }
 
-    /*
-     * This method takes no method parameters, but it has a price: using this factory
-     * method breaks the connection between our test method and test data. That being said,
-     * this method works well if we care only about the fact that the address is a
-     * Finnish PO box address and we are not interested in the property values of other properties.
+    /**
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Finnish address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Finnish address that has a post office box. This works well
+     *         if we care only about the fact that the created object contains a
+     *         Finnish address that has a post office box and we aren't
+     *         interested in the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         test class. This breaks the connection between our test method
+     *         and test data.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createFinnishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
@@ -129,6 +195,41 @@ public class MailingAddressLocalTest {
         );
     }
 
+    /**
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Swedish address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of six constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Swedish address format.
+     *     </li>
+     * </ul>
+     */
+    private MailingAddress createNormalSwedishAddress(String receiver,
+                                                      String streetAddress,
+                                                      String postCode,
+                                                      String city) {
+        return new MailingAddress(receiver,
+                streetAddress,
+                null,
+                postCode,
+                city,
+                COUNTRY_SWEDEN
+        );
+    }
+
     @Test
     public void createSwedishPoBoxAddressWithLocalMethodWithParameters() {
         MailingAddress swedishPoBoxAddress = createSwedishPostOfficeBoxAddress(RECEIVER,
@@ -139,35 +240,26 @@ public class MailingAddressLocalTest {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of six constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a Swedish address
+     * that has a post office box.
      *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
-     */
-    private MailingAddress createNormalSwedishAddress(String receiver,
-                                                String streetAddress,
-                                                String postCode,
-                                                String city) {
-        return new MailingAddress(receiver,
-                streetAddress,
-                null,
-                postCode,
-                city,
-                COUNTRY_SWEDEN
-        );
-    }
-
-    /**
-     * This method improves the situation because it is named properly and
-     * it takes four method parameters instead of six constructor arguments.
-     * Although this is a somewhat impressive, I think that for method
-     * parameters might be too much (especially when they are all {@code String} objects).
-     *
-     * However, if we would have to create only Finnish and Swedish addresses, I would probably use this
-     * method because the context helps anyone to understand to order of these arguments.
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes four method parameters instead of six constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has four method parameters of same type ({@code String} objects).
+     *         This might be too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the Swedish address format.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createSwedishPostOfficeBoxAddress(String receiver,
                                                              String postOfficeBox,
@@ -187,16 +279,30 @@ public class MailingAddressLocalTest {
         MailingAddress swedishAddress = createNormalSwedishAddress();
     }
 
-    @Test
-    public void createSwedishPoBoxAddressWithLocalMethodWithoutParameters() {
-        MailingAddress swedishPoBoxAddress = createSwedishPostOfficeBoxAddress();
-    }
-
     /**
-     * This method takes no method parameters, but it has a price: using this factory
-     * method breaks the connection between our test method and test data. That being said,
-     * this method works well if we only create about the fact that the created address
-     * is a "normal" Swedish address and we don't care about the property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Swedish address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Swedish address that has a street address. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Swedish address that has a street address and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         test class. This breaks the connection between our test method
+     *         and test data.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createNormalSwedishAddress() {
         return new MailingAddress(RECEIVER,
@@ -208,11 +314,35 @@ public class MailingAddressLocalTest {
         );
     }
 
+    @Test
+    public void createSwedishPoBoxAddressWithLocalMethodWithoutParameters() {
+        MailingAddress swedishPoBoxAddress = createSwedishPostOfficeBoxAddress();
+    }
+
     /**
-     * This method takes no method parameters, but it has a price: using this factory
-     * method breaks the connection between our test method and test data. That being said,
-     * this method works well if we only create about the fact that the created address
-     * is a Swedish PO box address and we don't care about the property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a Swedish address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a Swedish address that has a post office box. This works well if
+     *         we care only about the fact that the created object contains a
+     *         Swedish address that has a post office box and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         test class. This breaks the connection between our test method
+     *         and test data.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createSwedishPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,
@@ -234,6 +364,43 @@ public class MailingAddressLocalTest {
         );
     }
 
+    /**
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a US address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes five method parameters instead of seven constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has five method parameters of same type ({@code String} objects).
+     *         This is too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the way Finnish people construct addresses.
+     *     </li>
+     * </ul>
+     */
+    private MailingAddress createNormalUSAddress(String receiver,
+                                                 String streetAddress,
+                                                 String postCode,
+                                                 String city,
+                                                 String state) {
+        return new MailingAddress(receiver,
+                streetAddress,
+                null,
+                postCode,
+                city,
+                state,
+                COUNTRY_UNITED_STATES
+        );
+    }
+
     @Test
     public void createUSPoBoxAddressWithLocalMethodWithParameters() {
         MailingAddress usPoBoxAddress = createUSPostOfficeBoxAddress(RECEIVER,
@@ -245,31 +412,26 @@ public class MailingAddressLocalTest {
     }
 
     /**
-     * This method improves the situation because it is named properly and
-     * it takes five method parameters instead of seven constructor arguments.
-     * Although this is a somewhat impressive, I think that five method
-     * parameters is too much (especially when they are all {@code String} objects).
-     */
-    private MailingAddress createNormalUSAddress(String receiver,
-                                           String streetAddress,
-                                           String postCode,
-                                           String city,
-                                           String state) {
-        return new MailingAddress(receiver,
-                streetAddress,
-                null,
-                postCode,
-                city,
-                state,
-                COUNTRY_UNITED_STATES
-        );
-    }
-
-    /**
-     * This method improves the situation because it is named properly and
-     * it takes five method parameters instead of seven constructor arguments.
-     * Although this is a somewhat impressive, I think that five method
-     * parameters is too much (especially when they are all {@code String} objects).
+     * This factory method takes the information of the created address as method
+     * parameters and uses this information when it creates a US address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>It has a proper name.</li>
+     *     <li>It takes five method parameters instead of seven constructor arguments.</li>
+     * </ul>
+     * The cons of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has five method parameters of same type ({@code String} objects).
+     *         This is too much.
+     *     </li>
+     *     <li>
+     *         The order of method parameters is logical only to people who are
+     *         familiar with the way Finnish people construct addresses.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createUSPostOfficeBoxAddress(String receiver,
                                                         String postOfficeBox,
@@ -291,16 +453,30 @@ public class MailingAddressLocalTest {
         MailingAddress usAddress = createNormalUSAddress();
     }
 
-    @Test
-    public void createUSPoBoxAddressWithLocalMethodWithoutParameters() {
-        MailingAddress usPoBoxAddressAddress = createUSPostOfficeBoxAddress();
-    }
-
     /**
-     * This method takes no method parameters, but it has a price: using this factory
-     * method breaks the connection between our test method and test data. That being said,
-     * this method works well if we only create about the fact that the created address
-     * is a "normal" US address and we don't care about the property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a US address
+     * that has a street address.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a US address that has a street address. This works well if
+     *         we care only about the fact that the created object contains a
+     *         US address that has a street address and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         test class. This breaks the connection between our test method
+     *         and test data.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createNormalUSAddress() {
         return new MailingAddress(RECEIVER,
@@ -313,11 +489,35 @@ public class MailingAddressLocalTest {
         );
     }
 
+    @Test
+    public void createUSPoBoxAddressWithLocalMethodWithoutParameters() {
+        MailingAddress usPoBoxAddressAddress = createUSPostOfficeBoxAddress();
+    }
+
     /**
-     * This method takes no method parameters, but it has a price: using this factory
-     * method breaks the connection between our test method and test data. That being said,
-     * this method works well if we only create about the fact that the created address
-     * is a US PO box address and we don't care about the property values of other properties.
+     * This factory method has no method parameters. Instead, it will use the
+     * constants defined in our test class when it creates a US address
+     * that has a post office box.
+     *
+     * The pros of this factory method are:
+     * <ul>
+     *     <li>
+     *         It has a proper name that emphasizes the fact the created address
+     *         is a US address that has a post office box. This works well if
+     *         we care only about the fact that the created object contains a
+     *         US address that has a post office box and we aren't interested in
+     *         the field values of the created object.
+     *     </li>
+     * </ul>
+     * The cons of this method are:
+     * <ul>
+     *     <li>
+     *         Because it has no method parameters, it sets the field values
+     *         of the created object by using the constants declared by our
+     *         test class. This breaks the connection between our test method
+     *         and test data.
+     *     </li>
+     * </ul>
      */
     private MailingAddress createUSPostOfficeBoxAddress() {
         return new MailingAddress(RECEIVER,

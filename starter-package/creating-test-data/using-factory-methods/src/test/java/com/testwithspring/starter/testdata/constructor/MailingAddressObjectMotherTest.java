@@ -2,6 +2,14 @@ package com.testwithspring.starter.testdata.constructor;
 
 import org.junit.Test;
 
+/**
+ * This test class demonstrates how we can create new {@code MailingAddress} objects
+ * by using an object mother class. The goal of these examples is to demonstrate the
+ * differences and similarities of factory methods and constructors which use the
+ * telescoping constructor antipattern.
+ *
+ * @author Petri Kainulainen
+ */
 public class MailingAddressObjectMotherTest {
 
     private static final String CITY = "Test City";
