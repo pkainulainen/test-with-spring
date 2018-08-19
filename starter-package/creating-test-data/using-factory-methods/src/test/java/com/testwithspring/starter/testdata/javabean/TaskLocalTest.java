@@ -1,12 +1,16 @@
 package com.testwithspring.starter.testdata.javabean;
 
+import org.junit.Test;
+
 /**
- * This class demonstrates how we can create create the required
- * test data by adding our factory to an object mother class.
+ * This class demonstrates how we can create new {@code Task} objects
+ * by using local factory methods. The goal of these examples is to
+ * demonstrate the differences between factory methods and the JavaBeans
+ * style construction.
  *
  * @author Petri Kainulainen
  */
-public final class TaskFactory {
+public class TaskLocalTest {
 
     private static final Long ID = 1L;
     private static final Long ASSIGNEE_ID = 99L;
@@ -14,27 +18,26 @@ public final class TaskFactory {
     private static final Long CREATOR_ID = 44L;
     private static final Long MODIFIER_ID = 23L;
     private static final String TITLE = "Write an example project";
-    private static final String DESCRIPTION = "Write an example project that demonstrates why using the new keyword is a bad idea.";
+    private static final String DESCRIPTION = "Write an example project that demonstrates how we can use factory methods in our tests.";
 
-    /**
-     * Prevents instantiation.
-     */
-    private TaskFactory() {}
-
+    @Test
+    public void createOpenTaskWithoutAssigneeWithLocalMethodWithoutParameters() {
+        Task openTaskWithoutAssignee = createOpenTaskWithoutAssignee();
+    }
 
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our object mother class when it creates an open
-     * task that isn't assigned to anyone.
+     * constants defined in our test class when it creates an open task that
+     * isn't assigned to anyone.
      *
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created task is an
-     *         open task that has no assignee. This works well if we care only about
-     *         the fact that the created task is an open task that isn't assigned to
-     *         anyone and we aren't interested in the other field values of the
-     *         created object.
+     *         It has a proper name that emphasizes the fact this method creates
+     *         an open task that isn't assigned to anyone. This works well if
+     *         we care only about the fact that the created task is an open
+     *         task that isn't assigned to anyone, and we aren't interested in
+     *         the other field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -42,15 +45,12 @@ public final class TaskFactory {
      *     <li>
      *         Because it has no method parameters, it sets the field values
      *         of the created object by using the constants declared by our
-     *         object mother class. This breaks the connection between our test class
-     *         and test data. Also, this factory method forces us to move our
-     *         test data to the object mother class that shouldn't be aware of
-     *         it. That's why we shouldn't use this factory method if we care
-     *         about the field values of the created object.
+     *         test class. This breaks the connection between our test method
+     *         and test data.
      *     </li>
      * </ul>
      */
-    public static Task createOpenTaskWithoutAssignee() {
+    private Task createOpenTaskWithoutAssignee() {
         Task task = new Task();
         task.setId(ID);
         task.setAssignee(null);
@@ -62,6 +62,17 @@ public final class TaskFactory {
         task.setStatus(TaskStatus.OPEN);
         task.setResolution(null);
         return task;
+    }
+
+
+    @Test
+    public void createOpenTaskWithoutAssigneeWithLocalMethodWithParameters() {
+        Task openTaskWithoutAssignee = createOpenTaskWithoutAssignee(ID,
+                CREATOR_ID,
+                MODIFIER_ID,
+                TITLE,
+                DESCRIPTION
+        );
     }
 
     /**
@@ -85,17 +96,16 @@ public final class TaskFactory {
      *     </li>
      * </ul>
      */
-    public static Task createOpenTaskWithoutAssignee(Long taskId,
-                                                     Long creatorId,
-                                                     Long modifierId,
-                                                     String title,
-                                                     String description) {
+    private Task createOpenTaskWithoutAssignee(Long taskId,
+                                               Long creatorId,
+                                               Long modifierId,
+                                               String title,
+                                               String description) {
         Task task = new Task();
         task.setId(taskId);
         task.setAssignee(null);
         task.setCloser(null);
         task.setCreator(new Creator(creatorId));
-        task.setModifier(new Modifier(modifierId));
         task.setTitle(title);
         task.setDescription(description);
         task.setStatus(TaskStatus.OPEN);
@@ -103,19 +113,24 @@ public final class TaskFactory {
         return task;
     }
 
+    @Test
+    public void createOpenTaskWithAssigneeWithLocalMethodWithoutParameters() {
+        Task openTaskWithAssignee = createOpenTaskThatIsAssignedToAssignee();
+    }
+
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our object mother class when it creates an open
-     * task that is assigned to someone.
+     * constants defined in our test class when it creates an open task that
+     * is assigned to someone.
      *
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created task is an
-     *         open task that is assigned to someone. This works well if we care only about
-     *         the fact that the created task is an open task that is assigned to
-     *         someone and we aren't interested in the other field values of the
-     *         created object (this includes the assignee).
+     *         It has a proper name that emphasizes the fact this method creates
+     *         an open task that is assigne to someone. This works well if
+     *         we care only about the fact that the created task is an open
+     *         task that is assigned to someone, and we aren't interested in
+     *         the other field values of the created object (this includes the assignee).
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -123,27 +138,27 @@ public final class TaskFactory {
      *     <li>
      *         Because it has no method parameters, it sets the field values
      *         of the created object by using the constants declared by our
-     *         object mother class. This breaks the connection between our test class
-     *         and test data. Also, this factory method forces us to move our
-     *         test data to the object mother class that shouldn't be aware of
-     *         it. That's why we shouldn't use this factory method if we care
-     *         about the field values of the created object.
+     *         test class. This breaks the connection between our test method
+     *         and test data.
      *     </li>
      * </ul>
      */
-    public static Task createOpenTaskThatIsAssignedToAssignee() {
+    private Task createOpenTaskThatIsAssignedToAssignee() {
         Task task = new Task();
         task.setId(ID);
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(null);
         task.setCreator(new Creator(CREATOR_ID));
-        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
         task.setResolution(null);
-
         return task;
+    }
+
+    @Test
+    public void createOpenTaskWithAssigneeWithLocalMethod() {
+        Task openTaskWithAssignee = createOpenTaskThatIsAssignedTo(ASSIGNEE_ID);
     }
 
     /**
@@ -173,7 +188,7 @@ public final class TaskFactory {
      *     </li>
      * </ul>
      */
-    public static Task createOpenTaskThatIsAssignedTo(Long assigneeId) {
+    private Task createOpenTaskThatIsAssignedTo(Long assigneeId) {
         Task task = new Task();
         task.setId(ID);
         task.setAssignee(new Assignee(assigneeId));
@@ -184,6 +199,17 @@ public final class TaskFactory {
         task.setStatus(TaskStatus.OPEN);
         task.setResolution(null);
         return task;
+    }
+
+    @Test
+    public void createOpenTaskWithAssigneeWithLocalMethodWithParameters() {
+        Task openTaskWithAssignee = createOpenTaskThatIsAssignedToAssignee(ID,
+                ASSIGNEE_ID,
+                CREATOR_ID,
+                MODIFIER_ID,
+                TITLE,
+                DESCRIPTION
+        );
     }
 
     /**
@@ -206,12 +232,12 @@ public final class TaskFactory {
      *     </li>
      * </ul>
      */
-    public static Task createOpenTaskThatIsAssignedToAssignee(Long taskId,
-                                                              Long assigneeId,
-                                                              Long creatorId,
-                                                              Long modifierId,
-                                                              String title,
-                                                              String description) {
+    private Task createOpenTaskThatIsAssignedToAssignee(Long taskId,
+                                                        Long assigneeId,
+                                                        Long creatorId,
+                                                        Long modifierId,
+                                                        String title,
+                                                        String description) {
         Task task = new Task();
         task.setId(taskId);
         task.setAssignee(new Assignee(assigneeId));
@@ -225,18 +251,24 @@ public final class TaskFactory {
         return task;
     }
 
+    @Test
+    public void createTaskThatWasClosedAsDuplicateWithLocalMethodWithoutParameters() {
+        Task closedAsDuplicate = createTaskThatWasClosedAsDuplicate();
+    }
+
     /**
      * This factory method has no method parameters. Instead, it will use the
-     * constants defined in our object mother class when it creates a closed
-     * task that was closed as a duplicate.
+     * constants defined in our test class when it creates a task that was closed
+     * as a duplicate.
      *
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created task is a
-     *         task that was closed as a duplicate. This works well if we care only about
-     *         the fact that the created task is was closed as a duplicate and we aren't
-     *         interested in the other field values of the created object.
+     *         It has a proper name that emphasizes the fact this method creates
+     *         a task that was closed as a duplicate. This works well if
+     *         we care only about the fact that the created task was closed
+     *         as a duplicate , and we aren't interested in the other field values
+     *         of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -244,26 +276,34 @@ public final class TaskFactory {
      *     <li>
      *         Because it has no method parameters, it sets the field values
      *         of the created object by using the constants declared by our
-     *         object mother class. This breaks the connection between our test class
-     *         and test data. Also, this factory method forces us to move our
-     *         test data to the object mother class that shouldn't be aware of
-     *         it. That's why we shouldn't use this factory method if we care
-     *         about the field values of the created object.
+     *         test class. This breaks the connection between our test method
+     *         and test data.
      *     </li>
      * </ul>
      */
-    public static Task createTaskThatWasClosedAsDuplicate() {
+    private Task createTaskThatWasClosedAsDuplicate() {
         Task task = new Task();
         task.setId(ID);
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(new Closer(CLOSER_ID));
         task.setCreator(new Creator(CREATOR_ID));
-        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.CLOSED);
         task.setResolution(TaskResolution.DUPLICATE);
         return task;
+    }
+
+    @Test
+    public void createTaskThatWasClosedAsDuplicateWithLocalMethodWithParameters() {
+        Task closedAsDuplicate = createTaskThatWasClosedAsDuplicate(ID,
+                ASSIGNEE_ID,
+                CREATOR_ID,
+                CLOSER_ID,
+                MODIFIER_ID,
+                TITLE,
+                DESCRIPTION
+        );
     }
 
     /**
@@ -286,24 +326,28 @@ public final class TaskFactory {
      *     </li>
      * </ul>
      */
-    public static Task createTaskThatWasClosedAsDuplicate(Long taskId,
-                                                          Long assigneeId,
-                                                          Long creatorId,
-                                                          Long closerId,
-                                                          Long modifierId,
-                                                          String title,
-                                                          String description) {
+    private Task createTaskThatWasClosedAsDuplicate(Long taskId,
+                                                    Long assigneeId,
+                                                    Long creatorId,
+                                                    Long closerId,
+                                                    Long modifierId,
+                                                    String title,
+                                                    String description) {
         Task task = new Task();
         task.setId(taskId);
         task.setAssignee(new Assignee(assigneeId));
         task.setCloser(new Closer(closerId));
         task.setCreator(new Creator(creatorId));
-        task.setModifier(new Modifier(modifierId));
         task.setTitle(title);
         task.setDescription(description);
         task.setStatus(TaskStatus.CLOSED);
         task.setResolution(TaskResolution.DUPLICATE);
         return task;
+    }
+
+    @Test
+    public void createClosedTaskWithCloserAndResolution() {
+        Task closedAsDuplicate = createClosedTask(CLOSER_ID, TaskResolution.DONE);
     }
 
     /**
@@ -334,7 +378,7 @@ public final class TaskFactory {
      *     </li>
      * </ul>
      */
-    public static Task createClosedTask(Long closerId, TaskResolution resolution) {
+    private Task createClosedTask(Long closerId, TaskResolution resolution) {
         Task task = new Task();
         task.setId(ID);
         task.setAssignee(new Assignee(ASSIGNEE_ID));
