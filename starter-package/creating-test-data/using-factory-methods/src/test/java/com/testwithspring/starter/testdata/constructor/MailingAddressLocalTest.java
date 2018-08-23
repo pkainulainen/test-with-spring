@@ -39,6 +39,7 @@ public class MailingAddressLocalTest {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It takes four method parameters instead of five constructor arguments.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      * The cons of this factory method are:
      * <ul>
@@ -82,6 +83,7 @@ public class MailingAddressLocalTest {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It takes four method parameters instead of five constructor arguments.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      * The cons of this factory method are:
      * <ul>
@@ -204,6 +206,7 @@ public class MailingAddressLocalTest {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It takes four method parameters instead of six constructor arguments.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      * The cons of this factory method are:
      * <ul>
@@ -248,6 +251,7 @@ public class MailingAddressLocalTest {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It takes four method parameters instead of six constructor arguments.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      * The cons of this factory method are:
      * <ul>
@@ -373,6 +377,7 @@ public class MailingAddressLocalTest {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It takes five method parameters instead of seven constructor arguments.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      * The cons of this factory method are:
      * <ul>

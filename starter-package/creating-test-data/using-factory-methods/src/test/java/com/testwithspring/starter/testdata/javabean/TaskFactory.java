@@ -74,6 +74,7 @@ public final class TaskFactory {
      *     <li>It has a proper name.</li>
      *     <li>It hides the fact that assignee must be null.</li>
      *     <li>It hides the logic that sets the state and resolution of an open task.</li>
+     *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
      *
      * The cons of this factory method is:
@@ -195,6 +196,7 @@ public final class TaskFactory {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It hides the logic that sets the state and resolution of an open task.</li>
+     *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
      *
      * The cons of this factory method is:
@@ -275,6 +277,7 @@ public final class TaskFactory {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It hides the logic that sets the state and resolution of the created task.</li>
+     *     <li>It preserves the connection between our test class and test data.</li>    
      * </ul>
      *
      * The cons of this factory method is:

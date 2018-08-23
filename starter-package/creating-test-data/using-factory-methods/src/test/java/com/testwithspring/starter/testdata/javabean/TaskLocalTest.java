@@ -85,6 +85,7 @@ public class TaskLocalTest {
      *     <li>It has a proper name.</li>
      *     <li>It hides the fact that assignee must be null.</li>
      *     <li>It hides the logic that sets the state and resolution of an open task.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      *
      * The cons of this factory method is:
@@ -169,7 +170,7 @@ public class TaskLocalTest {
      * <ul>
      *     <li>
      *         It has a proper name that emphasizes the fact this method creates
-     *         an open task that is assigne to the given person. This works well if
+     *         an open task that is assigned to the given person. This works well if
      *         we care only about the fact that the created task is an open
      *         task that is assigned to the given person, and we aren't interested in
      *         the other field values of the created object.
@@ -221,6 +222,7 @@ public class TaskLocalTest {
      * <ul>
      *     <li>It has a proper name.</li>
      *     <li>It hides the logic that sets the state and resolution of an open task.</li>
+     *     <li>It preserves the connection between our test method and test data.</li>
      * </ul>
      *
      * The cons of this factory method is:
