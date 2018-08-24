@@ -276,7 +276,7 @@ public final class TaskFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>It has a proper name.</li>
-     *     <li>It hides the logic that sets the state and resolution of the created task.</li>
+     *     <li>It hides the logic that sets the status and resolution of the created task.</li>
      *     <li>It preserves the connection between our test class and test data.</li>    
      * </ul>
      *
