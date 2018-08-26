@@ -30,7 +30,7 @@ public final class MailingAddressFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It takes four method parameters instead of five constructor arguments.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -65,7 +65,7 @@ public final class MailingAddressFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It takes four method parameters instead of five constructor arguments.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -101,11 +101,11 @@ public final class MailingAddressFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created address
+     *         It has a good name that emphasizes the fact that the created address
      *         is a Finnish address that has a street address. This works well if
      *         we care only about the fact that the created object contains a
      *         Finnish address that has a street address and we aren't interested in
-     *         the other field values of the created object.
+     *         the actual field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -138,11 +138,11 @@ public final class MailingAddressFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created address
+     *         It has a good name that emphasizes the fact that the created address
      *         is a Finnish address that has a post office box. This works well if
      *         we care only about the fact that the created object contains a
      *         Finnish address that has a post office box and we aren't interested in
-     *         the other field values of the created object.
+     *         the actual field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -174,7 +174,7 @@ public final class MailingAddressFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It takes four method parameters instead of six constructor arguments.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -210,7 +210,7 @@ public final class MailingAddressFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It takes four method parameters instead of six constructor arguments.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -248,11 +248,11 @@ public final class MailingAddressFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created address
+     *         It has a good name that emphasizes the fact that the created address
      *         is a Swedish address that has a street address. This works well if
      *         we care only about the fact that the created object contains a
      *         Swedish address that has a street address and we aren't interested in
-     *         the other field values of the created object.
+     *         the actual field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -286,11 +286,11 @@ public final class MailingAddressFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created address
+     *         It has a good name that emphasizes the fact that the created address
      *         is a Swedish address that has a post office box. This works well if
      *         we care only about the fact that the created object contains a
      *         Swedish address that has a post office box and we aren't interested in
-     *         the other field values of the created object.
+     *         the actual field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -323,7 +323,7 @@ public final class MailingAddressFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It takes five method parameters instead of seven constructor arguments.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -361,7 +361,7 @@ public final class MailingAddressFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It takes five method parameters instead of seven constructor arguments.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -400,11 +400,11 @@ public final class MailingAddressFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created address
+     *         It has a good name that emphasizes the fact that the created address
      *         is a US address that has a street address. This works well if
      *         we care only about the fact that the created object contains a
      *         US address that has a street address and we aren't interested in
-     *         the other field values of the created object.
+     *         the actual field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
@@ -438,11 +438,11 @@ public final class MailingAddressFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created address
+     *         It has a good name that emphasizes the fact that the created address
      *         is a US address that has a post office box. This works well if
      *         we care only about the fact that the created object contains a
      *         US address that has a post office box and we aren't interested in
-     *         the other field values of the created object.
+     *         the actual field values of the created object.
      *     </li>
      * </ul>
      * The cons of this method are:
