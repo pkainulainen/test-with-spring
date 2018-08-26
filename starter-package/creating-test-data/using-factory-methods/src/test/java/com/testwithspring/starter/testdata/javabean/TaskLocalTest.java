@@ -107,6 +107,7 @@ public class TaskLocalTest {
         task.setAssignee(null);
         task.setCloser(null);
         task.setCreator(new Creator(creatorId));
+        task.setModifier(new Modifier(modifierId));
         task.setTitle(title);
         task.setDescription(description);
         task.setStatus(TaskStatus.OPEN);
@@ -150,6 +151,7 @@ public class TaskLocalTest {
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(null);
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
@@ -195,6 +197,7 @@ public class TaskLocalTest {
         task.setAssignee(new Assignee(assigneeId));
         task.setCloser(null);
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
@@ -289,6 +292,7 @@ public class TaskLocalTest {
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(new Closer(CLOSER_ID));
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.CLOSED);
@@ -341,6 +345,7 @@ public class TaskLocalTest {
         task.setAssignee(new Assignee(assigneeId));
         task.setCloser(new Closer(closerId));
         task.setCreator(new Creator(creatorId));
+        task.setModifier(new Modifier(modifierId));
         task.setTitle(title);
         task.setDescription(description);
         task.setStatus(TaskStatus.CLOSED);
@@ -387,6 +392,7 @@ public class TaskLocalTest {
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(new Closer(closerId));
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);

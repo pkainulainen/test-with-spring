@@ -180,6 +180,7 @@ public final class TaskFactory {
         task.setAssignee(new Assignee(assigneeId));
         task.setCloser(null);
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
@@ -343,6 +344,7 @@ public final class TaskFactory {
         task.setAssignee(new Assignee(ASSIGNEE_ID));
         task.setCloser(new Closer(closerId));
         task.setCreator(new Creator(CREATOR_ID));
+        task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
         task.setStatus(TaskStatus.OPEN);
