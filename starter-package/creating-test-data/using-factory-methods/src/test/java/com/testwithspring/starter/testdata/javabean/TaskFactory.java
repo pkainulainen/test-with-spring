@@ -30,7 +30,7 @@ public final class TaskFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created task is an
+     *         It has a good name that emphasizes the fact that the created task is an
      *         open task that has no assignee. This works well if we care only about
      *         the fact that the created task is an open task that isn't assigned to
      *         anyone and we aren't interested in the other field values of the
@@ -71,7 +71,7 @@ public final class TaskFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It hides the fact that assignee must be null.</li>
      *     <li>It hides the logic that sets the state and resolution of an open task.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
@@ -112,7 +112,7 @@ public final class TaskFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created task is an
+     *         It has a good name that emphasizes the fact that the created task is an
      *         open task that is assigned to someone. This works well if we care only about
      *         the fact that the created task is an open task that is assigned to
      *         someone and we aren't interested in the other field values of the
@@ -154,7 +154,7 @@ public final class TaskFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact this method creates
+     *         It has a good name that emphasizes the fact that this method creates
      *         an open task that is assigne to the given person. This works well if
      *         we care only about the fact that the created task is an open
      *         task that is assigned to the given person, and we aren't interested in
@@ -195,7 +195,7 @@ public final class TaskFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It hides the logic that sets the state and resolution of an open task.</li>
      *     <li>It preserves the connection between our test class and test data.</li>
      * </ul>
@@ -236,7 +236,7 @@ public final class TaskFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact the created task is a
+     *         It has a good name that emphasizes the fact that the created task is a
      *         task that was closed as a duplicate. This works well if we care only about
      *         the fact that the created task is was closed as a duplicate and we aren't
      *         interested in the other field values of the created object.
@@ -276,7 +276,7 @@ public final class TaskFactory {
      *
      * The pros of this factory method are:
      * <ul>
-     *     <li>It has a proper name.</li>
+     *     <li>It has a good name.</li>
      *     <li>It hides the logic that sets the status and resolution of the created task.</li>
      *     <li>It preserves the connection between our test class and test data.</li>    
      * </ul>
@@ -317,7 +317,7 @@ public final class TaskFactory {
      * The pros of this factory method are:
      * <ul>
      *     <li>
-     *         It has a proper name that emphasizes the fact this method creates
+     *         It has a good name that emphasizes the fact this method creates
      *         a closed task.
      *     </li>
      *     <li>
