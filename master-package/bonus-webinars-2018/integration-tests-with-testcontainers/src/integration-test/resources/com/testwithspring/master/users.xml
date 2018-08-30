@@ -1,0 +1,20 @@
+<dataset>
+    <user_accounts id="1"
+                   creation_time="2017-02-11 11:41:28"
+                   email_address="john.doe@gmail.com"
+                   is_enabled="true"
+                   modification_time="2017-02-11 11:41:28"
+                   name="John Doe"
+                   password="user"
+                   role="ROLE_USER"
+                   version="0"/>
+    <user_accounts id="2"
+                   creation_time="2017-02-11 11:41:28"
+                   email_address="anne.admin@gmail.com"
+                   is_enabled="true"
+                   modification_time="2017-02-11 11:41:28"
+                   name="Anne Admin"
+                   password="admin"
+                   role="ROLE_ADMIN"
+                   version="0"/>
+</dataset>
