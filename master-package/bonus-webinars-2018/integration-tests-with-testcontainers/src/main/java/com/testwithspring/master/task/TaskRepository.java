@@ -8,6 +8,8 @@ interface TaskRepository extends Repository<Task, Long>, CustomTaskRepository {
 
     void delete(Task deleted);
 
+    void flush();
+
     Optional<Task> findById(Long id);
 
     Task save(Task task);

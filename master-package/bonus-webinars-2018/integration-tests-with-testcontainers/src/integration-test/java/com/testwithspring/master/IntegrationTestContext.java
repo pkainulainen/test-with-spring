@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import javax.sql.DataSource;
 
 @Configuration
-@Import({ExampleApplication.class})
+@Import({TaskTrackerApplication.class})
 public class IntegrationTestContext {
 
     @Bean
