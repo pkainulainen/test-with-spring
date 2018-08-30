@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "/com/testwithspring/master/no-tasks-and-tags.xml"
 })
 @DisplayName("Find all tasks from the database when no tasks is found")
-class FindAllTasksWhenNoTasksIsFoundJpaTest {
+class FindAllTasksWhenNoTasksIsFoundTest {
 
     @Autowired
     private TaskRepository repository;

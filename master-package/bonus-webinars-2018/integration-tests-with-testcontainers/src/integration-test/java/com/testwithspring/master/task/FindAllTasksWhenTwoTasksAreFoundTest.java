@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "/com/testwithspring/master/tasks.xml"
 })
 @DisplayName("Find all tasks from the database when two tasks are found")
-class FindAllTasksWhenTwoTasksAreFoundJpaTest {
+class FindAllTasksWhenTwoTasksAreFoundTest {
 
     @Autowired
     private TaskRepository repository;
