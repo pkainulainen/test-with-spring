@@ -1,4 +1,4 @@
-# Writing Integration Tests With JUnit 5 and Test Containers
+# Writing Integration Tests With JUnit 5 and TestContainers
 
 This example demonstrates how you can write integration tests for a Spring Boot web application 
 with JUnit 5 and TestContainers. To be more specific, you will learn to write
