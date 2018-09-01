@@ -2,6 +2,7 @@ package com.testwithspring.master.user;
 
 import org.springframework.data.repository.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 interface UserRepository extends Repository<User, Long>, CustomUserRepository {
@@ -13,4 +14,6 @@ interface UserRepository extends Repository<User, Long>, CustomUserRepository {
      *          is found, this method returns an empty {@code Optional} object.
      */
     Optional<User> findByEmailAddress(String emailAddress);
+
+    List<User> findAll();
 }

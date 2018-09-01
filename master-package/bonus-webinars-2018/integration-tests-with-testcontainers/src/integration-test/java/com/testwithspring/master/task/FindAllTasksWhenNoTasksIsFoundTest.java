@@ -14,11 +14,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @IntegrationTest(classes = IntegrationTestContext.class)
-@DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @DatabaseSetup({
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/no-tasks-and-tags.xml"
 })
+@DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader.class)
 @DisplayName("Find all tasks from the database when no tasks is found")
 class FindAllTasksWhenNoTasksIsFoundTest {
 
