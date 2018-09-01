@@ -3,7 +3,7 @@ package com.testwithspring.master.task;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.dataset.ReplacementDataSetLoader;
-import com.testwithspring.master.IntegrationTest;
+import com.testwithspring.master.RepositoryIntegrationTest;
 import com.testwithspring.master.IntegrationTestContext;
 import com.testwithspring.master.Tasks;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@IntegrationTest(classes = IntegrationTestContext.class)
+@RepositoryIntegrationTest(classes = IntegrationTestContext.class)
 @DatabaseSetup({
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/tasks.xml"

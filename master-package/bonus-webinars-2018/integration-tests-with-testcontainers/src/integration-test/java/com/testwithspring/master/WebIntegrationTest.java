@@ -13,6 +13,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.lang.annotation.*;
 
+/**
+ * This annotation helps us to reduce duplicate configuration when we are
+ * writing integration tests for Spring MVC controllers. When we want to write integration
+ * tests for a Sprng MVC controller, we have to annotate our integration class with this annotation.
+ * Also, if we have to configure the used DbUnit data sets by annotating our
+ * test class with the {@link com.github.springtestdbunit.annotation.DatabaseSetup} annotation.
+ * If we want to provide extra configuration for DbUnit, we have to annotate our
+ * test class with the {@link com.github.springtestdbunit.annotation.DbUnitConfiguration} annotation.
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
