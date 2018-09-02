@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebIntegrationTest(classes = IntegrationTestContext.class)
-@AutoConfigureMockMvc
 @DatabaseSetup({
         "/com/testwithspring/master/users.xml",
         "/com/testwithspring/master/tasks.xml"
