@@ -10,6 +10,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.mockito.Mockito.when;
 
+/**
+ * This base class configures the system under test.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TaskRestServiceApplication.class)
 public abstract class BaseClass {
@@ -20,6 +23,10 @@ public abstract class BaseClass {
     @MockBean
     private TaskService service;
 
+    /**
+     * This setup method ensures that our REST API fulfills
+     * our contract.
+     */
     @Before
     public void setup() {
         RestAssuredMockMvc.standaloneSetup(controller);
