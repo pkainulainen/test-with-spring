@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
  * This base class configures the system under test.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = TaskRestServiceApplication.class)
+@SpringBootTest(classes = TaskServiceApplication.class)
 public abstract class BaseClass {
 
     @Autowired
