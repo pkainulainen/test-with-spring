@@ -8,20 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 /**
  * This base class configures the system under test.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = TaskServiceApplication.class)
 public abstract class BaseClass {
-
-    @Autowired
-    private TaskController controller;
-
-    @MockBean
-    private TaskService service;
 
     /**
      * This setup method ensures that our REST API fulfills
@@ -29,7 +22,9 @@ public abstract class BaseClass {
      */
     @Before
     public void setup() {
-        RestAssuredMockMvc.standaloneSetup(controller);
-        when(service.findById(1L)).thenReturn(new Task(1L, "Write our first contract"));
+        TaskService service = mock(TaskService.class);
+
+        RestAssuredMockMvc.standaloneSetup(new TaskController(service));
+        given(service.findById(1L)).willReturn(new Task(1L, "Write our first contract"));
     }
 }
