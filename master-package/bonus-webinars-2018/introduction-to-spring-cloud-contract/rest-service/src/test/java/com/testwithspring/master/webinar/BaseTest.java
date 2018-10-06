@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 /**
  * This base class configures the system under test.
  */
-public abstract class BaseClass {
+public abstract class BaseTest {
 
     /**
      * This setup method ensures that our REST API fulfills

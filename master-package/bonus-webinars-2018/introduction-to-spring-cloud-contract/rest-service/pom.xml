@@ -70,7 +70,7 @@
 				<version>${spring-cloud-contract.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<baseClassForTests>com.testwithspring.master.webinar.BaseClass</baseClassForTests>
+					<baseClassForTests>com.testwithspring.master.webinar.BaseTest</baseClassForTests>
 				</configuration>
 			</plugin>
 		</plugins>
