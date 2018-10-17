@@ -355,7 +355,7 @@ public class TaskLocalTest {
 
     @Test
     public void createClosedTaskWithCloserAndResolution() {
-        Task closedAsDuplicate = createClosedTask(CLOSER_ID, TaskResolution.DONE);
+        Task closedAsDuplicate = createClosedTask(CLOSER_ID, TaskResolution.DUPLICATE);
     }
 
     /**
@@ -395,7 +395,7 @@ public class TaskLocalTest {
         task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
-        task.setStatus(TaskStatus.OPEN);
+        task.setStatus(TaskStatus.CLOSED);
         task.setResolution(resolution);
         return task;
     }

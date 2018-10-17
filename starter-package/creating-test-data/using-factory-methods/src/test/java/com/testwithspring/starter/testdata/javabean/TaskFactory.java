@@ -347,7 +347,7 @@ public final class TaskFactory {
         task.setModifier(new Modifier(MODIFIER_ID));
         task.setTitle(TITLE);
         task.setDescription(DESCRIPTION);
-        task.setStatus(TaskStatus.OPEN);
+        task.setStatus(TaskStatus.CLOSED);
         task.setResolution(resolution);
         return task;
     }
