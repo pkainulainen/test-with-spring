@@ -14,7 +14,7 @@
 	<packaging>jar</packaging>
 
 	<!--
-		Configure the Spring Milestone repositories for dependencies and plugins.
+		Configure the Spring Milestone repositories for dependencies.
 		 We have to do this because the stable version of Spring Cloud Contract
 		 doesn't support JUnit 5.
 	-->
@@ -25,14 +25,6 @@
 			<url>http://repo.spring.io/milestone</url>
 		</repository>
 	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>repository.spring.milestone</id>
-			<name>Spring Milestone Repository</name>
-			<url>http://repo.spring.io/milestone</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<dependencyManagement>
 		<dependencies>
