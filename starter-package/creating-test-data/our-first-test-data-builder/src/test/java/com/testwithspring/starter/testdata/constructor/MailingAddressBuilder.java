@@ -1,8 +1,8 @@
 package com.testwithspring.starter.testdata.constructor;
 
 /**
- * This class demonstrates how we can create a simple test data builder that is
- * used for creating new {@code MailingAddress} objects.
+ * This class demonstrates how we can create a simple test data builder
+ * that can be used for creating new {@code MailingAddress} objects.
  *
  * @author Petri Kainulainen
  */

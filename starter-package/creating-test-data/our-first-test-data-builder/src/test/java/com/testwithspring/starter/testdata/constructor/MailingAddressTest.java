@@ -3,10 +3,11 @@ package com.testwithspring.starter.testdata.constructor;
 import org.junit.Test;
 
 /**
- * This test class demonstrates how we can create new {@code MailingAddress} objects by using a
- * test data builder.
- *
- * <strong>Note:</strong> The test method names found from this class suck. Do not use similar names in your tests.
+ * This test class demonstrates how we can create new {@code MailingAddress}
+ * objects by using a test data builder. The goal of this lesson is prove
+ * that a test data builder can help us to write clean tests when our
+ * test code requires objects which are created by using the telescoping
+ * constructor antipattern.
  *
  * @author Petri Kainulainen
  */
