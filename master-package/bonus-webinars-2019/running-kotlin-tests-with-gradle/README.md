@@ -10,6 +10,9 @@ The requirements of our example are:
 * It must be possible to run only unit or integration tests.
 * It must be possible to run both unit and integration tests.
 
+**Note:** This example isn't compatible with Gradle 6.0. I am currently debugging this 
+problem.
+
 ## Running Unit Tests
 
 We can run our unit tests by using the Maven Surefire plugin. When we want to run
