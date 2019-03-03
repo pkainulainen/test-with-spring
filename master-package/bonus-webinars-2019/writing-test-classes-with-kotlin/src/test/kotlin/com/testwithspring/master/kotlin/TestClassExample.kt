@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Nested
 
 @Tag("unitTest")
-@DisplayName("Demonstrates how we can write test class with Kotlin and JUnit 5")
+@DisplayName("Demonstrates how we can write test classes with Kotlin and JUnit 5")
 class TestClassExample {
 
     companion object {
@@ -19,44 +19,44 @@ class TestClassExample {
         @BeforeAll
         @JvmStatic
         fun beforeAll() {
-            println("Before all test methods")
+            println("Before all test functions")
         }
 
         @AfterAll
         @JvmStatic
         fun afterAll() {
-            println("After all test methods")
+            println("After all test functions")
         }
     }
 
     @BeforeEach
     fun beforeEach() {
-        println("Before each test method")
+        println("Before each test function")
     }
 
     @AfterEach
     fun afterEach() {
-        println("After each test method")
+        println("After each test function")
     }
 
     @Nested
-    @DisplayName("Tests for the method A")
+    @DisplayName("Tests for the function A")
     inner class A {
 
         @BeforeEach
         fun beforeEach() {
-            println("Before each test method of the A class")
+            println("Before each test function of the A class")
         }
 
         @AfterEach
         fun afterEach() {
-            println("After each test method of the A class")
+            println("After each test function of the A class")
         }
 
         @Test
-        @DisplayName("Example test for method A")
-        fun sampleTestForMethodA() {
-            println("Example test for method A")
+        @DisplayName("Example test for function A")
+        fun testForFunctionA() {
+            println("Example test for function A")
         }
 
         @Nested
@@ -65,18 +65,18 @@ class TestClassExample {
 
             @BeforeEach
             fun beforeEach() {
-                println("Before each test method of the WhenX class")
+                println("Before each test function of the WhenX class")
             }
 
             @AfterEach
             fun afterEach() {
-                println("After each test method of the WhenX class")
+                println("After each test function of the WhenX class")
             }
 
             @Test
-            @DisplayName("Example test for method A when X is true")
-            fun sampleTestForMethodAWhenX() {
-                println("Example test for method A when X is true")
+            @DisplayName("Example test for function A when X is true")
+            fun testForFunctionAWhenX() {
+                println("Example test for function A when X is true")
             }
         }
     }
