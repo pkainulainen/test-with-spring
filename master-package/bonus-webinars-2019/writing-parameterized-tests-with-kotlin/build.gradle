@@ -9,7 +9,7 @@ repositories {
 
 dependencies {
     implementation('org.jetbrains.kotlin:kotlin-stdlib:1.3.21')
-    testCompile(
+    testImplementation(
             'org.assertj:assertj-core:3.11.1',
             'org.junit.jupiter:junit-jupiter-api:5.4.2',
             'org.junit.jupiter:junit-jupiter-params:5.4.2'
