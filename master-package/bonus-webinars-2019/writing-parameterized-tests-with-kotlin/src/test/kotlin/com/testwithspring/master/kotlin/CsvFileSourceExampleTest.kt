@@ -1,12 +1,11 @@
 package com.testwithspring.master.kotlin
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvFileSource
 import org.junit.jupiter.params.provider.CsvSource
-
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Tag
 
 @Tag("unitTest")
 @DisplayName("@CsvFileSource example")
@@ -16,6 +15,6 @@ internal class CsvFileSourceExampleTest {
     @ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
     @CsvFileSource(resources = ["/test-data.csv"])
     fun sum(a: Int, b: Int, sum: Int) {
-        assertEquals(sum, a + b)
+        assertThat(a + b).isEqualByComparingTo(sum)
     }
 }
