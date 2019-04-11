@@ -25,7 +25,7 @@ class MethodSourceExampleTest {
         }
     }
 
-    @DisplayName("Should pass the method parameters provided by the sumProvider() method")
+    @DisplayName("Should pass the function parameters provided by the sumProvider() function")
     @ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
     @MethodSource("sumProvider")
     fun sum(a: Int, b: Int, sum: Int) {

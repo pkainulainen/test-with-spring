@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Tag
 @DisplayName("@CsvSource example")
 internal class CsvSourceExampleTest {
 
-    @DisplayName("Should pass the method parameters provided by the @CsvSource annotation")
+    @DisplayName("Should pass the function parameters provided by the @CsvSource annotation")
     @ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
     @CsvSource("1, 1, 2", "2, 3, 5")
     fun sum(a: Int, b: Int, sum: Int) {

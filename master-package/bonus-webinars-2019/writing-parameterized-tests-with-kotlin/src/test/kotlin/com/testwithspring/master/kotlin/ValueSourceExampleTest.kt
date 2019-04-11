@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Tag
 @DisplayName("@ValueSource example")
 class ValueSourceExampleTest {
 
-    @DisplayName("Should pass the method parameters provided by the @ValueSource annotation")
+    @DisplayName("Should pass the function parameters provided by the @ValueSource annotation")
     @ParameterizedTest(name = "{index} => message=''{0}''")
     @ValueSource(strings = ["Hello", "World"])
-    fun shouldPassNotNullMessageAsMethodParameter(message: String) {
+    fun shouldPassNotNullMessageAsFunctionParameter(message: String) {
         assertNotNull(message)
     }
 }

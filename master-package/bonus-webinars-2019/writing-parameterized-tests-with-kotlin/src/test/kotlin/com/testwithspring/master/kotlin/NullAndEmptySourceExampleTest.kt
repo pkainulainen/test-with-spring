@@ -10,32 +10,32 @@ import org.junit.jupiter.params.provider.*
 @DisplayName("@NullSource and @EmptySource example")
 class NullAndEmptySourceExampleTest {
 
-    @DisplayName("Should pass single null value as a method parameter")
+    @DisplayName("Should pass a single null value as a function parameter")
     @ParameterizedTest(name = "{index} => text={0}")
     @NullSource
-    fun shouldPassSingleNullValueAsMethodParameter(text: String?) {
+    fun shouldPassSingleNullValueAsFunctionParameter(text: String?) {
         assertThat(text).isNull()
     }
 
-    @DisplayName("Should pass single empty string as a method parameter")
+    @DisplayName("Should pass a single empty string as a function parameter")
     @ParameterizedTest(name = "{index} => text={0}")
     @EmptySource
-    fun shouldPassSingleEmptyStringAsMethodParameter(text: String) {
+    fun shouldPassSingleEmptyStringAsFunctionParameter(text: String) {
         assertThat(text).isEmpty()
     }
 
-    @DisplayName("Should pass single null value and single empty string as method parameters")
+    @DisplayName("Should pass single null value and single empty string as function parameters")
     @ParameterizedTest(name = "{index} => text={0}")
     @NullAndEmptySource
-    fun shouldPassSingleNullValueAndSingleEmptyStringAsMethodParameters(text: String?) {
+    fun shouldPassSingleNullValueAndSingleEmptyStringAsFunctionParameters(text: String?) {
         assertThat(text).isNullOrEmpty()
     }
 
-    @DisplayName("Should pass single null value, single empty string, and white space strings as method parameters")
+    @DisplayName("Should pass single null value, single empty string, and white space strings as function parameters")
     @ParameterizedTest(name = "{index} => text={0}")
     @NullAndEmptySource
     @ValueSource(strings = ["", " ", "\t", "\n"])
-    fun shouldPassSingleNullValueSingleEmptyStringAndWhiteSpaceStringsAsMethodParameters(text: String?) {
+    fun shouldPassSingleNullValueSingleEmptyStringAndWhiteSpaceStringsAsFunctionParameters(text: String?) {
         assertThat(text?.trim()).isNullOrEmpty()
     }
 }

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Tag
 @DisplayName("@CsvFileSource example")
 internal class CsvFileSourceExampleTest {
 
-    @DisplayName("Should pass the method parameters provided by the test-data.csv file")
+    @DisplayName("Should pass the function parameters provided by the test-data.csv file")
     @ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
     @CsvFileSource(resources = ["/test-data.csv"])
     fun sum(a: Int, b: Int, sum: Int) {

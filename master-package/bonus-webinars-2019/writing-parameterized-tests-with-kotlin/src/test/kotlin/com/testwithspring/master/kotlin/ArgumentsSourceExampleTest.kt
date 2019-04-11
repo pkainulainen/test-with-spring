@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Tag
 @DisplayName("@ArgumentsSource example")
 class ArgumentsSourceExampleTest {
 
-    @DisplayName("Should pass the method parameters provided by the CustomArgumentProvider class")
+    @DisplayName("Should pass the function parameters provided by the CustomArgumentProvider class")
     @ParameterizedTest(name = "{index} => a={0}, b={1}, sum={2}")
     @ArgumentsSource(CustomArgumentProvider::class)
     fun sum(a: Int, b: Int, sum: Int) {

@@ -11,17 +11,17 @@ import org.junit.jupiter.api.Tag
 @DisplayName("@EnumSource example")
 class EnumSourceExampleTest {
 
-    @DisplayName("Should pass all enum values as method parameters")
+    @DisplayName("Should pass all enum values as function parameters")
     @ParameterizedTest(name = "{index} => pet=''{0}''")
     @EnumSource(Pet::class)
-    fun shouldPassNotNullEnumValuesAsMethodParameter(pet: Pet) {
+    fun shouldPassNotNullEnumValuesAsFunctionParameter(pet: Pet) {
         assertNotNull(pet)
     }
 
-    @DisplayName("Should pass only the specified enum value as a method parameter")
+    @DisplayName("Should pass only the specified enum value as a function parameter")
     @ParameterizedTest(name = "{index} => pet=''{0}''")
     @EnumSource(value = Pet::class, names = ["CAT"])
-    fun shouldPassNotNullEnumValueAsMethodParameter(pet: Pet) {
+    fun shouldPassNotNullEnumValueAsFunctionParameter(pet: Pet) {
         assertNotNull(pet)
     }
 }
