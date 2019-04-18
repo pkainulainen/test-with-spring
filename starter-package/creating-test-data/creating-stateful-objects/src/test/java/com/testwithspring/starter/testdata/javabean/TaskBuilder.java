@@ -6,6 +6,7 @@ public final class TaskBuilder {
     private Closer closer;
     private Creator creator;
     private String description;
+    private Modifier modifier;
     private Long id;
     private TaskResolution resolution;
     private TaskStatus status;
@@ -27,6 +28,11 @@ public final class TaskBuilder {
 
     public TaskBuilder withDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public TaskBuilder withModifier(Long modifierId) {
+        this.modifier = new Modifier(modifierId);
         return this;
     }
 
@@ -78,6 +84,7 @@ public final class TaskBuilder {
         task.setCloser(closer);
         task.setCreator(creator);
         task.setDescription(description);
+        task.setModifier(modifier);
         task.setId(id);
         task.setResolution(resolution);
         task.setStatus(status);
