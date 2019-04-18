@@ -88,8 +88,8 @@ public final class TaskBuilder {
         task.setCloser(closer);
         task.setCreator(creator);
         task.setDescription(description);
-        task.setModifier(modifier);
         task.setId(id);
+        task.setModifier(modifier);
         task.setResolution(resolution);
         task.setStatus(status);
         task.setTitle(title);
