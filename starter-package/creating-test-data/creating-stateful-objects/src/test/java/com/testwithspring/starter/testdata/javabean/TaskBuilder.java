@@ -6,8 +6,8 @@ public final class TaskBuilder {
     private Closer closer;
     private Creator creator;
     private String description;
-    private Modifier modifier;
     private Long id;
+    private Modifier modifier;
     private TaskResolution resolution;
     private TaskStatus status;
     private String title;
@@ -31,13 +31,13 @@ public final class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withModifier(Long modifierId) {
-        this.modifier = new Modifier(modifierId);
+    public TaskBuilder withId(Long id) {
+        this.id = id;
         return this;
     }
 
-    public TaskBuilder withId(Long id) {
-        this.id = id;
+    public TaskBuilder withModifier(Long modifierId) {
+        this.modifier = new Modifier(modifierId);
         return this;
     }
 
