@@ -63,11 +63,15 @@ public final class TaskBuilder {
     }
 
     public TaskBuilder withStatusInProgress() {
+        this.closer = null;
+        this.resolution = null;
         this.status = TaskStatus.IN_PROGRESS;
         return this;
     }
 
     public TaskBuilder withStatusOpen() {
+        this.closer = null;
+        this.resolution = null;
         this.status = TaskStatus.OPEN;
         return this;
     }
