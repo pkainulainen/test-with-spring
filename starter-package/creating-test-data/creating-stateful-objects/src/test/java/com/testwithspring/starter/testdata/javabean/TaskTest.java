@@ -22,8 +22,10 @@ public class TaskTest {
     /**
      * Here we have to know that:
      * <ul>
+     *     <li>The assignee must not be set.</li>
      *     <li>The creator must be set.</li>
      *     <li>The modifier must be set.</li>
+     *     <li>The closer must not be set.</li>
      * </ul>
      */
     @Test
@@ -44,6 +46,7 @@ public class TaskTest {
      *     <li>The assignee must be set.</li>
      *     <li>The creator must be set.</li>
      *     <li>The modifier must be set.</li>
+     *     <li>The closer must not be set.</li>
      * </ul>
      */
     @Test
@@ -65,6 +68,7 @@ public class TaskTest {
      *     <li>The assignee must be set.</li>
      *     <li>The creator must be set.</li>
      *     <li>The modifier must be set.</li>
+     *     <li>The closer must not be set.</li>
      * </ul>
      */
     @Test
