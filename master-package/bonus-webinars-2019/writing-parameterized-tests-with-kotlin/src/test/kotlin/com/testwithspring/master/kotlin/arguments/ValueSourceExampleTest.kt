@@ -1,4 +1,4 @@
-package com.testwithspring.master.kotlin
+package com.testwithspring.master.kotlin.arguments
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
