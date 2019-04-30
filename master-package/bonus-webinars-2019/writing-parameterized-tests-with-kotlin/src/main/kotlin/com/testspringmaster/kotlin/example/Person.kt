@@ -1,4 +1,4 @@
-package com.testwithspring.master.kotlin.aggregation
+package com.testspringmaster.kotlin.example
 
 /**
  * Contains the information of a single person.
