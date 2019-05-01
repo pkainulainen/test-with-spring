@@ -12,8 +12,6 @@ class AlbumArgumentConverter: SimpleArgumentConverter() {
     override fun convert(source: Any?, targetType: Class<*>?): Any {
         if (targetType != Album::class.java) throw IllegalArgumentException("This converter can create only Album objects")
 
-        return Album().apply {
-            this.title = source.toString()
-        }
+        return Album(source.toString())
     }
 }
