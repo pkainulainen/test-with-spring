@@ -13,10 +13,10 @@ import org.junit.jupiter.params.provider.CsvSource
 class ArgumentsAccessorExampleTest {
 
     @ParameterizedTest
-    @DisplayName("Should provide the correct parameters to the ArgumentsAccessor")
+    @DisplayName("Should provide the correct arguments to the ArgumentsAccessor")
     @CsvSource("1, John Doe")
-    fun shouldProvideCorrectParametersToArgumentsAccessor(parameters: ArgumentsAccessor) {
-        val person = Person(parameters.getLong(0), parameters.getString(1))
+    fun shouldProvideCorrectParametersToArgumentsAccessor(arguments: ArgumentsAccessor) {
+        val person = Person(arguments.getLong(0), arguments.getString(1))
 
         assertThat(person.id).isEqualByComparingTo(1L)
         assertThat(person.name).isEqualTo("John Doe")
