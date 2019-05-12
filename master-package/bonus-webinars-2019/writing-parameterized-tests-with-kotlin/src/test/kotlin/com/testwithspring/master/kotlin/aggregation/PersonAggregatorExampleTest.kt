@@ -9,7 +9,7 @@ import org.junit.jupiter.params.aggregator.AggregateWith
 import org.junit.jupiter.params.provider.CsvSource
 
 @Tag("unitTest")
-@DisplayName("ArgumentAccessor example")
+@DisplayName("PersonAggregator example")
 class PersonAggregatorExampleTest {
 
     @ParameterizedTest

@@ -13,7 +13,7 @@ class FactoryConstructorConversionExampleTest {
     @ParameterizedTest
     @DisplayName("Should create the function parameter with factory constructor")
     @ValueSource(strings = ["The Godfather"])
-    fun shouldCreateFunctionParameterWithFactoryFunction(movie: Movie) {
+    fun shouldCreateFunctionParameterWithFactoryConstructor(movie: Movie) {
         assertThat(movie.title).isEqualTo("The Godfather")
     }
 }
