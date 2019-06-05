@@ -18,7 +18,7 @@ class StrictMockExampleTest {
     private lateinit var list: List<Long>
 
     @BeforeEach
-    fun createList() {
+    fun createMock() {
         list = mockk<List<Long>>()
     }
 
