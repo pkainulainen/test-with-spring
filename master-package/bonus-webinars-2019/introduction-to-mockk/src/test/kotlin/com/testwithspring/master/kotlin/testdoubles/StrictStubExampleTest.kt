@@ -17,7 +17,7 @@ class StrictStubExampleTest {
     private lateinit var list: List<Long>
 
     @BeforeEach
-    fun createList() {
+    fun createStub() {
         list = mockk<List<Long>>()
     }
 
