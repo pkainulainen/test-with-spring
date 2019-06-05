@@ -20,7 +20,7 @@ class RelaxedStubExampleTest {
     private lateinit var list: List<*>
 
     @BeforeEach
-    fun createList() {
+    fun createStub() {
         list = mockk<List<*>>(relaxed = true)
     }
 
