@@ -3,16 +3,15 @@ package com.testwithspring.master.kotlin.annotations
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.impl.annotations.SpyK
-import io.mockk.junit5.MockKExtension
 import io.mockk.verify
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@DisplayName("Demonstrates how we can integrate mockk with junit 5")
+@DisplayName("Demonstrates how we can create test doubles with annotations")
 class AnnotationTest {
 
     @MockK
@@ -27,7 +26,7 @@ class AnnotationTest {
     @MockK
     private lateinit var stubList: List<Long>
 
-    @MockK(relaxed = true)
+    @RelaxedMockK
     private lateinit var relaxedStubList: List<*>
 
     @BeforeEach
@@ -57,7 +56,7 @@ class AnnotationTest {
         spyList.add(5)
 
         val returned = spyList.get(0)
-        Assertions.assertThat(returned).isEqualByComparingTo(5)
+        assertThat(returned).isEqualByComparingTo(5)
     }
 
     @Test
@@ -66,13 +65,13 @@ class AnnotationTest {
         every { stubList.get(0) } returns 5
 
         val returned = stubList.get(0)
-        Assertions.assertThat(returned).isEqualByComparingTo(5)
+        assertThat(returned).isEqualByComparingTo(5)
     }
 
     @Test
     @DisplayName("Should return the default value when the return value isn't configured")
     fun shouldReturnDefaultValueWhenNoValueIsConfigured() {
         val returned = relaxedStubList.get(1)
-        Assertions.assertThat(returned).isNotNull()
+        assertThat(returned).isNotNull()
     }
 }
