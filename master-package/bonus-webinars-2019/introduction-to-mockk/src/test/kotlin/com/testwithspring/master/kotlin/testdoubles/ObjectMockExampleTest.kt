@@ -1,6 +1,5 @@
 package com.testwithspring.master.kotlin.testdoubles
 
-import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
 import io.mockk.verify
