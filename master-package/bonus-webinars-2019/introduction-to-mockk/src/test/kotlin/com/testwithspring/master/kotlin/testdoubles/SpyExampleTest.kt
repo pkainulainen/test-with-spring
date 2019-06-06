@@ -1,8 +1,9 @@
 package com.testwithspring.master.kotlin.testdoubles
 
-import io.mockk.*
+import io.mockk.every
+import io.mockk.spyk
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Tag
@@ -15,7 +16,7 @@ class SpyExampleTest {
     private lateinit var list: MutableList<Long>
 
     @BeforeEach
-    fun createList() {
+    fun createSpy() {
         list = spyk<ArrayList<Long>>()
         list.add(5)
     }
