@@ -3,7 +3,6 @@ package com.testwithspring.master.kotlin.testdoubles
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.unmockkObject
-import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
