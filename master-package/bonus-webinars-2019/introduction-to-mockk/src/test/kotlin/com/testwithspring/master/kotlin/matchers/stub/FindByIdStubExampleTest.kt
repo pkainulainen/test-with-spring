@@ -1,4 +1,4 @@
-package com.testwithspring.master.kotlin.matchers.stubbing
+package com.testwithspring.master.kotlin.matchers.stub
 
 import com.testwithspring.master.kotlin.*
 import io.mockk.every
