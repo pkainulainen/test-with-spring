@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
 @Tag("unitTest")
-@DisplayName("Verify interactions when the function takes one simple object as a function parameter ")
+@DisplayName("Verify interactions when the function takes one simple object as a function argument ")
 class FindByIdMockExampleTest {
 
     companion object {
@@ -25,80 +25,80 @@ class FindByIdMockExampleTest {
     }
 
     @Test
-    @DisplayName("By default, simple function parameters are matched with eq()")
-    fun shouldMatchSimpleFunctionParameterWithDefaultMatcher() {
+    @DisplayName("By default, simple function arguments are matched with eq()")
+    fun shouldMatchSimpleFunctionArgumentWithDefaultMatcher() {
         repository.findById(ID)
 
         verify { repository.findById(ID) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is equal to the provided value")
-    fun shouldMatchFunctionParameterWithEq() {
+    @DisplayName("Ensures that the function argument is equal to the provided value")
+    fun shouldMatchFunctionArgumentWithEq() {
         repository.findById(ID)
 
         verify { repository.findById(eq(ID)) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is not equal to the provided value")
-    fun shouldMatchFunctionParameterWithNeq() {
+    @DisplayName("Ensures that the function argument is not equal to the provided value")
+    fun shouldMatchFunctionArgumentWithNeq() {
         repository.findById(ID)
 
         verify { repository.findById(neq(-1L)) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is less than the provided value")
-    fun shouldMatchFunctionParameterWithLess() {
+    @DisplayName("Ensures that the function argument is less than the provided value")
+    fun shouldMatchFunctionArgumentWithLess() {
         repository.findById(ID)
 
         verify { repository.findById(less(ID + 1)) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is less than or equal to the provided value")
-    fun shouldMatchFunctionParameterWithLessAndEqual() {
+    @DisplayName("Ensures that the function argument is less than or equal to the provided value")
+    fun shouldMatchFunctionArgumentWithLessAndEqual() {
         repository.findById(ID)
 
         verify { repository.findById(less(value = ID, andEquals = true)) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is greater than the provided value")
-    fun shouldMatchFunctionParameterWithMore() {
+    @DisplayName("Ensures that the function argument is greater than the provided value")
+    fun shouldMatchFunctionArgumentWithMore() {
         repository.findById(ID)
 
         verify { repository.findById(more(ID - 1)) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is greater than or equal to the provided value")
-    fun shouldMatchFunctionParameterWithMoreAndEqual() {
+    @DisplayName("Ensures that the function argument is greater than or equal to the provided value")
+    fun shouldMatchFunctionArgumentWithMoreAndEqual() {
         repository.findById(ID)
 
         verify { repository.findById(more(value = ID, andEquals = true)) }
     }
 
     @Test
-    @DisplayName("Ensures that any object is given as a function parameter")
-    fun shouldMatchFunctionParameterWithAny() {
+    @DisplayName("Ensures that any object is given as a function argument")
+    fun shouldMatchFunctionArgumentWithAny() {
         repository.findById(ID)
 
         verify { repository.findById(any()) }
     }
 
     @Test
-    @DisplayName("Ensures that a Long object is given as a function parameter")
-    fun shouldMatchFunctionParameterWithOfType() {
+    @DisplayName("Ensures that a Long object is given as a function argument")
+    fun shouldMatchFunctionArgumentWithOfType() {
         repository.findById(ID)
 
         verify { repository.findById(ofType(Long::class)) }
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter fulfills the given predicate")
-    fun shouldMatchFunctionParameterWithMatch() {
+    @DisplayName("Ensures that the function argument fulfills the given predicate")
+    fun shouldMatchFunctionArgumentWithMatch() {
         repository.findById(ID)
 
         verify { repository.findById(match { it == ID }) }

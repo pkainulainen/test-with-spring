@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
 @Tag("unitTest")
-@DisplayName("Stub functions which take one simple value as a function parameter")
+@DisplayName("Stub functions which take one simple value as a function argument")
 class FindByIdStubExampleTest {
 
     companion object {
@@ -38,8 +38,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("By default, simple function parameters are matched with eq()")
-    fun shouldMatchSimpleFunctionParameterWithDefaultMatcher() {
+    @DisplayName("By default, simple function arguments are matched with eq()")
+    fun shouldMatchSimpleFunctionArgumentWithDefaultMatcher() {
         every { repository.findById(ID) } returns TASK
 
         val returned = repository.findById(ID)
@@ -47,8 +47,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is equal to the provided value")
-    fun shouldMatchFunctionParameterWithEq() {
+    @DisplayName("Ensures that the function argument is equal to the provided value")
+    fun shouldMatchFunctionArgumentWithEq() {
         every { repository.findById(eq(ID)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -56,8 +56,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is not equal to the provided value")
-    fun shouldMatchFunctionParameterWithNeq() {
+    @DisplayName("Ensures that the function argument is not equal to the provided value")
+    fun shouldMatchFunctionArgumentWithNeq() {
         every { repository.findById(neq(-1L)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -65,8 +65,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is less than the provided value")
-    fun shouldMatchFunctionParameterWithLess() {
+    @DisplayName("Ensures that the function argument is less than the provided value")
+    fun shouldMatchFunctionArgumentWithLess() {
         every { repository.findById(less(ID + 1)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -74,8 +74,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is less than or equal to the provided value")
-    fun shouldMatchFunctionParameterWithLessAndEqual() {
+    @DisplayName("Ensures that the function argument is less than or equal to the provided value")
+    fun shouldMatchFunctionArgumentWithLessAndEqual() {
         every { repository.findById(less(value = ID, andEquals = true)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -83,8 +83,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is greater than the provided value")
-    fun shouldMatchFunctionParameterWithMore() {
+    @DisplayName("Ensures that the function argument is greater than the provided value")
+    fun shouldMatchFunctionArgumentWithMore() {
         every { repository.findById(more(ID - 1)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -92,8 +92,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter is greater than or equal to the provided value")
-    fun shouldMatchFunctionParameterWithMoreAndEqual() {
+    @DisplayName("Ensures that the function argument is greater than or equal to the provided value")
+    fun shouldMatchFunctionArgumentWithMoreAndEqual() {
         every { repository.findById(more(value = ID, andEquals = true)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -101,8 +101,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that any object is given as a function parameter")
-    fun shouldMatchFunctionParameterWithAny() {
+    @DisplayName("Ensures that any object is given as a function argument")
+    fun shouldMatchFunctionArgumentWithAny() {
         every { repository.findById(any()) } returns TASK
 
         val returned = repository.findById(ID)
@@ -110,8 +110,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that a Long object is given as a function parameter")
-    fun shouldMatchFunctionParameterWithOfType() {
+    @DisplayName("Ensures that a Long object is given as a function argument")
+    fun shouldMatchFunctionArgumentWithOfType() {
         every { repository.findById(ofType(Long::class)) } returns TASK
 
         val returned = repository.findById(ID)
@@ -119,8 +119,8 @@ class FindByIdStubExampleTest {
     }
 
     @Test
-    @DisplayName("Ensures that the function parameter fulfills the given predicate")
-    fun shouldMatchFunctionParameterWithMatch() {
+    @DisplayName("Ensures that the function argument fulfills the given predicate")
+    fun shouldMatchFunctionArgumentWithMatch() {
         every { repository.findById(match { it == ID }) } returns TASK
 
         val returned = repository.findById(ID)
