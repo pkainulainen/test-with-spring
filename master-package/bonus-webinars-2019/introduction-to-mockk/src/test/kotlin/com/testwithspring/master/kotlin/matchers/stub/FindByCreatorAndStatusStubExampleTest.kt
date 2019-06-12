@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
 @Tag("unitTest")
-@DisplayName("Stub functions which take one simple value as a function argument")
+@DisplayName("Stub functions which has one simple function parameter")
 class FindByCreatorAndStatusStubExampleTest {
 
     companion object {

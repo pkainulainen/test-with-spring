@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
 @Tag("unitTest")
-@DisplayName("Verify interactions when the function takes one simple object as a function argument ")
+@DisplayName("Verify interactions when the function has one simple function parameter")
 class FindByIdMockExampleTest {
 
     companion object {
