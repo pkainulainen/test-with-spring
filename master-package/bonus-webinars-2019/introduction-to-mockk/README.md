@@ -1,7 +1,9 @@
 # Introduction to MockK
 
-This example demonstrates how we can create test doubles with the 
-MockK mocking library.
+This example demonstrates how we can:
+ 
+* Create test doubles with the MockK mocking library.
+* Use the argument matchers provided by MockK.
 
 **If you want to run the tests which create test doubles with 
 MockK, you must run unit tests**.
