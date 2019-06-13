@@ -34,7 +34,7 @@ class FindByCreatorAndStatusMockExampleTest {
     private lateinit var repository: TaskRepository
 
     @BeforeEach
-    fun createRepositoryStub() {
+    fun createRepositoryMock() {
         repository = mockk<TaskRepository>(relaxed = true)
     }
 
