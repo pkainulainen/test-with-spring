@@ -24,7 +24,14 @@ public class TaskTest {
      * <ul>
      *     <li>The assignee must not be set.</li>
      *     <li>The creator must be set.</li>
-     *     <li>The modifier must be set.</li>
+     *     <li>
+     *         We can specify the modifier of the task
+     *         but we don't have to do it if the task
+     *         hasn't been modified by anyone.
+     *
+     *         If we don't specify the modifier, the ids
+     *         of the creator and modifier will be equal.
+     *     </li>
      *     <li>The closer must not be set.</li>
      * </ul>
      */
