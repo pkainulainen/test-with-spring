@@ -47,16 +47,16 @@ public final class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withResolutionDuplicate(Long closerId) {
+    public TaskBuilder withResolutionDone(Long closerId) {
         this.closerId = closerId;
-        this.resolution = TaskResolution.DUPLICATE;
+        this.resolution = TaskResolution.DONE;
         this.status = TaskStatus.CLOSED;
         return this;
     }
 
-    public TaskBuilder withResolutionDone(Long closerId) {
+    public TaskBuilder withResolutionDuplicate(Long closerId) {
         this.closerId = closerId;
-        this.resolution = TaskResolution.DONE;
+        this.resolution = TaskResolution.DUPLICATE;
         this.status = TaskStatus.CLOSED;
         return this;
     }
@@ -69,11 +69,15 @@ public final class TaskBuilder {
     }
 
     public TaskBuilder withStatusInProgress() {
+        this.closerId = null;
+        this.resolution = null;
         this.status = TaskStatus.IN_PROGRESS;
         return this;
     }
 
     public TaskBuilder withStatusOpen() {
+        this.closerId = null;
+        this.resolution = null;
         this.status = TaskStatus.OPEN;
         return this;
     }
