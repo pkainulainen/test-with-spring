@@ -7,6 +7,7 @@ public class Task {
     private Closer closer;
     private Creator creator;
     private String description;
+    private Modifier modifier;
     private String title;
     private TaskStatus status;
     private TaskResolution resolution;
@@ -17,6 +18,7 @@ public class Task {
         this.closer = null;
         this.creator = builder.creator;
         this.description = builder.description;
+        this.modifier = builder.modifier;
         this.title = builder.title;
         this.status = TaskStatus.OPEN;
         this.resolution = null;
@@ -46,6 +48,10 @@ public class Task {
         return description;
     }
 
+    public Modifier getModifier() {
+        return modifier;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -64,6 +70,7 @@ public class Task {
         private Assignee assignee;
         private Creator creator;
         private String description;
+        private Modifier modifier;
         private String title;
 
         private Builder() {}
@@ -83,6 +90,7 @@ public class Task {
         public Builder withCreator(Long creatorId) {
             if (creatorId != null) {
                 this.creator = new Creator(creatorId);
+                this.modifier = new Modifier(creatorId);
             }
             return this;
         }
