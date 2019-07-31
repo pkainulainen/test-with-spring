@@ -13,6 +13,7 @@ public final class TaskBuilder {
     private Long creatorId;
     private String description;
     private Long id;
+    private Long modifierId;
     private TaskResolution resolution;
     private TaskStatus status;
     private String title;
@@ -38,6 +39,11 @@ public final class TaskBuilder {
 
     public TaskBuilder withId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public TaskBuilder withModifier(Long modifierId) {
+        this.modifierId = modifierId;
         return this;
     }
 
@@ -88,6 +94,10 @@ public final class TaskBuilder {
 
         if (closerId != null) {
             setFieldValue(task, "closer", new Closer(closerId));
+        }
+
+        if (modifierId != null) {
+            setFieldValue(task, "modifier", new Modifier(modifierId));
         }
 
         setFieldValue(task, "status", this.status);
