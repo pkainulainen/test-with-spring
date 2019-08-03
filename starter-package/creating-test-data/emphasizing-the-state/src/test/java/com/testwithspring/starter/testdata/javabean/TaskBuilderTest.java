@@ -16,8 +16,8 @@ public class TaskBuilderTest {
     private static final Long CLOSER_ID = 55L;
 
     /**
-     * This test method emphasizes the fact that the task is open task. The other
-     * properties of the task are irrelevant to us.
+     * This test method requires an open task. The other properties of
+     * the created {@code Task} object are irrelevant to it.
      */
     @Test
     public void createOpenTaskWithoutAssignee() {
@@ -27,8 +27,9 @@ public class TaskBuilderTest {
     }
 
     /**
-     * This test method emphasizes the fact that the task is an open task that
-     * has an assignee. The other properties of the task are irrelevant to us.
+     * This test method requires an open task that is assigned to the
+     * specified assignee. The other properties of the created {@code Task}
+     * object are irrelevant to it.
      */
     @Test
     public void createOpenTaskThatIsAssignedToAssignee() {
@@ -39,8 +40,9 @@ public class TaskBuilderTest {
     }
 
     /**
-     * This method emphasizes the fact that the assignee is working on a task.
-     * We don't care about other properties of the created object.
+     * This test method requires a task that is in progress. Also, it
+     * is important the task is assigned to the specified person. The
+     * other properties of the created {@code Task} object are irrelevant to it.
      */
     @Test
     public void createTaskThatIsInProgress() {
@@ -51,8 +53,15 @@ public class TaskBuilderTest {
     }
 
     /**
-     * We care only about the fact that the task was closed as done. The other
-     * properties of the created object are irrelevant to us.
+     * This test method requires a task that:
+     * <ul>
+     *     <li>is assigned to the specified person.</li>
+     *     <li>was closed because it was done.</li>
+     *     <li>was closed by the specified person.</li>
+     * </ul>
+     *
+     * The other properties of the created {@code Task} object aren't important
+     * to our test method.
      */
     @Test
     public void createTaskThatWasClosedAsDone() {
@@ -63,8 +72,15 @@ public class TaskBuilderTest {
     }
 
     /**
-     * This test method emphasizes that the task was closed as a duplicate. We don't
-     * really care about the other property values of the created object.
+     * This test method requires a task that:
+     * <ul>
+     *     <li>is assigned to the specified person.</li>
+     *     <li>was closed as a duplicate.</li>
+     *     <li>was closed by the specified person.</li>
+     * </ul>
+     *
+     * The other properties of the created {@code Task} object aren't important
+     * to our test method.
      */
     @Test
     public void createTaskThatWasClosedAsDuplicate() {
@@ -75,8 +91,15 @@ public class TaskBuilderTest {
     }
 
     /**
-     * We care only about the fact the created task was closed because it won't be done.
-     * We don't care about the other property values of the created task.
+     * This test method requires a task that:
+     * <ul>
+     *     <li>is assigned to the specified person.</li>
+     *     <li>was closed because it won't be done.</li>
+     *     <li>was closed by the specified person.</li>
+     * </ul>
+     *
+     * The other properties of the created {@code Task} object aren't important
+     * to our test method.
      */
     @Test
     public void createTaskThatWasClosedAsWontDo() {

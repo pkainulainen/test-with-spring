@@ -16,8 +16,9 @@ public class TaskObjectMotherTest {
     private static final Long CLOSER_ID = 55L;
 
     /**
-     * This test method emphasizes the fact that the task is open task. The other
-     * properties of the task are irrelevant to us.
+     * This test method requires an open task that's not
+     * assigned to anyone. The other properties of the task
+     * are irrelevant to it.
      */
     @Test
     public void createOpenTaskWithoutAssignee() {
@@ -25,8 +26,9 @@ public class TaskObjectMotherTest {
     }
 
     /**
-     * This test method emphasizes the fact that the task is an open task that
-     * has an assignee. The other properties of the task are irrelevant to us.
+     * This test method requires an open task that's assigned to the
+     * specified person. The other properties of the task are irrelevant
+     * to it.
      */
     @Test
     public void createOpenTaskThatIsAssignedToAssignee() {
@@ -34,8 +36,9 @@ public class TaskObjectMotherTest {
     }
 
     /**
-     * This method emphasizes the fact that the assignee is working on a task.
-     * We don't care about other properties of the created object.
+     * This test method requires a task that is in progress. Also, it
+     * is important the task is assigned to the specified person. The
+     * other properties of the created task are irrelevant to it.
      */
     @Test
     public void createTaskThatIsInProgress() {
@@ -43,8 +46,9 @@ public class TaskObjectMotherTest {
     }
 
     /**
-     * We care only about the fact that the task was closed as done. The other
-     * properties of the created object are irrelevant to us.
+     * This test method requires a task that was closed because it was finished.
+     * Also, it's important that the task was closed by the specified person.
+     * The other properties of the created task are irrelevant to it.
      */
     @Test
     public void createTaskThatWasClosedAsDone() {
@@ -52,8 +56,9 @@ public class TaskObjectMotherTest {
     }
 
     /**
-     * This test method emphasizes that the task was closed as a duplicate. We don't
-     * really care about the other property values of the created object.
+     * This test method requires a task that was closed as a duplicate.
+     * Also, it's important that the task was closed by the specified person.
+     * The other properties of the created task are irrelevant to it.
      */
     @Test
     public void createTaskThatWasClosedAsDuplicate() {
@@ -61,8 +66,9 @@ public class TaskObjectMotherTest {
     }
 
     /**
-     * We care only about the fact the created task was closed because it won't be done.
-     * We don't care about the other property values of the created task.
+     * This test method requires a task that was closed because it won't be done.
+     * Also, it's important that the task was closed by the specified person.
+     * The other properties of the created task are irrelevant to it.
      */
     @Test
     public void createTaskThatWasClosedAsWontDo() {
