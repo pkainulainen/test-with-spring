@@ -16,6 +16,7 @@ public final class TaskBuilder {
     private Long creatorId = NOT_IN_USE;
     private String description;
     private Long id;
+    private Long modifierId = NOT_IN_USE;
     private TaskResolution resolution;
     private TaskStatus status;
     private String title = NOT_IMPORTANT;
@@ -84,16 +85,21 @@ public final class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withResolutionDuplicate(Long closerId) {
-        this.closerId = closerId;
-        this.resolution = TaskResolution.DUPLICATE;
-        this.status = TaskStatus.CLOSED;
+    public TaskBuilder withModifier(Long modifierId) {
+        this.modifierId = modifierId;
         return this;
     }
 
     public TaskBuilder withResolutionDone(Long closerId) {
         this.closerId = closerId;
         this.resolution = TaskResolution.DONE;
+        this.status = TaskStatus.CLOSED;
+        return this;
+    }
+
+    public TaskBuilder withResolutionDuplicate(Long closerId) {
+        this.closerId = closerId;
+        this.resolution = TaskResolution.DUPLICATE;
         this.status = TaskStatus.CLOSED;
         return this;
     }
@@ -106,11 +112,15 @@ public final class TaskBuilder {
     }
 
     public TaskBuilder withStatusInProgress() {
+        this.closerId = null;
+        this.resolution = null;
         this.status = TaskStatus.IN_PROGRESS;
         return this;
     }
 
     public TaskBuilder withStatusOpen() {
+        this.closerId = null;
+        this.resolution = null;
         this.status = TaskStatus.OPEN;
         return this;
     }
@@ -131,6 +141,10 @@ public final class TaskBuilder {
 
         if (closerId != null) {
             setFieldValue(task, "closer", new Closer(closerId));
+        }
+
+        if (modifierId != null) {
+            setFieldValue(task, "modifier", new Modifier(modifierId));
         }
 
         setFieldValue(task, "status", this.status);
