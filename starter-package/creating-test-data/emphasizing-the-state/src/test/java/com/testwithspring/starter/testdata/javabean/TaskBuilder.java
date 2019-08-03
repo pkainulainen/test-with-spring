@@ -16,7 +16,7 @@ public final class TaskBuilder {
     private Long creatorId = NOT_IN_USE;
     private String description;
     private Long id;
-    private Long modifierId = NOT_IN_USE;
+    private Long modifierId;
     private TaskResolution resolution;
     private TaskStatus status;
     private String title = NOT_IMPORTANT;
