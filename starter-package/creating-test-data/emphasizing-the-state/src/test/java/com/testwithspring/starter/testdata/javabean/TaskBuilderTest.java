@@ -17,7 +17,7 @@ public class TaskBuilderTest {
 
     /**
      * This test method requires an open task. The other properties of
-     * the created {@code Task} object are irrelevant to it.
+     * the created {@code Task} object are irrelevant to this test method.
      */
     @Test
     public void createOpenTaskWithoutAssignee() {
@@ -29,7 +29,7 @@ public class TaskBuilderTest {
     /**
      * This test method requires an open task that is assigned to the
      * specified assignee. The other properties of the created {@code Task}
-     * object are irrelevant to it.
+     * object are irrelevant to this test method.
      */
     @Test
     public void createOpenTaskThatIsAssignedToAssignee() {
@@ -42,7 +42,8 @@ public class TaskBuilderTest {
     /**
      * This test method requires a task that is in progress. Also, it
      * is important the task is assigned to the specified person. The
-     * other properties of the created {@code Task} object are irrelevant to it.
+     * other properties of the created {@code Task} object are irrelevant
+     * to this test method.
      */
     @Test
     public void createTaskThatIsInProgress() {

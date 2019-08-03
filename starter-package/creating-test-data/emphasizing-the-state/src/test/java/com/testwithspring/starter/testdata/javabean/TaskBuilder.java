@@ -44,6 +44,13 @@ public final class TaskBuilder {
                 .build();
     }
 
+    public static Task closedAsDone() {
+        return new TaskBuilder()
+                .withAssignee(NOT_IN_USE)
+                .withResolutionDone(NOT_IN_USE)
+                .build();
+    }
+
     public static Task closedAsDone(Long closerId) {
         return new TaskBuilder()
                 .withAssignee(NOT_IN_USE)

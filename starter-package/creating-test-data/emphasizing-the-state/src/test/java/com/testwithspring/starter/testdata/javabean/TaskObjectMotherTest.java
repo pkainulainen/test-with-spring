@@ -18,7 +18,7 @@ public class TaskObjectMotherTest {
     /**
      * This test method requires an open task that's not
      * assigned to anyone. The other properties of the task
-     * are irrelevant to it.
+     * are irrelevant to this test method.
      */
     @Test
     public void createOpenTaskWithoutAssignee() {
@@ -28,7 +28,7 @@ public class TaskObjectMotherTest {
     /**
      * This test method requires an open task that's assigned to the
      * specified person. The other properties of the task are irrelevant
-     * to it.
+     * to this test method.
      */
     @Test
     public void createOpenTaskThatIsAssignedToAssignee() {
@@ -38,7 +38,7 @@ public class TaskObjectMotherTest {
     /**
      * This test method requires a task that is in progress. Also, it
      * is important the task is assigned to the specified person. The
-     * other properties of the created task are irrelevant to it.
+     * other properties of the created task are irrelevant to this test method.
      */
     @Test
     public void createTaskThatIsInProgress() {
@@ -48,7 +48,7 @@ public class TaskObjectMotherTest {
     /**
      * This test method requires a task that was closed because it was finished.
      * Also, it's important that the task was closed by the specified person.
-     * The other properties of the created task are irrelevant to it.
+     * The other properties of the created task are irrelevant to this test method.
      */
     @Test
     public void createTaskThatWasClosedAsDone() {
@@ -56,9 +56,18 @@ public class TaskObjectMotherTest {
     }
 
     /**
+     * This test method requires a task that was closed because it was finished.
+     * The other properties of the created task are irrelevant to this test method.
+     */
+    @Test
+    public void createTaskThatWasClosedAsDoneWithoutCloser() {
+        Task done = TaskBuilder.closedAsDone();
+    }
+
+    /**
      * This test method requires a task that was closed as a duplicate.
      * Also, it's important that the task was closed by the specified person.
-     * The other properties of the created task are irrelevant to it.
+     * The other properties of the created task are irrelevant to this test method.
      */
     @Test
     public void createTaskThatWasClosedAsDuplicate() {
@@ -68,7 +77,7 @@ public class TaskObjectMotherTest {
     /**
      * This test method requires a task that was closed because it won't be done.
      * Also, it's important that the task was closed by the specified person.
-     * The other properties of the created task are irrelevant to it.
+     * The other properties of the created task are irrelevant to this test method.
      */
     @Test
     public void createTaskThatWasClosedAsWontDo() {
