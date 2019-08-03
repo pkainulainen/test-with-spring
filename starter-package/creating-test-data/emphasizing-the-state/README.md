@@ -1,4 +1,4 @@
-# Emphasizing the State of the Created Objects
+# Emphasizing the State of the Created Object
 
 ## Running Unit Tests
 
