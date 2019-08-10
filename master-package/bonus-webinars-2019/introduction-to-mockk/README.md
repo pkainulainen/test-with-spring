@@ -5,6 +5,18 @@ This example demonstrates how we can:
 * Create test doubles with the MockK mocking library.
 * Use the argument matchers provided by MockK.
 
+This example application has the following packages:
+
+* The `com.testwithspring.master.kotlin.annotations` package demonstrates how you can
+create test doubles by using annotations. The approach demonstrated in this package
+is useful if your tests don't use JUnit 5.
+* The `com.testwithspring.master.kotlin.junit5` package demonstrates how you can create
+test doubles with annotations and JUnit 5.
+* The `com.testwithspring.master.kotlin.matchers` package demonstrates how you can use the 
+argument matchers provided by MockK.
+* The `com.testwithspring.master.kotlin.testdoubles` package demonstrates how you can create 
+different test doubles with MockK by using the "manual" approach.
+
 **If you want to run the tests which create test doubles with 
 MockK, you must run unit tests**.
 
