@@ -14,6 +14,8 @@ is useful if your tests don't use JUnit 5.
 test doubles with annotations and JUnit 5.
 * The `com.testwithspring.master.kotlin.matchers` package demonstrates how you can use the 
 argument matchers provided by MockK.
+* The `com.testwithspring.master.kotlin.stubbing` package demonstrates how you can stub methods
+with MockK.
 * The `com.testwithspring.master.kotlin.testdoubles` package demonstrates how you can create 
 different test doubles with MockK by using the "manual" approach.
 

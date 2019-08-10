@@ -26,8 +26,8 @@ enum class TaskStatus {
 /**
  * Contains the information of a single task.
  */
-data class Task(val id: Long,
+data class Task(val id: Long?,
                 val creator: Creator,
                 val title: String,
                 val status: TaskStatus,
-                val resolution: TaskResolution)
+                val resolution: TaskResolution?)
