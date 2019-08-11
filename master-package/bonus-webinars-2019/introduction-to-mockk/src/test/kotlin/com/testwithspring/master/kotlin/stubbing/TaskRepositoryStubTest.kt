@@ -54,8 +54,8 @@ class TaskRepositoryStubTest {
     }
 
     @Test
-    @DisplayName("Should different object on different invocations")
-    fun shouldReturnDifferentObjectsOnDifferentInvocations() {
+    @DisplayName("Should return different object on different invocations")
+    fun shouldReturnDifferentObjectOnDifferentInvocations() {
         every { repository.findById(TASK_ID) } returnsMany listOf(
                 Task(
                         id = TASK_ID,
@@ -113,8 +113,8 @@ class TaskRepositoryStubTest {
     }
 
     @Test
-    @DisplayName("Should return the configured answer")
-    fun shouldReturnReturnConfiguredAnswer() {
+    @DisplayName("Should configure the executed action")
+    fun shouldConfigureExecutedAction() {
         every { repository.create(any()) } answers {
             val input = this.firstArg<Task>()
 
