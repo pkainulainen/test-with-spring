@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 import java.lang.RuntimeException
 
 @Tag("unitTest")
-@DisplayName("Demonstrates how we can stub methods with MockK")
+@DisplayName("Demonstrates how we can stub functions with MockK")
 class TaskRepositoryStubTest {
 
     companion object {
