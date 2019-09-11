@@ -1,7 +1,6 @@
 package com.testwithspring.master.kotlin.mocking
 
 import com.testwithspring.master.kotlin.*
-import com.testwithspring.master.kotlin.matchers.mock.CreateMockExampleTest
 import io.mockk.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
