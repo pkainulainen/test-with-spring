@@ -21,7 +21,7 @@ class TaskRepositoryMockTest {
     private lateinit var repository: TaskRepository
 
     @BeforeEach
-    fun createStrictMock() {
+    fun createMock() {
         repository = mockk(relaxed = true)
     }
 
@@ -95,15 +95,15 @@ class TaskRepositoryMockTest {
 
     @Test
     @DisplayName("Should use a simple argument matcher")
-    fun shouldUseSimpleArgumentMatchers() {
+    fun shouldUseSimpleArgumentMatcher() {
         repository.findByCreatorAndStatus(1L, TaskStatus.OPEN)
 
         verify { repository.findByCreatorAndStatus(any(), TaskStatus.OPEN) }
     }
 
     @Test
-    @DisplayName("Should use a complex argument matcher")
-    fun shouldUseComplexArgumentMatcher() {
+    @DisplayName("Should ensure that argument fulfills the given predicate")
+    fun shouldEnsureThatArgumentFulfillsPredicate() {
         repository.create( Task(
                 id = TASK_ID,
                 creator = Creator(id = CREATOR_ID),
