@@ -1,0 +1,52 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.50'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.unbroken-dome.test-sets' version '2.1.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(
+            'org.jetbrains.kotlin:kotlin-stdlib:1.3.50',
+            'org.springframework.boot:spring-boot-starter',
+            'org.springframework.boot:spring-boot-starter-jdbc',
+            'org.springframework.boot:spring-boot-starter-web'
+    )
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation(
+            'io.mockk:mockk:1.9.3'
+
+
+    )
+}
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+integrationTest {
+    useJUnitPlatform {
+        includeTags 'integrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+test {
+    useJUnitPlatform {
+        includeTags 'unitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
