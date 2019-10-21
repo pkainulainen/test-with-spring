@@ -10,9 +10,6 @@ import java.util.Locale
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
-
-
-
 /**
  * This class provides static factory methods that are used
  * to create the Spring MVC infrastructure components that
