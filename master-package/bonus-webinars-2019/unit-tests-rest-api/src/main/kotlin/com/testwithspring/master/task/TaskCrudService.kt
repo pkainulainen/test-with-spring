@@ -56,6 +56,7 @@ open class TaskCrudService(@Autowired private val personFinder: PersonFinder,
                 modifier = personFinder.findPersonInformationByUserId(found.modifier.id),
                 resolution = found.resolution,
                 status = found.status,
+                tags = transformTagsToDTOs(found.tags),
                 title = found.title
         )
     }
@@ -67,5 +68,9 @@ open class TaskCrudService(@Autowired private val personFinder: PersonFinder,
         else {
             personFinder.findPersonInformationByUserId(userId)
         }
+    }
+
+    private fun transformTagsToDTOs(models: List<TaskTag>): List<TaskTagDTO> {
+        return models.map { TaskTagDTO(id = it.id, name = it.name) }
     }
 }

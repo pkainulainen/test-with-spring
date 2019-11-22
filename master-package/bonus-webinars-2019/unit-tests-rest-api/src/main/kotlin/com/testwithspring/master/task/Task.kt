@@ -47,7 +47,7 @@ enum class TaskStatus {
 /**
  * Contains the information of a single tag.
  */
-data class Tag(val id: Long, val name: String)
+data class TaskTag(val id: Long, val name: String)
 
 /**
  * Contains the information of a single task.
@@ -60,6 +60,7 @@ data class Task(val assignee: Assignee?,
                 val modifier: Modifier,
                 val resolution: TaskResolution?,
                 val status: TaskStatus,
+                val tags: List<TaskTag>,
                 val title: String)
 
 /**
@@ -69,7 +70,7 @@ data class Task(val assignee: Assignee?,
 /**
  * Contains the information of a single tag.
  */
-data class TagDTO(val id: Long, val name: String)
+data class TaskTagDTO(val id: Long, val name: String)
 
 /**
  * Contains the information of a single task.
@@ -82,6 +83,7 @@ data class TaskDTO(val assignee: PersonDTO?,
                    val modifier: PersonDTO,
                    val resolution: TaskResolution?,
                    val status: TaskStatus,
+                   val tags: List<TaskTagDTO>,
                    val title: String)
 
 /**

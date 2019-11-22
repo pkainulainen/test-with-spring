@@ -29,6 +29,8 @@ class TaskCrudControllerTest {
         private const val MODIFIER_NAME = "Modifier"
         private val RESOLUTION_DONE = TaskResolution.DONE
         private val STATUS_CLOSED = TaskStatus.CLOSED
+        private const val TAG_ID = 1L
+        private const val TAG_NAME = "tag"
         private const val TASK_ID = 1L
         private const val TITLE = "A task"
     }
@@ -172,6 +174,7 @@ class TaskCrudControllerTest {
                         modifier = Modifier(MODIFIER_ID),
                         resolution = RESOLUTION_DONE,
                         status = STATUS_CLOSED,
+                        tags = listOf(TaskTag(id = TAG_ID, name = TAG_NAME)),
                         title = TITLE
                 )
             }
@@ -250,6 +253,21 @@ class TaskCrudControllerTest {
                 requestBuilder.findById(TASK_ID)
                         .andExpect(jsonPath("$.resolution", equalTo(RESOLUTION_DONE.name)))
                         .andExpect(jsonPath("$.status", equalTo(STATUS_CLOSED.name)))
+            }
+
+            @Test
+            @DisplayName("Should return a task that has one tag")
+            fun shouldReturnTaskThatHasOneTag() {
+                requestBuilder.findById(TASK_ID)
+                        .andExpect(jsonPath("$.tags", hasSize<Any>(1)))
+            }
+
+            @Test
+            @DisplayName("Should return the information of the found tag")
+            fun shouldReturnInformationOfFoundTag() {
+                requestBuilder.findById(TASK_ID)
+                        .andExpect(jsonPath("$.tags[0].id", equalTo(TAG_ID.toInt())))
+                        .andExpect(jsonPath("$.tags[0].name", equalTo(TAG_NAME)))
             }
         }
     }
