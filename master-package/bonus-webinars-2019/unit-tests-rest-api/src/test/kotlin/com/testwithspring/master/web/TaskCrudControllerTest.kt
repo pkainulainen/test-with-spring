@@ -180,10 +180,14 @@ class TaskCrudControllerTest {
             }
 
             private fun personFinderReturnsRelatedPersonData() {
-                every { personFinder.findPersonInformationByUserId(ASSIGNEE_ID) } returns PersonDTO(ASSIGNEE_NAME, ASSIGNEE_ID)
-                every { personFinder.findPersonInformationByUserId(CLOSER_ID) } returns PersonDTO(CLOSER_NAME, CLOSER_ID)
-                every { personFinder.findPersonInformationByUserId(CREATOR_ID) } returns PersonDTO(CREATOR_NAME, CREATOR_ID)
-                every { personFinder.findPersonInformationByUserId(MODIFIER_ID) } returns PersonDTO(MODIFIER_NAME, MODIFIER_ID)
+                every { personFinder.findPersonInformationByUserId(ASSIGNEE_ID) } returns
+                        PersonDTO(name = ASSIGNEE_NAME, userId = ASSIGNEE_ID)
+                every { personFinder.findPersonInformationByUserId(CLOSER_ID) } returns
+                        PersonDTO(name = CLOSER_NAME, userId = CLOSER_ID)
+                every { personFinder.findPersonInformationByUserId(CREATOR_ID) } returns
+                        PersonDTO(name = CREATOR_NAME, userId = CREATOR_ID)
+                every { personFinder.findPersonInformationByUserId(MODIFIER_ID) } returns
+                        PersonDTO(name = MODIFIER_NAME, userId = MODIFIER_ID)
             }
 
             @Test
