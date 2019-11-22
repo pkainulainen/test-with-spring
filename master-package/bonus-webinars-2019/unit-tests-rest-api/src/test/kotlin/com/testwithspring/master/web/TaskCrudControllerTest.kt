@@ -6,6 +6,7 @@ import com.testwithspring.master.user.PersonFinder
 import io.mockk.every
 import io.mockk.mockk
 import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.hasSize
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Tag
 import org.springframework.http.MediaType
@@ -48,6 +49,86 @@ class TaskCrudControllerTest {
                 .setMessageConverters(WebTestConfig.objectMapperHttpMessageConverter())
                 .build()
         requestBuilder = TaskCrudRequestBuilder(mockMvc)
+    }
+
+    @Nested
+    @DisplayName("Find all tasks")
+    inner class FindAll {
+
+        @Nested
+        @DisplayName("When no tasks are found")
+        inner class WhenNoTasksAreFound {
+
+            @BeforeEach
+            fun repositoryReturnsEmptyList() {
+                every { repository.findAll() } returns listOf()
+            }
+
+            @Test
+            @DisplayName("Should return HTTP status code OK (200)")
+            fun shouldReturnHttpStatusCodeOk() {
+                requestBuilder.findAll()
+                        .andExpect(status().isOk)
+            }
+
+            @Test
+            @DisplayName("Should return the information of the found tasks as Json")
+            fun shouldReturnFoundTasksAsJson() {
+                requestBuilder.findAll()
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            }
+
+            @Test
+            @DisplayName("Should return an empty list")
+            fun shouldReturnEmptyList() {
+                requestBuilder.findAll()
+                        .andExpect(jsonPath("$", hasSize<Any>(0)))
+            }
+        }
+
+        @Nested
+        @DisplayName("When one task is found")
+        inner class WhenOneTaskIsFound {
+
+            @BeforeEach
+            fun repositoryReturnsOneTask() {
+                every { repository.findAll() } returns listOf(TaskListItemDTO(
+                        id = TASK_ID,
+                        title = TITLE,
+                        status = STATUS_CLOSED
+                ))
+            }
+
+            @Test
+            @DisplayName("Should return HTTP status code OK (200)")
+            fun shouldReturnHttpStatusCodeOk() {
+                requestBuilder.findAll()
+                        .andExpect(status().isOk)
+            }
+
+            @Test
+            @DisplayName("Should return the information of the found task as Json")
+            fun shouldReturnFoundTasksAsJson() {
+                requestBuilder.findAll()
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            }
+
+            @Test
+            @DisplayName("Should return one task")
+            fun shouldReturnEmptyList() {
+                requestBuilder.findAll()
+                        .andExpect(jsonPath("$", hasSize<Any>(1)))
+            }
+
+            @Test
+            @DisplayName("Should return the information of the found task")
+            fun shouldReturnInformationOfFoundTask() {
+                requestBuilder.findAll()
+                        .andExpect(jsonPath("$[0].id", equalTo(TASK_ID.toInt())))
+                        .andExpect(jsonPath("$[0].title", equalTo(TITLE)))
+                        .andExpect(jsonPath("$[0].status", equalTo(STATUS_CLOSED.name)))
+            }
+        }
     }
 
     @Nested

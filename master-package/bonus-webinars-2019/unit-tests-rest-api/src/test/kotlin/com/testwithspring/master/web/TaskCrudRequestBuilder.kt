@@ -13,6 +13,16 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 class TaskCrudRequestBuilder(private val mockMvc: MockMvc) {
 
     /**
+     * Creates and sends the HTTP request which obtains
+     * the information of all tasks.
+     * @return  A {@code ResultActions} object which allows us to write
+     *          assertions for the returned HTTP response.
+     */
+    fun findAll(): ResultActions {
+        return mockMvc.perform(get("/api/task"))
+    }
+
+    /**
      * Creates and sends the HTTP request which obtains the
      * information of the specified task.
      * @param   id  The id of the requested task.

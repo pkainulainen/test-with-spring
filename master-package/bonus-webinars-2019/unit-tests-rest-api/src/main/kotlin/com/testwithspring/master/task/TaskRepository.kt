@@ -13,6 +13,16 @@ import org.springframework.transaction.annotation.Transactional
 open class TaskRepository {
 
     /**
+     * Finds the information of all tasks found from the database.
+     * @return  A list of found tasks. If no tasks are found, this
+     *          function returns an empty list.
+     */
+    @Transactional(readOnly = true)
+    open fun findAll(): List<TaskListItemDTO> {
+        return listOf()
+    }
+
+    /**
      * Finds the information of the specified task.
      * @param   id  The id of the requested task.
      * @return  This function returns {@code null}

@@ -20,6 +20,21 @@ open class TaskCrudService(@Autowired private val personFinder: PersonFinder,
     }
 
     /**
+     * Finds the information of all tasks.
+     * @return  A list that contains the found tasks. If no tasks are
+     *          found, this method returns an empty list.
+     */
+    @Transactional(readOnly = true)
+    open fun findAll(): List<TaskListItemDTO> {
+        LOGGER.info("Finding all tasks")
+
+        val tasks = repository.findAll()
+        LOGGER.info("Found {} tasks", tasks.size)
+
+        return tasks;
+    }
+
+    /**
      * Finds the information of the specified task.
      * @param   id  The id of the requested task.
      * @return  The information of the found task.

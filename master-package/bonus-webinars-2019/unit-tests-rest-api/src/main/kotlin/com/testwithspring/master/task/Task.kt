@@ -83,3 +83,10 @@ data class TaskDTO(val assignee: PersonDTO?,
                    val resolution: TaskResolution?,
                    val status: TaskStatus,
                    val title: String)
+
+/**
+ * Contains the information of a single task list item.
+ */
+data class TaskListItemDTO(val id: Long,
+                           val title: String,
+                           val status: TaskStatus)

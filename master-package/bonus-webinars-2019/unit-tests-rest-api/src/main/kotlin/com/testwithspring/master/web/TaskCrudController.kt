@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import com.testwithspring.master.task.TaskDTO
+import com.testwithspring.master.task.TaskListItemDTO
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMethod
 
@@ -19,6 +20,21 @@ open class TaskCrudController(@Autowired private val service: TaskCrudService) {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(TaskCrudController::class.java)
+    }
+
+    /**
+     * Finds the information of all tasks.
+     * @return  A list that contains the found tasks. If no tasks
+     *          are found, this function returns an empty list.
+     */
+    @RequestMapping(method = [RequestMethod.GET])
+    fun findAll(): List<TaskListItemDTO> {
+        LOGGER.info("Finding all tasks")
+
+        val tasks = service.findAll()
+        LOGGER.info("Found {} tasks")
+
+        return tasks;
     }
 
     /**
