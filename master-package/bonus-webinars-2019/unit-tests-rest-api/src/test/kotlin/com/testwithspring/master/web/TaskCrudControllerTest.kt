@@ -152,6 +152,13 @@ class TaskCrudControllerTest {
                 requestBuilder.findById(TASK_ID)
                         .andExpect(status().isNotFound)
             }
+
+            @Test
+            @DisplayName("Should return an empty HTTP response")
+            fun shouldReturnEmptyHttpResponse() {
+                requestBuilder.findById(TASK_ID)
+                        .andExpect(content().string(""))
+            }
         }
 
         @Nested
