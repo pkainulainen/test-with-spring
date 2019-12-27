@@ -51,7 +51,7 @@ enum class TaskStatus {
  */
 data class CreateTask(
         val creator: Creator,
-        val description: String,
+        val description: String?,
         val status: TaskStatus,
         val title: String
 )
@@ -87,9 +87,9 @@ data class Task(val assignee: Assignee?,
 data class CreateTaskDTO(
         @field: NotBlank
         @field: Size(max = 100)
-        val title: String,
+        val title: String?,
         @field: Size(max = 500)
-        val description: String)
+        val description: String?)
 
 /**
  * Contains the information of a single tag.

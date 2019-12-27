@@ -52,7 +52,7 @@ open class TaskCrudService(@Autowired private val personFinder: PersonFinder,
 
         val newTask = CreateTask(
                 creator = Creator(loggedInUser.id),
-                title = input.title,
+                title = input.title!!,
                 description = input.description,
                 status = TaskStatus.OPEN
         )
