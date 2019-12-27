@@ -2,6 +2,7 @@ package com.testwithspring.master.task
 
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
+import java.lang.RuntimeException
 
 /**
  * This repository isn't meant to be used in product.
@@ -11,6 +12,16 @@ import org.springframework.transaction.annotation.Transactional
  */
 @Repository
 open class TaskRepository {
+
+    /**
+     * Inserts a new task into the database.
+     * @param   input   The information of the created task.
+     * @return  The information of the created task.
+     */
+    @Transactional
+    open fun create(input: CreateTask): Task {
+        throw RuntimeException("not implemented")
+    }
 
     /**
      * Finds the information of all tasks found from the database.

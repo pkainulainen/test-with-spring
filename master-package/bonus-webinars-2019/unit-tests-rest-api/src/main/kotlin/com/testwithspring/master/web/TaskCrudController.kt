@@ -1,14 +1,16 @@
 package com.testwithspring.master.web
 
+import com.testwithspring.master.task.CreateTaskDTO
 import com.testwithspring.master.task.TaskCrudService
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
 import com.testwithspring.master.task.TaskDTO
 import com.testwithspring.master.task.TaskListItemDTO
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMethod
+import com.testwithspring.master.user.LoggedInUser
+import org.springframework.http.HttpStatus
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 /**
  * Implements a REST API which provides CRUD operations
@@ -20,6 +22,33 @@ open class TaskCrudController(@Autowired private val service: TaskCrudService) {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(TaskCrudController::class.java)
+    }
+
+    /**
+     * Creates a new task.
+     * @param   input           The information of the created task.
+     * @param   loggedInUser    The authenticated user.
+     * @return  The information of the created task.
+     */
+    @RequestMapping(method = [RequestMethod.POST])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun create(
+            @RequestBody @Valid input: CreateTaskDTO,
+            @AuthenticationPrincipal loggedInUser: LoggedInUser
+    ): TaskDTO {
+        LOGGER.info("User: #{} is creating a new task with information: {}",
+                loggedInUser.id,
+                input
+        )
+
+        val returned = service.create(input, loggedInUser)
+
+        LOGGER.info("User: #{} created a new task with information: {}",
+                loggedInUser.id,
+                returned
+        )
+
+        return returned
     }
 
     /**

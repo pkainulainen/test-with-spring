@@ -1,6 +1,8 @@
 package com.testwithspring.master.task
 
 import com.testwithspring.master.user.PersonDTO
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
 /**
  * The internal data model
@@ -45,6 +47,16 @@ enum class TaskStatus {
 }
 
 /**
+ * Contains the information of the created task.
+ */
+data class CreateTask(
+        val creator: Creator,
+        val description: String,
+        val status: TaskStatus,
+        val title: String
+)
+
+/**
  * Contains the information of a single tag.
  */
 data class TaskTag(val id: Long, val name: String)
@@ -66,6 +78,18 @@ data class Task(val assignee: Assignee?,
 /**
  *  The public data model
  */
+
+/**
+ * Contains the information of the created task and
+ * specifies the validation rules which ensure that
+ * invalid data cannot be inserted into our database.
+ */
+data class CreateTaskDTO(
+        @field: NotBlank
+        @field: Size(max = 100)
+        val title: String,
+        @field: Size(max = 500)
+        val description: String)
 
 /**
  * Contains the information of a single tag.
