@@ -1,0 +1,28 @@
+<dataset>
+    <tasks id="1"
+           assignee_id="1"
+           closer_id="1"
+           creator_id="1"
+           description="This example contains integration tests"
+           modifier_id="1"
+           resolution="DONE"
+           status="CLOSED"
+           title="Write example application"/>
+    <tasks id="2"
+           assignee_id="[null]"
+           closer_id="[null]"
+           creator_id="1"
+           description="This lesson talks about integration testing"
+           modifier_id="1"
+           resolution="[null]"
+           status="OPEN"
+           title="Write lesson"/>
+
+    <tags id="1"
+          name="example"/>
+    <tags id="2"
+          name="lesson"/>
+
+    <tasks_tags task_id="1" tag_id="1"/>
+    <tasks_tags task_id="2" tag_id="2"/>
+</dataset>

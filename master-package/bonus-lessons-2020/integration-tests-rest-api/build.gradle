@@ -1,0 +1,72 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.70'
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'org.unbroken-dome.test-sets' version '2.2.1'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(
+            'org.jetbrains.kotlin:kotlin-stdlib:1.3.70',
+            'org.springframework.boot:spring-boot-starter',
+            'com.h2database:h2',
+            'com.zaxxer:HikariCP',
+            'org.liquibase:liquibase-core',
+            'org.springframework.boot:spring-boot-starter-jdbc',
+            'org.simpleflatmapper:sfm-springjdbc:8.2.1',
+            'org.springframework.boot:spring-boot-starter-web',
+            'com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3',
+            'org.springframework.boot:spring-boot-starter-security',
+    )
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation(
+            'io.mockk:mockk:1.9.3',
+            'org.assertj:assertj-core:3.15.0',
+            'com.github.springtestdbunit:spring-test-dbunit:1.3.0',
+            'org.dbunit:dbunit:2.7.0',
+            'org.testcontainers:postgresql:1.13.0',
+            'org.postgresql:postgresql:42.2.11'
+    )
+}
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test
+
+integrationTest {
+    useJUnitPlatform {
+        includeTags 'integrationTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+test {
+    useJUnitPlatform {
+        includeTags 'unitTest'
+    }
+    testLogging {
+        showStandardStreams = true
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
