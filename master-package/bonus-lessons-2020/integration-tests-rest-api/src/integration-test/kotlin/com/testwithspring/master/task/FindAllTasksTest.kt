@@ -15,6 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 
 @DatabaseIntegrationTest
+@DisplayName("Find all tasks")
 class FindAllTasksTest(@Autowired private val repository: TaskRepository) {
 
     @Nested
@@ -24,7 +25,8 @@ class FindAllTasksTest(@Autowired private val repository: TaskRepository) {
         "/com/testwithspring/master/no-tasks-and-tags.xml"
     ])
     @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
-    inner class WhenNoTasksIsFound {
+    @DisplayName("When no tasks are found")
+    inner class WhenNoTasksAreFound {
 
         @Test
         @DisplayName("Should return an empty list")
@@ -42,6 +44,7 @@ class FindAllTasksTest(@Autowired private val repository: TaskRepository) {
         "/com/testwithspring/master/tasks.xml"
     ])
     @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+    @DisplayName("When two tasks are found")
     inner class WhenTwoTasksAreFound {
 
         @Test

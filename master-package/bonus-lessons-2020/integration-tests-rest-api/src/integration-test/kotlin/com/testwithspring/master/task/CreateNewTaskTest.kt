@@ -27,6 +27,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
     "/com/testwithspring/master/no-tasks-and-tags.xml"
 ])
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+@DisplayName("Create a new task")
 class CreateNewTaskTest(
         @Autowired private val jdbcTemplate: NamedParameterJdbcTemplate,
         @Autowired private val repository: TaskRepository

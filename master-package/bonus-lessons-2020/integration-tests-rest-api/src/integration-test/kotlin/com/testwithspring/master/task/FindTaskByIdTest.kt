@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired
     "/com/testwithspring/master/tasks.xml"
 ])
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+@DisplayName("Find the information of a task by using its id as search criteria")
 class FindTaskByIdTest(@Autowired private val repository: TaskRepository) {
 
     @Nested
@@ -30,6 +31,7 @@ class FindTaskByIdTest(@Autowired private val repository: TaskRepository) {
         "/com/testwithspring/master/tasks.xml"
     ])
     @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+    @DisplayName("When the requested task isn't found")
     inner class WhenNoTaskIsFound {
 
         @Test
@@ -47,6 +49,7 @@ class FindTaskByIdTest(@Autowired private val repository: TaskRepository) {
         "/com/testwithspring/master/tasks.xml"
     ])
     @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+    @DisplayName("When the requested task is found")
     inner class WhenTaskIsFound {
 
         @Test

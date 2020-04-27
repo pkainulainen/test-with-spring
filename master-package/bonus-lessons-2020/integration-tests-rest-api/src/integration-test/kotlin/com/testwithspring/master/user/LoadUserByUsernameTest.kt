@@ -23,6 +23,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
     "/com/testwithspring/master/no-tasks-and-tags.xml"
 ])
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+@DisplayName("Load user by using username as search criteria")
 class LoadUserByUsernameTest(@Autowired private val userDetailsService: UserDetailsService) {
 
     @Test

@@ -28,6 +28,7 @@ import org.springframework.test.context.TestExecutionListeners
     "/com/testwithspring/master/no-tasks-and-tags.xml"
 ])
 @DbUnitConfiguration(dataSetLoader = ReplacementDataSetLoader::class)
+@DisplayName("Find the person information of a person by using user id as search criteria")
 class FindPersonInformationByUserIdTest(@Autowired private val personFinder: PersonFinder) {
 
     @Test
