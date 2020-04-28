@@ -53,9 +53,30 @@ class CreateNewTaskTest(
     }
 
     @Test
-    @DisplayName("Should insert a new task into the database")
-    @ExpectedDatabase(value = "create-task-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    fun shouldInsertNewTaskIntoDatabase() {
+    @DisplayName("Should use the next free id when a new task is saved to the database")
+    @ExpectedDatabase(value = "create-task-id-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    fun shouldUseNextFreeIdWhenNewTaskIsSavedToDatabase() {
+        repository.create(INPUT)
+    }
+
+    @Test
+    @DisplayName("Should insert correct lifecycle column values into the database")
+    @ExpectedDatabase(value = "create-task-lifecycle-columns-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    fun shouldInsertCorrectLifecycleColumnValuesIntoDatabase() {
+        repository.create(INPUT)
+    }
+
+    @Test
+    @DisplayName("Should save the correct status and resolution to the database")
+    @ExpectedDatabase(value = "create-task-status-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    fun shouldSaveCorrectStatusAndResolutionToDatabase() {
+        repository.create(INPUT)
+    }
+
+    @Test
+    @DisplayName("Should insert the correct title and description to the database")
+    @ExpectedDatabase(value = "create-task-title-description-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    fun shouldInsertCorrectTitleAndDescriptionToDatabase() {
         repository.create(INPUT)
     }
 
@@ -88,11 +109,15 @@ class CreateNewTaskTest(
         assertions.assertThat(created.status)
                 .`as`("status")
                 .isEqualTo(Tasks.WriteLesson.STATUS)
-        assertions.assertThat(created.tags)
-                .`as`("tags")
-                .hasSize(0)
         assertions.assertThat(created.title)
                 .`as`("title")
                 .isEqualTo(Tasks.WriteLesson.TITLE)
+    }
+
+    @Test
+    @DisplayName("Should return a task that has no tags")
+    fun shouldReturnTaskThatHasNoTags() {
+        val created = repository.create(INPUT)
+        assertThat(created.tags).isEmpty();
     }
 }
