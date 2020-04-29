@@ -80,6 +80,13 @@ class CreateNewTaskTest(
     }
 
     @Test
+    @DisplayName("Should create a task that has no tags")
+    @ExpectedDatabase(value = "create-task-tags-expected.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    fun shouldCreateTaskThatHasNoTags() {
+        repository.create(INPUT)
+    }
+
+    @Test
     @DisplayName("Should return the information of the created task")
     fun shouldReturnInformationOfCreatedTask(assertions: SoftAssertions) {
         val created = repository.create(INPUT)
