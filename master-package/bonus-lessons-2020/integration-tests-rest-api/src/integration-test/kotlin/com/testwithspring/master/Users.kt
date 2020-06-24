@@ -13,17 +13,17 @@ class Users {
 
     companion object {
 
-        val EMAIL_ADDRESS_NOT_FOUND = "unknown@gmail.com";
-        val ID_NOT_FOUND = 343L
+        const val EMAIL_ADDRESS_NOT_FOUND = "unknown@gmail.com";
+        const val ID_NOT_FOUND = 343L
     }
 
     class JohnDoe {
 
         companion object {
-            val ID = 1L
-            val EMAIL_ADDRESS = "john.doe@gmail.com"
-            val NAME = "John Doe"
-            val PASSWORD = "user"
+            const val ID = 1L
+            const val EMAIL_ADDRESS = "john.doe@gmail.com"
+            const val NAME = "John Doe"
+            const val PASSWORD = "user"
             val ROLE = UserRole.ROLE_USER
         }
     }
@@ -32,9 +32,9 @@ class Users {
 
         companion object {
 
-            val ID = 2L
-            val EMAIL_ADDRESS = "anne.admin@gmail.com"
-            val NAME = "Anne Admin"
+            const val ID = 2L
+            const val EMAIL_ADDRESS = "anne.admin@gmail.com"
+            const val NAME = "Anne Admin"
         }
     }
 }

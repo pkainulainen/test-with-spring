@@ -61,7 +61,7 @@ open class TaskCrudController(@Autowired private val service: TaskCrudService) {
         LOGGER.info("Finding all tasks")
 
         val tasks = service.findAll()
-        LOGGER.info("Found {} tasks")
+        LOGGER.info("Found {} tasks", tasks.size)
 
         return tasks;
     }

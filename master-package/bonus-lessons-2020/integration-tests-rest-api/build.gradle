@@ -2,11 +2,15 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.70'
     id 'org.springframework.boot' version '2.2.5.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'org.unbroken-dome.test-sets' version '2.2.1'
+    id 'org.unbroken-dome.test-sets' version '3.0.1'
 }
 
 repositories {
     mavenCentral()
+}
+
+testSets {
+    integrationTest { dirName = 'integration-test' }
 }
 
 dependencies {
@@ -20,23 +24,24 @@ dependencies {
             'org.simpleflatmapper:sfm-springjdbc:8.2.1',
             'org.springframework.boot:spring-boot-starter-web',
             'com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3',
-            'org.springframework.boot:spring-boot-starter-security',
+            'org.springframework.boot:spring-boot-starter-security'
     )
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation(
             'io.mockk:mockk:1.9.3',
-            'org.assertj:assertj-core:3.15.0',
+            'org.assertj:assertj-core:3.15.0'
+    )
+    integrationTestImplementation(
+            //Ensures that we can use test utilities used both unit and integration tests
+            sourceSets.test.output,
+            'org.springframework.security:spring-security-test',
             'com.github.springtestdbunit:spring-test-dbunit:1.3.0',
             'org.dbunit:dbunit:2.7.0',
             'org.testcontainers:postgresql:1.13.0',
-            'org.postgresql:postgresql:42.2.11'
+            'org.postgresql:postgresql:42.2.11',
     )
-}
-
-testSets {
-    integrationTest { dirName = 'integration-test' }
 }
 
 check.dependsOn integrationTest

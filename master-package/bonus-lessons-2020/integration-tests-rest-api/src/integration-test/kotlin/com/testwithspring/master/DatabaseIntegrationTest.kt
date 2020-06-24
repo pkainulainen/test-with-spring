@@ -24,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @MustBeDocumented
 @SpringBootTest
 @TestExecutionListeners(
-        listeners = [DbUnitTestExecutionListener::class],
+        listeners = [OrderedDbUnitTestExecutionListener::class],
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS
 )
 @ActiveProfiles("integrationTest")

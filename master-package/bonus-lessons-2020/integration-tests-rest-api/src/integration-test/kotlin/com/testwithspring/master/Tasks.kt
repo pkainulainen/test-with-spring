@@ -15,11 +15,15 @@ class Tasks {
         companion object {
 
             const val ID = 1L
-            const val ASSIGNEE_ID = 1L
-            const val CLOSER_ID = 1L
-            const val CREATOR_ID = 1L
+            const val ASSIGNEE_ID = Users.JohnDoe.ID
+            const val ASSIGNEE_NAME = Users.JohnDoe.NAME
+            const val CLOSER_ID = Users.JohnDoe.ID
+            const val CLOSER_NAME = Users.JohnDoe.NAME
+            const val CREATOR_ID = Users.JohnDoe.ID
+            const val CREATOR_NAME = Users.JohnDoe.NAME
             const val DESCRIPTION = "This example contains integration tests"
-            const val MODIFIER_ID = 1L
+            const val MODIFIER_ID = Users.JohnDoe.ID
+            const val MODIFIER_NAME = Users.JohnDoe.NAME
             const val TITLE = "Write example application"
             val RESOLUTION = TaskResolution.DONE
             val STATUS = TaskStatus.CLOSED
