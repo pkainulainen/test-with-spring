@@ -2,6 +2,7 @@ package com.testwithspring.master.web
 
 import com.testwithspring.master.task.CreateTaskDTO
 import org.springframework.http.MediaType
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -27,6 +28,7 @@ class TaskCrudRequestBuilder(private val mockMvc: MockMvc) {
         return mockMvc.perform(post("/api/task")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsBytes(input))
+                .with(csrf())
         )
     }
 
