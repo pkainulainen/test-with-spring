@@ -1,0 +1,14 @@
+<dataset>
+    <user_accounts id="1"
+                   email_address="john.doe@gmail.com"
+                   is_enabled="true"
+                   name="John Doe"
+                   password="user"
+                   role="ROLE_USER"/>
+    <user_accounts id="2"
+                   email_address="anne.admin@gmail.com"
+                   is_enabled="true"
+                   name="Anne Admin"
+                   password="admin"
+                   role="ROLE_ADMIN"/>
+</dataset>
