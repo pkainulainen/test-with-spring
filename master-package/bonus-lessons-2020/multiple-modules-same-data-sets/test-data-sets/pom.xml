@@ -9,10 +9,4 @@
         This example demonstrates how you can package DbUnit data sets
 	    into a jar file.
     </description>
-
-    <properties>
-        <jdk.version>1.8</jdk.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    </properties>
 </project>	
