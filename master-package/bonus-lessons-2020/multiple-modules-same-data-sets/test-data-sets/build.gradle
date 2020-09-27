@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.testwithspring.master'
+            artifactId = 'test-data-sets'
+            version = '0.1'
+
+            from components.java
+        }
+    }
+}
+
