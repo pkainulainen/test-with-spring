@@ -1,0 +1,8 @@
+<dataset>
+    <products id="1"
+              product_description="Product description"
+              product_name="Product name"
+              reviews="[{&quot;id&quot;: 1, &quot;author&quot;: &quot;Petri Kainulainen&quot;, &quot;score&quot;: 5, &quot;text&quot;: &quot;Review&quot;}]"
+              tags="example,product"
+    />
+</dataset>
