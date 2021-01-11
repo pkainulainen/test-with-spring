@@ -21,8 +21,15 @@ public class JsonDataType extends AbstractDataType {
     }
 
     @Override
-    public Object typeCast(Object obj) throws TypeCastException {
-        return obj.toString();
+    public Object typeCast(Object value) throws TypeCastException {
+        if (value instanceof String) {
+            return value;
+        }
+
+        throw new IllegalArgumentException(String.format(
+                "Unsupported type. Expected that the column value is a String but was: %s",
+                value.getClass().getName()
+        ));
     }
 
     @Override
