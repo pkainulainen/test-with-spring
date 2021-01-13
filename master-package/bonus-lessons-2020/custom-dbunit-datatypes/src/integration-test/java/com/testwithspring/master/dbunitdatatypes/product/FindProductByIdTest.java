@@ -1,6 +1,8 @@
 package com.testwithspring.master.dbunitdatatypes.product;
 
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import com.testwithspring.master.dbunitdatatypes.Products;
 import com.testwithspring.master.dbunitdatatypes.config.DatabaseIntegrationTest;
 import org.assertj.core.api.SoftAssertions;
@@ -81,6 +83,7 @@ class FindProductByIdTest {
 
         @Test
         @DisplayName("Should return a product that has the correct review")
+        @ExpectedDatabase(value = "/com/testwithspring/master/dbunitdatatypes/products.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
         void shouldReturnProductThatHasCorrectReview(SoftAssertions assertions) {
             Review found = repository.findById(Products.Product.ID)
                     .get()
