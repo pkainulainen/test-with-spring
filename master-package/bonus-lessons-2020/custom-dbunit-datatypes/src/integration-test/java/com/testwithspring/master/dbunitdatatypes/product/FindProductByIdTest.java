@@ -83,7 +83,6 @@ class FindProductByIdTest {
 
         @Test
         @DisplayName("Should return a product that has the correct review")
-        @ExpectedDatabase(value = "/com/testwithspring/master/dbunitdatatypes/products.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
         void shouldReturnProductThatHasCorrectReview(SoftAssertions assertions) {
             Review found = repository.findById(Products.Product.ID)
                     .get()
