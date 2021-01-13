@@ -31,18 +31,4 @@ public class JsonDataType extends AbstractDataType {
                 value.getClass().getName()
         ));
     }
-
-    @Override
-    public Object getSqlValue(int column, ResultSet resultSet) throws SQLException, TypeCastException {
-        return resultSet.getString(column);
-    }
-
-    @Override
-    public void setSqlValue(Object value, int column, PreparedStatement statement) throws SQLException, TypeCastException {
-        final PGobject jsonValue = new PGobject();
-        jsonValue.setType(POSTGRESQL_TYPE_JSON);
-        jsonValue.setValue(value == null ? null : value.toString());
-
-        statement.setObject(column, jsonValue);
-    }
 }
